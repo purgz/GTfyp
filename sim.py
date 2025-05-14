@@ -6,17 +6,21 @@ from mpl_toolkits.mplot3d import axes3d, Axes3D
 from itertools import combinations
 
 
-basicRps = [[0,   -1.5,   1,       0.1],
-            [1,    0,   -1.5,       0.1],
-            [-1.5,   1,   0,       0.1],
-            [-0.1, -0.1, -0.1, 0]]
+basicRps = np.array([[0,   -0.5,   1,       0.1],
+                    [1,    0,   -0.5,       0.1],
+                    [-0.5,   1,   0,       0.1],
+                    [-1, -1, -1, 0]])
 
-popSize = 4000
+
+basicRps = np.array([[1,   0,   2,       0.1],
+                    [2,    1,   0,       0.1],
+                    [0,   2,   1,       0.1],
+                    [-1, -1, -1, 0]])
+
+
+popSize = 200
 w = 0.6
 
-# Population represented just as their frequency of strategies for efficiency,
-# I think individual agents in simple dynamics unneccessary overhead
-population = np.random.multinomial(popSize, [0.7,0.2, 0.1, 0])
 
 
 # Average payoff formula, Paper 1
@@ -43,48 +47,87 @@ def moranSelection(payoffs, avg, population, w=w):
 
     return probs
 
-R = []
-P = []
-S = []
-L = []
+
+def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
+
+    population = np.random.multinomial(popSize, initialDist)
+
+    R = np.zeros(iterations)
+    P = np.zeros(iterations)
+    S = np.zeros(iterations)
+    L = np.zeros(iterations)
+
+    # Maximal payoff difference
+    deltaPi = basicRps.max(axis=1).max() - basicRps.min(axis=1).min()
+
+    for i in range(iterations):
+        #p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize)
+        
+        p1 = random.choices([0, 1, 2, 3], weights=population)[0]
+        
+        p2 = random.choices([0, 1, 2, 3], weights=population)[0]
+
+        p = 1/2 + (w/2) * ((basicRps[p2][p1] - basicRps[p1][p2]) / deltaPi)
+
+        # With this probability switch p1 to p2
+        if (random.random() < p):
+            population[p1] -= 1
+            population[p2] += 1
+
+        
+        R[i] = population[0]
+        P[i] = population[1]
+        S[i] = population[2]
+        L[i] = population[3]      
+
+    # Return normalized RPSL distribution
+    return R / popSize, P / popSize , S / popSize, L / popSize
+       
+
+def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
+    # Population represented just as their frequency of strategies for efficiency,
+    # I think individual agents in simple dynamics unneccessary overhead
+    population = np.random.multinomial(popSize, initialDist)
 
 
-for i in range(100000):
-  # Death: uniform random
-  killed = random.choices([0, 1, 2, 3], weights=population)[0]
-  
-  # Birth: fitness-proportional
-  p = payoff(population)
-  avg = np.sum(p * population) / popSize
-  probs = moranSelection(p, avg, population)
+    R = np.zeros(iterations)
+    P = np.zeros(iterations)
+    S = np.zeros(iterations)
+    L = np.zeros(iterations)
 
-  chosen = random.choices([0, 1, 2, 3], weights=probs)[0]
-  
-  population[chosen] += 1
-  population[killed] -= 1
+    for i in range(iterations):
+        # Death: uniform random
+        killed = random.choices([0, 1, 2, 3], weights=population)[0]
+        # Birth: fitness-proportional
+        p = payoff(population)
+        avg = np.sum(p * population) / popSize
+        probs = moranSelection(p, avg, population)
 
-  # Can just use 1 var instead, with list of lists, but mauybe slower?
-  R.append(population[0])
-  P.append(population[1])
-  S.append(population[2])
-  L.append(population[3])
+        chosen = random.choices([0, 1, 2, 3], weights=probs)[0]
+    
+        population[chosen] += 1
+        population[killed] -= 1
 
-  if i % 50 == 0:
-    pass
-    #print("Population at : ", i, " " , population)
+        # Can just use 1 var instead, with list of lists, but mauybe slower?
+        R[i] = population[0]
+        P[i] = population[1]
+        S[i] = population[2]
+        L[i] = population[3]
 
-R = np.array(R) / popSize
-P =  np.array(P) / popSize 
-S =  np.array(S) / popSize
-L =  np.array(L) / popSize
+    # Return normalized RPSL distribution
+    return R / popSize, P / popSize , S / popSize, L / popSize
 
 
-df_RPS = pd.DataFrame({"c1": R, "c2": P, "c3": S, "c4": L})
+
+moranResult = moranSimulation(basicRps, 4000)
+
+#localResult = localUpdate(basicRps, 3000)
+
+result = moranResult
+
+df_RPS = pd.DataFrame({"c1": result[0], "c2": result[1], "c3": result[2], "c4": result[3]})
 
 print(df_RPS.tail())
-
-
-
 
 
 
