@@ -6,41 +6,42 @@ from mpl_toolkits.mplot3d import axes3d, Axes3D
 from itertools import combinations
 
 
-basicRps = [[0, -0.5, 1, 0.1],
-            [1, 0, -0.5, 0.1],
-            [-0.5, 1, 0, 0.1],
-            [0.9, 0.9, 0.9, 0.9]]
+basicRps = [[0,   -1.5,   1,       0.1],
+            [1,    0,   -1.5,       0.1],
+            [-1.5,   1,   0,       0.1],
+            [-0.1, -0.1, -0.1, 0]]
 
 popSize = 4000
 w = 0.6
 
 # Population represented just as their frequency of strategies for efficiency,
 # I think individual agents in simple dynamics unneccessary overhead
-population = np.random.multinomial(popSize, [0.7,0.2, 0.1, 0.0])
+population = np.random.multinomial(popSize, [0.7,0.2, 0.1, 0])
 
 
 # Average payoff formula, Paper 1
-def payoff(population):
+def payoff(population, w=w):
     payoffs = np.zeros(4)
     for i in range(4):
-        payoffs[i] = sum(population[j] * basicRps[i][j] for j in range(4)) - basicRps[i][i]
-    return payoffs / (popSize - 1)
+        payoffs[i] = sum(population[j] * basicRps[i][j] for j in range(4))
+    return 1 - w + w * (payoffs / (popSize - 1))
 
 
-# def selectionProbs(payoffs, avg, population, w=w):
-#     probs = np.zeros(4)
-#     for i in range(4):
-#         probs[i] = (1 - w + w * payoffs[i]) * population[i]
-#     return probs / np.sum(probs)
 
-def selectionProbs(payoffs, avg, population, w=w):
+"""
+Paper coevolutionary dynamics in large but finite populations
+
+'An individidual of type j is chosen for repoduction with probabiiltiy i_j * Pi_j / (N * phi)
+where phi = average payoff.
+"""
+
+def moranSelection(payoffs, avg, population, w=w):
     probs = np.zeros(4)
     for i in range(4):
-        others = [j for j in range(4) if j != i]
-        probs[i] = (1 - w + w * payoffs[i]) * population[i]
-        for j in range(len(others)):
-            probs[i] * population[others[j]]
-    return probs / ((1 - w + w * avg) * popSize * popSize * popSize * popSize)
+
+        probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
+
+    return probs
 
 R = []
 P = []
@@ -55,7 +56,8 @@ for i in range(100000):
   # Birth: fitness-proportional
   p = payoff(population)
   avg = np.sum(p * population) / popSize
-  probs = selectionProbs(p, avg, population)
+  probs = moranSelection(p, avg, population)
+
   chosen = random.choices([0, 1, 2, 3], weights=probs)[0]
   
   population[chosen] += 1
