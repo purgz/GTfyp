@@ -6,30 +6,50 @@ from mpl_toolkits.mplot3d import axes3d, Axes3D
 from itertools import combinations
 
 
+
+
+"""
+Notes:
+
+Local update doesnt seem to be working as expected, continue to work on
+
+
+
+Moran process seems to be working - correct dynamics for RPS I think.
+
+
+Add some averaging for each simulation run, modulise the plotting code.
+
+
+
+"""
+
+
 basicRps = np.array([[0,   -0.5,   1,       0.1],
                     [1,    0,   -0.5,       0.1],
-                    [-0.5,   1,   0,       0.1],
-                    [-1, -1, -1, 0]])
+                    [-0.5,   1,   0,        0.1],
+                    [0.1, 0.1, 0.1, 0]])
 
 
-basicRps = np.array([[1,   0,   2,       0.1],
-                    [2,    1,   0,       0.1],
-                    [0,   2,   1,       0.1],
-                    [-1, -1, -1, 0]])
+"""basicRps = np.array([[1,     2.35,    0,          0.1],
+                    [0,      1,       2.35,       0.1],
+                    [2.35,   0,       1,          0.1],
+                    [1.1,    1.1,     1.1,        0]])
+"""
+
+popSize = 2000
+w = 0.45
 
 
-popSize = 200
-w = 0.6
 
 
 
-# Average payoff formula, Paper 1
-def payoff(population, w=w):
+
+def payoffAgainstPop(population, w=w):
     payoffs = np.zeros(4)
     for i in range(4):
         payoffs[i] = sum(population[j] * basicRps[i][j] for j in range(4))
-    return 1 - w + w * (payoffs / (popSize - 1))
-
+    return payoffs / (popSize - 1)
 
 
 """
@@ -48,7 +68,7 @@ def moranSelection(payoffs, avg, population, w=w):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
+def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations = 100000, w=0.45):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -67,7 +87,10 @@ def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 1
         
         p2 = random.choices([0, 1, 2, 3], weights=population)[0]
 
-        p = 1/2 + (w/2) * ((basicRps[p2][p1] - basicRps[p1][p2]) / deltaPi)
+        payoffs = payoffAgainstPop(population)
+
+        p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
+
 
         # With this probability switch p1 to p2
         if (random.random() < p):
@@ -84,11 +107,10 @@ def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 1
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
+def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations = 100000, w=0.6):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
-
 
     R = np.zeros(iterations)
     P = np.zeros(iterations)
@@ -99,7 +121,8 @@ def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations
         # Death: uniform random
         killed = random.choices([0, 1, 2, 3], weights=population)[0]
         # Birth: fitness-proportional
-        p = payoff(population)
+        # P = reproductive fitness in moran process 1 - w + w * Pi
+        p = 1 - w + w * payoffAgainstPop(population)
         avg = np.sum(p * population) / popSize
         probs = moranSelection(p, avg, population)
 
@@ -119,11 +142,11 @@ def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations
 
 
 
-moranResult = moranSimulation(basicRps, 4000)
+#moranResult = moranSimulation(basicRps, 4000)
 
-#localResult = localUpdate(basicRps, 3000)
+localResult = localUpdate(basicRps, 3000)
 
-result = moranResult
+result = localResult
 
 df_RPS = pd.DataFrame({"c1": result[0], "c2": result[1], "c3": result[2], "c4": result[3]})
 
