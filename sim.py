@@ -25,10 +25,10 @@ Add some averaging for each simulation run, modulise the plotting code.
 """
 
 
-basicRps = np.array([[0,   -0.5,   1,       0.1],
-                    [1,    0,   -0.5,       0.1],
-                    [-0.5,   1,   0,        0.1],
-                    [0.1, 0.1, 0.1, 0]])
+basicRps = np.array([[0,   -1,   1,       0.1],
+                    [1,    0,   -1,       0.1],
+                    [-1,   1,   0,        0.1],
+                    [0.5, 0.5, 0.5, 0]])
 
 
 """basicRps = np.array([[1,     2.35,    0,          0.1],
@@ -37,7 +37,7 @@ basicRps = np.array([[0,   -0.5,   1,       0.1],
                     [1.1,    1.1,     1.1,        0]])
 """
 
-popSize = 2000
+popSize = 500
 w = 0.45
 
 
@@ -68,7 +68,7 @@ def moranSelection(payoffs, avg, population, w=w):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations = 100000, w=0.45):
+def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.45):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -107,7 +107,7 @@ def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations = 10
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations = 100000, w=0.6):
+def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
@@ -142,23 +142,23 @@ def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.25, 0.0], iterations 
 
 
 
-#moranResult = moranSimulation(basicRps, 4000)
+print("Moran update process sim....")
+moranResult = moranSimulation(basicRps, 4000)
 
+df_RPS_MO = pd.DataFrame({"c1": moranResult[0], "c2": moranResult[1], "c3": moranResult[2], "c4": moranResult[3]})
+print(df_RPS_MO.tail())
+
+print("Local update process sim....")
 localResult = localUpdate(basicRps, 3000)
-
-result = localResult
-
-df_RPS = pd.DataFrame({"c1": result[0], "c2": result[1], "c3": result[2], "c4": result[3]})
-
-print(df_RPS.tail())
+df_RPS_LU = pd.DataFrame({"c1": localResult[0], "c2": localResult[1], "c3": localResult[2], "c4": localResult[3]})
+print(df_RPS_LU.tail())
 
 
-
-
+# Resolution for markers on quaternary plot.
 numEdgeLabels = 10
 
 
-def plot_ax():               #plot tetrahedral outline
+def plot_ax(ax):               #plot tetrahedral outline
     verts=[[0,0,0],
      [1,0,0],
      [0.5,np.sqrt(3)/2,0],
@@ -168,7 +168,7 @@ def plot_ax():               #plot tetrahedral outline
         line=np.transpose(np.array(x))
         ax.plot3D(line[0],line[1],line[2],c='0')
 
-def label_points():  #create labels of each vertices of the simplex
+def label_points(ax):  #create labels of each vertices of the simplex
     a=(np.array([1,0,0,0])) # Barycentric coordinates of vertices (A or c1)
     b=(np.array([0,1,0,0])) # Barycentric coordinates of vertices (B or c2)
     c=(np.array([0,0,1,0])) # Barycentric coordinates of vertices (C or c3)
@@ -195,7 +195,7 @@ def get_cartesian_array_from_barycentric(b):      #tranform from "barycentric" c
 
     return t_array
 
-def plot_3d_tern(df,c='1', colour="b"): #use function "get_cartesian_array_from_barycentric" to plot the scatter points
+def plot_3d_tern(df, ax , colour="b"): #use function "get_cartesian_array_from_barycentric" to plot the scatter points
 #args are b=dataframe to plot and c=scatter point color
     bary_arr=df.values
 
@@ -265,24 +265,32 @@ def add_grid_lines(ax):  # Add ternary-style grid lines to ABC face
 
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
-
-plot_ax() #call function to draw tetrahedral outline
-
-label_points() #label the vertices
-
-
-plot_3d_tern(df_RPS,'g') #...
-
-
+ax = fig.add_subplot(121, projection="3d")
+plot_ax(ax) #call function to draw tetrahedral outline
+label_points(ax) #label the vertices
+plot_3d_tern(df_RPS_LU, ax,'g') #...
 add_edge_labels(ax)
 add_grid_lines(ax)
-
 ax.grid(False)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.set_zticks([])
 ax.set_box_aspect([1,1,1])
+ax.set_title("Local update process", pad=20)
+ax.plot([], [], color="green", label="Trajectory (LU)")  #
+ax.legend(loc="upper right", fontsize=10)
+
+ax2 = fig.add_subplot(122, projection="3d")
+plot_ax(ax2) #call function to draw tetrahedral outline
+label_points(ax2) #label the vertices
+plot_3d_tern(df_RPS_MO, ax2,'b') #...
+add_edge_labels(ax2)
+add_grid_lines(ax2)
+ax2.grid(False)
+ax2.set_xticks([])
+ax2.set_yticks([])
+ax2.set_zticks([])
+ax2.set_box_aspect([1,1,1])
 
 #ax.view_init(elev=20, azim=120)
 
