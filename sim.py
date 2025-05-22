@@ -76,7 +76,7 @@ def moranSelection(payoffs, avg, population):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.3):
+def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.3):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -87,16 +87,13 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
 
 
     for i in range(iterations):
-        #p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize)
+        # Using this with no replacement fixed my drift issue !!!
+        p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize, replace=False)
         
-        p1 = random.choices([0, 1, 2, 3], weights=population)[0]
-        
-        p2 = random.choices([0, 1, 2, 3], weights=population)[0]
-
         payoffs = payoffAgainstPop(population)
-        deltaPi = np.max(payoffs) - np.min(payoffs)
+        #deltaPi = np.max(payoffs) - np.min(payoffs)
+        deltaPi = 2
 
-        
         p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
 
@@ -115,7 +112,7 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.3):
+def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.3):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
@@ -180,7 +177,7 @@ print(df_RPS_LU.tail())
 
 # However for some reason there is drifti n the local update process, even though it should be neutral.
 
-popSize = 1000
+popSize = 100
 simulations = 100
 deltaMoran = []
 deltaLocal = []
@@ -241,12 +238,13 @@ if __name__ == '__main__':
             mResults += np.array(moranResult)
             lResults += np.array(localResult)
     """
-    # Mean drift for each simulation.
-
 
     df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
 
     df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
+
+
+
 
     # Resolution for markers on quaternary plot.
     numEdgeLabels = 10
