@@ -76,7 +76,7 @@ def moranSelection(payoffs, avg, population):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.2):
+def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.3):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -115,7 +115,7 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.2):
+def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100, w=0.3):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
@@ -180,7 +180,7 @@ print(df_RPS_LU.tail())
 
 # However for some reason there is drifti n the local update process, even though it should be neutral.
 
-popSize = 120
+popSize = 1000
 simulations = 100
 deltaMoran = []
 deltaLocal = []
