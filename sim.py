@@ -24,11 +24,11 @@ Add some averaging for each simulation run, modulise the plotting code.
 
 """
 
-
-basicRps = np.array([[0,   -1,   1,       0.1],
-                    [1,    0,   -1,       0.1],
-                    [-1,   1,   0,        0.1],
-                    [0.5, 0.5, 0.5, 0]])
+# Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
+basicRps = np.array([[0,   -2,   1,       0.1],
+                    [1,    0,   -2,       0.1],
+                    [-2,   1,   0,        0.1],
+                    [0.1, 0.1, 0.1, 0]])
 
 
 """basicRps = np.array([[1,     2.35,    0,          0.1],
@@ -37,15 +37,9 @@ basicRps = np.array([[0,   -1,   1,       0.1],
                     [1.1,    1.1,     1.1,        0]])
 """
 
-popSize = 500
-w = 0.45
 
 
-
-
-
-
-def payoffAgainstPop(population, w=w):
+def payoffAgainstPop(population):
     payoffs = np.zeros(4)
     for i in range(4):
         payoffs[i] = sum(population[j] * basicRps[i][j] for j in range(4))
@@ -59,7 +53,7 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-def moranSelection(payoffs, avg, population, w=w):
+def moranSelection(payoffs, avg, population):
     probs = np.zeros(4)
     for i in range(4):
 
@@ -68,7 +62,7 @@ def moranSelection(payoffs, avg, population, w=w):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.45):
+def localUpdate(matrix, N, initialDist = [0.3, 0.3, 0.3, 0.1], iterations = 100000, w=0.2):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -107,11 +101,12 @@ def localUpdate(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 1
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations = 100000, w=0.6):
+def moranSimulation(matrix, N, initialDist = [0.3, 0.3, 0.3, 0.1], iterations = 100000, w=0.2):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
 
+    
     R = np.zeros(iterations)
     P = np.zeros(iterations)
     S = np.zeros(iterations)
@@ -142,6 +137,8 @@ def moranSimulation(matrix, N, initialDist = [0.5, 0.25, 0.24, 0.01], iterations
 
 
 
+popSize = 2000
+
 print("Moran update process sim....")
 moranResult = moranSimulation(basicRps, 4000)
 
@@ -152,6 +149,34 @@ print("Local update process sim....")
 localResult = localUpdate(basicRps, 3000)
 df_RPS_LU = pd.DataFrame({"c1": localResult[0], "c2": localResult[1], "c3": localResult[2], "c4": localResult[3]})
 print(df_RPS_LU.tail())
+
+
+
+#delta_L_moran = np.mean(np.diff(moranResult[3]))
+#delta_L_local = np.mean(np.diff(localResult[3]))
+
+#print("Moran: ", delta_L_moran, " | ", " Local Update: ", delta_L_local)
+
+
+
+
+"""
+simulations = 10
+deltaMoran = []
+deltaLocal = []
+for i in range(simulations):
+    print(i)
+    moranResult = moranSimulation(basicRps, 4000)
+    localResult = localUpdate(basicRps, 3000)
+
+    delta_L_moran = np.mean(np.diff(moranResult[3]))
+    delta_L_local = np.mean(np.diff(localResult[3]))
+    deltaMoran.append(delta_L_moran)
+    deltaLocal.append(delta_L_local)
+
+print(np.mean(deltaMoran), " Moran drift")
+print(np.mean(deltaLocal), " local drift")
+"""
 
 
 # Resolution for markers on quaternary plot.
@@ -291,6 +316,10 @@ ax2.set_xticks([])
 ax2.set_yticks([])
 ax2.set_zticks([])
 ax2.set_box_aspect([1,1,1])
+ax2.set_title("Moran process", pad = 20)
+ax2.plot([], [], color="b", label="Trajectory (MO)")  #
+ax2.legend(loc="upper right", fontsize=10)
+
 
 #ax.view_init(elev=20, azim=120)
 
