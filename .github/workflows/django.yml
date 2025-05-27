@@ -27,7 +27,7 @@ jobs:
     - name: Create and push image
       uses: docker/build-push-action@v5
       with:
-        context: ./
+        context: ./source
         file: ./source/Dockerfile
         push: true
         tags: henrybrooks/simbackend:latest
