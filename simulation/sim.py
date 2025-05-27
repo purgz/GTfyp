@@ -33,16 +33,15 @@ Need to extract graph plotting code into a separate module
 
 Maybe also remove the simulation methods and code so theyre isolated from the simulation running code - easier to navigate
 
-- Find good parameter values to see if drift occurs.
-
+Create method to process resutlts of each sim
 
 """
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -1,   1,       0.7],
-                    [1,    0,   -1,       0.7],
-                    [-1,   1,   0,        0.7],
-                    [0.5, 0.5, 0.5, 0]])
+basicRps = np.array([[0,   -1,   1,       0.2],
+                    [1,    0,   -1,       0.2],
+                    [-1,   1,   0,        0.2],
+                    [0.1, 0.1, 0.1, 0]])
 
 
 """basicRps = np.array([[1,     2.35,    0,          0.1],
