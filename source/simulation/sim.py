@@ -186,8 +186,8 @@ lResults = []
 
 
 def singleSim(_):
-    moranResult = moranSimulation(basicRps, 100, iterations = 10000)
-    localResult = localUpdate(basicRps, 100, iterations = 10000)
+    moranResult = moranSimulation(basicRps, 100, iterations = 100000)
+    localResult = localUpdate(basicRps, 100, iterations = 100000)
     delta_L_moran = np.mean(np.diff(moranResult[3]))
     delta_L_local = np.mean(np.diff(localResult[3]))
 
@@ -220,15 +220,19 @@ def runSimulationPool():
 
 """
 Todo
-allow backend to import sim as module
 
-fix dockerfile to include simulation
+- Remove plotting code from sim.py
 
-fix github workflows to make correct img.
+- improve readability of this file
 
-done
+- maybe separate multiprocess and simulation running code from interation processes.
 
-include dependencies in requirements.txt
+- add command line arguments,
+
+- add custom matrix parameter values.
+
+- add 2d plots (ternary) to plotting
+
 """
 
 
