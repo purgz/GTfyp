@@ -186,12 +186,51 @@ lResults = []
 
 
 def singleSim(_):
-    moranResult = moranSimulation(basicRps, 100, iterations = 100000)
-    localResult = localUpdate(basicRps, 100, iterations = 100000)
+    moranResult = moranSimulation(basicRps, 100, iterations = 1000)
+    localResult = localUpdate(basicRps, 100, iterations = 1000)
     delta_L_moran = np.mean(np.diff(moranResult[3]))
     delta_L_local = np.mean(np.diff(localResult[3]))
 
     return moranResult, localResult, delta_L_moran, delta_L_local
+
+# Method for api to call
+def runSimulationPool():
+    print("Running pool")
+    with Pool() as pool:
+        results = pool.map(singleSim, range(simulations))
+
+    for i, (moranResult, localResult, delta_L_moran, delta_L_local) in enumerate(results):
+        deltaMoran.append(delta_L_moran)
+        deltaLocal.append(delta_L_local)
+
+        if i == 0:
+            mResults = np.array(moranResult)
+            lResults = np.array(localResult)
+        else:
+            mResults += np.array(moranResult)
+            lResults += np.array(localResult)
+
+    print(np.mean(deltaMoran), " Moran drift")
+    print(np.mean(deltaLocal), " local drift")
+
+    mResults /= simulations
+    lResults /= simulations
+
+    return mResults, lResults
+
+"""
+Todo
+allow backend to import sim as module
+
+fix dockerfile to include simulation
+
+fix github workflows to make correct img.
+
+done
+
+include dependencies in requirements.txt
+"""
+
 
 # Multiprocessing magic
 if __name__ == '__main__':
