@@ -1,15 +1,12 @@
-
-
-
 import numpy as np
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d, Axes3D 
 from itertools import combinations
-
 from multiprocessing import Pool
 
+from plotting import quaternaryPlot
 
 
 
@@ -177,7 +174,7 @@ print(df_RPS_LU.tail())
 # However for some reason there is drifti n the local update process, even though it should be neutral.
 
 popSize = 100
-simulations = 100
+simulations = 1
 deltaMoran = []
 deltaLocal = []
 
@@ -233,6 +230,17 @@ Todo
 
 - add 2d plots (ternary) to plotting
 
+
+- work on simulation code and documentation of simulation code
+- add fermi interaction process
+
+- eventually, numerical simulations of deterministic replicator dynamics and comparison
+
+- need to derive replicator dynamics - work in LaTeX
+
+- convert this todo to kanban board
+
+
 """
 
 
@@ -286,8 +294,11 @@ if __name__ == '__main__':
     df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
 
 
+    # Plot multiple results
+    quaternaryPlot([df_RPS_LU, df_RPS_MO, df_RPS_LU, df_RPS_LU, df_RPS_MO], numPerRow=2)
 
 
+"""
     # Resolution for markers on quaternary plot.
     numEdgeLabels = 10
 
@@ -413,6 +424,7 @@ if __name__ == '__main__':
     ax.set_title("Local update process", pad=20)
     ax.plot([], [], color="green", label="Trajectory (LU)")  #
     ax.legend(loc="upper right", fontsize=10)
+    
 
     ax2 = fig.add_subplot(122, projection="3d")
     plot_ax(ax2) #call function to draw tetrahedral outline
@@ -436,3 +448,4 @@ if __name__ == '__main__':
 
 
     plt.show()
+"""
