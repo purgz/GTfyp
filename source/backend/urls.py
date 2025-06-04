@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import HelloWorldView
+from .views import SimpleTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/hello/', HelloWorldView.as_view(), name='hello_world'),
+    path('landing/', SimpleTemplateView.as_view(), name='landing_page'),
 ]
