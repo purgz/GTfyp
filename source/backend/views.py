@@ -9,7 +9,7 @@ from simulation import runSimulationPool
 
 class HelloWorldView(APIView):
     def get(self, request):
-        print(runSimulationPool())
+        #print(runSimulationPool())
         return Response({"message": "Hello, World!"}, status=status.HTTP_200_OK)
     
 
@@ -20,7 +20,7 @@ class HelloWorldView(APIView):
 
 
 class SimpleTemplateView(TemplateView):
-    template_name = "first.html"
+    template_name = "landing.html"
 
 
     def post(self, request, *args, **kwargs):
