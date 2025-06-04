@@ -1,1 +1,3 @@
-from simulation.sim import runSimulationPool
+# Exposed methods
+from .sim import runSimulationPool
+from .plotting import quaternaryPlot 

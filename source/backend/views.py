@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.views.generic import TemplateView
 
 # Multithreaded sim code can be run directly.
 
@@ -15,3 +16,20 @@ class HelloWorldView(APIView):
     def post(self, request):
         data = request.data
         return Response({"message": "Data received", "data": data}, status=status.HTTP_201_CREATED)
+    
+
+
+class SimpleTemplateView(TemplateView):
+    template_name = "first.html"
+
+
+    def post(self, request, *args, **kwargs):
+        results = runSimulationPool()
+        context = self.get_context_data(results=results)
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "First view" 
+        return context
+    

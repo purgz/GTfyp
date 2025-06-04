@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Landing page</h1>
+<p>
+
+<form method="post">
+  {% csrf_token %}
+  
+  <button value="Request results" type="submit">Submit</button>
+</form>
+
+
+{% if results %}
+
+{{ results}}
+
+{% endif %}
+
+
+
+</p>
+
+</body>
+</html>
