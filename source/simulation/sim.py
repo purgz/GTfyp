@@ -127,7 +127,7 @@ def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iteration
 
 
 popSize = 100
-simulations = 1
+simulations = 100
 deltaMoran = []
 deltaLocal = []
 
@@ -137,8 +137,8 @@ lResults = []
 
 def singleSim(_):
     # Add other interaction processs here
-    moranResult = moranSimulation(basicRps, 100, iterations = 10)
-    localResult = localUpdate(basicRps, 100, iterations = 10)
+    moranResult = moranSimulation(basicRps, 100, iterations = 100000)
+    localResult = localUpdate(basicRps, 100, iterations = 100000)
     delta_L_moran = np.mean(np.diff(moranResult[3]))
     delta_L_local = np.mean(np.diff(localResult[3]))
 
