@@ -52,7 +52,7 @@ def moranSelection(payoffs, avg, population):
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.3):
+def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.5):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -67,8 +67,8 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
         p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize, replace=False)
         
         payoffs = payoffAgainstPop(population)
-        #deltaPi = np.max(payoffs) - np.min(payoffs)
-        deltaPi = 2
+        deltaPi = np.max(payoffs) - np.min(payoffs)
+        #deltaPi = 2
 
         p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
@@ -88,7 +88,7 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.3):
+def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.5):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
@@ -126,8 +126,8 @@ def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iteration
 
 
 
-popSize = 100
-simulations = 100
+popSize = 5000
+simulations = 1
 deltaMoran = []
 deltaLocal = []
 
@@ -170,37 +170,10 @@ def runSimulationPool():
 
     return mResults, lResults
 
-"""
-Todo
 
 
-- improve readability of this file
 
-- maybe separate multiprocess and simulation running code from interation processes.
-
-- add command line arguments,
-
-- add custom matrix parameter values.
-
-- add 2d plots (ternary) to plotting
-
-
-- work on simulation code and documentation of simulation code
-- add fermi interaction process
-
-- eventually, numerical simulations of deterministic replicator dynamics and comparison
-
-- need to derive replicator dynamics - work in LaTeX
-
-- convert this todo to kanban board
-
-- add django templates
-
-- add full customization to runsimulation pool
-
-"""
-
-
+# Running the file directly no longer works due to changed packacge structure, run via app.py
 # Multiprocessing magic
 if __name__ == '__main__':
     with Pool() as pool:

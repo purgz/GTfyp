@@ -22,4 +22,7 @@ if  __name__ == "__main__":
     df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
 
 
-    simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU])
+    print(df_RPS_LU.tail())
+    print(df_RPS_MO.tail())
+
+    simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO])
