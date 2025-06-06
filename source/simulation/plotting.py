@@ -155,6 +155,12 @@ def quaternaryPlot(dfs, numPerRow=2, labels=["Local update", "Moran Process"], c
         ax.plot([],[], color=colors[i], label="Trajectory")
         ax.legend(loc="upper right", fontsize=10)
 
+        # Want to plot a single point in ax with given coords
+        #ax.scatter(0.5, 0.28867513, 0.81649658, color=colors[i], s=50, label="Single Point")
+        deterministic_point = get_cartesian_array_from_barycentric(np.array([[2/9, 2/9, 2/9, 3/9]]))
+        ax.scatter(deterministic_point[0, 0], deterministic_point[0, 1], deterministic_point[0, 2], 
+                   color=colors[i], s=50, label="Deterministic Point")
+
 
     plt.show()
 
