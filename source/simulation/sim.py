@@ -126,8 +126,8 @@ def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iteration
 
 
 
-popSize = 5000
-simulations = 1
+popSize = 100
+simulations = 100
 deltaMoran = []
 deltaLocal = []
 
