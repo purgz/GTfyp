@@ -25,7 +25,13 @@ class SimpleTemplateView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         results = runSimulationPool()
-        context = self.get_context_data(results=results)
+
+        response = []
+
+        for result in results:
+            response.append(result.tolist())
+
+        context = self.get_context_data(results=response)
         return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
