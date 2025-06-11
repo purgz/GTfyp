@@ -39,8 +39,9 @@ Now to figure out how to plot in javascript
 </p>
 
 
+{% if results %}
 <div id="container"></div>
-
+{% endif %}
 
 
 </body>
@@ -126,15 +127,20 @@ const res = "{{results|safe}}";
 
 const points = JSON.parse(res);
 
+const geometry = new THREE.SphereGeometry(0.02, 6, 6);
+const color = new THREE.Color().setHSL(0.1, 1.0, 0.5);
+const material = new THREE.MeshBasicMaterial({ color });
+const mesh = new THREE.InstancedMesh(geometry, material, points[0][0].length);
+scene.add(mesh);
+
+const dummy = new THREE.Object3D();
 
 for (let i = 0; i < points[0][0].length; i++) {
   const pos = barycentricToCartesian(points[0][0][i], points[0][1][i], points[0][2][i], points[0][3][i]);
-  const geometry = new THREE.SphereGeometry(0.02, 8, 8);
-  const color = new THREE.Color().setHSL(0.1, 1.0, 0.5);
-  const material = new THREE.MeshBasicMaterial({ color });
-  const sphere = new THREE.Mesh(geometry, material);
-  sphere.position.copy(pos);
-  scene.add(sphere);
+  dummy.position.copy(pos);
+  dummy.updateMatrix();
+  mesh.setMatrixAt(i, dummy.matrix);
+
 }
 
 
