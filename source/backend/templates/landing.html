@@ -43,6 +43,10 @@ Now to figure out how to plot in javascript
 <div id="container"></div>
 {% endif %}
 
+{% if not results %}
+<div>running simulation...</div>
+{% endif %}
+
 
 </body>
 </html>
@@ -64,6 +68,10 @@ if ( window.history.replaceState ) {
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
+
+const group = new THREE.Group();
+scene.add(group);
+
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; 
@@ -90,6 +98,7 @@ for (let j = i + 1; j < corners.length; j++) {
   const material = new THREE.LineBasicMaterial({ color: 0x000000 });
   const line = new THREE.Line(geometry, material);
   scene.add(line);
+  group.add(line);
 }
 });
 
@@ -97,10 +106,13 @@ for (let j = i + 1; j < corners.length; j++) {
 
 
 function barycentricToCartesian(a, b, c, d) {
-  return new THREE.Vector3().addScaledVector(corners[0], a)
+  const v = new THREE.Vector3().addScaledVector(corners[0], a)
     .addScaledVector(corners[1], b)
     .addScaledVector(corners[2], c)
     .addScaledVector(corners[3], d);
+
+
+  return v;
 }
 
 
@@ -135,6 +147,8 @@ scene.add(mesh);
 
 const dummy = new THREE.Object3D();
 
+group.add(mesh);
+
 for (let i = 0; i < points[0][0].length; i++) {
   const pos = barycentricToCartesian(points[0][0][i], points[0][1][i], points[0][2][i], points[0][3][i]);
   dummy.position.copy(pos);
@@ -144,7 +158,12 @@ for (let i = 0; i < points[0][0].length; i++) {
 }
 
 
+
 camera.position.z = 3;
+
+
+group.rotation.x = -Math.PI / 2;
+
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
