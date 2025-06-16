@@ -73,3 +73,36 @@ results = {eig.subs({x: 2/9, y: 2/9, z: 2/9}) for eig in eigenvalues_sub}
 print(latex(results))
 
 #print(latex(eigenvalues_sub))
+
+
+
+"""
+
+
+Find eigenvalues for fixed points  of 
+basicRps = np.array([[0,   -1,   1,       0.2],
+                    [1,    0,   -1,       0.2],
+                    [-1,   1,   0,        0.2],
+                    [0.3, 0.3, 0.3, 0]])
+
+Because I think the results are different with drift upwards towards full loner, where there should be a stable point at the center, so the direction of drift is different.
+
+
+
+I have also observed drift in this dynamics too!
+
+.4690246902469025e-06  Moran drift
+-2.009020090200902e-06  local drift
+           c1      c2      c3      c4
+99995  0.1658  0.1651  0.1662  0.5029
+99996  0.1667  0.1653  0.1666  0.5014
+99997  0.1669  0.1650  0.1666  0.5015
+99998  0.1666  0.1652  0.1674  0.5008
+99999  0.1664  0.1650  0.1677  0.5009
+         c1    c2   c3    c4
+99995  0.01  0.04  0.0  0.95
+99996  0.01  0.04  0.0  0.95
+99997  0.01  0.04  0.0  0.95
+99998  0.01  0.04  0.0  0.95
+99999  0.01  0.04  0.0  0.95
+"""

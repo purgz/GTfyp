@@ -9,8 +9,9 @@ from multiprocessing import Pool
 
 
 
+#If running this file directly uncomment following
+#from plotting import quaternaryPlot
 from .plotting import quaternaryPlot
-
 
 
 
@@ -18,7 +19,7 @@ from .plotting import quaternaryPlot
 basicRps = np.array([[0,   -1,   1,       0.2],
                     [1,    0,   -1,       0.2],
                     [-1,   1,   0,        0.2],
-                    [0.1, 0.1, 0.1, 0]])
+                    [0.3, 0.3, 0.3, 0]])
 
 """basicRps = np.array([[0,   -1,   1,       0],
                     [1,    0,   -1,       0],
@@ -31,12 +32,14 @@ basicRps = np.array([[0,   -1,   1,       0.2],
                     [1.1,    1.1,     1.1,        0]])
 """
 
+pdArray = [[3, 0],
+           [5, 1]]
 
 
-def payoffAgainstPop(population):
-    payoffs = np.zeros(4)
-    for i in range(4):
-        payoffs[i] = sum(population[j] * basicRps[i][j] for j in range(4))
+def payoffAgainstPop(population, matrix):
+    payoffs = np.zeros(matrix.shape[0])
+    for i in range(matrix.shape[0]):
+        payoffs[i] = sum(population[j] * matrix[i][j] for j in range(4))
     return payoffs / (popSize - 1)
 
 
@@ -47,16 +50,16 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-def moranSelection(payoffs, avg, population):
-    probs = np.zeros(4)
-    for i in range(4):
+def moranSelection(payoffs, avg, population, numStrategies=4):
+    probs = np.zeros(numStrategies)
+    for i in range(numStrategies):
 
         probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
 
     return probs
 
 
-def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.5):
+def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
 
     population = np.random.multinomial(popSize, initialDist)
 
@@ -70,12 +73,10 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
         # Using this with no replacement fixed my drift issue !!!
         p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize, replace=False)
         
-        payoffs = payoffAgainstPop(population)
+        payoffs = payoffAgainstPop(population, matrix)
         deltaPi = np.max(payoffs) - np.min(payoffs)
-        #deltaPi = 2
-
+      
         p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
-
 
         # With this probability switch p1 to p2
         if (random.random() < p):
@@ -92,46 +93,41 @@ def localUpdate(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 
     return R / popSize, P / popSize , S / popSize, L / popSize
        
 
-def moranSimulation(matrix, N, initialDist = [0.25, 0.25, 0.25, 0.25], iterations = 100000, w=0.5):
+def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     population = np.random.multinomial(popSize, initialDist)
 
+    numStrategies = matrix.shape[0]
     
-    R = np.zeros(iterations)
-    P = np.zeros(iterations)
-    S = np.zeros(iterations)
-    L = np.zeros(iterations)
+    results = np.zeros((numStrategies, iterations))
 
     for i in range(iterations):
         # Death: uniform random
-        killed = random.choices([0, 1, 2, 3], weights=population)[0]
+        killed = random.choices(range(numStrategies), weights=population)[0]
         # Birth: fitness-proportional
         # P = reproductive fitness in moran process 1 - w + w * Pi
-        p = 1 - w + w * payoffAgainstPop(population)
+        p = 1 - w + w * payoffAgainstPop(population, matrix)
         avg = np.sum(p * population) / popSize
-        probs = moranSelection(p, avg, population)
+        probs = moranSelection(p, avg, population, matrix.shape[0])
 
-        chosen = random.choices([0, 1, 2, 3], weights=probs)[0]
+        chosen = random.choices(range(numStrategies), weights=probs)[0]
     
         population[chosen] += 1
         population[killed] -= 1
 
-        # Can just use 1 var instead, with list of lists, but mauybe slower?
-        R[i] = population[0]
-        P[i] = population[1]
-        S[i] = population[2]
-        L[i] = population[3]
+        for j in range(numStrategies):
+            results[j][i] = population[j] / popSize
 
     # Return normalized RPSL distribution
-    return R / popSize, P / popSize , S / popSize, L / popSize
+    return results
 
 
 
 
 
 popSize = 100
-simulations = 100
+simulations = 1
 deltaMoran = []
 deltaLocal = []
 
@@ -139,21 +135,30 @@ mResults = []
 lResults = []
 
 
-def singleSim(_):
+def singleSim(matrix, popSize, initialDist, iterations, w):
     # Add other interaction processs here
-    moranResult = moranSimulation(basicRps, 100, iterations = 100000)
-    localResult = localUpdate(basicRps, 100, iterations = 100000)
+    moranResult = moranSimulation(matrix, popSize, initialDist, iterations,w)
+    localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
+
     delta_L_moran = np.mean(np.diff(moranResult[3]))
     delta_L_local = np.mean(np.diff(localResult[3]))
 
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool():
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=1, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4):
     # Runs multiprocessing simulations for moran and local update process
-    print("Running pool")
+
+    numStrategies = matrix.shape[0]
+    
+    args = [(matrix, popSize, initialDist, iterations, w) for _ in range(simulations)]
+
+    print("Running simulation pool")
+    print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
+
     with Pool() as pool:
-        results = pool.map(singleSim, range(simulations))
+        # Starmap to allow passing of arguments to each simulation
+        results = pool.starmap(singleSim, args)
 
     for i, (moranResult, localResult, delta_L_moran, delta_L_local) in enumerate(results):
         deltaMoran.append(delta_L_moran)
