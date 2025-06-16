@@ -32,14 +32,12 @@ basicRps = np.array([[0,   -1,   1,       0.2],
                     [1.1,    1.1,     1.1,        0]])
 """
 
-pdArray = [[3, 0],
-           [5, 1]]
 
 
 def payoffAgainstPop(population, matrix):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
-        payoffs[i] = sum(population[j] * matrix[i][j] for j in range(4))
+        payoffs[i] = sum(population[j] * matrix[i][j] for j in range(matrix.shape[0]))
     return payoffs / (popSize - 1)
 
 
@@ -63,15 +61,13 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
 
     population = np.random.multinomial(popSize, initialDist)
 
-    R = np.zeros(iterations)
-    P = np.zeros(iterations)
-    S = np.zeros(iterations)
-    L = np.zeros(iterations)
-
+    numStrategies = matrix.shape[0]
+    
+    results = np.zeros((numStrategies, iterations))
 
     for i in range(iterations):
         # Using this with no replacement fixed my drift issue !!!
-        p1, p2 = np.random.choice([0,1,2,3], size=2, p=population/popSize, replace=False)
+        p1, p2 = np.random.choice(range(numStrategies), size=2, p=population/popSize, replace=False)
         
         payoffs = payoffAgainstPop(population, matrix)
         deltaPi = np.max(payoffs) - np.min(payoffs)
@@ -83,14 +79,12 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
             population[p1] -= 1
             population[p2] += 1
 
-        
-        R[i] = population[0]
-        P[i] = population[1]
-        S[i] = population[2]
-        L[i] = population[3]      
+        for j in range(numStrategies):
+            results[j][i] = population[j] / popSize
+
 
     # Return normalized RPSL distribution
-    return R / popSize, P / popSize , S / popSize, L / popSize
+    return results
        
 
 def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
@@ -140,13 +134,13 @@ def singleSim(matrix, popSize, initialDist, iterations, w):
     moranResult = moranSimulation(matrix, popSize, initialDist, iterations,w)
     localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
 
-    delta_L_moran = np.mean(np.diff(moranResult[3]))
-    delta_L_local = np.mean(np.diff(localResult[3]))
+    delta_L_moran = np.mean(np.diff(moranResult[1]))
+    delta_L_local = np.mean(np.diff(localResult[1]))
 
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=1, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4):
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4):
     # Runs multiprocessing simulations for moran and local update process
 
     numStrategies = matrix.shape[0]
