@@ -65,6 +65,7 @@ eigenvalues = J.eigenvals()
 standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
 
 
+
 eigenvalues_sub = {eig.subs(standardConfig) for eig in eigenvalues}
 
 
