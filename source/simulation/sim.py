@@ -19,7 +19,9 @@ from .plotting import quaternaryPlot
 basicRps = np.array([[0,   -1,   1,       0.2],
                     [1,    0,   -1,       0.2],
                     [-1,   1,   0,        0.2],
-                    [0.3, 0.3, 0.3, 0]])
+                    [0.1, 0.1, 0.1, 0]])
+
+
 
 """basicRps = np.array([[0,   -1,   1,       0],
                     [1,    0,   -1,       0],
@@ -34,11 +36,12 @@ basicRps = np.array([[0,   -1,   1,       0.2],
 
 
 
-def payoffAgainstPop(population, matrix):
+def payoffAgainstPop(population,matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
-        payoffs[i] = sum(population[j] * matrix[i][j] for j in range(matrix.shape[0]))
-    return payoffs / (popSize - 1)
+        payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
+    return payoffs / (popSize-1)
+
 
 
 """
@@ -48,7 +51,7 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-def moranSelection(payoffs, avg, population, numStrategies=4):
+def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
     for i in range(numStrategies):
 
@@ -58,34 +61,45 @@ def moranSelection(payoffs, avg, population, numStrategies=4):
 
 
 def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
-
+    
     population = np.random.multinomial(popSize, initialDist)
 
     numStrategies = matrix.shape[0]
     
     results = np.zeros((numStrategies, iterations))
 
+    individuals = np.repeat(np.arange(numStrategies), population)
+
     for i in range(iterations):
-        # Using this with no replacement fixed my drift issue !!!
-        p1, p2 = np.random.choice(range(numStrategies), size=2, p=population/popSize, replace=False)
         
-        payoffs = payoffAgainstPop(population, matrix)
-        deltaPi = np.max(payoffs) - np.min(payoffs)
-      
+
+        ind1, ind2 = np.random.choice(popSize, size=2, replace=False)
+     
+        p1, p2 = individuals[ind1], individuals[ind2]
+
+        payoffs = payoffAgainstPop(population, matrix, popSize)
+    
+        #deltaPi = np.max(payoffs) - np.min(payoffs)
+
+        deltaPi = np.max(matrix) - np.min(matrix)
+        
         p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
         # With this probability switch p1 to p2
-        if (random.random() < p):
+        if (np.random.rand() < p):
             population[p1] -= 1
             population[p2] += 1
+            # Update the individuals when an update occurs.
+            individuals[ind1] = p2
+  
+        #for j in range(numStrategies):
+         #   results[j][i] = population[j] / popSize
 
-        for j in range(numStrategies):
-            results[j][i] = population[j] / popSize
-
-
+        results[:,i] = population / popSize
     # Return normalized RPSL distribution
     return results
-       
+          
+
 
 def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
     # Population represented just as their frequency of strategies for efficiency,
@@ -101,9 +115,9 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
         killed = random.choices(range(numStrategies), weights=population)[0]
         # Birth: fitness-proportional
         # P = reproductive fitness in moran process 1 - w + w * Pi
-        p = 1 - w + w * payoffAgainstPop(population, matrix)
+        p = 1 - w + w * payoffAgainstPop(population, matrix, popSize)
         avg = np.sum(p * population) / popSize
-        probs = moranSelection(p, avg, population, matrix.shape[0])
+        probs = moranSelection(p, avg, population, popSize, matrix.shape[0])
 
         chosen = random.choices(range(numStrategies), weights=probs)[0]
     
@@ -119,33 +133,35 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
 
 
 
-
+"""
 popSize = 100
 simulations = 1
+"""
 deltaMoran = []
 deltaLocal = []
-
 mResults = []
 lResults = []
 
 
-def singleSim(matrix, popSize, initialDist, iterations, w):
+def singleSim(matrix, popSize, initialDist, iterations, w, H):
     # Add other interaction processs here
     moranResult = moranSimulation(matrix, popSize, initialDist, iterations,w)
     localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
 
-    delta_L_moran = np.mean(np.diff(moranResult[1]))
-    delta_L_local = np.mean(np.diff(localResult[1]))
+    delta_L_moran = np.mean(np.diff(moranResult[H]))
+    delta_L_local = np.mean(np.diff(localResult[H]))
 
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4):
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3):
     # Runs multiprocessing simulations for moran and local update process
+
+    # H parameter decides which strategy will be focussed for the drift analysis
 
     numStrategies = matrix.shape[0]
     
-    args = [(matrix, popSize, initialDist, iterations, w) for _ in range(simulations)]
+    args = [(matrix, popSize, initialDist, iterations, w, H) for _ in range(simulations)]
 
     print("Running simulation pool")
     print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
@@ -175,7 +191,7 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
 
 
 
-
+"""
 # Running the file directly no longer works due to changed packacge structure, run via app.py
 # Multiprocessing magic
 if __name__ == '__main__':
@@ -200,27 +216,6 @@ if __name__ == '__main__':
     mResults /= simulations
     lResults /= simulations
 
-    """for i in range(simulations):
-        #print(i)
-        if i % 10 == 0:
-            print(i)
-        moranResult = moranSimulation(basicRps, 100, iterations = 10000)
-        localResult = localUpdate(basicRps, 100, iterations = 10000)
-
-        # Compute delta L for each simulation
-        delta_L_moran = np.mean(np.diff(moranResult[3]))
-        delta_L_local = np.mean(np.diff(localResult[3]))
-        # Add to delta L history
-        deltaMoran.append(delta_L_moran)
-        deltaLocal.append(delta_L_local)
-
-        if i == 0:
-            mResults = np.array(moranResult)
-            lResults = np.array(localResult)
-        else:
-            mResults += np.array(moranResult)
-            lResults += np.array(localResult)
-    """
 
     df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
 
@@ -230,3 +225,4 @@ if __name__ == '__main__':
     # Plot multiple results
     quaternaryPlot([df_RPS_LU, df_RPS_MO, df_RPS_MO, df_RPS_MO], labels=["Local update", "Moran process"], numPerRow=3, colors=['g', 'b'])
 
+"""
