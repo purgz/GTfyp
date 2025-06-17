@@ -15,6 +15,9 @@ Example of moran process drift reversal:
 ![alt text](source/simulation/images/moran-drift.png)
 
 
+LU, MO, and numerical integration result for a particular payoff matrix. 1000000 iterations.
+![alt text](source/simulation/images/image.png)
+
 
 population 100, w = 0.3 in the augmented RPS game. Only in moran process (right) drift reversal occurs at this lower population.
 
