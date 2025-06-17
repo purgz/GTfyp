@@ -40,6 +40,14 @@ if  __name__ == "__main__":
 
         would be - parameters , pop size , drift results
         can then create a plotting function to plot these results on demand.
+
+
+        would like to create a single method that does the following:
+        - derives the replicator equations and outputs fixed points
+        - numerically integrates the replicator equations for plotting
+        - runs simulation suite with given parameter ranges
+        - displays 3d plot.
+
     """
     """mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=100,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
     deltaM.append(deltaMoran)
