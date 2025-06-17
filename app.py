@@ -48,29 +48,32 @@ if  __name__ == "__main__":
         - runs simulation suite with given parameter ranges
         - displays 3d plot.
 
+
+        - want to be able to give augRPS a payoff matrix - or just parameter values, and then be given back the replicators and numerical integration of it in a standalone method.
+
     """
-    """mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=100,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    """mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=100,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=120,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=120,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=140,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=140,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=160,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=160,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=180,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=180,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=300,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=300,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=300,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 20000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)"""
 
@@ -81,10 +84,10 @@ if  __name__ == "__main__":
 
     test = replicator.testNumericalIntegration()
 
-    print(test.tail())
+    #print(test.tail())
 
 
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=5000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.4, iterations = 1000000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
 
 
     df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
