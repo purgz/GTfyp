@@ -147,6 +147,10 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H):
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
 
+    # Lyapunov function? doesnt seem to work  
+    #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))
+    #delta_L_local = np.mean(np.diff(-np.prod(localResult, axis=0)))
+
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
