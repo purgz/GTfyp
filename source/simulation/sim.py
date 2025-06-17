@@ -92,10 +92,9 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
             # Update the individuals when an update occurs.
             individuals[ind1] = p2
   
-        #for j in range(numStrategies):
-         #   results[j][i] = population[j] / popSize
+        for j in range(numStrategies):
+            results[j][i] = population[j] / popSize
 
-        results[:,i] = population / popSize
     # Return normalized RPSL distribution
     return results
           
@@ -137,10 +136,7 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
 popSize = 100
 simulations = 1
 """
-deltaMoran = []
-deltaLocal = []
-mResults = []
-lResults = []
+
 
 
 def singleSim(matrix, popSize, initialDist, iterations, w, H):
@@ -158,6 +154,11 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
+
+    deltaMoran = []
+    deltaLocal = []
+    mResults = []
+    lResults = []
 
     numStrategies = matrix.shape[0]
     
@@ -187,7 +188,7 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     mResults /= simulations
     lResults /= simulations
 
-    return mResults, lResults
+    return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal)
 
 
 
