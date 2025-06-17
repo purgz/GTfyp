@@ -6,6 +6,10 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 
+import pandas as pd
+
+
+
 # This file contains the RPS replicator derivation for the 3x3 standard game
 
 a, c, b, gamma, beta = sp.symbols('a c b gamma beta')
@@ -43,6 +47,12 @@ fixed_points = sp.solve([x_dot_sub, y_dot_sub, z_dot_sub], (x, y, z), dict=True)
 print("Fixed points for augmented RPS game: ", fixed_points)
 
 
+
+"""
+NUMERICAL integration below - reformat this into methods.
+Also reformat the rest of this into methods that can be called independently.
+Add name = main so that you can run this file directly too but not have it call whenever a method is called from here.
+"""
 t = sp.symbols("t")
 f = lambdify((t, x , y , z), [x_dot_sub, y_dot_sub, z_dot_sub], modules="numpy")
 
@@ -58,23 +68,6 @@ t_eval=np.linspace(*t_span, 50000)
 
 sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
 
-#print("NUMERICAL INTEGRATION")
-#print(sol)
-
-"""import matplotlib.pyplot as plt
-
-plt.figure(figsize=(8, 5))
-plt.plot(sol.t, sol.y[0], label='x')
-plt.plot(sol.t, sol.y[1], label='y')
-plt.plot(sol.t, sol.y[2], label='z')
-plt.title("Replicator Dynamics Trajectory")
-plt.xlabel("Time")
-plt.ylabel("Strategy Frequencies")
-plt.legend()
-plt.grid(True)
-plt.show()"""
-
-import pandas as pd
 
 x_vals = sol.y[0]
 y_vals = sol.y[1]
@@ -91,7 +84,7 @@ df_RPS_MO = pd.DataFrame({
 def testNumericalIntegration():
     return df_RPS_MO
 
-"""
+
 F_x = sp.diff(x_dot, x)
 F_y = sp.diff(x_dot, y)
 F_z = sp.diff(x_dot, z)
@@ -128,35 +121,4 @@ print(latex(results))
 
 #print(latex(eigenvalues_sub))
 
-"""
 
-"""
-
-
-Find eigenvalues for fixed points  of 
-basicRps = np.array([[0,   -1,   1,       0.2],
-                    [1,    0,   -1,       0.2],
-                    [-1,   1,   0,        0.2],
-                    [0.3, 0.3, 0.3, 0]])
-
-Because I think the results are different with drift upwards towards full loner, where there should be a stable point at the center, so the direction of drift is different.
-
-
-
-I have also observed drift in this dynamics too!
-
-.4690246902469025e-06  Moran drift
--2.009020090200902e-06  local drift
-           c1      c2      c3      c4
-99995  0.1658  0.1651  0.1662  0.5029
-99996  0.1667  0.1653  0.1666  0.5014
-99997  0.1669  0.1650  0.1666  0.5015
-99998  0.1666  0.1652  0.1674  0.5008
-99999  0.1664  0.1650  0.1677  0.5009
-         c1    c2   c3    c4
-99995  0.01  0.04  0.0  0.95
-99996  0.01  0.04  0.0  0.95
-99997  0.01  0.04  0.0  0.95
-99998  0.01  0.04  0.0  0.95
-99999  0.01  0.04  0.0  0.95
-"""
