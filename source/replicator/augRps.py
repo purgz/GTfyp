@@ -1,6 +1,11 @@
 import sympy as sp
 from sympy import latex
 
+from sympy.utilities.lambdify import lambdify
+import numpy as np
+from scipy.integrate import solve_ivp
+
+
 # This file contains the RPS replicator derivation for the 3x3 standard game
 
 a, c, b, gamma, beta = sp.symbols('a c b gamma beta')
@@ -38,7 +43,55 @@ fixed_points = sp.solve([x_dot_sub, y_dot_sub, z_dot_sub], (x, y, z), dict=True)
 print("Fixed points for augmented RPS game: ", fixed_points)
 
 
+t = sp.symbols("t")
+f = lambdify((t, x , y , z), [x_dot_sub, y_dot_sub, z_dot_sub], modules="numpy")
 
+def replicatorSystem(t, vars):
+    x,y,z = vars
+    dxdt,dydt,dzdt = f(t,x,y,z)
+    return [dxdt, dydt, dzdt]
+
+
+x0 = [0.7,0.1, 0.1]
+t_span=(0,1000)
+t_eval=np.linspace(*t_span, 50000)
+
+sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
+
+#print("NUMERICAL INTEGRATION")
+#print(sol)
+
+"""import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 5))
+plt.plot(sol.t, sol.y[0], label='x')
+plt.plot(sol.t, sol.y[1], label='y')
+plt.plot(sol.t, sol.y[2], label='z')
+plt.title("Replicator Dynamics Trajectory")
+plt.xlabel("Time")
+plt.ylabel("Strategy Frequencies")
+plt.legend()
+plt.grid(True)
+plt.show()"""
+
+import pandas as pd
+
+x_vals = sol.y[0]
+y_vals = sol.y[1]
+z_vals = sol.y[2]
+w_vals = 1 - x_vals - y_vals - z_vals
+
+df_RPS_MO = pd.DataFrame({
+    "c1": x_vals,
+    "c2": y_vals,
+    "c3": z_vals,
+    "c4": w_vals
+})
+
+def testNumericalIntegration():
+    return df_RPS_MO
+
+"""
 F_x = sp.diff(x_dot, x)
 F_y = sp.diff(x_dot, y)
 F_z = sp.diff(x_dot, z)
@@ -75,7 +128,7 @@ print(latex(results))
 
 #print(latex(eigenvalues_sub))
 
-
+"""
 
 """
 
