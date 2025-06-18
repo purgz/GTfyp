@@ -105,8 +105,10 @@ if  __name__ == "__main__":
 
     test = replicator.pdNumerical()
 
+    adjusted = replicator.pdNumericalAdjusted()
+
     
-    simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D")], labels=["LU", "MO", "NUMERICAL"], norm=[True, True, False])
+    simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
     
 
 
