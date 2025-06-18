@@ -171,3 +171,21 @@ def quaternaryPlot(dfs, numPerRow=2, labels=["Local update", "Moran Process"], c
 
 def ternaryPlot():
     pass
+
+
+
+
+def Game2dPlot(dfs, norm, sameAxis=True, labels=["Local update", "Moran process"]):
+
+    fig = plt.figure()
+
+    for i , df in enumerate(dfs):
+        if norm[i]:
+            time_norm = np.arange(len(df)) / 200
+            plt.plot(time_norm, df.values, label = labels[i])
+        else:
+            plt.plot(df.values, label = labels[i])
+
+    plt.legend()
+
+    plt.show()

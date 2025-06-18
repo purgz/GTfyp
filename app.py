@@ -7,6 +7,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+#from source import replicator
 from source import replicator
 
 """
@@ -77,32 +78,39 @@ if  __name__ == "__main__":
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)"""
 
-    #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(matrix=pdArray, popSize=100, simulations=1, initialDist=[0.5,0.5], iterations=100000, w=0.4, H=1)
 
     #RPS - large pop
 
 
-    test = replicator.testNumericalIntegration()
+    #test = replicator.testNumericalIntegration()
 
     #print(test.tail())
 
 
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
+    #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
 
 
-    df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
+    #df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
 
-    df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
+    #df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
     
 
-    """
-    df_RPS_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(matrix=pdArray, popSize=200, simulations=1, initialDist=[0.9,0.1], iterations=7000, w=0.9, H=1)
 
-    df_RPS_LU = pd.DataFrame({"C": lResults[0], "D": lResults[1]})
-    """
+    df_PD_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
+
+    df_PD_LU = pd.DataFrame({"C": lResults[0], "D": lResults[1]})
+
+    print(df_PD_MO.get("D").values)
+
+    test = replicator.pdNumerical()
+
+    
+    simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D")], labels=["LU", "MO", "NUMERICAL"], norm=[True, True, False])
+    
 
 
-    plt.plot(deltaM, label="moran")
+    """plt.plot(deltaM, label="moran")
     plt.plot(deltaL, label="local")
 
     plt.legend()
@@ -113,4 +121,4 @@ if  __name__ == "__main__":
     print(df_RPS_LU.tail())
     print(df_RPS_MO.tail())
 
-    simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+    simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])"""
