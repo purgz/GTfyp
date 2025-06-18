@@ -95,6 +95,7 @@ if  __name__ == "__main__":
     #df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
     
 
+    # Code for running prisoners dilemma simulation and numerical trajectories - then plotting all of them
     mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(matrix=pdArray, popSize=200, simulations=1, initialDist=[0.9,0.1], iterations=7000, w=0.9, H=1)
 
     df_PD_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
@@ -108,7 +109,7 @@ if  __name__ == "__main__":
     adjusted = replicator.pdNumericalAdjusted()
 
     
-    simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
+    simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=200, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
     
 
 
