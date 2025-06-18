@@ -26,3 +26,8 @@ population 100, w = 0.3 in the augmented RPS game. Only in moran process (right)
 Simulation code contained in the source/simulation subdirectory - for offline and adjusting
 
 backend/ for django backend - hope to create a rest api for the simulations in aim to produce an interactive web app.
+
+
+
+Now contains support for 2d games - below is prisoners dilemma plot with numerical solutions for adjusted and standard replicator dynamics.
+![alt text](source/simulation/images/pd-dynamics.png)
