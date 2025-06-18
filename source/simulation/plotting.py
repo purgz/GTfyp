@@ -174,14 +174,14 @@ def ternaryPlot():
 
 
 
-
-def Game2dPlot(dfs, norm, sameAxis=True, labels=["Local update", "Moran process"]):
+# Normalisation here is for the stochastic simulations since they need to be divided by the population size
+def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran process"]):
 
     fig = plt.figure()
 
     for i , df in enumerate(dfs):
         if norm[i]:
-            time_norm = np.arange(len(df)) / 200
+            time_norm = np.arange(len(df)) / N
             plt.plot(time_norm, df.values, label = labels[i])
         else:
             plt.plot(df.values, label = labels[i])
