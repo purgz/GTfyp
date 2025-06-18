@@ -35,10 +35,19 @@ payoffS = c * x + b * y + a * z + gamma * q
 payoffL = (a + beta) * x + (a + beta) * y + (a + beta) * z
 
 # Pairwise replicator equations 
-x_dot = (x * y) * (payoffR - payoffP) + (x * z) * (payoffR - payoffS) + (x * q) * (payoffR - payoffL)
+"""x_dot = (x * y) * (payoffR - payoffP) + (x * z) * (payoffR - payoffS) + (x * q) * (payoffR - payoffL)
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
 z_dot = (z * x) * (payoffS - payoffR) + (z * y) * (payoffS - payoffP) + (z * q) * (payoffS - payoffL)
+"""
 
+"""
+Other form using avg instead of payoff pairwise comparison - should be equivalent.
+"""
+
+averagePayoff = payoffR * x + payoffP * y + payoffS * z + payoffL * q
+x_dot = x * (payoffR - averagePayoff)
+y_dot = y * (payoffP - averagePayoff)
+z_dot = z * (payoffS - averagePayoff)
 
 x_dot_sub = x_dot.subs({a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1})
 y_dot_sub = y_dot.subs({a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1})
