@@ -112,7 +112,7 @@ def numericalIntegration(equations, numPoints = 50000, timeSpan = 1000, initialD
   return df
 
 
-def testNumericalIntegration():
+def numericalTrajectory():
 
   # External module method.
   # Derive replicator equations
@@ -146,7 +146,7 @@ if __name__ == "__main__":
 
 
 """
-# Eigenvalue stuff 
+# Eigenvalue stuff need to put this in methods also!
 
 F_x = sp.diff(x_dot, x)
 F_y = sp.diff(x_dot, y)
