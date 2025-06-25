@@ -82,7 +82,7 @@ if  __name__ == "__main__":
     #RPS - large pop
 
 
-    test = replicator.testNumericalIntegration()
+    test = replicator.numericalTrajectory()
 
     print(test.tail())
 
