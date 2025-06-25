@@ -66,7 +66,7 @@ print(latex(y_dot))
 
 #print(F_x)
 #print(F_y)
-
+print(latex(G_y))
 
 
 #print(latex(J))

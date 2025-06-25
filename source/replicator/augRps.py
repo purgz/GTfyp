@@ -130,19 +130,8 @@ def numericalTrajectory():
   return df
 
 
-if __name__ == "__main__":
-  
-  # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A)
 
-  standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
 
-  substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
-
-  fixedPoints = getFixedPoints(substitutions, (x, y, z))
-
-  print(fixedPoints)
-  
 
 
 """
@@ -185,3 +174,20 @@ print(latex(results))
 #print(latex(eigenvalues_sub))
 
 """
+
+
+if __name__ == "__main__":
+  
+  # Derive replicator equations
+  x_dot, y_dot, z_dot = replicators(matrix=A)
+
+  standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
+
+  substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
+
+  fixedPoints = getFixedPoints(substitutions, (x, y, z))
+
+  print(fixedPoints)
+  
+
+
