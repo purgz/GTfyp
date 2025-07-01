@@ -34,6 +34,7 @@ x_dot_sub = x_dot.subs({a: 0, b: 1, c: -1})
 y_dot_sub = y_dot.subs({a: 0, b: 1, c: -1})
 fixed_points = sp.solve([x_dot_sub, y_dot_sub], (x,y), dict=True)
 
+print("RPS REPLICATORS")
 print("Fixed points: ", fixed_points)
 
 

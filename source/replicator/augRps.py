@@ -130,6 +130,31 @@ def numericalTrajectory():
   return df
 
 
+def findEigenvalues(replicators, config, vars):
+  """
+    J = sp.Matrix()
+
+    # Construct the Jacobian! :)
+    for idx, var in enumerate(vars):
+      col = []
+      for jdx, eq in enumerate(replicators):
+        xDiff = sp.diff(eq, var)
+        col.append(xDiff)
+
+      J = J.col_insert(idx, sp.Matrix(col))
+  """
+
+  J = sp.Matrix([[sp.diff(eq, var) for var in vars] for eq in replicators])
+
+
+  eigenvalues = J.eigenvals()
+
+  eigenvalues_sub = {eig.subs(config) for eig in eigenvalues}
+
+  results = {eig.subs({x: 2/9, y: 2/9, z: 2/9}) for eig in eigenvalues_sub}
+
+  print(latex(results))
+
 
 
 
@@ -161,9 +186,6 @@ eigenvalues = J.eigenvals()
 
 
 standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
-
-
-
 eigenvalues_sub = {eig.subs(standardConfig) for eig in eigenvalues}
 
 
@@ -187,7 +209,43 @@ if __name__ == "__main__":
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
 
-  print(fixedPoints)
+  findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
+
+  print("OLD WAY ***************************")
+  F_x = sp.diff(x_dot, x)
+  F_y = sp.diff(x_dot, y)
+  F_z = sp.diff(x_dot, z)
+
+  G_x = sp.diff(y_dot, x)
+  G_y = sp.diff(y_dot, y)
+  G_z = sp.diff(y_dot, z)
+
+  P_x = sp.diff(z_dot, x)
+  P_y = sp.diff(z_dot, y)
+  P_z = sp.diff(z_dot, z)
+
+  # 3x3 Jacobian Matrix
+  J = sp.Matrix([[F_x, F_y, F_z],
+                [G_x, G_y, G_z],
+                [P_x, P_y, P_z]])
+
+
+
+  eigenvalues = J.eigenvals()
+
+
+
+  standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
+  eigenvalues_sub = {eig.subs(standardConfig) for eig in eigenvalues}
+
+
+  results = {eig.subs({x: 2/9, y: 2/9, z: 2/9}) for eig in eigenvalues_sub}
+
+  print(latex(results))
+
+  #print(latex(eigenvalues_sub))
+
+  #print(fixedPoints)
   
 
 
