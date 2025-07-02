@@ -129,7 +129,7 @@ def numericalTrajectory():
   return df
 
 
-def findEigenvalues(replicators, config, vars):
+def findEigenvalues(replicators, config, vars, substitution):
   """
     J = sp.Matrix()
 
@@ -150,7 +150,7 @@ def findEigenvalues(replicators, config, vars):
 
   eigenvalues_sub = {eig.subs(config) for eig in eigenvalues}
 
-  results = {eig.subs({x: 2/9, y: 2/9, z: 2/9}) for eig in eigenvalues_sub}
+  results = {eig.subs(substitution) for eig in eigenvalues_sub}
 
   print(latex(results))
 
@@ -214,4 +214,4 @@ if __name__ == "__main__":
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
 
-  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
+  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
