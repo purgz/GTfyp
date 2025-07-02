@@ -78,20 +78,15 @@ df_PD_ADJ = pd.DataFrame({
   "D": y_adj_vals
 })
 
-def pdNumerical(matrix = A, w=0.9):
-
+def pdNumerical(matrix, w=0.9):
+  # Convert np matrices to sympy ..
   matrix = sp.Matrix(matrix)
-  
   deltaPi = 5 # should be maximum difference in payoffs
   payoffs = standardPayoffs(matrix)
   x_dot = standardReplicator(payoffs, w, deltaPi)
 
-  print(payoffs)
-
   t = sp.symbols("t")
-
   f = lambdify((t, x), [x_dot], modules="numpy")
-
 
   x0 = [0.9]
   t_span = (0, 35)
@@ -101,7 +96,6 @@ def pdNumerical(matrix = A, w=0.9):
     x = vars
     dxdt = f(t,x)
     return [dxdt]
-
 
   sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
 
