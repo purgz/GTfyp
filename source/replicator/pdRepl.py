@@ -14,12 +14,23 @@ A = sp.Matrix([[3, 0],
 x = sp.symbols("x")
 y = 1 - x
 
+def standardPayoffs(matrix):
+  payoffA = matrix.row(0)[0] * x + matrix.row(0)[1] * y
+  payoffB = matrix.row(1)[0] * x + matrix.row(1)[1] * y
+  return payoffA, payoffB
+
 payoffC = 3 * x
 payoffD = 5 * x + y
 
+
+def standardReplicator(payoffs, w, deltaPi):
+  x_dot = (x * y * (payoffs[0] - payoffs[1])) * (w / deltaPi)
+
+  return x_dot
+  
+
 # HARDCODED VALUES - FIX THIS
 x_dot = (0.9 / 5) * (x * y * (payoffC - payoffD))
-
 
 # Adjusted replicator dynamics - from paper 1
 avgPayoff = x * payoffC + y * payoffD
@@ -34,14 +45,14 @@ f = lambdify((t, x), [x_dot], modules="numpy")
 g = lambdify((t, x), [x_dot_adj], modules="numpy")
 
 def replicatorSystem(t, vars):
-    x = vars
-    dxdt = f(t,x)
-    return [dxdt]
+  x = vars
+  dxdt = f(t,x)
+  return [dxdt]
 
 def adjReplicatorSystem(t, vars):
-    x = vars
-    dxdt = g(t,x)
-    return [dxdt]
+  x = vars
+  dxdt = g(t,x)
+  return [dxdt]
 
 x0 = [0.9]
 t_span = (0, 35)
@@ -58,17 +69,55 @@ x_adj_vals = adjSol.y[0]
 y_adj_vals = 1 - x_adj_vals
 
 df_PD = pd.DataFrame({
-    "C": x_vals,
-    "D": y_vals
+  "C": x_vals,
+  "D": y_vals
 })
 
 df_PD_ADJ = pd.DataFrame({
-    "C": x_adj_vals,
-    "D": y_adj_vals
+  "C": x_adj_vals,
+  "D": y_adj_vals
 })
 
-def pdNumerical():
-    return df_PD
+def pdNumerical(matrix = A, w=0.9):
+
+  matrix = sp.Matrix(matrix)
+  
+  deltaPi = 5 # should be maximum difference in payoffs
+  payoffs = standardPayoffs(matrix)
+  x_dot = standardReplicator(payoffs, w, deltaPi)
+
+  print(payoffs)
+
+  t = sp.symbols("t")
+
+  f = lambdify((t, x), [x_dot], modules="numpy")
+
+
+  x0 = [0.9]
+  t_span = (0, 35)
+  t_eval = np.linspace(*t_span, 35)
+
+  def replicatorSystem(t, vars):
+    x = vars
+    dxdt = f(t,x)
+    return [dxdt]
+
+
+  sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
+
+  x_vals = sol.y[0]
+  y_vals = 1 - x_vals
+
+  df_PD = pd.DataFrame({
+    "C": x_vals,
+    "D": y_vals
+  })
+
+  return df_PD
 
 def pdNumericalAdjusted():
-    return df_PD_ADJ
+  return df_PD_ADJ
+
+
+if __name__ == "__main__":
+  print(standardPayoffs(A))
