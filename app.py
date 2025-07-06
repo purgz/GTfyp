@@ -5,6 +5,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from source import replicator
 
+"""
+Few things to do :
+
+make sure the numerical code is correctly adjusting to new matrices since its hard coded for PD
+e.g the delta Pi needs to be calculated correctly.
+
+nice graph for hawk dove [2,10],[0,-5] - matchees pd results
+
+also need to generalize the adjusted dynamics since theyre also hard coded.
+"""
 
 
 def pdExample():
@@ -55,7 +65,7 @@ def rpsExample():
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
-  #pdExample()
+  pdExample()
   rpsExample()
     
   deltaM = []

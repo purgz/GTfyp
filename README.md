@@ -31,3 +31,7 @@ backend/ for django backend - hope to create a rest api for the simulations in a
 
 Now contains support for 2d games - below is prisoners dilemma plot with numerical solutions for adjusted and standard replicator dynamics.
 ![alt text](source/simulation/images/pd-dynamics.png)
+
+
+Example hawk dove simulation - note in this photo only the local update and regular numeric is corrcect - adjusted needs implementing correctly.
+![alt text](source/simulation/images/hawkdove.png.png)
