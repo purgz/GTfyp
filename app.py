@@ -36,11 +36,27 @@ def pdExample():
   simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=N, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
 
 
+def rpsExample():
+
+  N = 5000
+  w = 0.7
+  iterations = 100000
+  
+  rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
+
+  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1, initialDist=[0.5,0.25,0.25], iterations=iterations,w=w, H=1)
+
+  df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
+  
+  df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
+
+  simulation.ternaryPlot(df_RPS_MO)
+
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
-  pdExample()
-  
+  #pdExample()
+  rpsExample()
     
   deltaM = []
   deltaL = []
