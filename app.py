@@ -23,6 +23,7 @@ def pdExample():
   N = 200
   w = 0.9
   iterations = 7000
+  initialDist = [0.9,0.1]
 
   # Standard prisoners dilemma payoff matrix
   pdArray = np.array([[3, 0],
@@ -36,7 +37,7 @@ def pdExample():
   df_PD_LU = pd.DataFrame({"C": lResults[0], "D": lResults[1]})
 
   # Get numerical trajectory for prisoners dilemma.
-  test = replicator.pdNumerical(pdArray, w)
+  test = replicator.pdNumerical(pdArray, w, initialDist)
 
   # Get numerical trajectory for adjusted dynamics - moran process
   adjusted = replicator.pdNumericalAdjusted()

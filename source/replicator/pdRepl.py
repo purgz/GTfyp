@@ -78,17 +78,23 @@ df_PD_ADJ = pd.DataFrame({
   "D": y_adj_vals
 })
 
-def pdNumerical(matrix, w=0.9):
+def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   # Convert np matrices to sympy ..
+  maxi = matrix.max()
+  mini = matrix.min()
+
+  deltaPi = maxi - mini
+
+  #print("DeltaPI for PD:" , deltaPi)
+
   matrix = sp.Matrix(matrix)
-  deltaPi = 5 # should be maximum difference in payoffs
   payoffs = standardPayoffs(matrix)
   x_dot = standardReplicator(payoffs, w, deltaPi)
 
   t = sp.symbols("t")
   f = lambdify((t, x), [x_dot], modules="numpy")
 
-  x0 = [0.9]
+  x0 = [initialDist[0]]
   t_span = (0, 35)
   t_eval = np.linspace(*t_span, 35)
 
