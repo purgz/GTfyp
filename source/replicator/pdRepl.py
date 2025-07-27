@@ -78,6 +78,11 @@ df_PD_ADJ = pd.DataFrame({
   "D": y_adj_vals
 })
 
+
+"""
+Computes the numerical trajectory for the standard replicator dynamics which correspond
+to the local update microscopic process with the scaling factor as in literature.
+"""
 def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   # Convert np matrices to sympy ..
   maxi = matrix.max()

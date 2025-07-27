@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 
+{% load static %}
+
 
 <head>
   <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+
 </head>
 
 <html>
@@ -17,21 +21,8 @@ Now to figure out how to plot in javascript
 <form method="post">
   {% csrf_token %}
   
-  <button value="Request results" type="submit">Submit</button>
+  <button onclick=showLoading() value="Request results" type="submit">Submit</button>
 </form>
-
-
-<!--
-
-{% if results %}
-
-{{ results }}
-
-{% endif %}
-
--->
-
-
 
 
 
@@ -43,9 +34,10 @@ Now to figure out how to plot in javascript
 <div id="container"></div>
 {% endif %}
 
-{% if not results %}
-<div>running simulation...</div>
-{% endif %}
+
+
+<div style="display: none;" id="fetching">running simulation...</div>
+
 
 
 </body>
@@ -56,34 +48,42 @@ Now to figure out how to plot in javascript
 
 <script>
 
-
 // Prevent resubmission on refresh - a bit hacky
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
 }
 
+const res = "{{results|safe}}";
+
+const fetchDiv = document.getElementById("fetching")
+
+console.log("RESULTS BELOW")
+console.log(res)
+
+function showLoading(){
+  fetchDiv.style.display="block"
+}
+
 
 // Example of how to plot using a library like Chart.js or D3.js
 
+const container = document.getElementById("container")
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
 const group = new THREE.Group();
 scene.add(group);
-
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; 
 controls.dampingFactor = 0.05;
 controls.rotateSpeed = 0.5;
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('container').appendChild(renderer.domElement);
-
+renderer.setSize(container.clientWidth, container.clientHeight);
+container.appendChild(renderer.domElement);
 
 renderer.setClearColor(0xffffff, 1); // Set background color to white
-
 
 const corners = [
   new THREE.Vector3(1, 0, -1/Math.sqrt(2)),
@@ -102,39 +102,14 @@ for (let j = i + 1; j < corners.length; j++) {
 }
 });
 
-
-
-
 function barycentricToCartesian(a, b, c, d) {
   const v = new THREE.Vector3().addScaledVector(corners[0], a)
     .addScaledVector(corners[1], b)
     .addScaledVector(corners[2], c)
     .addScaledVector(corners[3], d);
-
-
   return v;
 }
 
-
-const data = [
-  { a: 0.3, b: 0.2, c: 0.4, d: 0.1},
-  { a: 0.1, b: 0.1, c: 0.1, d: 0.7},
-];
-
-
-
-const res = "{{results|safe}}";
-
-
-// data.forEach(point => {
-//   const pos = barycentricToCartesian(point.a, point.b, point.c, point.d);
-//   const geometry = new THREE.SphereGeometry(0.02, 8, 8);
-//   const color = new THREE.Color().setHSL(point.value, 1.0, 0.5);
-//   const material = new THREE.MeshBasicMaterial({ color });
-//   const sphere = new THREE.Mesh(geometry, material);
-//   sphere.position.copy(pos);
-//   scene.add(sphere);
-// });
 
 
 const points = JSON.parse(res);
@@ -156,11 +131,7 @@ for (let i = 0; i < points[0][0].length; i++) {
   mesh.setMatrixAt(i, dummy.matrix);
 
 }
-
-
-
 camera.position.z = 3;
-
 
 group.rotation.x = -Math.PI / 2;
 
