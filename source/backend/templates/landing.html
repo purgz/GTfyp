@@ -4,48 +4,43 @@
 
 
 <head>
+
+
   <title>{{title}}</title>
   <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
 
 </head>
 
 <html>
 <body>
 
+<div id="page-wrapper">
+
 <h1>Landing page</h1>
 
-Now to figure out how to plot in javascript
 
-<p>
+<div id="main-content">
 
-<form method="post">
-  {% csrf_token %}
-  
-  <button onclick=showLoading() value="Request results" type="submit">Submit</button>
-</form>
+  <p>
+  <form method="post">
+    {% csrf_token %}
+    
+    <button onclick=showLoading() value="Request results" type="submit">Submit</button>
+  </form>
+  </p>
 
+  <div id="results-container">
+    {% if results %}
+    <div class="graph-container" id="graph_3d_traj"></div>
+    {% endif %}
+    <div style="display: none;" id="fetching">running simulation...</div>
+  </div>
 
+</div>
 
-
-</p>
-
-
-{% if results %}
-<div id="container"></div>
-{% endif %}
-
-
-
-<div style="display: none;" id="fetching">running simulation...</div>
-
-
-
-</body>
-</html>
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
-
+</div>
 <script>
 
 // Prevent resubmission on refresh - a bit hacky
@@ -57,8 +52,8 @@ const res = "{{results|safe}}";
 
 const fetchDiv = document.getElementById("fetching")
 
-console.log("RESULTS BELOW")
-console.log(res)
+//console.log("RESULTS BELOW")
+//console.log(res)
 
 function showLoading(){
   fetchDiv.style.display="block"
@@ -67,7 +62,8 @@ function showLoading(){
 
 // Example of how to plot using a library like Chart.js or D3.js
 
-const container = document.getElementById("container")
+const container = document.getElementById("graph_3d_traj")
+console.log(container)
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
@@ -143,3 +139,9 @@ function animate() {
 animate();
 
 </script>
+
+
+</body>
+</html>
+
+
