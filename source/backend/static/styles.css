@@ -1,12 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Courier New', Courier, monospace;
 }
 
+html, body{
+  height: 100%; 
+  margin: 0;
+  padding: 0;
+}
 
-#container{
+#page-wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+
+.graph-container{
   width: 500px;
   height: 500px;
 }
 
 
+#results-container{
+  width: 50%;
+  height: 100%;
+  border: 5px solid black;
+}
+
+
+#main-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: 1;
+}
