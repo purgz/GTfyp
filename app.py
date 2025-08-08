@@ -63,8 +63,34 @@ def rpsExample():
 
   simulation.ternaryPlot(df_RPS_MO)
 
+def runPopulationEnsemble(populationSizes):
+
+  # Run a large batch with different parameters
+  # Would like to test for popsizes, W value, and different payoff matrix values - starting with popsize here
+  # Perhaps a config could be nice to have one single method to test for all.
+
+  # Add the rest of the simulation options as arguments
+  deltaM = []
+  deltaL = []
+
+  for i in range(len(populationSizes)):
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
+    deltaM.append(deltaMoran)
+    deltaL.append(deltaLocal)
+
+  
+  plt.plot(deltaM, label="moran")
+  plt.plot(deltaL, label="local")
+  plt.legend()
+  plt.show()
+
+
+
+
 # Need this because of multiprocessing
 if  __name__ == "__main__":
+
+  runPopulationEnsemble([50,200,2000])
 
   pdExample()
   rpsExample()
@@ -73,8 +99,7 @@ if  __name__ == "__main__":
   deltaL = []
 
   """
-      TODO - make this an actual loop 
-
+      TODO
       Make a data storage system for simulations since they take so long to run :)
 
       Can see how parameters effect the critical population size 
@@ -95,55 +120,22 @@ if  __name__ == "__main__":
       - want to be able to give augRPS a payoff matrix - or just parameter values, and then be given back the replicators and numerical integration of it in a standalone method.
 
   """
-  """mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=100,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=120,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=140,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=160,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=180,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=300,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=50,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
-  deltaM.append(deltaMoran)
-  deltaL.append(deltaLocal)"""
+
 
 
   #RPS - large pop
-
-
   test = replicator.numericalTrajectory()
-
-  print(test.tail())
-
 
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
 
-
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
-
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   
 
   plt.plot(deltaM, label="moran")
   plt.plot(deltaL, label="local")
-
   plt.legend()
-
   plt.show()
-
 
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
