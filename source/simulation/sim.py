@@ -9,6 +9,7 @@ from multiprocessing import Pool
 
 
 
+
 #If running this file directly uncomment following
 #from plotting import quaternaryPlot
 from .plotting import quaternaryPlot
@@ -41,6 +42,9 @@ def payoffAgainstPop(population,matrix, popSize):
     for i in range(matrix.shape[0]):
         payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
     return payoffs / (popSize-1)
+    #return (matrix @ population) / (popSize - 1)
+
+
 
 
 
@@ -92,6 +96,7 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
             # Update the individuals when an update occurs.
             individuals[ind1] = p2
   
+      
         for j in range(numStrategies):
             results[j][i] = population[j] / popSize
 
@@ -123,6 +128,7 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
         population[chosen] += 1
         population[killed] -= 1
 
+       
         for j in range(numStrategies):
             results[j][i] = population[j] / popSize
 

@@ -17,6 +17,23 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 
 
+parser = argparse.ArgumentParser()
+
+"""
+CMD Arguments:
+Game presets:
+standard prisoners dilemma: -pd
+"""
+parser.add_argument("-preset", help="Use a preset game matrix; OPTIONS = pd, rps, arps")
+
+args = parser.parse_args()
+
+
+
+if args.preset:
+  print("Preset ", args.preset, " has been selected")
+  
+
 def pdExample():
 
   # Example running prisoners dilemma example.
@@ -63,6 +80,11 @@ def rpsExample():
 
   simulation.ternaryPlot(df_RPS_MO)
 
+
+"""
+Testing benchmarks
+without changes - 99s runtime
+"""
 def runPopulationEnsemble(populationSizes):
 
   # Run a large batch with different parameters
@@ -74,7 +96,8 @@ def runPopulationEnsemble(populationSizes):
   deltaL = []
 
   for i in range(len(populationSizes)):
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.3, iterations = 100000)
+    print("population ", i)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -90,55 +113,25 @@ def runPopulationEnsemble(populationSizes):
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
-  runPopulationEnsemble([50,200,2000])
-
-  pdExample()
-  rpsExample()
-    
-  deltaM = []
-  deltaL = []
-
-  """
-      TODO
-      Make a data storage system for simulations since they take so long to run :)
-
-      Can see how parameters effect the critical population size 
-
-      Probably a csv file is satisfactory for this 
-
-      would be - parameters , pop size , drift results
-      can then create a plotting function to plot these results on demand.
-
-
-      would like to create a single method that does the following:
-      - derives the replicator equations and outputs fixed points
-      - numerically integrates the replicator equations for plotting
-      - runs simulation suite with given parameter ranges
-      - displays 3d plot.
-
-
-      - want to be able to give augRPS a payoff matrix - or just parameter values, and then be given back the replicators and numerical integration of it in a standalone method.
-
-  """
-
-
-
   #RPS - large pop
+  print("Running main")
+  
   test = replicator.numericalTrajectory()
-
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
-
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=10,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.4, iterations = 100000)
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
-  
-
-  plt.plot(deltaM, label="moran")
-  plt.plot(deltaL, label="local")
-  plt.legend()
-  plt.show()
-
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
-
   simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+  
+  #if args.preset:
+
+
+  #runPopulationEnsemble([50,100, 150, 200,250,300])
+
+ # pdExample()
+  #rpsExample()
+    
+
+
   
