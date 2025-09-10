@@ -17,27 +17,11 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 
 
-parser = argparse.ArgumentParser()
 
-"""
-CMD Arguments:
-Game presets:
-standard prisoners dilemma: -pd
-"""
-parser.add_argument("-preset", help="Use a preset game matrix; OPTIONS = pd, rps, arps")
-
-args = parser.parse_args()
-
-
-
-if args.preset:
-  print("Preset ", args.preset, " has been selected")
-  
-
-def pdExample():
+def pdExample(popsize=200):
 
   # Example running prisoners dilemma example.
-  N = 200
+  N = popsize
   w = 0.9
   iterations = 7000
   initialDist = [0.9,0.1]
@@ -110,12 +94,33 @@ def runPopulationEnsemble(populationSizes):
 
 
 
+
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
   #RPS - large pop
   print("Running main")
+
+  parser = argparse.ArgumentParser()
+  """
+  CMD Arguments:
+  Game presets:
+  standard prisoners dilemma: -pd
+  """
+  parser.add_argument("-preset", 
+                      choices=["pd","rps","arps"],
+                      help="Use a preset game matrix; OPTIONS = pd, rps, arps")
+  parser.add_argument("-N", type=int, help="Specify population size to be used in simulation")
+  args = parser.parse_args()
+
+  if args.preset:
+    print("Preset ", args.preset, " has been selected")
   
+
+
+
+
+  """
   test = replicator.numericalTrajectory()
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=10,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.4, iterations = 100000)
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
@@ -123,9 +128,11 @@ if  __name__ == "__main__":
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
   simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
-  
-  #if args.preset:
-
+  """
+  if args.preset:
+    if args.preset == "pd":
+      print("Running prisoners dilemma preset: [[3,0],[5,1]]")
+      pdExample(popsize=int(args.N))
 
   #runPopulationEnsemble([50,100, 150, 200,250,300])
 
