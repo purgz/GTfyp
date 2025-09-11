@@ -34,4 +34,4 @@ Now contains support for 2d games - below is prisoners dilemma plot with numeric
 
 
 Example hawk dove simulation - note in this photo only the local update and regular numeric is corrcect - adjusted needs implementing correctly.
-![alt text](source/simulation/images/hawkdove.png.png)
+![alt text](source/simulation/images/hawkdove.png)

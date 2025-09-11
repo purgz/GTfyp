@@ -6,11 +6,11 @@ from mpl_toolkits.mplot3d import axes3d, Axes3D
 from itertools import combinations
 from multiprocessing import Pool
 
-
-
+from numba import njit
 
 
 #If running this file directly uncomment following
+
 #from plotting import quaternaryPlot
 from .plotting import quaternaryPlot
 
@@ -37,16 +37,26 @@ basicRps = np.array([[0,   -1,   1,       0.2],
 
 
 
-def payoffAgainstPop(population,matrix, popSize):
+"""def payoffAgainstPop(population,matrix, popSize):
+  payoffs = np.zeros(matrix.shape[0])
+  for i in range(matrix.shape[0]):
+      payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
+  return payoffs / (popSize-1)
+"""
+@njit
+def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
-        payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
-    return payoffs / (popSize-1)
-    #return (matrix @ population) / (popSize - 1)
+        total = 0.0
+        for j in range(matrix.shape[0]):
+            total += population[j] * matrix[i, j]
+        payoffs[i] = total
+    return payoffs / (popSize - 1)
 
 
-
-
+"""def payoffAgainstPop(population, matrix, popSize):
+  return (matrix @ population) / (popSize - 1)
+"""
 
 """
 Paper coevolutionary dynamics in large but finite populations
@@ -55,9 +65,10 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
+@njit
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
-    for i in range(numStrategies):
+    for i in [0,1]:
 
         probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
 
@@ -74,19 +85,16 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
 
     individuals = np.repeat(np.arange(numStrategies), population)
 
+    deltaPi = np.max(matrix) - np.min(matrix)
+        
     for i in range(iterations):
         
-
         ind1, ind2 = np.random.choice(popSize, size=2, replace=False)
      
         p1, p2 = individuals[ind1], individuals[ind2]
 
         payoffs = payoffAgainstPop(population, matrix, popSize)
     
-        #deltaPi = np.max(payoffs) - np.min(payoffs)
-
-        deltaPi = np.max(matrix) - np.min(matrix)
-        
         p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
         # With this probability switch p1 to p2
@@ -103,12 +111,51 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
     # Return normalized RPSL distribution
     return results
           
+@njit
+def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
+    numStrategies = matrix.shape[0]
+    results = np.zeros((numStrategies, iterations))
+    individuals = np.empty(popSize, dtype=np.int64)
+
+    # Build individuals array from population
+    idx = 0
+    for s in range(numStrategies):
+        for _ in range(population[s]):
+            individuals[idx] = s
+            idx += 1
+
+    deltaPi = np.max(matrix) - np.min(matrix)
+
+    for i in range(iterations):
+        # Pick two distinct individuals
+        ind1 = np.random.randint(popSize)
+        ind2 = ind1
+        while ind2 == ind1:
+            ind2 = np.random.randint(popSize)
+
+        p1 = individuals[ind1]
+        p2 = individuals[ind2]
+
+        payoffs = payoffAgainstPop(population, matrix, popSize)
+
+        p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
+
+        if np.random.rand() < p:
+            population[p1] -= 1
+            population[p2] += 1
+            individuals[ind1] = p2
+
+        for j in range(numStrategies):
+            results[j, i] = population[j] / popSize
+
+    return results
 
 
-def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
+@njit
+def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
-    population = np.random.multinomial(popSize, initialDist)
+    #population = np.random.multinomial(popSize, initialDist)
 
     numStrategies = matrix.shape[0]
     
@@ -116,15 +163,24 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
 
     for i in range(iterations):
         # Death: uniform random
-        killed = random.choices(range(numStrategies), weights=population)[0]
+        #killed = random.choices(range(numStrategies), weights=population)[0]
+        killed = weighted_choice(population)
         # Birth: fitness-proportional
         # P = reproductive fitness in moran process 1 - w + w * Pi
         p = 1 - w + w * payoffAgainstPop(population, matrix, popSize)
-        avg = np.sum(p * population) / popSize
+        
+        #avg = np.sum(p * population) / popSize
+        avg = 0.0
+        for j in range(numStrategies):
+            avg += p[j] * population[j]
+        avg /= float(popSize)
+
         probs = moranSelection(p, avg, population, popSize, matrix.shape[0])
 
-        chosen = random.choices(range(numStrategies), weights=probs)[0]
-    
+        #chosen = random.choices(range(numStrategies), weights=probs)[0]
+        chosen = weighted_choice(probs)
+  
+
         population[chosen] += 1
         population[killed] -= 1
 
@@ -136,7 +192,60 @@ def moranSimulation(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterati
     return results
 
 
+@njit
+def weighted_choice(weights):
+    """
+    Select an index i with probability proportional to weights[i].
+    Can accept counts or probabilities. Works for Numba.
+    """
+    total = 0.0
+    for w in weights:
+        total += w
+    if total == 0:
+        # fallback: pick first index if all weights zero
+        return 0
+    r = np.random.rand() * total
+    cum = 0.0
+    for i in range(weights.shape[0]):
+        cum += weights[i]
+        if r < cum:
+            return i
+    return weights.shape[0] - 1  # safety
 
+@njit
+def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.4):
+    numStrategies = matrix.shape[0]
+    results = np.zeros((numStrategies, iterations))
+
+    for i in range(iterations):
+        # --- Death step ---
+        
+        killed = weighted_choice(population)
+
+        # --- Birth step ---
+        payoffs = payoffAgainstPop(population, matrix, popSize)
+        p = 1 - w + w * payoffs
+
+        avg = 0.0
+        for j in range(numStrategies):
+            avg += p[j] * population[j]
+        avg /= float(popSize)
+        
+
+        # compute probabilities for birth
+        probs_birth = moranSelection(p, avg, population, popSize, matrix.shape[0])
+        
+        chosen = weighted_choice(probs_birth)
+
+        # --- Update population ---
+        population[chosen] += 1
+        population[killed] -= 1
+
+        # --- Record ---
+        for j in range(numStrategies):
+            results[j, i] = population[j] / popSize
+
+    return results
 
 """
 popSize = 100
@@ -144,11 +253,20 @@ simulations = 1
 """
 
 
-
 def singleSim(matrix, popSize, initialDist, iterations, w, H):
+    
+    population = np.random.multinomial(popSize, initialDist)
+
+    """
+    benchmarks; 7.3 seconds
+    """
+
     # Add other interaction processs here
-    moranResult = moranSimulation(matrix, popSize, initialDist, iterations,w)
-    localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
+    #moranResult = moranSimulation(matrix, popSize,population.copy(), initialDist, iterations,w)
+    #localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
+
+    moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
+    localResult = localUpdate_numba(matrix, popSize, population.copy(), iterations,w)
 
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
@@ -201,11 +319,57 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal)
 
 
+"""
+>>> from cProfile import Profile
+>>> from pstats import SortKey, Stats
+
+>>> def fib(n):
+...     return n if n < 2 else fib(n - 2) + fib(n - 1)
+...
+
+>>> with Profile() as profile:
+...     print(f"{fib(35) = }")
+...     (
+...         Stats(profile)
+...         .strip_dirs()
+...         .sort_stats(SortKey.CALLS)
+...         .print_stats()
+...     )
 
 """
+
+
+
 # Running the file directly no longer works due to changed packacge structure, run via app.py
-# Multiprocessing magic
 if __name__ == '__main__':
+    """
+    from cProfile import Profile
+    from pstats import SortKey, Stats
+
+    with Profile() as profile:
+        print(f"{singleSim(basicRps,2000,[0.1,0.1,0.1,0.7], 1000000, 0.3,3)}")
+        (
+            Stats(profile)
+            .strip_dirs()
+            .sort_stats(SortKey.CALLS)
+            .print_stats()
+        )
+    """
+    
+    moran, local, a, b = singleSim(
+                          basicRps,
+                          popSize=1000,
+                          initialDist=[0.1,0.1,0.1,0.7], 
+                          iterations=1000000, w=0.3,H=3)
+    
+
+    
+    df_RPS_MO = pd.DataFrame({"c1": moran[0], "c2": moran[1], "c3": moran[2], "c4": moran[3]})
+
+    quaternaryPlot(dfs=[df_RPS_MO],labels="Moran process")
+    
+
+    """
     with Pool() as pool:
         results = pool.map(singleSim, range(simulations))
 
@@ -235,5 +399,4 @@ if __name__ == '__main__':
 
     # Plot multiple results
     quaternaryPlot([df_RPS_LU, df_RPS_MO, df_RPS_MO, df_RPS_MO], labels=["Local update", "Moran process"], numPerRow=3, colors=['g', 'b'])
-
-"""
+    """
