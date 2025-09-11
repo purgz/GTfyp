@@ -68,7 +68,7 @@ where phi = average payoff.
 @njit
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
-    for i in [0,1]:
+    for i in [0,1,2,3]:
 
         probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
 
