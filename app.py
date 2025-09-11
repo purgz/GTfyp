@@ -71,6 +71,8 @@ without changes - 99s runtime
 """
 def runPopulationEnsemble(populationSizes):
 
+  # Add arguments here to customize the ensemble !
+
   # Run a large batch with different parameters
   # Would like to test for popsizes, W value, and different payoff matrix values - starting with popsize here
   # Perhaps a config could be nice to have one single method to test for all.
@@ -81,7 +83,7 @@ def runPopulationEnsemble(populationSizes):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=200,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -102,7 +104,7 @@ if  __name__ == "__main__":
   print("Running main")
 
   
-  runPopulationEnsemble(range(150, 1100, 25))
+  runPopulationEnsemble(range(150, 900, 20))
 
 
   rpsExample()
