@@ -50,9 +50,9 @@ def pdExample(popsize=200):
 
 def rpsExample():
 
-  N = 5000
-  w = 0.7
-  iterations = 100000
+  N = 20000
+  w = 0.5
+  iterations = 500000
   
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
 
@@ -81,7 +81,7 @@ def runPopulationEnsemble(populationSizes):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -100,6 +100,12 @@ if  __name__ == "__main__":
 
   #RPS - large pop
   print("Running main")
+
+  
+  runPopulationEnsemble(range(150, 1100, 25))
+
+
+  rpsExample()
 
   parser = argparse.ArgumentParser()
   """
@@ -122,7 +128,7 @@ if  __name__ == "__main__":
 
   
   test = replicator.numericalTrajectory()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=10000,simulations=100,H=3, initialDist=[0.7,0.2, 0.1, 0], w=0.3, iterations = 700000)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 700000)
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   print(df_RPS_LU.tail())
@@ -139,7 +145,6 @@ if  __name__ == "__main__":
       print("Running prisoners dilemma preset: [[3,0],[5,1]]")
       pdExample(popsize=int(args.N))
 
-  #runPopulationEnsemble([50,100, 150, 200,250,300])
 
  # pdExample()
   #rpsExample()
