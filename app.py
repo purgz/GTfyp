@@ -120,17 +120,17 @@ if  __name__ == "__main__":
 
 
 
-  """
-  #test = replicator.numericalTrajectory()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=5000,simulations=100,H=3, initialDist=[0.5,0.1, 0.1, 0.3], w=0.4, iterations = 900000)
+  
+  test = replicator.numericalTrajectory()
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=10000,simulations=100,H=3, initialDist=[0.7,0.2, 0.1, 0], w=0.3, iterations = 700000)
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
   
-  #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
-  simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["MO"], colors=["r"])
-  """
+  simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["MO"], colors=["r"])
+  
 
 
   if args.preset:
