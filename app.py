@@ -80,7 +80,7 @@ def runPopulationEnsemble(populationSizes):
   deltaL = []
 
   for i in range(len(populationSizes)):
-    print("population ", i)
+    print("population ", populationSizes[i])
     mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
@@ -121,16 +121,21 @@ if  __name__ == "__main__":
 
 
   """
-  test = replicator.numericalTrajectory()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=10,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.4, iterations = 100000)
+  #test = replicator.numericalTrajectory()
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=5000,simulations=100,H=3, initialDist=[0.5,0.1, 0.1, 0.3], w=0.4, iterations = 900000)
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
-  simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+  
+  #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+  simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["MO"], colors=["r"])
   """
+
+
   if args.preset:
     if args.preset == "pd":
+      # add check for args.N
       print("Running prisoners dilemma preset: [[3,0],[5,1]]")
       pdExample(popsize=int(args.N))
 
