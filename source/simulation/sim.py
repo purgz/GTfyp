@@ -50,7 +50,7 @@ def payoffAgainstPop(population, matrix, popSize):
         total = 0.0
         for j in range(matrix.shape[0]):
             total += population[j] * matrix[i, j]
-        payoffs[i] = total
+        payoffs[i] = total - matrix[i][i]
     return payoffs / (popSize - 1)
 
 
@@ -152,7 +152,7 @@ def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
 
 
 @njit
-def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
+def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.3):
     # Population represented just as their frequency of strategies for efficiency,
     # I think individual agents in simple dynamics unneccessary overhead
     #population = np.random.multinomial(popSize, initialDist)
@@ -213,7 +213,7 @@ def weighted_choice(weights):
     return weights.shape[0] - 1  # safety
 
 @njit
-def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.4):
+def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
 
