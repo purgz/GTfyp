@@ -24,7 +24,13 @@ class SimpleTemplateView(TemplateView):
 
 
     def post(self, request, *args, **kwargs):
-        results = runSimulationPool(simulations=1, iterations=200, popSize=50)
+        results = runSimulationPool(
+            simulations=200,
+            popSize=30000,
+            initialDist=[0.5,0.1,0.1,0.3],
+            iterations=2000000,
+            w=0.2,
+            H=3)
 
         response = []
 
