@@ -121,6 +121,10 @@ const dummy = new THREE.Object3D();
 group.add(mesh);
 
 for (let i = 0; i < points[0][0].length; i++) {
+  if (i % 2 == 0){
+    // skipping every other point to make it run a bit better
+    continue;
+  }
   const pos = barycentricToCartesian(points[0][0][i], points[0][1][i], points[0][2][i], points[0][3][i]);
   dummy.position.copy(pos);
   dummy.updateMatrix();
