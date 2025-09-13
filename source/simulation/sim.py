@@ -50,7 +50,7 @@ def payoffAgainstPop(population, matrix, popSize):
         total = 0.0
         for j in range(matrix.shape[0]):
             total += population[j] * matrix[i, j]
-        payoffs[i] = total - matrix[i][i]
+        payoffs[i] = total
     return payoffs / (popSize - 1)
 
 
@@ -271,8 +271,8 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H):
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
 
-    moranResult = moranResult[:, ::100]
-    localResult = localResult[:, ::100]
+    moranResult = moranResult[:, ::50]
+    localResult = localResult[:, ::50]
 
     # Lyapunov function? doesnt seem to work  
     #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))

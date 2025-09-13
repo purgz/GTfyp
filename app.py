@@ -18,12 +18,12 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 
 
 
-def pdExample(popsize=200):
+def pdExample(popsize=10000):
 
   # Example running prisoners dilemma example.
   N = popsize
   w = 0.9
-  iterations = 7000
+  iterations = 1000000
   initialDist = [0.9,0.1]
 
   # Standard prisoners dilemma payoff matrix
@@ -103,11 +103,26 @@ if  __name__ == "__main__":
   #RPS - large pop
   print("Running main")
 
+  #pdExample()
   
-  runPopulationEnsemble(range(150, 900, 20))
+  
+  test = replicator.numericalTrajectory()
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=30000,simulations=100,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.2, iterations = 3000000)
 
+  
+  #mResults = np.arange(len(mResults)) / 10000
+  #lResults = np.arange(len(lResults)) / 10000
 
-  rpsExample()
+  df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
+  df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
+  print(df_RPS_LU.tail())
+  print(df_RPS_MO.tail())
+
+  simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
+  #simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
+  
+  #runPopulationEnsemble(range(150, 900, 20))
+  #rpsExample()
 
   parser = argparse.ArgumentParser()
   """
@@ -124,23 +139,6 @@ if  __name__ == "__main__":
   if args.preset:
     print("Preset ", args.preset, " has been selected")
   
-
-
-
-
-  
-  test = replicator.numericalTrajectory()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 700000)
-  df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
-  df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
-  print(df_RPS_LU.tail())
-  print(df_RPS_MO.tail())
-  
-  simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
-  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["MO"], colors=["r"])
-  
-
-
   if args.preset:
     if args.preset == "pd":
       # add check for args.N
