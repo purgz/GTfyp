@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from source import replicator
 import time
+import scienceplots
+
+plt.style.use(['science','no-latex'])
 
 """
 Few things to do :
@@ -18,7 +21,9 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 
 
-
+"""
+Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
+"""
 def pdExample(popsize=10000):
 
   # Example running prisoners dilemma example.
@@ -32,7 +37,15 @@ def pdExample(popsize=10000):
         [5, 1]])
 
   # Code for running prisoners dilemma simulation and numerical trajectories - then plotting all of them
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(matrix=pdArray, popSize=N, simulations=1, initialDist=[0.9,0.1], iterations=iterations, w=w, H=1)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
+    matrix=pdArray, 
+    popSize=N, 
+    simulations=100, 
+    initialDist=[0.9,0.1], 
+    iterations=iterations, 
+    w=w, 
+    H=1, 
+    data_res=1)
 
   # Collect results into dataframe
   df_PD_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
@@ -117,9 +130,11 @@ if  __name__ == "__main__":
   #RPS - large pop
   print("Running main")
 
-  runPopulationEnsemble(range(150, 900, 20))
+  pdExample()
+  
 
-  #pdExample()
+  #runPopulationEnsemble(range(150, 900, 20))
+
   
   #rpsExample()
 
