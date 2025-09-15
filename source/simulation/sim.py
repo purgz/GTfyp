@@ -52,7 +52,7 @@ def payoffAgainstPop(population, matrix, popSize):
         total = 0.0
         for j in range(matrix.shape[0]):
             total += population[j] * matrix[i][j]
-        payoffs[i] = total
+        payoffs[i] = total - matrix[i][i]
     return payoffs / (popSize - 1)
 
 
@@ -269,7 +269,7 @@ def reseed():
 
 
 
-def singleSim(matrix, popSize, initialDist, iterations, w, H):
+def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
     
     reseed()
     
@@ -290,8 +290,8 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H):
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
 
-    moranResult = moranResult[:, ::100]
-    localResult = localResult[:, ::100]
+    moranResult = moranResult[:, ::data_res]
+    localResult = localResult[:, ::data_res]
 
     # Lyapunov function? doesnt seem to work  
     #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))
@@ -300,7 +300,7 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H):
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3):
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 100):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -312,7 +312,7 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
 
     numStrategies = matrix.shape[0]
     
-    args = [(matrix, popSize, initialDist, iterations, w, H) for _ in range(simulations)]
+    args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
 
     print("Running simulation pool")
     print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
@@ -382,7 +382,7 @@ if __name__ == '__main__':
                           basicRps,
                           popSize=1000,
                           initialDist=[0.1,0.1,0.1,0.7], 
-                          iterations=1000000, w=0.3,H=3)
+                          iterations=1000000, w=0.3,H=3, data_res=1)
     
 
     

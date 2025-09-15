@@ -3,9 +3,16 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d, Axes3D 
 from itertools import combinations
 import pandas as pd
+import scienceplots
 
 #python-ternary
 import ternary
+
+"""
+SciencePlots library - ref in paper
+"""
+plt.style.use(['science','no-latex'])
+
 
 # Plots pyramid edges 
 def plot_ax(ax):               
