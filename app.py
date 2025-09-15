@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from source import replicator
+import time
 
 """
 Few things to do :
@@ -50,13 +51,15 @@ def pdExample(popsize=10000):
 
 def rpsExample():
 
-  N = 20000
-  w = 0.5
+  N = 1000
+  w = 0.7
   iterations = 500000
   
-  rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
+  #rpsArray = np.array([[0, -0.8 , 1], [1, 0, -0.8], [-0.8, 1, 0]])
 
-  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1, initialDist=[0.5,0.25,0.25], iterations=iterations,w=w, H=1)
+  rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
+  
+  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1000, initialDist=[0.25,0.25,0.5], iterations=iterations,w=w, H=1)
 
   df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
   
@@ -71,6 +74,10 @@ without changes - 99s runtime
 """
 def runPopulationEnsemble(populationSizes):
 
+
+  start = time.time()
+
+
   # Add arguments here to customize the ensemble !
 
   # Run a large batch with different parameters
@@ -83,13 +90,20 @@ def runPopulationEnsemble(populationSizes):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=200,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
+
+  end = time.time()
   
-  plt.plot(deltaM, label="moran")
-  plt.plot(deltaL, label="local")
+  print("Time taken to run population test ensemble")
+  print(end - start)
+
+  plt.plot(populationSizes, deltaM, marker="o",label="moran")
+  plt.plot(populationSizes, deltaL, marker="s", label="local")
+  plt.xlabel("N")
+  plt.ylabel("ΔH")
   plt.legend()
   plt.show()
 
@@ -103,12 +117,19 @@ if  __name__ == "__main__":
   #RPS - large pop
   print("Running main")
 
+  runPopulationEnsemble(range(150, 900, 20))
+
   #pdExample()
   
-  
-  test = replicator.numericalTrajectory()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=30000,simulations=100,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.2, iterations = 3000000)
+  #rpsExample()
 
+  test = replicator.numericalTrajectory()
+
+  # As pop size gets very large - closely tracks the analytic solution
+  #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.6, iterations = 1000000)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=60000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.6, iterations = 20000000)
+
+ 
   
   #mResults = np.arange(len(mResults)) / 10000
   #lResults = np.arange(len(lResults)) / 10000
@@ -121,7 +142,6 @@ if  __name__ == "__main__":
   simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
   #simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
   
-  #runPopulationEnsemble(range(150, 900, 20))
   #rpsExample()
 
   parser = argparse.ArgumentParser()

@@ -2,6 +2,7 @@ import numpy as np
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 from mpl_toolkits.mplot3d import axes3d, Axes3D 
 from itertools import combinations
 from multiprocessing import Pool
@@ -43,15 +44,17 @@ basicRps = np.array([[0,   -1,   1,       0.2],
       payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
   return payoffs / (popSize-1)
 """
+
 @njit
 def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
         total = 0.0
         for j in range(matrix.shape[0]):
-            total += population[j] * matrix[i, j]
+            total += population[j] * matrix[i][j]
         payoffs[i] = total
     return payoffs / (popSize - 1)
+
 
 
 """def payoffAgainstPop(population, matrix, popSize):
@@ -68,7 +71,7 @@ where phi = average payoff.
 @njit
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
-    for i in [0,1,2,3]:
+    for i in range(numStrategies):
 
         probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
 
@@ -210,7 +213,7 @@ def weighted_choice(weights):
         cum += weights[i]
         if r < cum:
             return i
-    return weights.shape[0] - 1  # safety
+    return weights.shape[0] - 1
 
 @njit
 def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
@@ -225,6 +228,7 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
         # --- Birth step ---
         payoffs = payoffAgainstPop(population, matrix, popSize)
         p = 1 - w + w * payoffs
+        
 
         avg = 0.0
         for j in range(numStrategies):
@@ -253,9 +257,24 @@ simulations = 1
 """
 
 
+def reseed():
+    """
+    Ensure independent randomness for each simulation run.
+    Uses process ID and OS entropy to avoid collisions across processes.
+    """
+    seed = (os.getpid() * int.from_bytes(os.urandom(4), "little")) % (2**32 - 1)
+    np.random.seed(seed)
+    random.seed(seed)
+
+
+
+
 def singleSim(matrix, popSize, initialDist, iterations, w, H):
     
+    reseed()
+    
     population = np.random.multinomial(popSize, initialDist)
+    population2 = np.random.multinomial(popSize, initialDist)
 
     """
     benchmarks; 7.3 seconds
@@ -266,13 +285,13 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H):
     #localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
 
     moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
-    localResult = localUpdate_numba(matrix, popSize, population.copy(), iterations,w)
+    localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
 
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
 
-    moranResult = moranResult[:, ::50]
-    localResult = localResult[:, ::50]
+    moranResult = moranResult[:, ::100]
+    localResult = localResult[:, ::100]
 
     # Lyapunov function? doesnt seem to work  
     #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))
