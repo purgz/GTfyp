@@ -51,8 +51,12 @@ def payoffAgainstPop(population, matrix, popSize):
     for i in range(matrix.shape[0]):
         total = 0.0
         for j in range(matrix.shape[0]):
-            total += population[j] * matrix[i][j]
-        payoffs[i] = total - matrix[i][i]
+            if i == j:
+                # Exclude self-interaction
+                total += (population[j] - 1) * matrix[i][j]
+            else:
+                total += population[j] * matrix[i][j]
+        payoffs[i] = total
     return payoffs / (popSize - 1)
 
 
@@ -195,25 +199,14 @@ def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.
     return results
 
 
+
 @njit
 def weighted_choice(weights):
-    """
-    Select an index i with probability proportional to weights[i].
-    Can accept counts or probabilities. Works for Numba.
-    """
-    total = 0.0
-    for w in weights:
-        total += w
-    if total == 0:
-        # fallback: pick first index if all weights zero
-        return 0
-    r = np.random.rand() * total
-    cum = 0.0
-    for i in range(weights.shape[0]):
-        cum += weights[i]
-        if r < cum:
-            return i
-    return weights.shape[0] - 1
+
+    choices = [i for i in range(len(weights))]
+    
+    return np.searchsorted(np.cumsum(weights), np.random.random(), side="right")
+
 
 @njit
 def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
@@ -221,31 +214,24 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
     results = np.zeros((numStrategies, iterations))
 
     for i in range(iterations):
-        # --- Death step ---
-        
-        killed = weighted_choice(population)
 
-        # --- Birth step ---
+        
+        killed = weighted_choice(population / popSize)
+
+
         payoffs = payoffAgainstPop(population, matrix, popSize)
         p = 1 - w + w * payoffs
         
+        avg = np.sum(p * population) / popSize
 
-        avg = 0.0
-        for j in range(numStrategies):
-            avg += p[j] * population[j]
-        avg /= float(popSize)
-        
-
-        # compute probabilities for birth
         probs_birth = moranSelection(p, avg, population, popSize, matrix.shape[0])
         
         chosen = weighted_choice(probs_birth)
 
-        # --- Update population ---
+    
         population[chosen] += 1
         population[killed] -= 1
 
-        # --- Record ---
         for j in range(numStrategies):
             results[j, i] = population[j] / popSize
 
@@ -300,7 +286,7 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 100):
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 50):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
