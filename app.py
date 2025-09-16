@@ -62,9 +62,8 @@ def pdExample(popsize=10000):
   simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=N, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
 
 
-def rpsExample():
+def rpsExample(N=1000):
 
-  N = 1000
   w = 0.7
   iterations = 500000
   
@@ -130,13 +129,10 @@ if  __name__ == "__main__":
   #RPS - large pop
   print("Running main")
 
-  #pdExample()
-  
 
-  #runPopulationEnsemble(range(150, 900, 20))
+  """runPopulationEnsemble(range(150, 900, 20))
 
-  
-  #rpsExample()
+
 
   test = replicator.numericalTrajectory()
 
@@ -144,20 +140,14 @@ if  __name__ == "__main__":
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.6, iterations = 1000000)
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=60000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.6, iterations = 20000000)
 
- 
-  
-  #mResults = np.arange(len(mResults)) / 10000
-  #lResults = np.arange(len(lResults)) / 10000
-
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   print(df_RPS_LU.tail())
   print(df_RPS_MO.tail())
 
   simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
-  #simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
+  #simulation.quaternaryPlot([df_RPS_""MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])"""
   
-  #rpsExample()
 
   parser = argparse.ArgumentParser()
   """
@@ -178,12 +168,17 @@ if  __name__ == "__main__":
     if args.preset == "pd":
       # add check for args.N
       print("Running prisoners dilemma preset: [[3,0],[5,1]]")
-      pdExample(popsize=int(args.N))
-
-
- # pdExample()
-  #rpsExample()
-    
+      if args.N:
+        pdExample(popsize=int(args.N))
+      else:
+        pdExample()
+    elif args.preset == "rps":
+      print("Running rock paper scissors preset: [[0,-1,1],[1,0,-1],[-1,1,0]]")
+      if args.N:
+        rpsExample()
+      else:
+        rpsExample()
+ 
 
 
   
