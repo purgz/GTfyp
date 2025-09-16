@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from source import replicator
 import time
 import scienceplots
+import plotly.express as px
 
 plt.style.use(['science','no-latex'])
 
@@ -62,20 +63,22 @@ def pdExample(popsize=10000):
   simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=N, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
 
 
-def rpsExample(N=1000):
+def rpsExample(N=2000):
 
-  w = 0.7
-  iterations = 500000
+  w = 0.2
+  iterations = 1000000
   
   #rpsArray = np.array([[0, -0.8 , 1], [1, 0, -0.8], [-0.8, 1, 0]])
 
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
   
-  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1000, initialDist=[0.25,0.25,0.5], iterations=iterations,w=w, H=1)
+  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1, initialDist=[0.25,0.25,0.5], iterations=iterations,w=w, H=1)
 
   df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
   
   df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
+
+  fig = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
 
   simulation.ternaryPlot(df_RPS_MO)
 
@@ -126,8 +129,32 @@ def runPopulationEnsemble(populationSizes):
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
+
+  """
+
+    can create a really nice web interface for all the graphs with plotly - but this is not important for now .
+
+    If not possible then i can have plotly frontend for 2d graphs, and ternary, and then custom 3d for 4d
+
+    maybe for very large number of points plotly will not work so custom one is still important
+
+    I have discovered that plotly might be a much better way 
+    for making the plots on the frontend in html,
+    for both the 2d and 3d plots, so explore this option later
+
+    Can integrate nicely with django. 
+    replace frontend with plotly graph - need to write a new ternary plot...
+  
+    maybe the frontend can return a json with cartesian coords for later
+
+    maybe replace the ternary plot with plotly ternary because it looks better
+
+
+  """
+
   #RPS - large pop
   print("Running main")
+  rpsExample()
 
 
   """runPopulationEnsemble(range(150, 900, 20))
