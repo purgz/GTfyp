@@ -63,7 +63,7 @@ def pdExample(popsize=10000):
   simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=N, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
 
 
-def rpsExample(N=2000):
+def rpsExample(N=10000):
 
   w = 0.2
   iterations = 1000000
@@ -72,13 +72,15 @@ def rpsExample(N=2000):
 
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
   
-  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=1, initialDist=[0.25,0.25,0.5], iterations=iterations,w=w, H=1)
+  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=100, initialDist=[0.9,0.05,0.05], iterations=iterations,w=w, H=1)
 
   df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
   
   df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
 
-  fig = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+  fig = px.line_ternary(df_RPS_MO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+
+  fig.show()
 
   simulation.ternaryPlot(df_RPS_MO)
 
