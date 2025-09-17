@@ -20,14 +20,25 @@
 
 <h1>Landing page</h1>
 
+  {% autoescape off %}
+  {% for plot in plots %}
+    {{plot}}
+    
+    {% endfor %}
+  {% endautoescape %}
 
 <div id="main-content">
 
   <p>
-  <form method="post">
+  <form method="post" action="/api/simulationTest/">
     {% csrf_token %}
     
-    <button onclick=showLoading() value="Request results" type="submit">Submit</button>
+    <button onclick=showLoading() value="Request results" type="submit">3d test</button>
+  </form>
+    <form method="post" action="/landing/">
+    {% csrf_token %}
+    
+    <button onclick=showLoading() value="Request results" type="submit">rps test</button>
   </form>
   </p>
 
@@ -41,6 +52,13 @@
 </div>
 
 </div>
+
+<!-- Footer -->      
+<footer class="w-100 m-0 mt-4 p-4">
+  <div class="row ps-4 pe-4 text-end">
+    <span class="fs-6 text-info"><small>Henry Brooks</small></span>
+  </div>
+</footer>
 <script>
 
 // Prevent resubmission on refresh - a bit hacky
@@ -140,6 +158,33 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
+
+</script>
+
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<button id="add-rps">Add RPS Plot</button>
+<div id="plot-container"></div>
+
+<script>
+
+const fig = {
+  data: [{
+    type: "scatterternary",
+    mode: "lines",
+    a: [],
+    b: [],
+    c: [],
+    name: "Trajectory"
+  }],
+  layout: { title: "RPS Process" }
+};
+
+const div = document.createElement("div");
+document.getElementById("plot-container").appendChild(div);
+Plotly.newPlot(div, fig.data, fig.layout);
 
 </script>
 
