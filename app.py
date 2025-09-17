@@ -25,7 +25,7 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
 """
-def pdExample(popsize=10000):
+def pdExample(popsize=1000):
 
   # Example running prisoners dilemma example.
   N = popsize
@@ -160,7 +160,7 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
-  runPopulationEnsemble(range(150, 900, 20))
+  #runPopulationEnsemble(range(150, 900, 20))
 
   
 
@@ -168,8 +168,13 @@ if  __name__ == "__main__":
 
   #test = replicator.numericalTrajectory()
 
+  # REMEMBER THE DATA RES ON LOW POP SIZE LOOKS
+
   # As pop size gets very large - closely tracks the analytic solution
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=100,H=3, initialDist=[0.5,0.25, 0.25, 0], w=0.5, iterations = 1000000)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.2, iterations = 7000000)
+  #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
+  
+  #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=100,H=3, initialDist=[0.5,0.25, 0.25, 0], w=0.5, iterations = 1000000)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=60000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.6, iterations = 20000000)
 
   df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
