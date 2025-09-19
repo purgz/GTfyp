@@ -22,14 +22,14 @@ html, body{
 
 
 .graph-container{
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 }
 
 
 #results-container{
   width: 50%;
-  height: 100%;
+  height: 50%;
   border: 5px solid black;
 }
 
@@ -40,3 +40,4 @@ html, body{
   justify-content: space-around;
   flex: 1;
 }
+
