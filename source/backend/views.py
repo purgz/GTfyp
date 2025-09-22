@@ -37,29 +37,25 @@ def ternaryTestPlot(results):
 
 
 
-class SimulationDataView(TemplateView):
+class SimulationDataView(APIView):
 
     template_name = "landing.html"
     def post(self, request):
-        results = runSimulationPool(
-            simulations=1,
-            popSize=20000,
-            initialDist=[0.7,0.1,0.1,0.1],
-            iterations=7000000,
-            w=0.2,
-            H=3)
-        response = [r.tolist() for r in results]
+        try:
+            results = runSimulationPool(
+                simulations=1,
+                popSize=20000,
+                initialDist=[0.7,0.1,0.1,0.1],
+                iterations=100,
+                w=0.2,
+                H=3)
+            response = [r.tolist() for r in results]
 
-        context = self.get_context_data(results=response)
-        return self.render_to_response(context)
+            return Response({"results": response}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"Simulation failed ": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def get_context_data(self, **kwargs):
 
-
-        context = super().get_context_data(**kwargs)
-        context['title'] = "Second view" 
-        context['results'] = kwargs.get('results', None)
-        return context
     
 
 class SimpleTemplateView(TemplateView):
@@ -75,7 +71,7 @@ class SimpleTemplateView(TemplateView):
             simulations=1,
             popSize=30000,
             initialDist=[0.5, 0.25,0.25],
-            iterations=1000000,
+            iterations=100000,
             w=0.2,
             H=2)
         

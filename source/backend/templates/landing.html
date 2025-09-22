@@ -30,7 +30,7 @@
 <div id="main-content">
 
   <p>
-  <form method="post" action="/api/simulationTest/">
+  <form id="3d-sim-form">
     {% csrf_token %}
     
     <button onclick=showLoading() value="Request results" type="submit">3d test</button>
@@ -70,17 +70,55 @@ const res = "{{results|safe}}";
 
 const fetchDiv = document.getElementById("fetching")
 
-//console.log("RESULTS BELOW")
-//console.log(res)
+const sim3dForm = document.getElementById("3d-sim-form");
+const container = document.getElementById("graph_3d_traj")
+const resultsContainer = document.getElementById("results-container")
+
 
 function showLoading(){
   fetchDiv.style.display="block"
 }
 
 
+sim3dForm.addEventListener("submit", async function(e){
 
-const container = document.getElementById("graph_3d_traj")
-console.log(container)
+  fetchDiv.style.display="block"
+
+  e.preventDefault();
+
+  try {
+
+    const res = await fetch("/api/simulationTest/", {
+      method: "POST",
+      headers:{
+        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    })
+
+    
+    const results = await res.json()
+
+    if (!res.ok){
+      resultsContainer.innerText = "Simulation error: " + JSON.stringify(results, null, 2)
+      throw new Error("Network response was not ok")
+    }
+
+    //console.log("Results from api ", results)
+
+  } catch (error){
+    console.log("Error fetching simulation results: ", error)
+  } finally { 
+    // Remove loading message
+    fetchDiv.style.display="none"
+  }
+})
+
+
+
+
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
