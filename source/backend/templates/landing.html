@@ -5,20 +5,70 @@
 
 <head>
 
-
   <title>{{title}}</title>
   <link rel="stylesheet" href="{% static 'styles.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
+  <!-- Bootstrap CSS -->
 
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
-<html>
+<html >
 <body>
+
+  
+  
+
+<nav data-bs-theme="dark" class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Henry Brooks</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/landing">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link to something</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/landing/3dsim">3d Simulation</a></li>
+            <li><a class="dropdown-item" href="#">Not implemented</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Not implemented</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
 
 <div id="page-wrapper">
 
 <h1>Landing page</h1>
+
+  <form method="post" action="/landing/">
+    {% csrf_token %}
+    
+    <button class="btn btn-dark" onclick=showLoading() value="Request results" type="submit">rps test</button>
+  </form>
+
 
   {% autoescape off %}
   {% for plot in plots %}
@@ -29,208 +79,23 @@
 
 <div id="main-content">
 
-  <p>
-  <form id="3d-sim-form">
-    {% csrf_token %}
-    
-    <button onclick=showLoading() value="Request results" type="submit">3d test</button>
-  </form>
-    <form method="post" action="/landing/">
-    {% csrf_token %}
-    
-    <button onclick=showLoading() value="Request results" type="submit">rps test</button>
-  </form>
-  </p>
+  {% block main-content %}{% endblock %}
 
-  <div id="results-container">
-    
-    <div class="graph-container" id="graph_3d_traj"></div>
-   
-    <div style="display: none;" id="fetching">running simulation...</div>
-  </div>
+
 
 </div>
 
 </div>
 
-<!-- Footer -->      
-<footer class="w-100 m-0 mt-4 p-4">
-  <div class="row ps-4 pe-4 text-end">
-    <span class="fs-6 text-info"><small>Henry Brooks</small></span>
-  </div>
-</footer>
-<script>
-
-// Prevent resubmission on refresh - a bit hacky
-if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
-
-const res = "{{results|safe}}";
-
-const fetchDiv = document.getElementById("fetching")
-
-const sim3dForm = document.getElementById("3d-sim-form");
-const container = document.getElementById("graph_3d_traj")
-const resultsContainer = document.getElementById("results-container")
-
-
-function showLoading(){
-  fetchDiv.style.display="block"
-}
-
-
-sim3dForm.addEventListener("submit", async function(e){
-
-  fetchDiv.style.display="block"
-
-  e.preventDefault();
-
-  try {
-
-    const res = await fetch("/api/simulationTest/", {
-      method: "POST",
-      headers:{
-        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({})
-    })
-
-    
-    const results = await res.json()
-
-    if (!res.ok){
-      resultsContainer.innerText = "Simulation error: " + JSON.stringify(results, null, 2)
-      throw new Error("Network response was not ok")
-    }
-
-    //console.log("Results from api ", results)
-
-    plot3dTrajectory(JSON.stringify(results["results"]))
-
-  } catch (error){
-    console.log("Error fetching simulation results: ", error)
-  } finally { 
-    // Remove loading message
-    fetchDiv.style.display="none"
-  }
-})
-
-
-const corners = [
-  new THREE.Vector3(1, 0, -1/Math.sqrt(2)),
-  new THREE.Vector3(-1, 0, -1/Math.sqrt(2)),
-  new THREE.Vector3(0, 1, 1/Math.sqrt(2)),
-  new THREE.Vector3(0, -1, 1/Math.sqrt(2)),
-];
-
-
-function barycentricToCartesian(a, b, c, d) {
-  const v = new THREE.Vector3().addScaledVector(corners[0], a)
-    .addScaledVector(corners[1], b)
-    .addScaledVector(corners[2], c)
-    .addScaledVector(corners[3], d);
-  return v;
-}
-
-
-// Plotting function - using three.js
-function plot3dTrajectory(response){
-
-  container.innerHTML = ""; // Clear previous plot if any
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  const group = new THREE.Group();
-  scene.add(group);
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; 
-  controls.dampingFactor = 0.05;
-  controls.rotateSpeed = 0.5;
-
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  container.appendChild(renderer.domElement);
-  renderer.setClearColor(0xffffff, 1); // Set background color to white
-
-
-
-  corners.forEach((start, i) => {
-  for (let j = i + 1; j < corners.length; j++) {
-    const geometry = new THREE.BufferGeometry().setFromPoints([start, corners[j]]);
-    const material = new THREE.LineBasicMaterial({ color: 0x000000 });
-    const line = new THREE.Line(geometry, material);
-    scene.add(line);
-    group.add(line);
-  }
-  });
-
-
-  const points = JSON.parse(response);
-  const geometry = new THREE.SphereGeometry(0.02, 6, 6);
-  const color = new THREE.Color().setHSL(0.1, 1.0, 0.5);
-  const material = new THREE.MeshBasicMaterial({ color });
-  const mesh = new THREE.InstancedMesh(geometry, material, points[0][0].length);
-  scene.add(mesh);
-
-  
-  // Efficient plotting using mesh
-  const dummy = new THREE.Object3D();
-  group.add(mesh);
-
-  for (let i = 0; i < points[0][0].length; i++) {
-    if (i % 2 == 0){
-      // skipping every other point to make it run a bit better
-      continue;
-    }
-    const pos = barycentricToCartesian(points[0][0][i], points[0][1][i], points[0][2][i], points[0][3][i]);
-    dummy.position.copy(pos);
-    dummy.updateMatrix();
-    mesh.setMatrixAt(i, dummy.matrix);
-
-  }
-  camera.position.z = 3;
-
-  // Rotate the image for better view
-  group.rotation.x = -Math.PI / 2;
-
-  function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  animate();
-}
-
-</script>
-
-
-
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-<button id="add-rps">Add RPS Plot</button>
 <div id="plot-container"></div>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src = "{% static 'landing.js' %}"></script>
 
-const fig = {
-  data: [{
-    type: "scatterternary",
-    mode: "lines",
-    a: [],
-    b: [],
-    c: [],
-    name: "Trajectory"
-  }],
-  layout: { title: "RPS Process" }
-};
 
-const div = document.createElement("div");
-document.getElementById("plot-container").appendChild(div);
-Plotly.newPlot(div, fig.data, fig.layout);
+<!-- Footer -->      
+<footer>Henry Brooks 2025</footer>
 
-</script>
 
 
 </body>
