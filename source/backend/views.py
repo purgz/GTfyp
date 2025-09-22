@@ -44,9 +44,9 @@ class SimulationDataView(APIView):
         try:
             results = runSimulationPool(
                 simulations=1,
-                popSize=20000,
+                popSize=10000,
                 initialDist=[0.7,0.1,0.1,0.1],
-                iterations=100,
+                iterations=2000000,
                 w=0.2,
                 H=3)
             response = [r.tolist() for r in results]
