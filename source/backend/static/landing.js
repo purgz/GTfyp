@@ -1,0 +1,160 @@
+
+// Prevent resubmission on refresh - a bit hacky
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+const res = "{{results|safe}}";
+
+const fetchDiv = document.getElementById("fetching")
+
+const sim3dForm = document.getElementById("3d-sim-form");
+const container = document.getElementById("graph_3d_traj")
+const resultsContainer = document.getElementById("results-container")
+
+
+function showLoading(){
+  fetchDiv.style.display="block"
+}
+
+
+sim3dForm.addEventListener("submit", async function(e){
+
+  fetchDiv.style.display="block"
+
+  e.preventDefault();
+
+  try {
+
+    const res = await fetch("/api/simulationTest/", {
+      method: "POST",
+      headers:{
+        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    })
+
+    
+    const results = await res.json()
+
+    if (!res.ok){
+      resultsContainer.innerText = "Simulation error: " + JSON.stringify(results, null, 2)
+      throw new Error("Network response was not ok")
+    }
+
+    //console.log("Results from api ", results)
+
+    plot3dTrajectory(JSON.stringify(results["results"]))
+
+  } catch (error){
+    console.log("Error fetching simulation results: ", error)
+  } finally { 
+    // Remove loading message
+    fetchDiv.style.display="none"
+  }
+})
+
+
+const corners = [
+  new THREE.Vector3(1, 0, -1/Math.sqrt(2)),
+  new THREE.Vector3(-1, 0, -1/Math.sqrt(2)),
+  new THREE.Vector3(0, 1, 1/Math.sqrt(2)),
+  new THREE.Vector3(0, -1, 1/Math.sqrt(2)),
+];
+
+
+function barycentricToCartesian(a, b, c, d) {
+  const v = new THREE.Vector3().addScaledVector(corners[0], a)
+    .addScaledVector(corners[1], b)
+    .addScaledVector(corners[2], c)
+    .addScaledVector(corners[3], d);
+  return v;
+}
+
+
+// Plotting function - using three.js
+function plot3dTrajectory(response){
+
+  container.innerHTML = ""; // Clear previous plot if any
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+  const group = new THREE.Group();
+  scene.add(group);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true; 
+  controls.dampingFactor = 0.05;
+  controls.rotateSpeed = 0.5;
+
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+  renderer.setClearColor(0xffffff, 1); // Set background color to white
+
+
+
+  corners.forEach((start, i) => {
+  for (let j = i + 1; j < corners.length; j++) {
+    const geometry = new THREE.BufferGeometry().setFromPoints([start, corners[j]]);
+    const material = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const line = new THREE.Line(geometry, material);
+    scene.add(line);
+    group.add(line);
+  }
+  });
+
+
+  const points = JSON.parse(response);
+  const geometry = new THREE.SphereGeometry(0.02, 6, 6);
+  const color = new THREE.Color().setHSL(0.1, 1.0, 0.5);
+  const material = new THREE.MeshBasicMaterial({ color });
+  const mesh = new THREE.InstancedMesh(geometry, material, points[0][0].length);
+  scene.add(mesh);
+
+  
+  // Efficient plotting using mesh
+  const dummy = new THREE.Object3D();
+  group.add(mesh);
+
+  for (let i = 0; i < points[0][0].length; i++) {
+    if (i % 2 == 0){
+      // skipping every other point to make it run a bit better
+      continue;
+    }
+    const pos = barycentricToCartesian(points[0][0][i], points[0][1][i], points[0][2][i], points[0][3][i]);
+    dummy.position.copy(pos);
+    dummy.updateMatrix();
+    mesh.setMatrixAt(i, dummy.matrix);
+
+  }
+  camera.position.z = 3;
+
+  // Rotate the image for better view
+  group.rotation.x = -Math.PI / 2;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
+
+
+const fig = {
+  data: [{
+    type: "scatterternary",
+    mode: "lines",
+    a: [],
+    b: [],
+    c: [],
+    name: "Trajectory"
+  }],
+  layout: { title: "RPS Process" }
+};
+
+const div = document.createElement("div");
+document.getElementById("plot-container").appendChild(div);
+Plotly.newPlot(div, fig.data, fig.layout);

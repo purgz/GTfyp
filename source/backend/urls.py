@@ -19,10 +19,12 @@ from django.urls import path
 from .views import HelloWorldView
 from .views import SimpleTemplateView
 from .views import SimulationDataView
+from .views import SimulationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/hello/', HelloWorldView.as_view(), name='hello_world'),
     path('api/simulationTest/', SimulationDataView.as_view(), name='simulation_test'),
     path('landing/', SimpleTemplateView.as_view(), name='landing_page'),
+    path('landing/3dsim', SimulationView.as_view(), name='3d Simulation'),
 ]

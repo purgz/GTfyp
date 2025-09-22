@@ -1,0 +1,21 @@
+  
+  {% extends "landing.html" %}
+ 
+  
+  {% block main-content %}
+  <p>
+  <form id="3d-sim-form">
+    {% csrf_token %}
+    
+    <button onclick=showLoading() value="Request results" type="submit">3d test</button>
+  </form>
+
+  </p>
+
+  <div id="results-container">
+    
+    <div class="graph-container" id="graph_3d_traj"></div>
+   
+    <div style="display: none;" id="fetching">running simulation...</div>
+  </div>
+  {% endblock %}
