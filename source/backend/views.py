@@ -90,6 +90,40 @@ class SimulationView(TemplateView):
         return context
     
 
+class ThreeDGameView(TemplateView):
+    template_name = "threePlayer.html"
+
+    rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
+  
+
+    def post(self, request, *args, **kwargs):
+
+        results = runSimulationPool(
+            matrix=self.rpsArray,
+            simulations=1,
+            popSize=30000,
+            initialDist=[0.5, 0.25,0.25],
+            iterations=100000,
+            w=0.2,
+            H=2)
+        
+        df_RPS_MO = pd.DataFrame({"R": results[0][0], "P": results[0][1], "S": results[0][2]})
+  
+
+        plot_div = ternaryTestPlot(df_RPS_MO)
+
+        context = self.get_context_data(plots=[plot_div])
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+
+
+        context = super().get_context_data(**kwargs)
+        context['title'] = "3 player game" 
+        context['plots'] = kwargs.get('plots', None)
+        context['plots'] = kwargs.get('plots', None)
+        return context
+
 class SimpleTemplateView(TemplateView):
     template_name = "landing.html"
 

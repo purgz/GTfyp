@@ -1,0 +1,20 @@
+  {% extends "landing.html" %}
+ 
+  
+  {% block main-content %}
+  <h2>3 Player game</h2>
+
+  <form method="post" action="/landing/threePlayer">
+    {% csrf_token %}
+    
+    <button class="btn btn-dark" onclick=showLoading() value="Request results" type="submit">rps test</button>
+  </form>
+
+
+  {% autoescape off %}
+  {% for plot in plots %}
+    {{plot}}
+    
+    {% endfor %}
+  {% endautoescape %}
+  {% endblock %}
