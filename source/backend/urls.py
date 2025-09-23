@@ -20,6 +20,7 @@ from .views import HelloWorldView
 from .views import SimpleTemplateView
 from .views import SimulationDataView
 from .views import SimulationView
+from .views import ThreeDGameView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('api/simulationTest/', SimulationDataView.as_view(), name='simulation_test'),
     path('landing/', SimpleTemplateView.as_view(), name='landing_page'),
     path('landing/3dsim', SimulationView.as_view(), name='3d Simulation'),
+    path('landing/threePlayer', ThreeDGameView.as_view(), name="RPS")
 ]

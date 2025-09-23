@@ -43,7 +43,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/landing/3dsim">3d Simulation</a></li>
-            <li><a class="dropdown-item" href="#">Not implemented</a></li>
+            <li><a class="dropdown-item" href="/landing/threePlayer">RPS</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Not implemented</a></li>
           </ul>
@@ -61,27 +61,10 @@
 
 <div id="page-wrapper">
 
-<h1>Landing page</h1>
-
-  <form method="post" action="/landing/">
-    {% csrf_token %}
-    
-    <button class="btn btn-dark" onclick=showLoading() value="Request results" type="submit">rps test</button>
-  </form>
-
-
-  {% autoescape off %}
-  {% for plot in plots %}
-    {{plot}}
-    
-    {% endfor %}
-  {% endautoescape %}
 
 <div id="main-content">
 
   {% block main-content %}{% endblock %}
-
-
 
 </div>
 
