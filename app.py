@@ -25,12 +25,10 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
 """
-def pdExample(popsize=1000):
+def pdExample(popsize=1000, iterations = 1000000, w=1, initialDist = [0.9,0.1]):
 
   # Example running prisoners dilemma example.
   N = popsize
-  w = 1
-  iterations = 1000000
   initialDist = [0.9,0.1]
 
   # Standard prisoners dilemma payoff matrix
@@ -167,9 +165,7 @@ if  __name__ == "__main__":
 
 
   #test = replicator.numericalTrajectory()
-
-  # REMEMBER THE DATA RES ON LOW POP SIZE LOOKS
-
+  """
   # As pop size gets very large - closely tracks the analytic solution
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=1,H=3, initialDist=[0.7,0.1, 0.1, 0.1], w=0.2, iterations = 7000000)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
@@ -185,7 +181,7 @@ if  __name__ == "__main__":
   
   #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
-  
+  """
 
   parser = argparse.ArgumentParser()
   """
@@ -193,11 +189,24 @@ if  __name__ == "__main__":
   Game presets:
   standard prisoners dilemma: -pd
   """
+
+
+  subParsers = parser.add_subparsers(dest="preset")
+
+
+  pd_parser = subParsers.add_parser("pd")
+  pd_parser.add_argument("-N", type = int, default=1000)
+  pd_parser.add_argument("-iterations", type=int, default=1000000)
+
+  """
   parser.add_argument("-preset", 
                       choices=["pd","rps","arps"],
                       help="Use a preset game matrix; OPTIONS = pd, rps, arps")
   parser.add_argument("-N", type=int, help="Specify population size to be used in simulation")
+  parser.add_argument("-iterations", type=int, help="Specify number of iterations for simulation")
+  """
   args = parser.parse_args()
+
 
   if args.preset:
     print("Preset ", args.preset, " has been selected")
@@ -206,17 +215,8 @@ if  __name__ == "__main__":
     if args.preset == "pd":
       # add check for args.N
       print("Running prisoners dilemma preset: [[3,0],[5,1]]")
-      if args.N:
-        pdExample(popsize=int(args.N))
-      else:
-        pdExample()
-    elif args.preset == "rps":
-      print("Running rock paper scissors preset: [[0,-1,1],[1,0,-1],[-1,1,0]]")
-      if args.N:
-        rpsExample()
-      else:
-        rpsExample()
- 
+      pdExample(popsize=args.N, iterations=args.iterations)  
+    
 
 
   
