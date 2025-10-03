@@ -61,11 +61,10 @@ def pdExample(popsize=1000, iterations = 1000000, w=1, initialDist = [0.9,0.1]):
   simulation.Game2dPlot([df_PD_LU.get("D"), df_PD_MO.get("D"), test.get("D"), adjusted.get("D")], N=N, labels=["LU", "MO", "NUMERICAL", "ADJUSTED"], norm=[True, True, False, False])
 
 
-def rpsExample(N=20000):
+def rpsExample(N=10000, iterations = 1000000):
 
   w = 0.5
-  iterations = 1000000
-  
+
   #rpsArray = np.array([[0, -1.2 , 1], [1, 0, -1.2], [-1.2, 1, 0]])
 
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
@@ -76,11 +75,11 @@ def rpsExample(N=20000):
   
   df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
 
-  fig = px.line_ternary(df_RPS_MO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
-  fig2 = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS LOCAL Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+  #fig = px.line_ternary(df_RPS_MO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+  #fig2 = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS LOCAL Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
 
-  fig.show()
-  fig2.show()
+  #fig.show()
+  #fig2.show()
 
   simulation.ternaryPlot(df_RPS_MO)
 
@@ -126,33 +125,23 @@ def runPopulationEnsemble(populationSizes):
 
 
 
+def arpsExample(N = 500, iterations = 100000):
+  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=1, 
+                                                                            iterations=iterations,
+                                                                            H=3,
+                                                                            initialDist=[0.7,0.1,0.1,0.1],
+                                                                            w=0.2)
+  
+  
+  df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
+  df_RPS_LU = pd.DataFrame({"c1": localResults[0], "c2": localResults[1], "c3": localResults[2], "c4": localResults[3]})
+
+  simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
 
 
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
-
-  """
-
-    can create a really nice web interface for all the graphs with plotly - but this is not important for now .
-
-    If not possible then i can have plotly frontend for 2d graphs, and ternary, and then custom 3d for 4d
-
-    maybe for very large number of points plotly will not work so custom one is still important
-
-    I have discovered that plotly might be a much better way 
-    for making the plots on the frontend in html,
-    for both the 2d and 3d plots, so explore this option later
-
-    Can integrate nicely with django. 
-    replace frontend with plotly graph - need to write a new ternary plot...
-  
-    maybe the frontend can return a json with cartesian coords for later
-
-    maybe replace the ternary plot with plotly ternary because it looks better
-
-
-  """
 
   #RPS - large pop
   print("Running main")
@@ -193,18 +182,21 @@ if  __name__ == "__main__":
 
   subParsers = parser.add_subparsers(dest="preset")
 
-
+  # 2x2 game
   pd_parser = subParsers.add_parser("pd")
   pd_parser.add_argument("-N", type = int, default=1000)
   pd_parser.add_argument("-iterations", type=int, default=1000000)
 
-  """
-  parser.add_argument("-preset", 
-                      choices=["pd","rps","arps"],
-                      help="Use a preset game matrix; OPTIONS = pd, rps, arps")
-  parser.add_argument("-N", type=int, help="Specify population size to be used in simulation")
-  parser.add_argument("-iterations", type=int, help="Specify number of iterations for simulation")
-  """
+  # 3x3 game
+  rps_parser = subParsers.add_parser("rps")
+  rps_parser.add_argument("-N", type=int, default=10000)
+  rps_parser.add_argument("-iterations", type=int, default=1000000)
+
+  arps_parser = subParsers.add_parser("arps")
+  arps_parser.add_argument("-N", type=int, default=500)
+  arps_parser.add_argument("-iterations", type=int, default=100000)
+
+
   args = parser.parse_args()
 
 
@@ -216,6 +208,13 @@ if  __name__ == "__main__":
       # add check for args.N
       print("Running prisoners dilemma preset: [[3,0],[5,1]]")
       pdExample(popsize=args.N, iterations=args.iterations)  
+    elif args.preset == "rps":
+      print("Running rock paper scissors preset : [0,-1,1],[1,0,-1],[-1,1,0]")
+      rpsExample(N = args.N, iterations=args.iterations)
+    elif args.preset == "arps":
+      print("Running augmented rps: [insert matrix here]")
+      arpsExample(N = args.N, iterations=args.iterations)
+      
     
 
 
