@@ -237,6 +237,48 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
 
     return results
 
+
+@njit
+def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
+    numStrategies = matrix.shape[0]
+    results = np.zeros((numStrategies, iterations))
+    individuals = np.empty(popSize, dtype=np.int64)
+
+    # Build individuals array from population
+    idx = 0
+    for s in range(numStrategies):
+        for _ in range(population[s]):
+            individuals[idx] = s
+            idx += 1
+
+    deltaPi = np.max(matrix) - np.min(matrix)
+
+    for i in range(iterations):
+        # Pick two distinct individuals
+        ind1 = np.random.randint(popSize)
+        ind2 = ind1
+        while ind2 == ind1:
+            ind2 = np.random.randint(popSize)
+
+        p1 = individuals[ind1]
+        p2 = individuals[ind2]
+
+        payoffs = payoffAgainstPop(population, matrix, popSize)
+
+        p = 1 / (1 + np.exp(-w * (payoffs[p2] - payoffs[p1])))
+
+        if np.random.rand() < p:
+            population[p1] -= 1
+            population[p2] += 1
+            individuals[ind1] = p2
+
+        for j in range(numStrategies):
+            results[j, i] = population[j] / popSize
+
+    return results
+
+
+
 """
 popSize = 100
 simulations = 1
@@ -267,17 +309,22 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
     """
 
     # Add other interaction processs here
+    
     #moranResult = moranSimulation(matrix, popSize,population.copy(), initialDist, iterations,w)
     #localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
 
     moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
     localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
 
+    fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
+
     delta_L_moran = np.mean(np.diff(moranResult[H]))
     delta_L_local = np.mean(np.diff(localResult[H]))
+    delta_L_fermi = np.mean(np.diff(fermiResult[H]))
 
     moranResult = moranResult[:, ::data_res]
     localResult = localResult[:, ::data_res]
+    fermiResult = fermiResult[:, ::data_res]
 
     # Lyapunov function? doesnt seem to work  
     #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))
@@ -286,7 +333,7 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
     return moranResult, localResult, delta_L_moran, delta_L_local
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 50):
+def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 1):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
