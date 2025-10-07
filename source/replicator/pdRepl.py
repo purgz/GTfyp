@@ -78,7 +78,7 @@ df_PD_ADJ = pd.DataFrame({
   "D": y_adj_vals
 })
 
-print(df_PD_ADJ)
+
 
 """
 Computes the numerical trajectory for the standard replicator dynamics which correspond
@@ -101,7 +101,7 @@ def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   f = lambdify((t, x), [x_dot], modules="numpy")
 
   x0 = [initialDist[0]]
-  t_span = (0, 500)
+  t_span = (0, 35)
   t_eval = np.linspace(*t_span, 500)
 
   def replicatorSystem(t, vars):
@@ -122,7 +122,7 @@ def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   return df_PD
 
 def pdNumericalAdjusted():
-  return df_PD_ADJ
+  return df_PD_ADJ, t_eval
 
 
 if __name__ == "__main__":

@@ -195,7 +195,7 @@ def ternaryPlot(traj):
 
 
 # Normalisation here is for the stochastic simulations since they need to be divided by the population size
-def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran process"]):
+def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran process"], t_eval=None):
 
   fig = plt.figure()
 
@@ -204,7 +204,8 @@ def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
           time_norm = np.arange(len(df)) / N
           plt.plot(time_norm, df.values, label = labels[i])
       else:
-          plt.plot(df.values, label = labels[i])
+          
+          plt.plot(t_eval, df.values, label = labels[i])
 
   plt.legend()
 
