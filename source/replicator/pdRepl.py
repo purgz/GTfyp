@@ -56,7 +56,7 @@ def adjReplicatorSystem(t, vars):
 
 x0 = [0.9]
 t_span = (0, 35)
-t_eval = np.linspace(*t_span, 35)
+t_eval = np.linspace(*t_span, 500)
 
 sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
 
@@ -78,6 +78,7 @@ df_PD_ADJ = pd.DataFrame({
   "D": y_adj_vals
 })
 
+print(df_PD_ADJ)
 
 """
 Computes the numerical trajectory for the standard replicator dynamics which correspond
@@ -100,8 +101,8 @@ def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   f = lambdify((t, x), [x_dot], modules="numpy")
 
   x0 = [initialDist[0]]
-  t_span = (0, 35)
-  t_eval = np.linspace(*t_span, 35)
+  t_span = (0, 500)
+  t_eval = np.linspace(*t_span, 500)
 
   def replicatorSystem(t, vars):
     x = vars
