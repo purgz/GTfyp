@@ -25,7 +25,7 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
 """
-def pdExample(popsize=1000, iterations = 10000, w=1, initialDist = [0.9,0.1]):
+def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
 
   # Example running prisoners dilemma example.
   N = popsize
@@ -39,7 +39,7 @@ def pdExample(popsize=1000, iterations = 10000, w=1, initialDist = [0.9,0.1]):
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
     matrix=pdArray, 
     popSize=N, 
-    simulations=1, 
+    simulations=100, 
     initialDist=[0.9,0.1], 
     iterations=iterations, 
     w=w, 
@@ -54,11 +54,15 @@ def pdExample(popsize=1000, iterations = 10000, w=1, initialDist = [0.9,0.1]):
   test = replicator.pdNumerical(pdArray, w, initialDist)
 
   # Get numerical trajectory for adjusted dynamics - moran process
-  adjusted = replicator.pdNumericalAdjusted()
+  adjusted, t_eval = replicator.pdNumericalAdjusted()
 
   # Plot the 4 trajectories on the same graph.
   # This method also normalizes the numerical solutions timeframe.
-  simulation.Game2dPlot([df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"), test.get("D")], N=N, labels=["MO", "LO", "Adjusted", "Standard"], norm=[True, True, False, False])
+  simulation.Game2dPlot([df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"),  test.get("D")],
+                        N=N, 
+                        labels=["MO", "LO", "Adjusted", "Standard"],
+                        norm=[True, True, False, False],
+                        t_eval=t_eval)
 
 
 def rpsExample(N=10000, iterations = 1000000):
