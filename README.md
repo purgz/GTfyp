@@ -2,7 +2,7 @@
 Final year project work - evolutionary game theory 
 
 
-Contains 3d plotting for 4 strategy games.
+
 
 Basic RPS example: 
 ![alt text](source/simulation/images/rps.png)
@@ -35,7 +35,8 @@ Also now contains 2d ternary plots for regular 3x3 matrix games.
 [insert photo here]
 
 
-
-
 Drift analysis:
 ![alt text](source/simulation/images/drift.png)
+
+
+Need to include detail of running both web app and python app locally with docker, setup docker pipeline for app.
