@@ -1,9 +1,12 @@
 from source import simulation
+from source import replicator
+
+from source.simulation import Games
+
 import argparse
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from source import replicator
 import time
 import scienceplots
 import plotly.express as px
@@ -32,8 +35,8 @@ def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
   initialDist = [0.9,0.1]
 
   # Standard prisoners dilemma payoff matrix
-  pdArray = np.array([[3, 0],
-        [5, 1]])
+  
+  pdArray = Games.PRISONERS_DILEMMA
 
   # Code for running prisoners dilemma simulation and numerical trajectories - then plotting all of them
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(

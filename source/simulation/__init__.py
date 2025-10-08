@@ -3,3 +3,4 @@ from .sim import runSimulationPool
 from .plotting import quaternaryPlot 
 from .plotting import Game2dPlot
 from .plotting import ternaryPlot
+from .games import Games
