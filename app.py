@@ -132,12 +132,12 @@ def runPopulationEnsemble(populationSizes):
 
 
 
-def arpsExample(N = 500, iterations = 100000):
+def arpsExample(N = 20000, iterations = 100000):
   moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=1, 
                                                                             iterations=iterations,
                                                                             H=3,
-                                                                            initialDist=[0.7,0.1,0.1,0.1],
-                                                                            w=0.2)
+                                                                            initialDist=[0.25,0.25,0.25,0.25],
+                                                                            w=0.2, data_res=50)
   
   
   df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
