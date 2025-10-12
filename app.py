@@ -113,7 +113,7 @@ def runPopulationEnsemble(populationSizes):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.45, iterations = 100000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.45, iterations = 100000)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -155,7 +155,7 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
   
-  runPopulationEnsemble(range(150, 900, 20))
+  runPopulationEnsemble(range(50, 900, 20))
 
   
 
