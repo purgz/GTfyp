@@ -18,10 +18,10 @@ from .plotting import quaternaryPlot
 
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -1,   1,       5],
-                    [1,    0,   -1,       5],
-                    [-1,   1,   0,        5],
-                    [10, 10, 10, 0]])
+basicRps = np.array([[0,   -1,   1,       0.2],
+                    [1,    0,   -1,       0.2],
+                    [-1,   1,   0,        0.2],
+                    [0.1, 0.1, 0.1, 0]])
 
 
 
@@ -318,8 +318,8 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
 
     fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
 
-    delta_L_moran = np.mean(np.diff(moranResult[H]))
-    delta_L_local = np.mean(np.diff(localResult[H]))
+    delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
+    delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
     delta_L_fermi = np.mean(np.diff(fermiResult[H]))
 
     moranResult = moranResult[:, ::data_res]
