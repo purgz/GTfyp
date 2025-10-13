@@ -28,6 +28,8 @@ also need to generalize the adjusted dynamics since theyre also hard coded.
 """
 Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
 """
+
+
 def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
 
   # Example running prisoners dilemma example.
@@ -61,7 +63,7 @@ def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
 
   # Plot the 4 trajectories on the same graph.
   # This method also normalizes the numerical solutions timeframe.
-  simulation.Game2dPlot([df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"),  test.get("D")],
+  simulation.game2dPlot([df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"),  test.get("D")],
                         N=N, 
                         labels=["MO", "LO", "Adjusted", "Standard"],
                         norm=[True, True, False, False],
@@ -95,7 +97,8 @@ def rpsExample(N=10000, iterations = 1000000):
 Testing benchmarks
 without changes - 99s runtime
 """
-def runPopulationEnsemble(populationSizes):
+def runPopulationEnsemble(populationSizes, fileOutputPath):
+
 
 
   start = time.time()
@@ -165,16 +168,7 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
 
-
-  # Temporary.
-  """  data = pd.read_csv("./results/drift.csv")
-
-  plt.plot(data["popsizes"], data["deltaMoran"], marker="o",label="moran")
-  plt.plot(data["popsizes"], data["deltaLocal"], marker="s", label="local")
-  plt.xlabel("N")
-  plt.ylabel("delta H")
-  plt.legend()
-  plt.show()"""
+  simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
   
   runPopulationEnsemble(range(50, 800, 20))
 
@@ -184,13 +178,13 @@ if  __name__ == "__main__":
   print("Attempting file read")
   simulation.quaternaryPlot([df_MO], labels=["Moran"])
   exit()
-
+  
 
 
   #test = replicator.numericalTrajectory()
-  """
+  
   # As pop size gets very large - closely tracks the analytic solution
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.01,0.01, 0.01, 0.97], w=0.2, iterations = 1000000)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
   
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=100,H=3, initialDist=[0.5,0.25, 0.25, 0], w=0.5, iterations = 1000000)
@@ -205,7 +199,7 @@ if  __name__ == "__main__":
   
   #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
-  """
+  
 
   parser = argparse.ArgumentParser()
   """
