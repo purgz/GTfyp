@@ -113,7 +113,7 @@ def runPopulationEnsemble(populationSizes):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.45, iterations = 100000)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.45, iterations = 100000, data_res=200)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -123,10 +123,17 @@ def runPopulationEnsemble(populationSizes):
   print("Time taken to run population test ensemble")
   print(end - start)
 
-  plt.plot(populationSizes, deltaM, marker="o",label="moran")
-  plt.plot(populationSizes, deltaL, marker="s", label="local")
+  df_deltaM = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
+
+  df_deltaM.to_csv("./results/drift.csv", index=False)
+
+
+  data = pd.read_csv("./results/drift.csv")
+
+  plt.plot(data["popsizes"], data["deltaMoran"], marker="o",label="moran")
+  plt.plot(data["popsizes"], data["deltaLocal"], marker="s", label="local")
   plt.xlabel("N")
-  plt.ylabel("ΔH")
+  plt.ylabel("delta H")
   plt.legend()
   plt.show()
 
@@ -157,8 +164,19 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
+
+
+  # Temporary.
+  """  data = pd.read_csv("./results/drift.csv")
+
+  plt.plot(data["popsizes"], data["deltaMoran"], marker="o",label="moran")
+  plt.plot(data["popsizes"], data["deltaLocal"], marker="s", label="local")
+  plt.xlabel("N")
+  plt.ylabel("delta H")
+  plt.legend()
+  plt.show()"""
   
-  #runPopulationEnsemble(range(50, 900, 20))
+  runPopulationEnsemble(range(50, 800, 20))
 
 
   df_MO = pd.read_csv("./results/moran400_100000.csv")
