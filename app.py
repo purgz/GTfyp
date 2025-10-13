@@ -137,11 +137,14 @@ def arpsExample(N = 20000, iterations = 100000):
                                                                             iterations=iterations,
                                                                             H=3,
                                                                             initialDist=[0.25,0.25,0.25,0.25],
-                                                                            w=0.2, data_res=50)
+                                                                            w=0.2, data_res=1)
   
   
   df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
   df_RPS_LU = pd.DataFrame({"c1": localResults[0], "c2": localResults[1], "c3": localResults[2], "c4": localResults[3]})
+
+
+  df_RPS_MO.to_csv("./results/moran" + str(N) + "_" + str(iterations) + ".csv", index=False)
 
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
 
@@ -155,14 +158,19 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
   
-  runPopulationEnsemble(range(50, 900, 20))
+  #runPopulationEnsemble(range(50, 900, 20))
 
-  
+
+  df_MO = pd.read_csv("./results/moran400_100000.csv")
+
+  print("Attempting file read")
+  simulation.quaternaryPlot([df_MO], labels=["Moran"])
+  exit()
 
 
 
   #test = replicator.numericalTrajectory()
-  
+  """
   # As pop size gets very large - closely tracks the analytic solution
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
@@ -179,7 +187,7 @@ if  __name__ == "__main__":
   
   #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
-  
+  """
 
   parser = argparse.ArgumentParser()
   """
