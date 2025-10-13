@@ -316,19 +316,16 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
     moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
     localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
 
-    fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
+    #fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
 
     delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
     delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
-    delta_L_fermi = np.mean(np.diff(fermiResult[H]))
+    #delta_L_fermi = np.mean(np.diff(fermiResult[H]))
 
     moranResult = moranResult[:, ::data_res]
     localResult = localResult[:, ::data_res]
-    fermiResult = fermiResult[:, ::data_res]
+    #fermiResult = fermiResult[:, ::data_res]
 
-    # Lyapunov function? doesnt seem to work  
-    #delta_L_moran = np.mean(np.diff(-np.prod(moranResult, axis=0)))
-    #delta_L_local = np.mean(np.diff(-np.prod(localResult, axis=0)))
 
     return moranResult, localResult, delta_L_moran, delta_L_local
 
