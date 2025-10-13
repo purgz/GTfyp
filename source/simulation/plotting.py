@@ -195,7 +195,7 @@ def ternaryPlot(traj):
 
 
 # Normalisation here is for the stochastic simulations since they need to be divided by the population size
-def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran process"], t_eval=None):
+def game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran process"], t_eval=None):
 
   fig = plt.figure()
 
@@ -210,3 +210,31 @@ def Game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
   plt.legend()
 
   plt.show()
+
+
+
+# Method for plotting higher strategy, e.g 4 strategy games trajectory on a 2d graph.
+def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
+   pass
+
+
+
+# Plotting drift reversal.
+def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
+   
+  data = pd.read_csv(filePath)
+
+
+  popSizes = data.iloc[:, 0]
+
+  numProcesses = len(data.columns)-1
+
+  for i in range(numProcesses):
+     plt.plot(popSizes, data.iloc[:,i + 1], label = labels[i-1], marker="o")
+
+  plt.xlabel("N")
+  plt.ylabel("delta H")
+  plt.legend()
+  plt.show()
+
+
