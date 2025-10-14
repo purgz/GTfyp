@@ -341,11 +341,30 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     lResults = []
 
     numStrategies = matrix.shape[0]
+
+    """
+    Testing with random initial conditions
+    """
+    # Prepare initial dist
+    fixed = initialDist[3]
+    args = []
+    for i in range(simulations):
+        remaining = 1 - fixed
+        random_simplex = np.random.rand(numStrategies - 1)
+        random_simplex /= np.sum(random_simplex)
+        random_simplex *= remaining
+        initial = np.append(random_simplex, fixed)
+        args.append((matrix, popSize, initial, iterations, w, H, data_res))
+
     
-    args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
+    #args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
 
     print("Running simulation pool")
     print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
+
+    # Warm up numba - prevent threads recompiling each time.
+    _ = moranSimulation_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
+    _ = localUpdate_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
 
     with Pool() as pool:
         # Starmap to allow passing of arguments to each simulation
