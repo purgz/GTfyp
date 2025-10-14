@@ -97,7 +97,7 @@ def rpsExample(N=10000, iterations = 1000000):
 Testing benchmarks
 without changes - 99s runtime
 """
-def runPopulationEnsemble(populationSizes, fileOutputPath):
+def runPopulationEnsemble(populationSizes, fileOutputPath=""):
 
 
 
@@ -116,7 +116,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.45, iterations = 100000, data_res=200)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -128,10 +128,10 @@ def runPopulationEnsemble(populationSizes, fileOutputPath):
 
   df_deltaM = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
 
-  df_deltaM.to_csv("./results/drift.csv", index=False)
+  df_deltaM.to_csv("./results/drift4.csv", index=False)
 
 
-  data = pd.read_csv("./results/drift.csv")
+  data = pd.read_csv("./results/drift4.csv")
 
   plt.plot(data["popsizes"], data["deltaMoran"], marker="o",label="moran")
   plt.plot(data["popsizes"], data["deltaLocal"], marker="s", label="local")
@@ -168,23 +168,23 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
 
-  simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
+  #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
   
-  runPopulationEnsemble(range(50, 800, 20))
+  runPopulationEnsemble(range(10,100, 2))
 
-
+  """
   df_MO = pd.read_csv("./results/moran400_100000.csv")
 
   print("Attempting file read")
   simulation.quaternaryPlot([df_MO], labels=["Moran"])
   exit()
-  
+  """
 
 
   #test = replicator.numericalTrajectory()
   
   # As pop size gets very large - closely tracks the analytic solution
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1,H=3, initialDist=[0.01,0.01, 0.01, 0.97], w=0.2, iterations = 1000000)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 1000000, data_res=100)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
   
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=100,H=3, initialDist=[0.5,0.25, 0.25, 0], w=0.5, iterations = 1000000)
