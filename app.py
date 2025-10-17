@@ -97,7 +97,7 @@ def rpsExample(N=10000, iterations = 1000000):
 Testing benchmarks
 without changes - 99s runtime
 """
-def runPopulationEnsemble(populationSizes, fileOutputPath=""):
+def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
 
 
 
@@ -116,7 +116,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath=""):
 
   for i in range(len(populationSizes)):
     print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -126,28 +126,29 @@ def runPopulationEnsemble(populationSizes, fileOutputPath=""):
   print("Time taken to run population test ensemble")
   print(end - start)
 
-  df_deltaM = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
+  # Combine into a single file for csv saving.
+  df_deltaResults = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
 
-  df_deltaM.to_csv("./results/drift4.csv", index=False)
-
-
-  data = pd.read_csv("./results/drift4.csv")
-
-  plt.plot(data["popsizes"], data["deltaMoran"], marker="o",label="moran")
-  plt.plot(data["popsizes"], data["deltaLocal"], marker="s", label="local")
-  plt.xlabel("N")
-  plt.ylabel("delta H")
-  plt.legend()
-  plt.show()
+  df_deltaResults.to_csv(fileOutputPath, index=False)
 
 
+  if plotDelta:
 
-def arpsExample(N = 20000, iterations = 100000):
+    plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaMoran"], marker="o",label="moran")
+    plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaLocal"], marker="s", label="local")
+    plt.xlabel("N")
+    plt.ylabel("delta H")
+    plt.legend()
+    plt.show()
+
+
+
+def arpsExample(N = 500, iterations = 100000):
   moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=1, 
                                                                             iterations=iterations,
                                                                             H=3,
-                                                                            initialDist=[0.25,0.25,0.25,0.25],
-                                                                            w=0.2, data_res=1)
+                                                                            initialDist=[0.5,0.2,0.2,0.1],
+                                                                            w=0.2, data_res=50)
   
   
   df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
@@ -157,7 +158,6 @@ def arpsExample(N = 20000, iterations = 100000):
   df_RPS_MO.to_csv("./results/moran" + str(N) + "_" + str(iterations) + ".csv", index=False)
 
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
-
 
 # Need this because of multiprocessing
 if  __name__ == "__main__":
@@ -169,8 +169,10 @@ if  __name__ == "__main__":
   #rpsExample()
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
+
+  simulation.highDim2dplot("./results/moran20000_3000000.csv", 100000)
   
-  runPopulationEnsemble(range(10,100, 2))
+  #runPopulationEnsemble(range(10,100, 2), fileOutputPath="./results/drift.csv", plotDelta=True)
 
   """
   df_MO = pd.read_csv("./results/moran400_100000.csv")
@@ -182,7 +184,7 @@ if  __name__ == "__main__":
 
 
   #test = replicator.numericalTrajectory()
-  
+  """
   # As pop size gets very large - closely tracks the analytic solution
   mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=1000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 1000000, data_res=100)
   #mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=540,simulations=100,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.2, iterations = 100000)
@@ -199,7 +201,7 @@ if  __name__ == "__main__":
   
   #simulation.quaternaryPlot([df_RPS_LU, df_RPS_MO, test], numPerRow=3, labels=["LU", "MO", "Numerical"], colors=["r","b","g"])
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
-  
+  """
 
   parser = argparse.ArgumentParser()
   """
