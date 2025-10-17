@@ -14,6 +14,7 @@ SciencePlots library - ref in paper
 plt.style.use(['science','no-latex'])
 
 
+
 # Plots pyramid edges 
 def plot_ax(ax):               
   verts=[[0,0,0],
@@ -215,13 +216,31 @@ def game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
 
 # Method for plotting higher strategy, e.g 4 strategy games trajectory on a 2d graph.
 def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
-   pass
+  
+  fig = plt.figure()
+
+  data = pd.read_csv(filePath)
+
+  r = data.iloc[:, 0]
+  p = data.iloc[:, 1]
+  s = data.iloc[:, 2]
+  a = data.iloc[:, 3]
+
+  for i in range(len(data.columns)):
+     plt.plot(data.iloc[:, i])
+
+  plt.xlabel("T")
+  plt.ylabel("R,P,S,A")
+  plt.show()
+  
+
+
 
 
 
 # Plotting drift reversal.
 def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
-   
+    
   data = pd.read_csv(filePath)
 
 
@@ -230,7 +249,7 @@ def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
   numProcesses = len(data.columns)-1
 
   for i in range(numProcesses):
-     plt.plot(popSizes, data.iloc[:,i + 1], label = labels[i-1], marker="o")
+      plt.plot(popSizes, data.iloc[:,i + 1], label = labels[i-1], marker="o")
 
   plt.xlabel("N")
   plt.ylabel("delta H")

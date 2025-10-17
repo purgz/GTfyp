@@ -18,10 +18,10 @@ from .plotting import quaternaryPlot
 
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -1,   1,       20],
-                    [1,    0,   -1,       20],
-                    [-1,   1,   0,        20],
-                    [10, 10, 10, 0]])
+basicRps = np.array([[0,   -1,   1,       0.2],
+                    [1,    0,   -1,       0.2],
+                    [-1,   1,   0,        0.2],
+                    [0.1, 0.1, 0.1, 0]])
 
 
 
@@ -345,6 +345,8 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     """
     Testing with random initial conditions
     """
+
+    """
     # Prepare initial dist
     fixed = initialDist[3]
     args = []
@@ -356,8 +358,8 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
         initial = np.append(random_simplex, fixed)
         args.append((matrix, popSize, initial, iterations, w, H, data_res))
 
-    
-    #args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
+    """
+    args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
 
     print("Running simulation pool")
     print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
