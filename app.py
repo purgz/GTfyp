@@ -161,7 +161,7 @@ def criticalPopsizeEnsemble():
 
 
 def arpsExample(N = 500, iterations = 100000):
-  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=1, 
+  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=20, 
                                                                             iterations=iterations,
                                                                             H=3,
                                                                             initialDist=[0.5,0.2,0.2,0.1],
@@ -224,13 +224,15 @@ if  __name__ == "__main__":
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
   
-  simulation.highDim2dplot("./results/moran20000_3000000.csv", 3000000)
-  test = replicator.numericalTrajectory()
-
+  test, t_eval = replicator.numericalTrajectory()
   trajectoryWrite(test, "./results/moranNumerical.csv")
 
-  simulation.highDim2dplot("./results/moranNumerical.csv", "inf", norm=False)
-  
+
+  filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  norms = [True, False]
+
+  simulation.highDim2dplot(filePaths, [100000, None], norm=norms, t_eval=t_eval)
+
   #runPopulationEnsemble(range(10,100, 2), fileOutputPath="./results/drift.csv", plotDelta=True)
 
   """

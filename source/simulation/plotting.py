@@ -215,31 +215,30 @@ def game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
 
 
 # Method for plotting higher strategy, e.g 4 strategy games trajectory on a 2d graph.
-def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"], norm=True):
+def highDim2dplot(filePaths, Ns, labels = ["Moran Process", "Local update"], norm=[True], t_eval=None, data_res = 50):
   
   fig = plt.figure()
 
-  data = pd.read_csv(filePath, comment="#")
+  for i in range(len(filePaths)):
+    
+    data = pd.read_csv(filePaths[i], comment="#")
 
-  r = data.iloc[:, 0]
-  p = data.iloc[:, 1]
-  s = data.iloc[:, 2]
-  a = data.iloc[:, 3]
+    r = data.iloc[:, 0]
+    p = data.iloc[:, 1]
+    s = data.iloc[:, 2]
+    a = data.iloc[:, 3]
 
-
-  for i in range(len(data.columns)):
-    if norm:  
-      time_norm = (np.arange(len(data)) / N) * 50
-      plt.plot(time_norm, data.iloc[:, i])
-    else:
-       plt.plot(data.iloc[:, i])
+    for j in range(len(data.columns)):
+      if norm[i]:  
+        # Need to remultiply by data res to fix scaling
+        time_norm = (np.arange(len(data)) * data_res) / Ns[i] 
+        plt.plot(time_norm, data.iloc[:, j])
+      else:
+        plt.plot(t_eval, data.iloc[:, j])
 
   plt.xlabel("T")
   plt.ylabel("R,P,S,A")
   plt.show()
-  
-
-
 
 
 

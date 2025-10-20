@@ -48,9 +48,13 @@ def replicators(matrix):
   Other form using avg instead of payoff pairwise comparison - should be equivalent.
   """
 
-  x_dot = x * (payoffR - averagePayoff)
-  y_dot = y * (payoffP - averagePayoff)
-  z_dot = z * (payoffS - averagePayoff)
+  w = 0.2 # Hardcoded for now
+  gam = (1 - w) / w
+  adjustedScaling = 1 / (gam + averagePayoff)
+
+  x_dot = x * (payoffR - averagePayoff) * adjustedScaling
+  y_dot = y * (payoffP - averagePayoff) * adjustedScaling
+  z_dot = z * (payoffS - averagePayoff) * adjustedScaling
 
   return x_dot, y_dot, z_dot
 
@@ -74,7 +78,7 @@ def getFixedPoints(subs, variables):
 
 
 
-def numericalIntegration(equations, numPoints = 100, timeSpan = 100, initialDist = [0.5,0.2,0.2]):
+def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDist = [0.5,0.2,0.2]):
 
 
   # Returns a dataframe with trajectory data for numerical solution to replicators
@@ -109,7 +113,7 @@ def numericalIntegration(equations, numPoints = 100, timeSpan = 100, initialDist
       "c4": w_vals
   })
 
-  return df
+  return df, t_eval
 
 
 def numericalTrajectory():
