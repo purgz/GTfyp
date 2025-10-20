@@ -219,7 +219,7 @@ def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
   
   fig = plt.figure()
 
-  data = pd.read_csv(filePath)
+  data = pd.read_csv(filePath, comment="#")
 
   r = data.iloc[:, 0]
   p = data.iloc[:, 1]
@@ -241,7 +241,7 @@ def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
 # Plotting drift reversal.
 def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
     
-  data = pd.read_csv(filePath)
+  data = pd.read_csv(filePath, comment="#")
 
 
   popSizes = data.iloc[:, 0]

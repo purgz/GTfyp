@@ -129,7 +129,9 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
   # Combine into a single file for csv saving.
   df_deltaResults = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
 
-  df_deltaResults.to_csv(fileOutputPath, index=False)
+  deltaH_Write(df_deltaResults, filePath=fileOutputPath
+               , args = ["w: 0.4" , "simulations: 1", "iterations 100000"]
+               , optionalComments="Testing rewrite with drift files")
 
 
   if plotDelta:
@@ -155,9 +157,45 @@ def arpsExample(N = 500, iterations = 100000):
   df_RPS_LU = pd.DataFrame({"c1": localResults[0], "c2": localResults[1], "c3": localResults[2], "c4": localResults[3]})
 
 
-  df_RPS_MO.to_csv("./results/moran" + str(N) + "_" + str(iterations) + ".csv", index=False)
+  trajectoryWrite(df_RPS_MO, "./results/moran" + str(N) + "_" + str(iterations) + ".csv", args = [N, iterations, 0.2], 
+                  optionalComments= "Testing the file writing for trajectories.")
 
-  simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
+  #simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
+
+
+
+def trajectoryWrite(df, filePath, args=[], optionalComments=None):
+
+  # Construct and add comments
+  with open(filePath, "w") as f:
+
+    if optionalComments:
+      f.write("# " + optionalComments + "\n")
+
+    f.write("# Arguments used\n# args=")
+    for arg in args:
+      f.write(str(arg) + " ")
+    f.write("\n")
+
+  df.to_csv(filePath, mode = "a", index=False)
+
+
+def deltaH_Write(df, filePath, args=[], optionalComments=None):
+
+  with open(filePath, "w") as f:
+    f.write("# Drift (delta H) plot results")
+    if optionalComments:
+      f.write("# " + optionalComments + "\n")
+
+    f.write("# Arguments used\n# args=")
+    for arg in args:
+      f.write(str(arg) + " ")
+    f.write("\n")
+
+  df.to_csv(filePath, mode = "a", index=False)
+
+  pass
+
 
 # Need this because of multiprocessing
 if  __name__ == "__main__":
@@ -168,9 +206,9 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
 
-  #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
+  simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
-  simulation.highDim2dplot("./results/moran20000_3000000.csv", 100000)
+  simulation.highDim2dplot("./results/moran200_1000.csv", 1000)
   
   #runPopulationEnsemble(range(10,100, 2), fileOutputPath="./results/drift.csv", plotDelta=True)
 
