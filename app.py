@@ -221,9 +221,15 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
 
-  simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
+  #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
-  simulation.highDim2dplot("./results/moran200_1000.csv", 1000)
+  
+  simulation.highDim2dplot("./results/moran20000_3000000.csv", 3000000)
+  test = replicator.numericalTrajectory()
+
+  trajectoryWrite(test, "./results/moranNumerical.csv")
+
+  simulation.highDim2dplot("./results/moranNumerical.csv", "inf", norm=False)
   
   #runPopulationEnsemble(range(10,100, 2), fileOutputPath="./results/drift.csv", plotDelta=True)
 
