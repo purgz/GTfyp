@@ -144,6 +144,21 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
     plt.show()
 
 
+def searchCriticalPopsize():
+
+  # Find critical popsize for a set of parameters
+
+
+
+  pass
+
+
+# Find critical popsize for a range over W values - very long run time simulation so needs to write to file output.
+def criticalPopsizeEnsemble():
+
+
+  pass
+
 
 def arpsExample(N = 500, iterations = 100000):
   moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=1, 
@@ -194,7 +209,7 @@ def deltaH_Write(df, filePath, args=[], optionalComments=None):
 
   df.to_csv(filePath, mode = "a", index=False)
 
-  pass
+  
 
 
 # Need this because of multiprocessing
