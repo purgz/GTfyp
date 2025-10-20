@@ -215,7 +215,7 @@ def game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
 
 
 # Method for plotting higher strategy, e.g 4 strategy games trajectory on a 2d graph.
-def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
+def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"], norm=True):
   
   fig = plt.figure()
 
@@ -226,8 +226,13 @@ def highDim2dplot(filePath, N, labels = ["Moran Process", "Local update"]):
   s = data.iloc[:, 2]
   a = data.iloc[:, 3]
 
+
   for i in range(len(data.columns)):
-     plt.plot(data.iloc[:, i])
+    if norm:  
+      time_norm = (np.arange(len(data)) / N) * 50
+      plt.plot(time_norm, data.iloc[:, i])
+    else:
+       plt.plot(data.iloc[:, i])
 
   plt.xlabel("T")
   plt.ylabel("R,P,S,A")
