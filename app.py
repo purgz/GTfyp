@@ -175,6 +175,8 @@ def arpsExample(N = 500, iterations = 100000):
   trajectoryWrite(df_RPS_MO, "./results/moran" + str(N) + "_" + str(iterations) + ".csv", args = [N, iterations, 0.2], 
                   optionalComments= "Testing the file writing for trajectories.")
 
+  trajectoryWrite(df_RPS_LU, "./results/local" + str(N) + "_" + str(iterations) + ".csv", args = [N, iterations, 0.2]),
+
   #simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
 
 
@@ -224,11 +226,12 @@ if  __name__ == "__main__":
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
   
-  test, t_eval = replicator.numericalTrajectory()
+  test, t_eval = replicator.numericalTrajectory(interactionProcess="Local")
   trajectoryWrite(test, "./results/moranNumerical.csv")
 
 
-  filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  filePaths = ["./results/local100000_15000000.csv", "./results/moranNumerical.csv"]
   norms = [True, False]
 
   simulation.highDim2dplot(filePaths, [100000, None], norm=norms, t_eval=t_eval)

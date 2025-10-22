@@ -35,8 +35,9 @@ q = 1 - x - y - z
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
 z_dot = (z * x) * (payoffS - payoffR) + (z * y) * (payoffS - payoffP) + (z * q) * (payoffS - payoffL)
 """
-def replicators(matrix):
+def replicators(matrix, interactionProcess="Moran"):
   
+  # Standard payoffs
   payoffR = a * x + y * c + b * z + gamma * q
   payoffP = b * x + a * y + c * z + gamma * q
   payoffS = c * x + b * y + a * z + gamma * q 
@@ -49,12 +50,31 @@ def replicators(matrix):
   """
 
   w = 0.2 # Hardcoded for now
-  gam = (1 - w) / w
-  adjustedScaling = 1 / (gam + averagePayoff)
 
-  x_dot = x * (payoffR - averagePayoff) * adjustedScaling
-  y_dot = y * (payoffP - averagePayoff) * adjustedScaling
-  z_dot = z * (payoffS - averagePayoff) * adjustedScaling
+  match interactionProcess:
+
+    case "Moran":
+      # Adjusted dynamics
+      gam = (1 - w) / w
+      adjustedScaling = 1 / (gam + averagePayoff)
+
+      x_dot = x * (payoffR - averagePayoff) * adjustedScaling
+      y_dot = y * (payoffP - averagePayoff) * adjustedScaling
+      z_dot = z * (payoffS - averagePayoff) * adjustedScaling
+    case "Local":
+      
+
+      deltaPi = 1 # Hardcoded for now
+      k = w / (deltaPi)
+
+      x_dot = x * (payoffR - averagePayoff) * k
+      y_dot = y * (payoffP - averagePayoff) * k
+      z_dot = z * (payoffS - averagePayoff) * k
+    case _:
+      x_dot = x * (payoffR - averagePayoff) 
+      y_dot = y * (payoffP - averagePayoff) 
+      z_dot = z * (payoffS - averagePayoff) 
+
 
   return x_dot, y_dot, z_dot
 
@@ -116,11 +136,11 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDis
   return df, t_eval
 
 
-def numericalTrajectory():
+def numericalTrajectory(interactionProcess="Moran"):
 
   # External module method.
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A)
+  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=interactionProcess)
 
   
   print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
