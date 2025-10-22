@@ -41,4 +41,6 @@ Drift analysis:
 
 Need to include detail of running both web app and python app locally with docker, setup docker pipeline for app.
 
-gitlab test 2
+
+![alt text](source/simulation/images/2d4player.png)
+Local update simulation for the 4 player game, can see how it follows the numerical solution at very large pop (100000). 15,000,000 iterations, normalized to 150 time-steps.

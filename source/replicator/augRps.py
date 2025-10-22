@@ -64,7 +64,7 @@ def replicators(matrix, interactionProcess="Moran"):
     case "Local":
       
 
-      deltaPi = 1 # Hardcoded for now
+      deltaPi = 2 # Hardcoded for now
       k = w / (deltaPi)
 
       x_dot = x * (payoffR - averagePayoff) * k
