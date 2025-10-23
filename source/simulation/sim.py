@@ -6,6 +6,7 @@ import os
 from mpl_toolkits.mplot3d import axes3d, Axes3D 
 from itertools import combinations
 from multiprocessing import Pool
+from tqdm import tqdm
 
 from numba import njit
 
@@ -45,7 +46,7 @@ basicRps = np.array([[0,   -1,   1,       0.2],
   return payoffs / (popSize-1)
 """
 
-@njit
+@njit(cache=True)
 def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
@@ -72,7 +73,7 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-@njit
+@njit(cache=True)
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
     for i in range(numStrategies):
@@ -118,7 +119,7 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
     # Return normalized RPSL distribution
     return results
           
-@njit
+@njit(cache=True)
 def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -200,7 +201,7 @@ def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.
 
 
 
-@njit
+@njit(cache=True)
 def weighted_choice(weights):
 
     choices = [i for i in range(len(weights))]
@@ -208,7 +209,7 @@ def weighted_choice(weights):
     return np.searchsorted(np.cumsum(weights), np.random.random(), side="right")
 
 
-@njit
+@njit(cache=True)
 def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -238,7 +239,7 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
     return results
 
 
-@njit
+@njit(cache=True)
 def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -329,6 +330,10 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
 
     return moranResult, localResult, delta_L_moran, delta_L_local
 
+
+def simHelper(args):
+    return singleSim(*args)
+
 # Method for api to call
 def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 1):
     # Runs multiprocessing simulations for moran and local update process
@@ -346,7 +351,7 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     Testing with random initial conditions
     """
 
-    """
+    
     # Prepare initial dist
     fixed = initialDist[3]
     args = []
@@ -358,30 +363,34 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
         initial = np.append(random_simplex, fixed)
         args.append((matrix, popSize, initial, iterations, w, H, data_res))
 
-    """
-    args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
+    
+    #args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
 
-    print("Running simulation pool")
-    print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
+    #print("Running simulation pool")
+    #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
 
     # Warm up numba - prevent threads recompiling each time.
     _ = moranSimulation_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
     _ = localUpdate_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
 
     with Pool() as pool:
-        # Starmap to allow passing of arguments to each simulation
-        results = pool.starmap(singleSim, args)
+       
+       # Imap unordered allows usage of tqdm for progress bar.
+       # Progres bar pauses at first because of numba warming up.
 
-    for i, (moranResult, localResult, delta_L_moran, delta_L_local) in enumerate(results):
-        deltaMoran.append(delta_L_moran)
-        deltaLocal.append(delta_L_local)
+        for i , (moranResult, local, delta_L_moran, delta_L_local) in tqdm(
+            enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
+            ):
+            deltaMoran.append(delta_L_moran)
+            deltaLocal.append(delta_L_local)
 
-        if i == 0:
-            mResults = np.array(moranResult)
-            lResults = np.array(localResult)
-        else:
-            mResults += np.array(moranResult)
-            lResults += np.array(localResult)
+            if i == 0:
+                mResults = np.array(moranResult)
+                lResults = np.array(local)
+            else:
+                mResults += np.array(moranResult)
+                lResults += np.array(local)
+
 
     print(np.mean(deltaMoran), " Moran drift")
     print(np.mean(deltaLocal), " local drift")
