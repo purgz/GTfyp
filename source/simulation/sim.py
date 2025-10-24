@@ -46,7 +46,7 @@ basicRps = np.array([[0,   -1,   1,       0.2],
   return payoffs / (popSize-1)
 """
 
-@njit(cache=True, inline="always")
+@njit(inline="always")
 def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
@@ -73,7 +73,7 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-@njit(cache=True, inline="always")
+@njit(inline="always")
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
     for i in range(numStrategies):
@@ -119,7 +119,7 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
     # Return normalized RPSL distribution
     return results
           
-@njit(cache=True)
+@njit()
 def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -224,7 +224,7 @@ def weighted_choice(weights):
 
 
 
-@njit(cache=True)
+@njit()
 def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -256,7 +256,7 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
     return results
 
 
-@njit(cache=True)
+@njit()
 def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
@@ -297,10 +297,6 @@ def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
 
 
 
-"""
-popSize = 100
-simulations = 1
-"""
 
 
 def reseed():
@@ -317,7 +313,7 @@ def reseed():
 
 def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processes):
     
-    reseed()
+    #reseed()
     
     population = np.random.multinomial(popSize, initialDist)
     population2 = np.random.multinomial(popSize, initialDist)
@@ -344,7 +340,7 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processe
     return results
 
 
-def simHelper(args):
+def simHelper(args):  
     return singleSim(*args)
 
 # Method for api to call
@@ -352,7 +348,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
                        simulations=100, 
                        initialDist=[0.1, 0.1, 0.1, 0.7],
                        iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Local"]):
+                       processes=["Moran", "Local"], pool=None):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -371,7 +367,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
 
     # This needs to be removed when checking for a single starting point - e.g specific starting point trajectory simulation 
     # Prepare initial dist
-    fixed = initialDist[3]
+    fixed = initialDist[H]
     args = []
     for i in range(simulations):
         remaining = 1 - fixed
@@ -387,12 +383,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
     #print("Running simulation pool")
     #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
 
-    # Warm up numba - prevent threads recompiling each time.
-    _ = moranSimulation_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
-    _ = localUpdate_numba(basicRps, 10, np.array([2,3,4,1]), iterations=10, w=0.3)
 
-    with Pool() as pool:
-       
+    if pool:
        # Imap unordered allows usage of tqdm for progress bar.
        # Progres bar pauses at first because of numba warming up.
 
@@ -404,8 +396,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             delta_L_moran = results[0][1]
             deltaMoran.append(delta_L_moran)
             
-            localResult = results[0][0]
-            delta_L_local = results[0][1]
+            localResult = results[1][0]
+            delta_L_local = results[1][1]
             
             deltaLocal.append(delta_L_local)
 
@@ -415,6 +407,29 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             else:
                 mResults += np.array(moranResult)
                 lResults += np.array(localResult)
+    else:
+        with Pool() as pool:
+            
+          for i , (results) in tqdm(
+              enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
+              ):
+
+              moranResult = results[0][0]
+              delta_L_moran = results[0][1]
+              deltaMoran.append(delta_L_moran)
+              
+              localResult = results[1][0]
+              delta_L_local = results[1][1]
+              
+              deltaLocal.append(delta_L_local)
+
+              if i == 0:
+                  mResults = np.array(moranResult)
+                  lResults = np.array(localResult)
+              else:
+                  mResults += np.array(moranResult)
+                  lResults += np.array(localResult)
+            
 
 
     print(np.mean(deltaMoran), " Moran drift")
@@ -426,42 +441,23 @@ def runSimulationPool(matrix=basicRps, popSize=100,
     return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal)
 
 
-"""
->>> from cProfile import Profile
->>> from pstats import SortKey, Stats
-
->>> def fib(n):
-...     return n if n < 2 else fib(n - 2) + fib(n - 1)
-...
-
->>> with Profile() as profile:
-...     print(f"{fib(35) = }")
-...     (
-...         Stats(profile)
-...         .strip_dirs()
-...         .sort_stats(SortKey.CALLS)
-...         .print_stats()
-...     )
-
-"""
-
 
 
 # Running the file directly no longer works due to changed packacge structure, run via app.py
 if __name__ == '__main__':
-    """
+    
     from cProfile import Profile
     from pstats import SortKey, Stats
 
     with Profile() as profile:
-        print(f"{singleSim(basicRps,2000,[0.1,0.1,0.1,0.7], 1000000, 0.3,3)}")
+        print(f"{singleSim(basicRps,20000,[0.5,0.2,0.2,0.1], 1000000, 0.2,3, data_res=50, processes="Moran")}")
         (
             Stats(profile)
             .strip_dirs()
             .sort_stats(SortKey.CALLS)
             .print_stats()
         )
-    """
+    
     
     moran, local, a, b = singleSim(
                           basicRps,
