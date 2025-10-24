@@ -228,10 +228,10 @@ def criticalPopsizeEnsemble():
 
 
 def arpsExample(N = 500, iterations = 100000):
-  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=3000, 
+  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=10, 
                                                                             iterations=iterations,
                                                                             H=3,
-                                                                            initialDist=[0.25,0.25,0.25,0.25],
+                                                                            initialDist=[0.5,0.2,0.2,0.1],
                                                                             w=0.4, data_res=50)
   
   
@@ -295,17 +295,17 @@ if  __name__ == "__main__":
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
-  """
-  test, t_eval = replicator.numericalTrajectory(interactionProcess="Local")
+  
+  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
   trajectoryWrite(test, "./results/moranNumerical.csv")
 
 
   #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  filePaths = ["./results/local5000_100000.csv", "./results/moranNumerical.csv"]
+  filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
   norms = [True, False]
 
-  simulation.highDim2dplot(filePaths, [5000, None], norm=norms, t_eval=t_eval)
-  """
+  simulation.highDim2dplot(filePaths, [100000, None], norm=norms, t_eval=t_eval)
+  
 
   """
   df_MO = pd.read_csv("./results/moran400_100000.csv")

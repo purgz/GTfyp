@@ -8,7 +8,7 @@ from itertools import combinations
 from multiprocessing import Pool
 from tqdm import tqdm
 
-from numba import njit
+from numba import njit, prange
 
 
 #If running this file directly uncomment following
@@ -46,7 +46,7 @@ basicRps = np.array([[0,   -1,   1,       0.2],
   return payoffs / (popSize-1)
 """
 
-@njit(cache=True)
+@njit(cache=True, inline="always")
 def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
@@ -73,7 +73,7 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
-@njit(cache=True)
+@njit(cache=True, inline="always")
 def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     probs = np.zeros(numStrategies)
     for i in range(numStrategies):
@@ -123,6 +123,7 @@ def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations 
 def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
+    
     individuals = np.empty(popSize, dtype=np.int64)
 
     # Build individuals array from population
@@ -156,6 +157,7 @@ def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
         for j in range(numStrategies):
             results[j, i] = population[j] / popSize
 
+  
     return results
 
 
@@ -199,20 +201,34 @@ def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.
     # Return normalized RPSL distribution
     return results
 
-
-
-@njit(cache=True)
+"""
+@njit(cache=True, inline="always")
 def weighted_choice(weights):
 
     choices = [i for i in range(len(weights))]
     
     return np.searchsorted(np.cumsum(weights), np.random.random(), side="right")
+"""
+
+@njit(inline='always')
+def weighted_choice(weights):
+    # Unnormalized weights allowed
+    total = np.sum(weights)
+    r = np.random.rand() * total
+    acc = 0.0
+    for i in range(weights.size):
+        acc += weights[i]
+        if acc >= r:
+            return i
+    return weights.size - 1
+
 
 
 @njit(cache=True)
 def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
     numStrategies = matrix.shape[0]
     results = np.zeros((numStrategies, iterations))
+    
 
     for i in range(iterations):
 
@@ -234,7 +250,8 @@ def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3)
         population[killed] -= 1
 
         for j in range(numStrategies):
-            results[j, i] = population[j] / popSize
+          results[j, i] = population[j] / popSize
+
 
     return results
 
@@ -298,47 +315,48 @@ def reseed():
 
 
 
-def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res):
+def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processes):
     
     reseed()
     
     population = np.random.multinomial(popSize, initialDist)
     population2 = np.random.multinomial(popSize, initialDist)
 
-    """
-    benchmarks; 7.3 seconds
-    """
+    results = []
 
-    # Add other interaction processs here
-    
-    #moranResult = moranSimulation(matrix, popSize,population.copy(), initialDist, iterations,w)
-    #localResult = localUpdate(matrix, popSize, initialDist, iterations,w)
-
-    moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
-    localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
-
-    #fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
-
-    delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
-    delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
-    #delta_L_fermi = np.mean(np.diff(fermiResult[H]))
-
-    moranResult = moranResult[:, ::data_res]
-    localResult = localResult[:, ::data_res]
-    #fermiResult = fermiResult[:, ::data_res]
+    if "Moran" in processes:
+      moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
+      delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
+      moranResult = moranResult[:, ::data_res]
+      results.append((moranResult, delta_L_moran))
+    if "Local" in processes:
+      localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
+      delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
+      localResult = localResult[:, ::data_res]
+      results.append((localResult, delta_L_local))
+    if "Fermi" in processes:
+      fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
+      delta_L_fermi = np.mean(np.diff(fermiResult[H]))
+      fermiResult = fermiResult[:, ::data_res]
+      results.append((fermiResult, delta_L_fermi))
 
 
-    return moranResult, localResult, delta_L_moran, delta_L_local
+    return results
 
 
 def simHelper(args):
     return singleSim(*args)
 
 # Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist=[0.1, 0.1, 0.1, 0.7], iterations=100000, w=0.4, H=3, data_res = 1):
+def runSimulationPool(matrix=basicRps, popSize=100,
+                       simulations=100, 
+                       initialDist=[0.1, 0.1, 0.1, 0.7],
+                       iterations=100000, w=0.4, H=3, data_res = 1,
+                       processes=["Moran", "Local"]):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
+    print("Processes " , processes)
 
     deltaMoran = []
     deltaLocal = []
@@ -351,7 +369,7 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
     Testing with random initial conditions
     """
 
-    
+    """
     # Prepare initial dist
     fixed = initialDist[3]
     args = []
@@ -361,10 +379,10 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
         random_simplex /= np.sum(random_simplex)
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
-        args.append((matrix, popSize, initial, iterations, w, H, data_res))
-
+        args.append((matrix, popSize, initial, iterations, w, H, data_res, processes))
+    """
     
-    #args = [(matrix, popSize, initialDist, iterations, w, H, data_res) for _ in range(simulations)]
+    args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
 
     #print("Running simulation pool")
     #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
@@ -378,18 +396,25 @@ def runSimulationPool(matrix=basicRps, popSize=100, simulations=100, initialDist
        # Imap unordered allows usage of tqdm for progress bar.
        # Progres bar pauses at first because of numba warming up.
 
-        for i , (moranResult, local, delta_L_moran, delta_L_local) in tqdm(
+        for i , (results) in tqdm(
             enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
             ):
+
+            moranResult = results[0][0]
+            delta_L_moran = results[0][1]
             deltaMoran.append(delta_L_moran)
+            
+            localResult = results[1][0]
+            delta_L_local = results[1][1]
+            
             deltaLocal.append(delta_L_local)
 
             if i == 0:
                 mResults = np.array(moranResult)
-                lResults = np.array(local)
+                lResults = np.array(localResult)
             else:
                 mResults += np.array(moranResult)
-                lResults += np.array(local)
+                lResults += np.array(localResult)
 
 
     print(np.mean(deltaMoran), " Moran drift")
