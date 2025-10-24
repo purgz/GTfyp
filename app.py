@@ -12,6 +12,8 @@ import time
 import scienceplots
 import plotly.express as px
 
+from multiprocessing import Pool
+
 plt.style.use(['science','no-latex'])
 
 """
@@ -98,12 +100,12 @@ def rpsExample(N=10000, iterations = 1000000):
 Testing benchmarks
 without changes - 99s runtime
 """
-def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
+def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
 
 
-
+  
   start = time.time()
-
+  pool = Pool()
 
   # Add arguments here to customize the ensemble !
 
@@ -117,7 +119,8 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
 
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     #print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500)
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
+                                                                              pool=pool)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -126,6 +129,9 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=False):
   
   print("Time taken to run population test ensemble")
   print(end - start)
+
+  pool.close()
+  pool.join()
 
   # Combine into a single file for csv saving.
   df_deltaResults = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
@@ -158,14 +164,19 @@ def searchCriticalPopsize(w=0.4):
   high = 600
   max_iterations = 20
 
-  
   prevSign = None
+
+
+  pool = Pool()
 
   while low <= high and iteration < max_iterations:
     iteration += 1
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=3000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000)
+  
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 200000,
+                                                                              pool=pool, data_res=100)
+
 
     if deltaMoran > 0:
       sign = 1
@@ -193,12 +204,13 @@ def searchCriticalPopsize(w=0.4):
       high = mid - 1
     
     prevSign = sign
-  
+
+  pool.close()
+  pool.join()
   if criticalN is not None:
     print("Critical popsize found: ", criticalN)
   else:
     print("Critical popsize not found in range.")
-
   return criticalN
 
 
@@ -290,8 +302,8 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
   
-  searchCriticalPopsize()
-  #runPopulationEnsemble(range(100,700, 100), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
+  #searchCriticalPopsize()
+  runPopulationEnsemble(range(100,700, 30), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
