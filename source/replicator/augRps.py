@@ -49,7 +49,7 @@ def replicators(matrix, interactionProcess="Moran"):
   Other form using avg instead of payoff pairwise comparison - should be equivalent.
   """
 
-  w = 0.2 # Hardcoded for now
+  w = 0.4 # Hardcoded for now
 
   match interactionProcess:
 
