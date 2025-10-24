@@ -83,42 +83,7 @@ def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     return probs
 
 
-def localUpdate(matrix, popSize, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.4):
-    
-    population = np.random.multinomial(popSize, initialDist)
 
-    numStrategies = matrix.shape[0]
-    
-    results = np.zeros((numStrategies, iterations))
-
-    individuals = np.repeat(np.arange(numStrategies), population)
-
-    deltaPi = np.max(matrix) - np.min(matrix)
-        
-    for i in range(iterations):
-        
-        ind1, ind2 = np.random.choice(popSize, size=2, replace=False)
-     
-        p1, p2 = individuals[ind1], individuals[ind2]
-
-        payoffs = payoffAgainstPop(population, matrix, popSize)
-    
-        p = 1/2 + (w/2) * ((payoffs[p2] - payoffs[p1]) / deltaPi)
-
-        # With this probability switch p1 to p2
-        if (np.random.rand() < p):
-            population[p1] -= 1
-            population[p2] += 1
-            # Update the individuals when an update occurs.
-            individuals[ind1] = p2
-  
-      
-        for j in range(numStrategies):
-            results[j][i] = population[j] / popSize
-
-    # Return normalized RPSL distribution
-    return results
-          
 @njit()
 def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
     numStrategies = matrix.shape[0]
@@ -160,46 +125,6 @@ def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
   
     return results
 
-
-@njit
-def moranSimulation(matrix, popSize,population, initialDist = [0.1, 0.1, 0.1, 0.7], iterations = 100000, w=0.3):
-    # Population represented just as their frequency of strategies for efficiency,
-    # I think individual agents in simple dynamics unneccessary overhead
-    #population = np.random.multinomial(popSize, initialDist)
-
-    numStrategies = matrix.shape[0]
-    
-    results = np.zeros((numStrategies, iterations))
-
-    for i in range(iterations):
-        # Death: uniform random
-        #killed = random.choices(range(numStrategies), weights=population)[0]
-        killed = weighted_choice(population)
-        # Birth: fitness-proportional
-        # P = reproductive fitness in moran process 1 - w + w * Pi
-        p = 1 - w + w * payoffAgainstPop(population, matrix, popSize)
-        
-        #avg = np.sum(p * population) / popSize
-        avg = 0.0
-        for j in range(numStrategies):
-            avg += p[j] * population[j]
-        avg /= float(popSize)
-
-        probs = moranSelection(p, avg, population, popSize, matrix.shape[0])
-
-        #chosen = random.choices(range(numStrategies), weights=probs)[0]
-        chosen = weighted_choice(probs)
-  
-
-        population[chosen] += 1
-        population[killed] -= 1
-
-       
-        for j in range(numStrategies):
-            results[j][i] = population[j] / popSize
-
-    # Return normalized RPSL distribution
-    return results
 
 """
 @njit(cache=True, inline="always")
@@ -348,7 +273,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
                        simulations=100, 
                        initialDist=[0.1, 0.1, 0.1, 0.7],
                        iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Moran", "Local"], pool=None):
+                       processes=["Moran"], pool=None):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -396,8 +321,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             delta_L_moran = results[0][1]
             deltaMoran.append(delta_L_moran)
             
-            localResult = results[1][0]
-            delta_L_local = results[1][1]
+            localResult = results[0][0]
+            delta_L_local = results[0][1]
             
             deltaLocal.append(delta_L_local)
 
@@ -418,8 +343,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
               delta_L_moran = results[0][1]
               deltaMoran.append(delta_L_moran)
               
-              localResult = results[1][0]
-              delta_L_local = results[1][1]
+              localResult = results[0][0]
+              delta_L_local = results[0][1]
               
               deltaLocal.append(delta_L_local)
 
@@ -432,8 +357,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             
 
 
-    print(np.mean(deltaMoran), " Moran drift")
-    print(np.mean(deltaLocal), " local drift")
+    #print(np.mean(deltaMoran), " Moran drift")
+    #print(np.mean(deltaLocal), " local drift")
 
     mResults /= simulations
     lResults /= simulations

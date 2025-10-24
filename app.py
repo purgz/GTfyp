@@ -14,6 +14,7 @@ import plotly.express as px
 
 from multiprocessing import Pool
 
+
 plt.style.use(['science','no-latex'])
 
 """
@@ -106,6 +107,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
   
   start = time.time()
   pool = Pool()
+  
 
   # Add arguments here to customize the ensemble !
 
@@ -119,7 +121,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
 
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     #print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
                                                                               pool=pool)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
@@ -160,21 +162,22 @@ def searchCriticalPopsize(w=0.4):
   criticalN = None
   iteration = 0
 
-  low = 400
-  high = 600
+  low = 100
+  high = 1000
   max_iterations = 20
+  mid = 0
 
   prevSign = None
 
 
-  pool = Pool()
+  pool = Pool() 
 
   while low <= high and iteration < max_iterations:
     iteration += 1
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
   
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 200000,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=3000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
                                                                               pool=pool, data_res=100)
 
 
@@ -207,6 +210,8 @@ def searchCriticalPopsize(w=0.4):
 
   pool.close()
   pool.join()
+  if criticalN is None:
+    criticalN = mid  # best estimate
   if criticalN is not None:
     print("Critical popsize found: ", criticalN)
   else:
@@ -227,15 +232,21 @@ def criticalPopsizeEnsemble():
   # Periodically write to file, allow for restart at a later time.
 
   # Example of what this function might look like, we can have a similar one for testing different parameter values in the matrix.
-  ws = np.linspace(0.1, 0.9, 9)
+  ws = np.linspace(0.1, 0.5, 10)
 
   Ns = []
 
-  for w in ws:
+  for w in tqdm(ws, position=0, leave=True):
     criticalN = searchCriticalPopsize(w=w)
-    Ns.append((w,criticalN))
+    Ns.append(criticalN)
 
   print("Critical Ns ", Ns)
+
+  plt.plot(ws, Ns)
+  plt.xlabel("w")
+  plt.ylabel("Nc")
+  plt.legend()
+  plt.show()
   
 
 
@@ -301,9 +312,10 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
-  
-  #searchCriticalPopsize()
-  runPopulationEnsemble(range(100,700, 30), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
+  criticalPopsizeEnsemble()
+  # [1000, 1000, 906, 753, 643, 557, 482, 436, 385, 341] first successful run!!
+  searchCriticalPopsize()
+  #runPopulationEnsemble(range(100,700, 20), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
