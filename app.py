@@ -154,8 +154,8 @@ def searchCriticalPopsize(w=0.4):
   criticalN = None
   iteration = 0
 
-  low = 440
-  high = 455
+  low = 400
+  high = 600
   max_iterations = 20
 
   
@@ -231,8 +231,8 @@ def arpsExample(N = 500, iterations = 100000):
   moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=10, 
                                                                             iterations=iterations,
                                                                             H=3,
-                                                                            initialDist=[0.5,0.2,0.2,0.1],
-                                                                            w=0.4, data_res=50)
+                                                                            initialDist=[0.5,0.25, 0.25,0],
+                                                                            w=0.2, data_res=50)
   
   
   df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
@@ -290,7 +290,7 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
   
-  #searchCriticalPopsize()
+  searchCriticalPopsize()
   #runPopulationEnsemble(range(100,700, 100), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
@@ -301,7 +301,7 @@ if  __name__ == "__main__":
 
 
   #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  filePaths = ["./results/moran100000_15000000.csv"]
   norms = [True, False]
 
   simulation.highDim2dplot(filePaths, [100000, None], norm=norms, t_eval=t_eval)
