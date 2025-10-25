@@ -18,20 +18,15 @@ from multiprocessing import Pool
 plt.style.use(['science','no-latex'])
 
 """
-Few things to do :
 
-make sure the numerical code is correctly adjusting to new matrices since its hard coded for PD
-e.g the delta Pi needs to be calculated correctly.
+Note - begun using my linux desktop instead and performace roughly 2x when using the multiprocess simulation
 
-nice graph for hawk dove [2,10],[0,-5] - matchees pd results
-
-also need to generalize the adjusted dynamics since theyre also hard coded.
+- Windows sucks
+- Run sims on linux
 """
 
 
-"""
-Working on generalizing so this will essentially work for ANY 2x2 symmetric game.
-"""
+
 
 
 def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
@@ -121,7 +116,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
 
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     #print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
                                                                               pool=pool)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
@@ -139,8 +134,8 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
   df_deltaResults = pd.DataFrame(np.column_stack((populationSizes,deltaM, deltaL)), columns=["popsizes","deltaMoran", "deltaLocal"])
 
   deltaH_Write(df_deltaResults, filePath=fileOutputPath
-               , args = ["w: 0.4" , "simulations: 1", "iterations 100000"]
-               , optionalComments="Testing rewrite with drift files")
+               , args = ["w: 0.4" , "simulations: 1000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
+               , optionalComments="Large average delta H experiment with randomizes starting point in the RPS plane")
 
 
   if plotDelta:
@@ -163,13 +158,13 @@ def searchCriticalPopsize(w=0.4):
   iteration = 0
 
   low = 100
-  high = 1000
+  high = 3000
   max_iterations = 20
   mid = 0
 
   prevSign = None
 
-
+  # Pass in a global pool to prevent reinit on each argument iteration.
   pool = Pool() 
 
   while low <= high and iteration < max_iterations:
@@ -177,7 +172,7 @@ def searchCriticalPopsize(w=0.4):
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
   
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=3000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
                                                                               pool=pool, data_res=100)
 
 
@@ -312,10 +307,10 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
-  criticalPopsizeEnsemble()
+  #criticalPopsizeEnsemble()
   # [1000, 1000, 906, 753, 643, 557, 482, 436, 385, 341] first successful run!!
-  searchCriticalPopsize()
-  #runPopulationEnsemble(range(100,700, 20), fileOutputPath="./results/tqdmdrifttest.csv", plotDelta=True)
+  
+  runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
   #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
 
@@ -380,9 +375,14 @@ if  __name__ == "__main__":
   rps_parser.add_argument("-N", type=int, default=10000)
   rps_parser.add_argument("-iterations", type=int, default=1000000)
 
+  # 4x4 game
   arps_parser = subParsers.add_parser("arps")
   arps_parser.add_argument("-N", type=int, default=500)
   arps_parser.add_argument("-iterations", type=int, default=100000)
+
+  # Other options
+  experimentParser = parser.add_subparsers(dest="experiment")
+  # Add args for critical W finding, and ensembles for population and W.
 
 
   args = parser.parse_args()

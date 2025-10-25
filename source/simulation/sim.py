@@ -273,7 +273,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
                        simulations=100, 
                        initialDist=[0.1, 0.1, 0.1, 0.7],
                        iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Moran"], pool=None):
+                       processes=["Moran", "Local"], pool=None):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -321,8 +321,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             delta_L_moran = results[0][1]
             deltaMoran.append(delta_L_moran)
             
-            localResult = results[0][0]
-            delta_L_local = results[0][1]
+            localResult = results[1][0]
+            delta_L_local = results[1][1]
             
             deltaLocal.append(delta_L_local)
 
@@ -343,8 +343,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
               delta_L_moran = results[0][1]
               deltaMoran.append(delta_L_moran)
               
-              localResult = results[0][0]
-              delta_L_local = results[0][1]
+              localResult = results[1][0]
+              delta_L_local = results[1][1]
               
               deltaLocal.append(delta_L_local)
 
@@ -370,7 +370,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
 
 # Running the file directly no longer works due to changed packacge structure, run via app.py
 if __name__ == '__main__':
-    
+    """
     from cProfile import Profile
     from pstats import SortKey, Stats
 
@@ -395,7 +395,7 @@ if __name__ == '__main__':
     df_RPS_MO = pd.DataFrame({"c1": moran[0], "c2": moran[1], "c3": moran[2], "c4": moran[3]})
 
     quaternaryPlot(dfs=[df_RPS_MO],labels="Moran process")
-    
+    """
 
     """
     with Pool() as pool:
