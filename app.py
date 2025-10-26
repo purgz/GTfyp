@@ -312,7 +312,7 @@ if  __name__ == "__main__":
   
   runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
-  #simulation.driftPlotH("./results/drift.csv", labels=["Moran, Local"])
+  simulation.driftPlotH("./results/population_ensemble.csv", labels=["Moran, Local"])
 
   
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
@@ -320,10 +320,10 @@ if  __name__ == "__main__":
 
 
   #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  filePaths = ["./results/moran100000_15000000.csv"]
+  filePaths = ["./results/moran400_100000.csv", "./results/moranNumerical.csv"]
   norms = [True, False]
 
-  simulation.highDim2dplot(filePaths, [100000, None], norm=norms, t_eval=t_eval)
+  simulation.highDim2dplot(filePaths, [400, None], norm=norms, t_eval=t_eval)
   
 
   """
@@ -381,7 +381,7 @@ if  __name__ == "__main__":
   arps_parser.add_argument("-iterations", type=int, default=100000)
 
   # Other options
-  experimentParser = parser.add_subparsers(dest="experiment")
+  #experimentParser = parser.add_subparsers(dest="experiment")
   # Add args for critical W finding, and ensembles for population and W.
 
 

@@ -292,6 +292,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
 
     # This needs to be removed when checking for a single starting point - e.g specific starting point trajectory simulation 
     # Prepare initial dist
+    """
     fixed = initialDist[H]
     args = []
     for i in range(simulations):
@@ -301,9 +302,9 @@ def runSimulationPool(matrix=basicRps, popSize=100,
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
         args.append((matrix, popSize, initial, iterations, w, H, data_res, processes))
+    """
     
-    
-    #args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
+    args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
 
     #print("Running simulation pool")
     #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
