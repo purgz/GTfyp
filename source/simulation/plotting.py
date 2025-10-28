@@ -250,14 +250,28 @@ def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
 
   popSizes = data.iloc[:, 0]
 
-  numProcesses = len(data.columns)-1
+  numProcesses = len(data.columns) - 1
+
+  markers = ["o", "s", "v"]
 
   for i in range(numProcesses):
-      plt.plot(popSizes, data.iloc[:,i + 1], label = labels[i-1], marker="o")
+      plt.plot(popSizes, data.iloc[:,i+1], label = labels[i], marker=markers[i])
 
   plt.xlabel("N")
   plt.ylabel("delta H")
   plt.legend()
   plt.show()
 
+
+def wEnsemblePlot(filePath):
+  data = pd.read_csv(filePath, comment = '#')
+
+  ws = data.iloc[:, 0]
+
+
+  plt.plot(ws, data.iloc[:, 1], marker="s")
+
+  plt.xlabel("w")
+  plt.ylabel("Nc")
+  plt.show()
 
