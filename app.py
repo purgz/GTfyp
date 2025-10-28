@@ -172,7 +172,8 @@ def searchCriticalPopsize(w=0.4):
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
   
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=mid,simulations=4000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
+      popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
                                                                               pool=pool, data_res=100)
 
 
@@ -226,8 +227,10 @@ def criticalPopsizeEnsemble():
   # I think this function will need to periodically write to file since it will take so long to run
   # Periodically write to file, allow for restart at a later time.
 
+  fileOutputPath = "./results/criticalN_w.csv"
+
   # Example of what this function might look like, we can have a similar one for testing different parameter values in the matrix.
-  ws = np.linspace(0.1, 0.5, 10)
+  ws = np.linspace(0.1, 0.5, 15)
 
   Ns = []
 
@@ -236,6 +239,13 @@ def criticalPopsizeEnsemble():
     Ns.append(criticalN)
 
   print("Critical Ns ", Ns)
+
+  df = pd.DataFrame({"W": ws, "CriticalN": Ns})
+
+  deltaH_Write(df, filePath=fileOutputPath
+               , args = [f"W range {ws}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
+               , optionalComments="Critical population size search for varied w.")
+
 
   plt.plot(ws, Ns)
   plt.xlabel("w")
@@ -307,12 +317,15 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
-  #criticalPopsizeEnsemble()
+
+  simulation.wEnsemblePlot("./results/criticalN_w.csv")
+
+  criticalPopsizeEnsemble()
   # [1000, 1000, 906, 753, 643, 557, 482, 436, 385, 341] first successful run!!
   
   runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
-  simulation.driftPlotH("./results/population_ensemble.csv", labels=["Moran, Local"])
+  simulation.driftPlotH("./results/population_ensemble.csv", labels=["Moran", "Local"])
 
   
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")

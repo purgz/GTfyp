@@ -273,7 +273,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
                        simulations=100, 
                        initialDist=[0.1, 0.1, 0.1, 0.7],
                        iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Moran", "Local"], pool=None):
+                       processes=["Moran"], pool=None):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -322,8 +322,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             delta_L_moran = results[0][1]
             deltaMoran.append(delta_L_moran)
             
-            localResult = results[1][0]
-            delta_L_local = results[1][1]
+            localResult = results[0][0]
+            delta_L_local = results[0][1]
             
             deltaLocal.append(delta_L_local)
 
