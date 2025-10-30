@@ -137,7 +137,7 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDis
 
 
 def numericalTrajectory(interactionProcess="Moran"):
-
+  # Runge kutta order 5
   # External module method.
   # Derive replicator equations
   x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=interactionProcess)
@@ -155,8 +155,8 @@ def numericalTrajectory(interactionProcess="Moran"):
 
 
 def findEigenvalues(replicators, config, vars, substitution):
-  """
-    J = sp.Matrix()
+  
+  """  J = sp.Matrix()
 
     # Construct the Jacobian! :)
     for idx, var in enumerate(vars):
@@ -168,16 +168,39 @@ def findEigenvalues(replicators, config, vars, substitution):
       J = J.col_insert(idx, sp.Matrix(col))
   """
 
-  J = sp.Matrix([[sp.diff(eq, var) for var in vars] for eq in replicators])
+  #J = sp.Matrix([[sp.diff(eq, var) for var in vars] for eq in replicators])
+
+  x_dot, y_dot, z_dot = replicators
+
+  F_x = sp.diff(x_dot, x)
+  F_y = sp.diff(x_dot, y)
+  F_z = sp.diff(x_dot, z)
+
+  G_x = sp.diff(y_dot, x)
+  G_y = sp.diff(y_dot, y)
+  G_z = sp.diff(y_dot, z)
+
+  P_x = sp.diff(z_dot, x)
+  P_y = sp.diff(z_dot, y)
+  P_z = sp.diff(z_dot, z)
+
+  # 3x3 Jacobian Matrix
+  J = sp.Matrix([[F_x, F_y, F_z],
+                [G_x, G_y, G_z],
+                [P_x, P_y, P_z]])
 
 
   eigenvalues = J.eigenvals()
 
+  
   eigenvalues_sub = {eig.subs(config) for eig in eigenvalues}
 
   results = {eig.subs(substitution) for eig in eigenvalues_sub}
 
   print(latex(results))
+
+  for result in results:
+    print(latex(result.as_real_imag()))
 
 
 
@@ -225,7 +248,7 @@ print(latex(results))
 if __name__ == "__main__":
   
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A)
+  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None)
 
   print(latex(x_dot))
   print("************************")
@@ -233,10 +256,14 @@ if __name__ == "__main__":
   print("*************************")
   print(latex(z_dot))
 
-  standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
+  standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
 
   substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
 
+  #print(latex(fixedPoints))
+
   eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
+  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0.0, z: 0.0})
+
