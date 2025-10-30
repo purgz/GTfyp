@@ -18,7 +18,6 @@ from multiprocessing import Pool
 plt.style.use(['science','no-latex'])
 
 """
-
 Note - begun using my linux desktop instead and performace roughly 2x when using the multiprocess simulation
 
 - Windows sucks
@@ -26,10 +25,7 @@ Note - begun using my linux desktop instead and performace roughly 2x when using
 """
 
 
-
-
-
-def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
+def pdExample(popsize : int = 1000, iterations : int = 10000, w : float =0.9, initialDist : list[float] = [0.9,0.1]) -> None:
 
   # Example running prisoners dilemma example.
   N = popsize
@@ -69,7 +65,7 @@ def pdExample(popsize=1000, iterations = 10000, w=0.9, initialDist = [0.9,0.1]):
                         t_eval=t_eval)
 
 
-def rpsExample(N=10000, iterations = 1000000):
+def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
 
   w = 0.5
 
@@ -96,7 +92,7 @@ def rpsExample(N=10000, iterations = 1000000):
 Testing benchmarks
 without changes - 99s runtime
 """
-def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
+def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True) -> None:
 
 
   
@@ -148,7 +144,7 @@ def runPopulationEnsemble(populationSizes, fileOutputPath="", plotDelta=True):
     plt.show()
 
 
-def searchCriticalPopsize(w=0.4):
+def searchCriticalPopsize(w : float = 0.4) -> int:
 
   # Binary search for critical popsize where drift reversal occurs.
   # Hardcoded for initial deltaM being positive.
@@ -255,7 +251,7 @@ def criticalPopsizeEnsemble():
   
 
 
-def arpsExample(N = 500, iterations = 100000):
+def arpsExample(N : int  = 500, iterations : int = 100000) -> None:
   moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=10, 
                                                                             iterations=iterations,
                                                                             H=3,
@@ -318,14 +314,16 @@ if  __name__ == "__main__":
   #pdExample()
   #rpsExample()
 
+
+  simulation.driftPlotH("./results/population_ensemble_w_0.4.csv", labels=["Moran", "Local"])
+
+
   simulation.wEnsemblePlot("./results/criticalN_w.csv")
 
   criticalPopsizeEnsemble()
   # [1000, 1000, 906, 753, 643, 557, 482, 436, 385, 341] first successful run!!
   
   runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
-
-  simulation.driftPlotH("./results/population_ensemble.csv", labels=["Moran", "Local"])
 
   
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
