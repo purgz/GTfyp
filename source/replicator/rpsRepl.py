@@ -73,4 +73,4 @@ print(latex(G_y))
 #print(latex(J))
 
 #print(latex(eigenvalues_sub))
-#print(latex(results))
+print(latex(results))
