@@ -89,8 +89,9 @@ def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
 
 
 """
-Testing benchmarks
-without changes - 99s runtime
+For popualtion drift test and critical popsize search, data res is very high so we dont waste cpu on memory accesses - 10 - 20% speedup
+As the trajectory is not needed for the final results - only care about accurate delta H values.
+Delta H is calculated before the dimension reduction
 """
 def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True) -> None:
 
@@ -112,7 +113,7 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
 
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     #print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=500,
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=5000,
                                                                               pool=pool)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
@@ -170,7 +171,7 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
   
     mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
       popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
-                                                                              pool=pool, data_res=100)
+                                                                              pool=pool, data_res=5000)
 
 
     if deltaMoran > 0:
@@ -307,18 +308,20 @@ def deltaH_Write(df, filePath, args=[], optionalComments=None):
 
 # Need this because of multiprocessing
 if  __name__ == "__main__":
+  
+  runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
 
-  #RPS - large pop
+  """  #RPS - large pop
   print("Running main")
   #pdExample()
   #rpsExample()
   start = time.time()
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=1)
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=500,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=50000)
   end = time.time()
   print("Time taken to run population test ensemble")
   print(end - start)
-  exit()
+  exit()"""
 
   simulation.driftPlotH("./results/population_ensemble_w_0.4.csv", labels=["Moran", "Local"])
 
@@ -328,7 +331,6 @@ if  __name__ == "__main__":
   criticalPopsizeEnsemble()
   # [1000, 1000, 906, 753, 643, 557, 482, 436, 385, 341] first successful run!!
   
-  runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
   
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
