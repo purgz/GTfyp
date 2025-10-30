@@ -257,7 +257,7 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processe
       results.append((localResult, delta_L_local))
     if "Fermi" in processes:
       fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
-      delta_L_fermi = np.mean(np.diff(fermiResult[H]))
+      delta_L_fermi = np.mean(np.diff(-(fermiResult[H] * (1 - fermiResult[H]))))
       fermiResult = fermiResult[:, ::data_res]
       results.append((fermiResult, delta_L_fermi))
 
