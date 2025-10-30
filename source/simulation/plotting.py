@@ -11,7 +11,8 @@ import ternary
 """
 SciencePlots library - ref in paper
 """
-plt.style.use(['science','no-latex'])
+#plt.style.use(['science','no-latex'])
+plt.style.use(['science'])
 
 
 
@@ -258,7 +259,8 @@ def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
       plt.plot(popSizes, data.iloc[:,i+1], label = labels[i], marker=markers[i])
 
   plt.xlabel("N")
-  plt.ylabel("delta H")
+  plt.ylabel(r"$\langle \Delta H \rangle$")
+  #plt.ylabel("delta H") # switch if latex not installed.
   plt.legend()
   plt.show()
 
