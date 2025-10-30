@@ -191,13 +191,10 @@ def findEigenvalues(replicators, config, vars, substitution):
 
 
   eigenvalues = J.eigenvals()
-
   
   eigenvalues_sub = {eig.subs(config) for eig in eigenvalues}
 
   results = {eig.subs(substitution) for eig in eigenvalues_sub}
-
-  print(latex(results))
 
   for result in results:
     print(latex(result.as_real_imag()))
@@ -265,5 +262,5 @@ if __name__ == "__main__":
   #print(latex(fixedPoints))
 
   eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
-  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0.0, z: 0.0})
+  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
 
