@@ -344,8 +344,8 @@ def runSimulationPool(matrix=basicRps, popSize=100,
               delta_L_moran = results[0][1]
               deltaMoran.append(delta_L_moran)
               
-              localResult = results[1][0]
-              delta_L_local = results[1][1]
+              localResult = results[0][0]
+              delta_L_local = results[0][1]
               
               deltaLocal.append(delta_L_local)
 

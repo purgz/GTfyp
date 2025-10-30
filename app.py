@@ -313,7 +313,12 @@ if  __name__ == "__main__":
   print("Running main")
   #pdExample()
   #rpsExample()
-
+  start = time.time()
+  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=20000,simulations=1000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=1)
+  end = time.time()
+  print("Time taken to run population test ensemble")
+  print(end - start)
+  exit()
 
   simulation.driftPlotH("./results/population_ensemble_w_0.4.csv", labels=["Moran", "Local"])
 
