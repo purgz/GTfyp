@@ -273,7 +273,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
                        simulations=100, 
                        initialDist=[0.1, 0.1, 0.1, 0.7],
                        iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Moran"], pool=None):
+                       processes=["Moran"], pool=None, randomizeStart=False):
     # Runs multiprocessing simulations for moran and local update process
 
     # H parameter decides which strategy will be focussed for the drift analysis
@@ -292,28 +292,54 @@ def runSimulationPool(matrix=basicRps, popSize=100,
 
     # This needs to be removed when checking for a single starting point - e.g specific starting point trajectory simulation 
     # Prepare initial dist
-    """
-    fixed = initialDist[H]
-    args = []
-    for i in range(simulations):
-        remaining = 1 - fixed
-        random_simplex = np.random.rand(numStrategies - 1)
-        random_simplex /= np.sum(random_simplex)
-        random_simplex *= remaining
-        initial = np.append(random_simplex, fixed)
-        args.append((matrix, popSize, initial, iterations, w, H, data_res, processes))
-    """
     
-    args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
+    args = []
+    if randomizeStart:
+      # Randomize the starting points in the plane given by H
+      # Fix at the H - distance from RPS plane, then random starting points within this plane
+      fixed = initialDist[H]
+      
+      for i in range(simulations):
+          remaining = 1 - fixed
+          random_simplex = np.random.rand(numStrategies - 1)
+          random_simplex /= np.sum(random_simplex)
+          random_simplex *= remaining
+          initial = np.append(random_simplex, fixed)
+          args.append((matrix, popSize, initial, iterations, w, H, data_res, processes))  
+    else:
+      # Just use the provided initial dist
+      args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
 
     #print("Running simulation pool")
     #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
 
 
     if pool:
+        # Use provided Pool(), better for large repetitions to remove pool startup overhead
        # Imap unordered allows usage of tqdm for progress bar.
-       # Progres bar pauses at first because of numba warming up.
+      for i , (results) in tqdm(
+          enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
+          ):
 
+          moranResult = results[0][0]
+          delta_L_moran = results[0][1]
+          deltaMoran.append(delta_L_moran)
+          
+          localResult = results[0][0]
+          delta_L_local = results[0][1]
+          
+          deltaLocal.append(delta_L_local)
+
+          if i == 0:
+              mResults = np.array(moranResult)
+              lResults = np.array(localResult)
+          else:
+              mResults += np.array(moranResult)
+              lResults += np.array(localResult)
+    else:
+      #No pool provided.
+      with Pool() as pool:
+          
         for i , (results) in tqdm(
             enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
             ):
@@ -333,28 +359,6 @@ def runSimulationPool(matrix=basicRps, popSize=100,
             else:
                 mResults += np.array(moranResult)
                 lResults += np.array(localResult)
-    else:
-        with Pool() as pool:
-            
-          for i , (results) in tqdm(
-              enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
-              ):
-
-              moranResult = results[0][0]
-              delta_L_moran = results[0][1]
-              deltaMoran.append(delta_L_moran)
-              
-              localResult = results[0][0]
-              delta_L_local = results[0][1]
-              
-              deltaLocal.append(delta_L_local)
-
-              if i == 0:
-                  mResults = np.array(moranResult)
-                  lResults = np.array(localResult)
-              else:
-                  mResults += np.array(moranResult)
-                  lResults += np.array(localResult)
             
 
 

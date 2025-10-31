@@ -93,28 +93,27 @@ For popualtion drift test and critical popsize search, data res is very high so 
 As the trajectory is not needed for the final results - only care about accurate delta H values.
 Delta H is calculated before the dimension reduction
 """
-def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True) -> None:
+def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 5000) -> None:
 
 
   
   start = time.time()
   pool = Pool()
   
-
-  # Add arguments here to customize the ensemble !
-
-  # Run a large batch with different parameters
-  # Would like to test for popsizes, W value, and different payoff matrix values - starting with popsize here
-  # Perhaps a config could be nice to have one single method to test for all.
-
   # Add the rest of the simulation options as arguments
   deltaM = []
   deltaL = []
 
+  # Simulation for each popsize.
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
-    #print("population ", populationSizes[i])
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=0.4, iterations = 100000, data_res=5000,
-                                                                              pool=pool)
+    
+    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],
+                                                                              simulations=5000,H=3, 
+                                                                              initialDist=[0.25,0.25, 0.25, 0.25],
+                                                                              w=0.4, iterations = 100000, 
+                                                                              data_res=5000,
+                                                                              pool=pool,
+                                                                              randomizeStart=True)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -219,7 +218,7 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
 
 
 # Find critical popsize for a range over W values - very long run time simulation so needs to write to file output.
-def criticalPopsizeEnsemble():
+def criticalPopsizeEnsemble() -> None:
 
   # I think this function will need to periodically write to file since it will take so long to run
   # Periodically write to file, allow for restart at a later time.
@@ -249,6 +248,22 @@ def criticalPopsizeEnsemble():
   plt.ylabel("Nc")
   plt.legend()
   plt.show()
+
+
+
+# Vary the values of alpha and beta and s(rps param) in the 4x4 game
+"""
+Two graphs needed;
+  - delta H against different values for params
+  - critical N for different params
+  - can reuse search critical popsize method here.
+"""
+def alphaBetaEnsemble(w : int) -> None:
+
+  defaultMatrix = np.copy(Games.AUGMENTED_RPS)
+
+  # maybe can reuse the above method with a little refactoring.
+  pass
   
 
 
