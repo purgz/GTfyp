@@ -104,10 +104,12 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
   deltaM = []
   deltaL = []
 
+  deltaMRPS = []
+
   # Simulation for each popsize.
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(popSize=populationSizes[i],
+    mResults, lResults, deltaMoran, deltaLocal, deltaH_RPS = simulation.runSimulationPool(popSize=populationSizes[i],
                                                                               simulations=5000,H=3, 
                                                                               initialDist=[0.25,0.25, 0.25, 0.25],
                                                                               w=0.4, iterations = 100000, 
@@ -117,6 +119,7 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
+    deltaMRPS.append(deltaH_RPS)
 
   end = time.time()
   
@@ -137,7 +140,9 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
   if plotDelta:
 
     plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaMoran"], marker="o",label="moran")
-    plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaLocal"], marker="s", label="local")
+    #plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaLocal"], marker="s", label="local")
+    
+    plt.plot(df_deltaResults["popsizes"], deltaMRPS, marker="s",label="delta H rps")
     plt.xlabel("N")
     plt.ylabel("delta H")
     plt.legend()
@@ -323,9 +328,74 @@ def deltaH_Write(df, filePath, args=[], optionalComments=None):
 
 # Need this because of multiprocessing
 if  __name__ == "__main__":
-  
-  runPopulationEnsemble(range(100,700, 5), fileOutputPath="./results/population_ensemble.csv", plotDelta=True)
 
+  parser = argparse.ArgumentParser()
+  """
+  CMD Arguments:
+  Game presets:
+  standard prisoners dilemma: -pd
+  """
+
+
+  subParsers = parser.add_subparsers(dest="preset")
+
+  # 2x2 game
+  pd_parser = subParsers.add_parser("pd")
+  pd_parser.add_argument("-N", type = int, default=1000)
+  pd_parser.add_argument("-iterations", type=int, default=1000000)
+
+  # 3x3 game
+  rps_parser = subParsers.add_parser("rps")
+  rps_parser.add_argument("-N", type=int, default=10000)
+  rps_parser.add_argument("-iterations", type=int, default=1000000)
+
+  # 4x4 game
+  arps_parser = subParsers.add_parser("arps")
+  arps_parser.add_argument("-N", type=int, default=500)
+  arps_parser.add_argument("-iterations", type=int, default=100000)
+
+  # Other options
+  #experimentParser = parser.add_subparsers(dest="experiment")
+  # Add args for critical W finding, and ensembles for population and W.
+
+
+  args = parser.parse_args()
+
+
+  if args.preset:
+    print("Preset ", args.preset, " has been selected")
+  
+  if args.preset:
+    if args.preset == "pd":
+      # add check for args.N
+      print("Running prisoners dilemma preset: [[3,0],[5,1]]")
+      pdExample(popsize=args.N, iterations=args.iterations)  
+    elif args.preset == "rps":
+      print("Running rock paper scissors preset : [0,-1,1],[1,0,-1],[-1,1,0]")
+      rpsExample(N = args.N, iterations=args.iterations)
+    elif args.preset == "arps":
+      print("Running augmented rps: " + str(Games.AUGMENTED_RPS))
+      arpsExample(N = args.N, iterations=args.iterations)
+
+
+
+  # Below is testig code - remove at some point
+  
+  runPopulationEnsemble(range(100,700,50), 
+                        fileOutputPath="./results/population_ensemble.csv", 
+                        plotDelta=True,
+                        )
+
+  """
+  Urgen todo - really need to sort out runsimulation pool return values 
+  has to return a tuple of some kind with all the requested results
+  based on parameter options (MORAN LOCAL FERMI etc) returns a list of tuples one for each
+  inside each tule there should be trajectory, drift for H given value, and other drift value if requested.
+  can generalise other drift to calculte on multiple of all < H so not to break 3x3 and 2x2 games.
+  This really has to be done before i can continue anything else..., will need to go through and replace all,
+  moran, local, deltaH,..etc with correct tuple unpacking.
+  should be a point where delta H rps also changes - spiral out vs in? aswell as delta H 4 changing.
+  """
 
   """  #RPS - large pop
   print("Running main")
@@ -388,53 +458,7 @@ if  __name__ == "__main__":
   simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU], numPerRow=2, labels=["MO", "LU"], colors=["r", "g"])
   """
 
-  parser = argparse.ArgumentParser()
-  """
-  CMD Arguments:
-  Game presets:
-  standard prisoners dilemma: -pd
-  """
 
-
-  subParsers = parser.add_subparsers(dest="preset")
-
-  # 2x2 game
-  pd_parser = subParsers.add_parser("pd")
-  pd_parser.add_argument("-N", type = int, default=1000)
-  pd_parser.add_argument("-iterations", type=int, default=1000000)
-
-  # 3x3 game
-  rps_parser = subParsers.add_parser("rps")
-  rps_parser.add_argument("-N", type=int, default=10000)
-  rps_parser.add_argument("-iterations", type=int, default=1000000)
-
-  # 4x4 game
-  arps_parser = subParsers.add_parser("arps")
-  arps_parser.add_argument("-N", type=int, default=500)
-  arps_parser.add_argument("-iterations", type=int, default=100000)
-
-  # Other options
-  #experimentParser = parser.add_subparsers(dest="experiment")
-  # Add args for critical W finding, and ensembles for population and W.
-
-
-  args = parser.parse_args()
-
-
-  if args.preset:
-    print("Preset ", args.preset, " has been selected")
-  
-  if args.preset:
-    if args.preset == "pd":
-      # add check for args.N
-      print("Running prisoners dilemma preset: [[3,0],[5,1]]")
-      pdExample(popsize=args.N, iterations=args.iterations)  
-    elif args.preset == "rps":
-      print("Running rock paper scissors preset : [0,-1,1],[1,0,-1],[-1,1,0]")
-      rpsExample(N = args.N, iterations=args.iterations)
-    elif args.preset == "arps":
-      print("Running augmented rps: " + str(Games.AUGMENTED_RPS))
-      arpsExample(N = args.N, iterations=args.iterations)
       
     
 

@@ -248,8 +248,12 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processe
     if "Moran" in processes:
       moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
       delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
+
+      # This will break non 4x4 games for now
+      delta_H_RPS = np.mean(np.diff(-(moranResult[0] * moranResult[1] * moranResult[2])))
+
       moranResult = moranResult[:, ::data_res]
-      results.append((moranResult, delta_L_moran))
+      results.append((moranResult, delta_L_moran, delta_H_RPS))
     if "Local" in processes:
       localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
       delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
@@ -280,6 +284,9 @@ def runSimulationPool(matrix=basicRps, popSize=100,
     print("Processes " , processes)
 
     deltaMoran = []
+
+    rpsDeltaMoran = []
+
     deltaLocal = []
     mResults = []
     lResults = []
@@ -324,6 +331,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
           moranResult = results[0][0]
           delta_L_moran = results[0][1]
           deltaMoran.append(delta_L_moran)
+          rpsDeltaMoran.append(results[0][2])
           
           localResult = results[0][0]
           delta_L_local = results[0][1]
@@ -368,7 +376,7 @@ def runSimulationPool(matrix=basicRps, popSize=100,
     mResults /= simulations
     lResults /= simulations
 
-    return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal)
+    return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal), np.mean(rpsDeltaMoran)
 
 
 
