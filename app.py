@@ -115,11 +115,12 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
                                                                               w=0.45, iterations = 100000, 
                                                                               data_res=5000,
                                                                               pool=pool,
-                                                                              randomizeStart=True)
+                                                                              randomizeStart=False)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
     deltaMRPS.append(deltaH_RPS)
+    print(deltaH_RPS)
 
   end = time.time()
   
@@ -381,7 +382,7 @@ if  __name__ == "__main__":
 
   # Below is testig code - remove at some point
   
-  runPopulationEnsemble(range(40,500,50), 
+  runPopulationEnsemble(range(10000,11000,1000), 
                         fileOutputPath="./results/population_ensemble.csv", 
                         plotDelta=True,
                         )
