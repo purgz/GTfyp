@@ -111,8 +111,8 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
     
     mResults, lResults, deltaMoran, deltaLocal, deltaH_RPS = simulation.runSimulationPool(popSize=populationSizes[i],
                                                                               simulations=5000,H=3, 
-                                                                              initialDist=[0.25,0.25, 0.25, 0.25],
-                                                                              w=0.4, iterations = 100000, 
+                                                                              initialDist=[0.34,0.33, 0.33, 0],
+                                                                              w=0.45, iterations = 100000, 
                                                                               data_res=5000,
                                                                               pool=pool,
                                                                               randomizeStart=True)
@@ -381,7 +381,7 @@ if  __name__ == "__main__":
 
   # Below is testig code - remove at some point
   
-  runPopulationEnsemble(range(100,700,50), 
+  runPopulationEnsemble(range(40,500,50), 
                         fileOutputPath="./results/population_ensemble.csv", 
                         plotDelta=True,
                         )
