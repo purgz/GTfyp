@@ -35,7 +35,7 @@ q = 1 - x - y - z
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
 z_dot = (z * x) * (payoffS - payoffR) + (z * y) * (payoffS - payoffP) + (z * q) * (payoffS - payoffL)
 """
-def replicators(matrix, interactionProcess="Moran"):
+def replicators(matrix, interactionProcess="Moran", w=0.2):
   
   # Standard payoffs
   payoffR = a * x + y * c + b * z + gamma * q
@@ -48,8 +48,6 @@ def replicators(matrix, interactionProcess="Moran"):
   """
   Other form using avg instead of payoff pairwise comparison - should be equivalent.
   """
-
-  w = 0.2 # Hardcoded for now
 
   match interactionProcess:
 
@@ -136,11 +134,11 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDis
   return df, t_eval
 
 
-def numericalTrajectory(interactionProcess="Moran"):
+def numericalTrajectory(interactionProcess="Moran", w=0.2):
   # Runge kutta order 5
   # External module method.
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=interactionProcess)
+  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=interactionProcess, w=w)
 
   
   print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
