@@ -110,12 +110,12 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
     
     mResults, lResults, deltaMoran, deltaLocal, deltaH_RPS = simulation.runSimulationPool(popSize=populationSizes[i],
-                                                                              simulations=5000,H=3, 
+                                                                              simulations=1000000,H=3, 
                                                                               initialDist=[0.34,0.33, 0.33, 0],
-                                                                              w=0.45, iterations = 100000, 
+                                                                              w=0.45, iterations = 2, 
                                                                               data_res=5000,
                                                                               pool=pool,
-                                                                              randomizeStart=False)
+                                                                              randomizeStart=True)
     deltaM.append(deltaMoran)
     deltaL.append(deltaLocal)
 
@@ -166,17 +166,17 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
 
   prevSign = None
 
-  # Pass in a global pool to prevent reinit on each argument iteration.
-  pool = Pool() 
-
   while low <= high and iteration < max_iterations:
     iteration += 1
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
-  
-    mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
-      popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
-                                                                              pool=pool, data_res=5000)
+    """  
+        mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
+          popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
+                                                                                  pool=pool, data_res=5000)
+    """
+
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 10000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
@@ -206,8 +206,6 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
     
     prevSign = sign
 
-  pool.close()
-  pool.join()
   if criticalN is None:
     criticalN = mid  # best estimate
   if criticalN is not None:
@@ -381,8 +379,44 @@ if  __name__ == "__main__":
 
 
   # Below is testig code - remove at some point
+
+  _, _, mResults = simulation.moran_batch_drift(20000, 3000000, 0.2, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
+  df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
   
-  runPopulationEnsemble(range(10000,11000,1000), 
+  trajectoryWrite(df_RPS_MO, "./results/moranTest.csv")
+
+  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
+  trajectoryWrite(test, "./results/moranNumerical.csv")
+
+
+  #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  filePaths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
+  norms = [True, False]
+
+  simulation.highDim2dplot(filePaths, [20000, None], norm=norms, t_eval=t_eval, data_res=1)
+  
+  
+
+  popsizes = range(100, 500, 10)
+  driftHs = []
+  driftRpss = []
+  print("Testing moran batch")
+  for i in tqdm(range(len(popsizes))):
+    driftH, driftRps, _ = simulation.moran_batch_drift(popsizes[i], 2, 0.45, 10000000, Games.AUGMENTED_RPS, np.array([0.34,0.33,0.33,1e-15]))
+    driftHs.append(driftH)
+    driftRpss.append(driftRps)
+  print("DONE")
+
+  plt.plot(popsizes, driftHs, marker="o",label="delta H_4")
+  plt.plot(popsizes, driftRpss, marker="s",label="delta H rps")
+  plt.xlabel("N")
+  plt.ylabel("delta H")
+  plt.legend()
+  plt.show()
+
+
+  
+  runPopulationEnsemble(range(200,500,50), 
                         fileOutputPath="./results/population_ensemble.csv", 
                         plotDelta=True,
                         )
@@ -419,16 +453,7 @@ if  __name__ == "__main__":
   
 
   
-  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
-  trajectoryWrite(test, "./results/moranNumerical.csv")
 
-
-  #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  filePaths = ["./results/moran400_100000.csv", "./results/moranNumerical.csv"]
-  norms = [True, False]
-
-  simulation.highDim2dplot(filePaths, [400, None], norm=norms, t_eval=t_eval)
-  
 
   """
   df_MO = pd.read_csv("./results/moran400_100000.csv")
