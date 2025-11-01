@@ -235,7 +235,7 @@ def reseed():
 
 
 
-
+@njit
 def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processes):
     
     #reseed()
@@ -271,6 +271,71 @@ def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processe
 
 def simHelper(args):  
     return singleSim(*args)
+
+
+
+@njit(parallel=True, cache=True)
+def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist =np.array([0.25,0.25,0.25,0.25]), traj=False):
+    n = matrix.shape[0]
+    deltas = np.zeros(simulations)
+    deltas_rps = np.zeros(simulations)
+    allResults = np.zeros((n, iterations))
+
+    initialDist = initialDist / np.sum(initialDist)
+            
+
+    for s in prange(simulations):
+
+        # Randomize in the simplex
+        fixed = initialDist[3]
+        remaining = 1 - fixed
+        random_simplex = np.random.rand(n - 1)
+        random_simplex /= np.sum(random_simplex)
+        random_simplex *= remaining
+        initial = np.append(random_simplex, fixed)
+
+
+        population = np.random.multinomial(popSize, initialDist)
+
+
+
+        results = np.zeros((n , iterations))
+        for i in range(iterations):
+            killed = weighted_choice(population / popSize)
+            payoffs = payoffAgainstPop(population, matrix, popSize)
+            p = 1.0 - w + w * payoffs
+            avg = np.sum(p * population) / popSize
+            probs_birth = moranSelection(p, avg, population, popSize, n)
+            chosen = weighted_choice(probs_birth)
+
+            population[chosen] += 1
+            population[killed] -= 1
+
+            for j in range(n):
+                results[j, i] = population[j] / popSize
+
+        H = n-1 if n ==4 else 0
+        if iterations >= 2:
+            deltaH = (-(results[H, 1] * (1 - results[H, 1]))) - (-(results[H, 0] * (1 - results[H, 0])))
+
+        deltas[s] = deltaH 
+        
+        if n >= 3:
+            H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
+            H_after = -(results[0, -1] * results[1, -1] * results[2, -1])
+            deltas_rps[s] = H_after - H_before
+
+        if traj:
+            allResults += results
+
+  
+    meanDeltaH = np.mean(deltas)
+    meanDeltaRps = np.mean(deltas_rps)
+
+    return meanDeltaH, meanDeltaRps, allResults / simulations
+
+
+
 
 # Method for api to call
 def runSimulationPool(matrix=basicRps, popSize=100,
@@ -319,7 +384,6 @@ def runSimulationPool(matrix=basicRps, popSize=100,
 
     #print("Running simulation pool")
     #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
-
 
     if pool:
         # Use provided Pool(), better for large repetitions to remove pool startup overhead
