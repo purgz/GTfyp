@@ -1,6 +1,7 @@
 # Exposed methods
 from .sim import runSimulationPool
 from .sim import moran_batch_drift
+from .sim import local_batch_drift
 from .plotting import quaternaryPlot 
 from .plotting import game2dPlot
 from .plotting import ternaryPlot

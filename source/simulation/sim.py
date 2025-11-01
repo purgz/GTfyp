@@ -19,9 +19,9 @@ from .plotting import quaternaryPlot
 
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -0.8,   1,       0.2],
-                    [1,    0,   -0.8,       0.2],
-                    [-0.8,   1,   0,        0.2],
+basicRps = np.array([[0,   -1,   1,       0.2],
+                    [1,    0,   -1,       0.2],
+                    [-1,   1,   0,        0.2],
                     [0.1, 0.1, 0.1, 0]])
 
 
@@ -84,46 +84,6 @@ def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
 
 
 
-@njit()
-def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
-    numStrategies = matrix.shape[0]
-    results = np.zeros((numStrategies, iterations))
-    
-    individuals = np.empty(popSize, dtype=np.int64)
-
-    # Build individuals array from population
-    idx = 0
-    for s in range(numStrategies):
-        for _ in range(population[s]):
-            individuals[idx] = s
-            idx += 1
-
-    deltaPi = np.max(matrix) - np.min(matrix)
-
-    for i in range(iterations):
-        # Pick two distinct individuals
-        ind1 = np.random.randint(popSize)
-        ind2 = ind1
-        while ind2 == ind1:
-            ind2 = np.random.randint(popSize)
-
-        p1 = individuals[ind1]
-        p2 = individuals[ind2]
-
-        payoffs = payoffAgainstPop(population, matrix, popSize)
-
-        p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
-
-        if np.random.rand() < p:
-            population[p1] -= 1
-            population[p2] += 1
-            individuals[ind1] = p2
-
-        for j in range(numStrategies):
-            results[j, i] = population[j] / popSize
-
-  
-    return results
 
 
 """
@@ -273,6 +233,124 @@ def simHelper(args):
     return singleSim(*args)
 
 
+@njit()
+def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
+    numStrategies = matrix.shape[0]
+    results = np.zeros((numStrategies, iterations))
+    
+    individuals = np.empty(popSize, dtype=np.int64)
+
+    # Build individuals array from population
+    idx = 0
+    for s in range(numStrategies):
+        for _ in range(population[s]):
+            individuals[idx] = s
+            idx += 1
+
+    deltaPi = np.max(matrix) - np.min(matrix)
+
+    for i in range(iterations):
+        # Pick two distinct individuals
+        ind1 = np.random.randint(popSize)
+        ind2 = ind1
+        while ind2 == ind1:
+            ind2 = np.random.randint(popSize)
+
+        p1 = individuals[ind1]
+        p2 = individuals[ind2]
+
+        payoffs = payoffAgainstPop(population, matrix, popSize)
+
+        p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
+
+        if np.random.rand() < p:
+            population[p1] -= 1
+            population[p2] += 1
+            individuals[ind1] = p2
+
+        for j in range(numStrategies):
+            results[j, i] = population[j] / popSize
+
+  
+    return results
+
+
+@njit(parallel=True, cache=True)
+def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist=np.array([0.25,0.25,0.25,0.25]), traj=False):
+
+    n = matrix.shape[0]
+    deltas = np.zeros(simulations)
+    deltas_rps = np.zeros(simulations)
+    allResults = np.zeros((n, iterations))
+
+    # help with weird floating point errors
+    initialDist = initialDist / np.sum(initialDist)
+
+    for s in prange(simulations):
+        # Randomize in the simplex
+        fixed = initialDist[3]
+        remaining = 1 - fixed
+        random_simplex = np.random.rand(n - 1)
+        random_simplex /= np.sum(random_simplex)
+        random_simplex *= remaining
+        initial = np.append(random_simplex, fixed)
+
+
+        population = np.random.multinomial(popSize, initialDist)
+
+        deltaPi = np.max(matrix) - np.min(matrix)
+
+        results = np.zeros((n , iterations))
+
+        individuals = np.empty(popSize, dtype=np.int64)
+       
+        # Build individuals array from population
+        idx = 0
+        for i in range(n):
+            for _ in range(population[i]):
+                individuals[idx] = i
+                idx += 1
+
+        for i in range(iterations):
+            ind1 = np.random.randint(popSize)
+            ind2 = ind1
+            while ind2 == ind1:
+                ind2 = np.random.randint(popSize)
+
+            p1 = individuals[ind1]
+            p2 = individuals[ind2]
+
+            payoffs = payoffAgainstPop(population, matrix, popSize)
+            p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
+
+            if np.random.rand() < p:
+                population[p1] -= 1
+                population[p2] += 1
+                individuals[ind1] = p2
+
+            for j in range(n):
+                results[j, i] = population[j] / popSize
+
+        H = n-1 if n ==4 else 0
+        if iterations >= 2:
+            deltaH = (-(results[H, 1] * (1 - results[H, 1]))) - (-(results[H, 0] * (1 - results[H, 0])))
+
+        deltas[s] = deltaH 
+        
+        if n >= 3:
+            H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
+            H_after = -(results[0, 1] * results[1, 1] * results[2, 1])
+            deltas_rps[s] = H_after - H_before
+
+        if traj:
+            allResults += results
+
+  
+    meanDeltaH = np.mean(deltas)
+    meanDeltaRps = np.mean(deltas_rps)
+
+    return meanDeltaH, meanDeltaRps, allResults / simulations
+
 
 @njit(parallel=True, cache=True)
 def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist =np.array([0.25,0.25,0.25,0.25]), traj=False):
@@ -295,9 +373,7 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         initial = np.append(random_simplex, fixed)
 
 
-        population = np.random.multinomial(popSize, initialDist)
-
-
+        population = np.random.multinomial(popSize, initial)
 
         results = np.zeros((n , iterations))
         for i in range(iterations):
@@ -322,7 +398,7 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         
         if n >= 3:
             H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
-            H_after = -(results[0, -1] * results[1, -1] * results[2, -1])
+            H_after = -(results[0, 1] * results[1, 1] * results[2, 1])
             deltas_rps[s] = H_after - H_before
 
         if traj:
