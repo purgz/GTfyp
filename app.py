@@ -162,7 +162,7 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
                                                                                   pool=pool, data_res=5000)
     """
 
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 10000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
@@ -216,7 +216,7 @@ def criticalPopsizeEnsemble() -> None:
   fileOutputPath = "./results/criticalN_w.csv"
 
   # Example of what this function might look like, we can have a similar one for testing different parameter values in the matrix.
-  ws = np.linspace(0.1, 0.5, 20)
+  ws = np.linspace(0.1, 0.5, 15)
 
   Ns = []
 
@@ -229,8 +229,9 @@ def criticalPopsizeEnsemble() -> None:
   df = pd.DataFrame({"W": ws, "CriticalN": Ns})
 
   deltaH_Write(df, filePath=fileOutputPath
-               , args = [f"W range {ws}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
+               , args = [f"W range {ws[0]}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
                , optionalComments="Critical population size search for varied w.")
+
 
 
 
@@ -387,6 +388,7 @@ if  __name__ == "__main__":
   simulation.highDim2dplot(filePaths, [20000, None], norm=norms, t_eval=t_eval, data_res=1)
   """
 
+  # maybe these functions should return file name - and autogerenrate one if one isnt given.
   #criticalPopsizeEnsemble()
   simulation.wEnsemblePlot("./results/criticalN_w.csv")
 

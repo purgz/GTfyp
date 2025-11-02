@@ -272,6 +272,9 @@ def wEnsemblePlot(filePath):
 
 
   plt.plot(ws, data.iloc[:, 1], marker="s")
+  plt.yscale("log", base=10)
+
+  plt.yticks([100,1000])
 
   plt.xlabel("w")
   plt.ylabel("Nc")
