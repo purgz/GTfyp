@@ -305,7 +305,16 @@ def deltaH_Write(df, filePath, args=[], optionalComments=None):
 
   df.to_csv(filePath, mode = "a", index=False)
 
-  
+
+
+# run ensembles from the command line and output to a file
+# Can include the option to plot as a sub argument.
+def crit_N_search_parser():
+  pass
+
+def delta_H_parser():
+  pass
+
 
 
 # Need this because of multiprocessing
