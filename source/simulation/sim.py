@@ -373,7 +373,7 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         initial = np.append(random_simplex, fixed)
 
 
-        population = np.random.multinomial(popSize, initial)
+        population = np.random.multinomial(popSize, initialDist)
 
         results = np.zeros((n , iterations))
         for i in range(iterations):
