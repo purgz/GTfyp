@@ -26,26 +26,6 @@ basicRps = np.array([[0,   -1,   1,       0.2],
 
 
 
-"""basicRps = np.array([[0,   -1,   1,       0],
-                    [1,    0,   -1,       0],
-                    [-1,   1,   0,        0],
-                    [0, 0, 0, 0]])
-"""
-"""basicRps = np.array([[1,     2.35,    0,          0.1],
-                    [0,      1,       2.35,       0.1],
-                    [2.35,   0,       1,          0.1],
-                    [1.1,    1.1,     1.1,        0]])
-"""
-
-
-
-"""def payoffAgainstPop(population,matrix, popSize):
-  payoffs = np.zeros(matrix.shape[0])
-  for i in range(matrix.shape[0]):
-      payoffs[i] = sum((population[j]) * matrix[i][j] for j in range(matrix.shape[0]))
-  return payoffs / (popSize-1)
-"""
-
 @njit(inline="always")
 def payoffAgainstPop(population, matrix, popSize):
     payoffs = np.zeros(matrix.shape[0])
@@ -62,9 +42,6 @@ def payoffAgainstPop(population, matrix, popSize):
 
 
 
-"""def payoffAgainstPop(population, matrix, popSize):
-  return (matrix @ population) / (popSize - 1)
-"""
 
 """
 Paper coevolutionary dynamics in large but finite populations
@@ -83,17 +60,6 @@ def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
     return probs
 
 
-
-
-
-"""
-@njit(cache=True, inline="always")
-def weighted_choice(weights):
-
-    choices = [i for i in range(len(weights))]
-    
-    return np.searchsorted(np.cumsum(weights), np.random.random(), side="right")
-"""
 
 @njit(inline='always')
 def weighted_choice(weights):
@@ -185,20 +151,14 @@ def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
 
 
 def reseed():
-    """
-    Ensure independent randomness for each simulation run.
-    Uses process ID and OS entropy to avoid collisions across processes.
-    """
-    seed = (os.getpid() * int.from_bytes(os.urandom(4), "little")) % (2**32 - 1)
-    np.random.seed(seed)
-    random.seed(seed)
+  seed = (os.getpid() * int.from_bytes(os.urandom(4), "little")) % (2**32 - 1)
+  np.random.seed(seed)
+  random.seed(seed)
 
 
 
 @njit
 def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processes):
-    
-    #reseed()
     
     population = np.random.multinomial(popSize, initialDist)
     population2 = np.random.multinomial(popSize, initialDist)
