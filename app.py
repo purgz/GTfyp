@@ -162,7 +162,7 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
                                                                                   pool=pool, data_res=5000)
     """
 
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 50000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
