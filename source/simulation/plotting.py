@@ -244,21 +244,27 @@ def highDim2dplot(filePaths, Ns, labels = ["Moran Process", "Local update"], nor
 
 
 # Plotting drift reversal.
-def driftPlotH(filePath, labels = ["Moran process", "Local update"]):
+def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"], xlabel : str ="N", column=None):
     
-  data = pd.read_csv(filePath, comment="#")
+
+  for i in range(len(filePaths)):
+  
+    data = pd.read_csv(filePaths[i], comment="#")
 
 
-  popSizes = data.iloc[:, 0]
+    xVals = data.iloc[:, 0]
 
-  numProcesses = len(data.columns) - 1
+    numProcesses = len(data.columns) - 1
 
-  markers = ["o", "s", "v"]
+    markers = ["o", "s", "v"]
 
-  for i in range(numProcesses):
-      plt.plot(popSizes, data.iloc[:,i+1], label = labels[i], marker=markers[i])
+    if column is not None:
+      plt.plot(xVals, data.iloc[:,column+1], label = labels[i], marker=markers[i])
+    else:
+      for i in range(numProcesses):
+        plt.plot(xVals, data.iloc[:,i+1], label = labels[i], marker=markers[i])
 
-  plt.xlabel("N")
+  plt.xlabel(xlabel)
   plt.ylabel(r"$\langle \Delta H \rangle$")
   #plt.ylabel("delta H") # switch if latex not installed.
   plt.legend()

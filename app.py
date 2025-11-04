@@ -243,13 +243,61 @@ Two graphs needed;
   - critical N for different params
   - can reuse search critical popsize method here.
 """
-def alphaBetaEnsemble(w : int) -> None:
+def matrixParamEnsemble(fileOutputPath : str,betas : list[float],gamma : float = 0.8,  w : int = 0.45, popSize : int = 500, simulations : int = 10000000, plotDelta : bool = False) -> None:
 
-  defaultMatrix = np.copy(Games.AUGMENTED_RPS)
+  s = 1
 
-  # maybe can reuse the above method with a little refactoring.
-  pass
+  alpha = 0
+  beta = 0.5
+
+  start = time.time()
   
+  # Add the rest of the simulation options as arguments
+  driftHs = []
+  driftRpss = []
+
+ 
+  # Simulation for each popsize.
+  for i in tqdm(range(len(betas)), position=0, leave=True):
+
+    matrix =  np.array([[0,   -s,   1,       gamma],
+                          [1,    0,   -s,       gamma],
+                          [-s,   1,   0,        gamma],
+                          [betas[i], betas[i], betas[i], 0]])
+
+    driftH, driftRps, _ = simulation.moran_batch_drift(popSize=popSize,
+                                                        iterations=2,
+                                                        w=w,
+                                                        simulations=simulations,
+                                                        matrix=matrix,
+                                                        initialDist=np.array([0.25,0.25,0.25,0.25]))
+    driftHs.append(driftH)
+    driftRpss.append(driftRps)
+ 
+  end = time.time()
+  
+  print("Time taken to run population test ensemble")
+  print(end - start)
+
+
+  # Combine into a single file for csv saving.
+  df_deltaResults = pd.DataFrame(np.column_stack((betas,driftHs, driftRpss)), columns=["betas", "deltaH", "deltaRps"])
+
+  deltaH_Write(df_deltaResults, filePath=fileOutputPath
+               , args = ["w: 0.45" , "simulations: 1000000", "iterations 2", "matrix=Variable"]
+               , optionalComments="Delta H experiement with different values for betas\n#" + str(betas))
+
+
+  if plotDelta:
+
+    plt.plot(df_deltaResults["betas"], df_deltaResults["deltaH"], marker="o",label="H_4")
+    plt.plot(df_deltaResults["betas"], df_deltaResults["deltaRps"], marker="s",label="H_RPS")
+    plt.xlabel("beta")
+    plt.ylabel("delta H")
+    plt.legend()
+    plt.show()
+
+
 
 
 def arpsExample(N : int  = 500, iterations : int = 100000) -> None:
@@ -389,8 +437,25 @@ if  __name__ == "__main__":
   """
 
   # maybe these functions should return file name - and autogerenrate one if one isnt given.
-  #criticalPopsizeEnsemble()
+  criticalPopsizeEnsemble()
   simulation.wEnsemblePlot("./results/criticalN_w.csv")
+
+  #matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
+
+  #matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),popSize=400,w=0.45, plotDelta=True)
+
+  #matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),popSize=600,w=0.45, plotDelta=True)
+
+
+  #matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,popSize=200,w=0.45, plotDelta=True)
+
+  #matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,popSize=200,w=0.45, plotDelta=True)
+
+  #matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,popSize=200,w=0.45, plotDelta=True)
+
+
+  simulation.driftPlotH(["./results/parameterTest_0.2.csv","./results/parameterTest_0.6.csv","./results/parameterTest_1.csv"],
+                        xlabel="beta", labels=["gamma=0.2", "0.6", "1"], column=0)
 
 
   deltaLocal, deltaRps, lResults = simulation.local_batch_drift(20000, 3000000, 0.45, 1, basicRps, traj=True, initialDist=np.array([0.5,0.2,0.2,0.1]))
