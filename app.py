@@ -29,22 +29,23 @@ def pdExample(popsize : int = 1000, iterations : int = 10000, w : float =0.9, in
 
   # Example running prisoners dilemma example.
   N = popsize
-  initialDist = [0.9,0.1]
 
   # Standard prisoners dilemma payoff matrix
   
   pdArray = Games.PRISONERS_DILEMMA
 
-  # Code for running prisoners dilemma simulation and numerical trajectories - then plotting all of them
-  mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
-    matrix=pdArray, 
-    popSize=N, 
-    simulations=100, 
-    initialDist=[0.9,0.1], 
-    iterations=iterations, 
-    w=w, 
-    H=1, 
-    data_res=1)
+  initialDist = np.array([0.9,0.1])
+
+  iterations = popsize * 35
+
+  _, _, mResults = simulation.moran_batch_drift(popSize=popsize, iterations=iterations, w=w,
+                                            matrix=pdArray, simulations=1, initialDist=initialDist,
+                                            traj=True)
+  _,_, lResults = simulation.local_batch_drift(popSize=popsize, iterations=iterations, w=w,
+                                            matrix=pdArray, simulations=1, initialDist=initialDist,
+                                            traj=True)
+  
+  print("Simulations complete")
 
   # Collect results into dataframe
   df_PD_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
@@ -72,9 +73,14 @@ def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
   #rpsArray = np.array([[0, -1.2 , 1], [1, 0, -1.2], [-1.2, 1, 0]])
 
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
-  
-  mResults, lResults, dm, dl = simulation.runSimulationPool(matrix=rpsArray, popSize=N, simulations=100, initialDist=[0.5,0.25,0.25], iterations=iterations,w=w, H=1)
 
+  _, _, mResults = simulation.moran_batch_drift(popSize=N, iterations=iterations, w=w,
+                                            matrix=rpsArray, simulations=1, initialDist=np.array([0.5,0.25,0.25]),
+                                            traj=True)
+  _,_, lResults = simulation.local_batch_drift(popSize=N, iterations=iterations, w=w,
+                                            matrix=rpsArray, simulations=1, initialDist=np.array([0.5,0.25,0.25]),
+                                            traj=True)
+  
   df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
   
   df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
@@ -86,6 +92,7 @@ def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
   #fig2.show()
 
   simulation.ternaryPlot(df_RPS_MO)
+  simulation.ternaryPlot(df_RPS_LO)
 
 
 """
@@ -156,6 +163,7 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
     iteration += 1
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
+<<<<<<< HEAD
     """  
         mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
           popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
@@ -163,6 +171,10 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
     """
 
     deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 50000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
+=======
+    
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
+>>>>>>> e0bfb2fe15acec14b449b6d9979158ea56f644a4
 
 
     if deltaMoran > 0:
@@ -351,7 +363,16 @@ def deltaH_Write(df, filePath, args=[], optionalComments=None):
 
   df.to_csv(filePath, mode = "a", index=False)
 
-  
+
+
+# run ensembles from the command line and output to a file
+# Can include the option to plot as a sub argument.
+def crit_N_search_parser():
+  pass
+
+def delta_H_parser():
+  pass
+
 
 
 # Need this because of multiprocessing
