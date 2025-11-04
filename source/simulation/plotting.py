@@ -216,7 +216,7 @@ def game2dPlot(dfs, norm, N, sameAxis=True, labels=["Local update", "Moran proce
 
 
 # Method for plotting higher strategy, e.g 4 strategy games trajectory on a 2d graph.
-def highDim2dplot(filePaths, Ns, labels = ["Moran Process", "Local update"], norm=[True], t_eval=None, data_res = 50):
+def highDim2dplot(filePaths, Ns : list[int], labels = ["Moran Process", "Local update"], norm=[True], t_eval=None, data_res = 50):
   
   fig = plt.figure()
 
@@ -271,7 +271,7 @@ def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"]
   plt.show()
 
 
-def wEnsemblePlot(filePath):
+def wEnsemblePlot(filePath : str):
   data = pd.read_csv(filePath, comment = '#')
 
   ws = data.iloc[:, 0]

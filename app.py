@@ -143,7 +143,7 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
     plt.show()
 
 
-def searchCriticalPopsize(w : float = 0.4) -> int:
+def searchCriticalPopsize(w : float = 0.4, matrix=None) -> int:
 
   # Binary search for critical popsize where drift reversal occurs.
   # Hardcoded for initial deltaM being positive.
@@ -159,22 +159,16 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
 
   prevSign = None
 
+  if matrix is None:
+    matrix = Games.AUGMENTED_RPS
+
+
   while low <= high and iteration < max_iterations:
     iteration += 1
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
-<<<<<<< HEAD
-    """  
-        mResults, lResults, deltaMoran, deltaLocal = simulation.runSimulationPool(
-          popSize=mid,simulations=5000,H=3, initialDist=[0.25,0.25, 0.25, 0.25], w=w, iterations = 100000,
-                                                                                  pool=pool, data_res=5000)
-    """
-
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 50000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
-=======
     
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, Games.AUGMENTED_RPS, np.array([0.25,0.25,0.25,0.25]))
->>>>>>> e0bfb2fe15acec14b449b6d9979158ea56f644a4
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, matrix, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
@@ -220,29 +214,37 @@ def searchCriticalPopsize(w : float = 0.4) -> int:
 
 
 # Find critical popsize for a range over W values - very long run time simulation so needs to write to file output.
-def criticalPopsizeEnsemble() -> None:
-
-  # I think this function will need to periodically write to file since it will take so long to run
-  # Periodically write to file, allow for restart at a later time.
-
-  fileOutputPath = "./results/criticalN_w.csv"
-
-  # Example of what this function might look like, we can have a similar one for testing different parameter values in the matrix.
-  ws = np.linspace(0.1, 0.5, 15)
+def criticalPopsizeEnsemble(fileOutputPath : str, option="W_TEST", matrices=None, defaultW=0.45) -> None:
 
   Ns = []
 
-  for w in tqdm(ws, position=0, leave=True):
-    criticalN = searchCriticalPopsize(w=w)
-    Ns.append(criticalN)
+  match option:
+    case "W_TEST":
+      ws = np.linspace(0.1, 0.5, 15)
 
-  print("Critical Ns ", Ns)
+      for w in tqdm(ws, position=0, leave=True):
+        criticalN = searchCriticalPopsize(w=w)
+        Ns.append(criticalN)
 
-  df = pd.DataFrame({"W": ws, "CriticalN": Ns})
+      print("Critical Ns ", Ns)
 
-  deltaH_Write(df, filePath=fileOutputPath
-               , args = [f"W range {ws[0]}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
-               , optionalComments="Critical population size search for varied w.")
+      df = pd.DataFrame({"W": ws, "CriticalN": Ns})
+
+      deltaH_Write(df, filePath=fileOutputPath
+                    , args = [f"W range {ws[0]}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
+                    , optionalComments="Critical population size search for varied w.")
+      return
+    case "MATRIX_TEST":
+      if matrices is None:
+        raise TypeError("Missing matrix values for testing")
+      
+      for matrix in tqdm(matrices, position=0, leave=True):
+        criticalN = searchCriticalPopsize(w=defaultW, matrix=matrix)
+        Ns.append(criticalN)
+
+      pd.DataFrame({"beta_gamma" : f"{matrix[0][3]} {matrix[3][0]}", "CriticalN": Ns})
+
+      deltaH_Write(df, filePath=fileOutputPath, optionalComments="Matrix ensemble")
 
 
 
@@ -375,6 +377,36 @@ def delta_H_parser():
 
 
 
+# Helper function to run matrix parameter tests.
+def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.5, beta=0.1):
+
+
+  matrices = []
+  s=1
+
+  if betas is None and gammas is None:
+    raise TypeError("Provide betas or gammas")
+
+  if betas is not None:
+    for b in betas:
+      matrix =  np.array([[0,   -s,   1,       gamma],
+                      [1,    0,   -s,       gamma],
+                      [-s,   1,   0,        gamma],
+                      [b, b, b, 0]])
+      matrices.append(matrix)
+  elif gammas is not None:
+    for g in gammas:
+      matrix =  np.array([[0,   -s,   1,       g],
+                [1,    0,   -s,       g],
+                [-s,   1,   0,        g],
+                [beta, beta, beta, 0]])
+      matrices.append(matrix)
+
+  return matrices
+
+
+
+
 # Need this because of multiprocessing
 if  __name__ == "__main__":
 
@@ -428,6 +460,8 @@ if  __name__ == "__main__":
 
 
 
+
+
   # Below is testig code - remove at some point
   basicRps = np.array([[0,   -0.8,   1,       5],
                       [1,    0,   -0.8,       5],
@@ -458,8 +492,21 @@ if  __name__ == "__main__":
   """
 
   # maybe these functions should return file name - and autogerenrate one if one isnt given.
-  criticalPopsizeEnsemble()
+  criticalPopsizeEnsemble("./results/criticalN_w.csv")
   simulation.wEnsemblePlot("./results/criticalN_w.csv")
+
+
+
+  betas = np.linspace(0, 1, 10)
+  matrices = getMatricesFourPlayer(betas=betas, gamma=0.5)
+  criticalPopsizeEnsemble("./results/criticalN_matrix_betas.csv", option="MATRIX_TEST",
+                          defaultW=0.45)
+  
+  gammas = np.linspace(0, 1, 10)
+  matrices = getMatricesFourPlayer(gammas=gammas, beta=0.5)
+  criticalPopsizeEnsemble("./results/criticalN_matrix_gammas.csv", option="MATRIX_TEST",
+                          defaultW=0.45)
+  
 
   #matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
 
