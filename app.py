@@ -15,7 +15,15 @@ import plotly.express as px
 from multiprocessing import Pool
 
 
-plt.style.use(['science','no-latex'])
+plt.style.use(['science'])
+
+#plt.style.use(['science', "no-latex"])
+
+
+# Comment out if latex is not correctly installed
+plt.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+
 
 """
 Note - begun using my linux desktop instead and performace roughly 2x when using the multiprocess simulation
@@ -100,7 +108,7 @@ For popualtion drift test and critical popsize search, data res is very high so 
 As the trajectory is not needed for the final results - only care about accurate delta H values.
 Delta H is calculated before the dimension reduction
 """
-def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 20000000, process="MORAN") -> None:
+def runPopulationEnsemble(populationSizes : list[int] ,w : float = 0.45, fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 20000000, process="MORAN", matrix=Games.AUGMENTED_RPS) -> None:
 
 
   
@@ -116,11 +124,11 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
 
     match process:
       case "MORAN":
-        driftH, driftRps, _ = simulation.moran_batch_drift(populationSizes[i], 2, 0.45, simulations, basicRps, np.array([0.25,0.25,0.25,0.25]))
+        driftH, driftRps, _ = simulation.moran_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
         driftHs.append(driftH * populationSizes[i])
         driftRpss.append(driftRps * populationSizes[i])
       case "LOCAL":
-        driftH, driftRps, _ = simulation.local_batch_drift(populationSizes[i], 2, 0.45, simulations, basicRps, np.array([0.25,0.25,0.25,0.25]))
+        driftH, driftRps, _ = simulation.local_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
         driftHs.append(driftH * populationSizes[i])
         driftRpss.append(driftRps * populationSizes[i])
 
@@ -474,13 +482,13 @@ if  __name__ == "__main__":
 
 
   # Below is testig code - remove at some point
-  basicRps = np.array([[0,   -0.8,   1,       5],
-                      [1,    0,   -0.8,       5],
-                      [-0.8,   1,   0,        5],
-                      [2, 2, 2, 0]])
+  basicRps = np.array([[0,   -0.3,   1,       0.3],
+                      [1,    0,   -0.3,       0.3],
+                      [-0.3,   1,   0,        0.3],
+                      [0.2, 0.2, 0.2, 0]])
   
-  basicRps = Games.AUGMENTED_RPS
-  
+  #basicRps = Games.AUGMENTED_RPS
+  """
   deltamoran, deltaRps, mResults = simulation.moran_batch_drift(40000, 6000000, 0.45, 1, basicRps, np.array([0.5,0.2,0.2,0.1]), traj=True)
   
   df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
@@ -502,7 +510,19 @@ if  __name__ == "__main__":
 
   simulation.highDim2dplot(filePaths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
   
+  """
 
+
+  runPopulationEnsemble(range(50,400,10), 
+                        fileOutputPath="./results/population_ensemble_MORAN_new_matrix.csv", 
+                        plotDelta=True,
+                        process="MORAN",
+                        matrix=basicRps,
+                        simulations=1000000,
+                        w=0.45
+                        )
+  
+  simulation.driftPlotH(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
 
 
 
@@ -522,7 +542,10 @@ if  __name__ == "__main__":
   simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
 
 
-  simulation.driftPlotH(["./results/population_ensemble_LOCAL.csv","./results/population_ensemble_MORAN.csv"], labels=["MORAN", "LOCAL"], column=0)
+  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
+
+
+  simulation.driftPlotH(["./results/population_ensemble_LOCAL.csv","./results/population_ensemble_MORAN.csv"], labels=["Local", "Moran"], column=0)
 
   # maybe these functions should return file name - and autogerenrate one if one isnt given.
   criticalPopsizeEnsemble("./results/criticalN_w_2.csv")

@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+
 from mpl_toolkits.mplot3d import axes3d, Axes3D 
 from itertools import combinations
 import pandas as pd
@@ -13,8 +15,8 @@ SciencePlots library - ref in paper
 """
 #plt.style.use(['science','no-latex'])
 plt.style.use(['science'])
-
-
+mpl.rcParams['text.usetex'] = True
+mpl.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 # Plots pyramid edges 
 def plot_ax(ax):               
@@ -263,6 +265,13 @@ def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"]
     else:
       for i in range(numProcesses):
         plt.plot(xVals, data.iloc[:,i+1], label = labels[i], marker=markers[i])
+
+  test = r'$\begin{bmatrix} 0 & -s & 1 & 0.2 \\ 1 & 0 & -s & 0.2 \\ -s & 1 & 0 & 0.2 \\ 0.1 & 0.1 & 0.1 & 0 \end{bmatrix}$'
+
+
+  plt.text(0.7,0.7, test, transform=plt.gca().transAxes)
+
+  #plt.annotate("Drift reversal", xy=(200, -2.2e-5), xytext=(175, 0.002), arrowprops=dict(arrowstyle="->", color="black"))
 
   plt.xlabel(xlabel)
   plt.ylabel(r"$\langle \Delta H \rangle N$")
