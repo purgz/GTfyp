@@ -15,22 +15,16 @@ import plotly.express as px
 from multiprocessing import Pool
 
 
-plt.style.use(['science'])
+#plt.style.use(['science'])
 
-#plt.style.use(['science', "no-latex"])
+plt.style.use(['science', "no-latex"])
 
 
 # Comment out if latex is not correctly installed
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
-"""
-Note - begun using my linux desktop instead and performace roughly 2x when using the multiprocess simulation
-
-- Windows sucks
-- Run sims on linux
-"""
 
 
 def pdExample(popsize : int = 1000, iterations : int = 10000, w : float =0.9, initialDist : list[float] = [0.9,0.1]) -> None:
@@ -406,19 +400,20 @@ def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
   if betas is None and gammas is None:
     raise TypeError("Provide betas or gammas")
 
+  # Produce beta or gamma variations.
   if betas is not None:
     for b in betas:
       matrix =  np.array([[0,   -s,   1,       gamma],
-                      [1,    0,   -s,       gamma],
-                      [-s,   1,   0,        gamma],
-                      [b, b, b, 0]])
+                          [1,    0,   -s,       gamma],
+                          [-s,   1,   0,        gamma],
+                          [b, b, b, 0]])
       matrices.append(matrix)
   elif gammas is not None:
     for g in gammas:
       matrix =  np.array([[0,   -s,   1,       g],
-                [1,    0,   -s,       g],
-                [-s,   1,   0,        g],
-                [beta, beta, beta, 0]])
+                          [1,    0,   -s,       g],
+                          [-s,   1,   0,        g],
+                          [beta, beta, beta, 0]])
       matrices.append(matrix)
 
   return matrices
@@ -511,8 +506,7 @@ if  __name__ == "__main__":
   simulation.highDim2dplot(filePaths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
   
   """
-
-
+  """
   runPopulationEnsemble(range(50,400,10), 
                         fileOutputPath="./results/population_ensemble_MORAN_new_matrix.csv", 
                         plotDelta=True,
@@ -521,9 +515,10 @@ if  __name__ == "__main__":
                         simulations=1000000,
                         w=0.45
                         )
+                        
   
-  simulation.driftPlotH(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
-
+  simulation.driftPlotH(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
+  """
 
 
   """runPopulationEnsemble(range(50,400,10), 
@@ -539,16 +534,12 @@ if  __name__ == "__main__":
                         process="LOCAL"
                         )"""
   
-  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
-
-
-  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
-
+  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
 
   simulation.driftPlotH(["./results/population_ensemble_LOCAL.csv","./results/population_ensemble_MORAN.csv"], labels=["Local", "Moran"], column=0)
 
   # maybe these functions should return file name - and autogerenrate one if one isnt given.
-  criticalPopsizeEnsemble("./results/criticalN_w_2.csv")
+  #criticalPopsizeEnsemble("./results/criticalN_w_2.csv")
   simulation.wEnsemblePlot("./results/criticalN_w_2.csv", log=True)
 
 
@@ -558,14 +549,14 @@ if  __name__ == "__main__":
   criticalPopsizeEnsemble("./results/criticalN_matrix_betas.csv", option="MATRIX_TEST",
                           defaultW=0.45, matrices=matrices)"""
   
-  simulation.wEnsemblePlot("./results/criticalN_matrix_betas.csv", log=True)
+  simulation.wEnsemblePlot("./results/criticalN_matrix_betas.csv", log=True, x_label=r"$\beta$")
 
   """gammas = np.linspace(0, 0.6, 6)
   matrices = getMatricesFourPlayer(gammas=gammas, beta=0.2)
   criticalPopsizeEnsemble("./results/criticalN_matrix_gammas.csv", option="MATRIX_TEST_G",
                           defaultW=0.45, matrices=matrices)"""
 
-  simulation.wEnsemblePlot("./results/criticalN_matrix_gammas.csv", log=True)
+  simulation.wEnsemblePlot("./results/criticalN_matrix_gammas.csv", log=True, x_label=r"$\gamma$")
   """
     matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
 
@@ -581,17 +572,20 @@ if  __name__ == "__main__":
     matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,popSize=200,w=0.45, plotDelta=True)
 
   """
-  simulation.driftPlotH(["./results/parameterTest_200.csv","./results/parameterTest_400.csv","./results/parameterTest_600.csv"],
-                        xlabel="beta", labels=["gamma=0.2", "0.6", "1"], column=0)
 
 
-  deltaLocal, deltaRps, lResults = simulation.local_batch_drift(20000, 3000000, 0.45, 1, basicRps, traj=True, initialDist=np.array([0.5,0.2,0.2,0.1]))
+  simulation.driftPlotH(["./results/parameterTest_0.2.csv","./results/parameterTest_0.6.csv","./results/parameterTest_1.csv"],
+                        xlabel="beta", labels=["0.2", "0.6", "1"], column=0)
+  
+  """
+  deltaLocal, deltaRps, lResults = simulation.local_batch_drift(20000, 3000000, 0.45, 1, Games.AUGMENTED_RPS, traj=True, initialDist=np.array([0.5,0.2,0.2,0.1]))
   df_RPS_LO = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
   trajectoryWrite(df_RPS_LO, "./results/localTest.csv")
+  """
 
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45)
   trajectoryWrite(test, "./results/localNumerical.csv")
-
+  
   filePaths = ["./results/localTest.csv", "./results/localNumerical.csv"]
   norms = [True, False]
 
@@ -599,17 +593,22 @@ if  __name__ == "__main__":
 
 
 
- 
- 
-  #simulation.driftPlotH("./results/population_ensemble_w_0.4.csv", labels=["Moran", "Local"])
-
-
-
-
   
  
   
+"""
+Notes:
 
+
+Compute H4 -xyz(1-x-y-z)
+
+Point cloud for random starting pos
+
+4 plot diagrm - starting point cloud
+low pop - final point in ring around equilibrium or vertical line
+high pop - all concentrated at central point.
+
+"""
   
 
 
