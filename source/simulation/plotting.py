@@ -269,7 +269,7 @@ def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"]
   test = r'$\begin{bmatrix} 0 & -s & 1 & 0.2 \\ 1 & 0 & -s & 0.2 \\ -s & 1 & 0 & 0.2 \\ 0.1 & 0.1 & 0.1 & 0 \end{bmatrix}$'
 
 
-  plt.text(0.7,0.7, test, transform=plt.gca().transAxes)
+  #plt.text(0.7,0.7, test, transform=plt.gca().transAxes)
 
   #plt.annotate("Drift reversal", xy=(200, -2.2e-5), xytext=(175, 0.002), arrowprops=dict(arrowstyle="->", color="black"))
 
@@ -280,7 +280,7 @@ def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"]
   plt.show()
 
 
-def wEnsemblePlot(filePath : str, log=True):
+def wEnsemblePlot(filePath : str, log=True, x_label : str = "w"):
   data = pd.read_csv(filePath, comment = '#')
 
   ws = data.iloc[:, 0]
@@ -292,7 +292,7 @@ def wEnsemblePlot(filePath : str, log=True):
 
     plt.yticks([100,1000])
 
-  plt.xlabel("w")
+  plt.xlabel(x_label)
   plt.ylabel("Nc")
   plt.show()
 
