@@ -100,7 +100,7 @@ For popualtion drift test and critical popsize search, data res is very high so 
 As the trajectory is not needed for the final results - only care about accurate delta H values.
 Delta H is calculated before the dimension reduction
 """
-def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 10000000) -> None:
+def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 20000000, process="MORAN") -> None:
 
 
   
@@ -114,14 +114,19 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
   # Simulation for each popsize.
   for i in tqdm(range(len(populationSizes)), position=0, leave=True):
 
+    match process:
+      case "MORAN":
+        driftH, driftRps, _ = simulation.moran_batch_drift(populationSizes[i], 2, 0.45, simulations, basicRps, np.array([0.25,0.25,0.25,0.25]))
+        driftHs.append(driftH * populationSizes[i])
+        driftRpss.append(driftRps * populationSizes[i])
+      case "LOCAL":
+        driftH, driftRps, _ = simulation.local_batch_drift(populationSizes[i], 2, 0.45, simulations, basicRps, np.array([0.25,0.25,0.25,0.25]))
+        driftHs.append(driftH * populationSizes[i])
+        driftRpss.append(driftRps * populationSizes[i])
 
-    driftH, driftRps, _ = simulation.moran_batch_drift(populationSizes[i], 2, 0.45, simulations, basicRps, np.array([0.25,0.25,0.25,0.25]))
-    driftHs.append(driftH)
-    driftRpss.append(driftRps)
- 
   end = time.time()
   
-  print("Time taken to run population test ensemble")
+  print("Time taken to run population test ensemble ", process)
   print(end - start)
 
 
@@ -143,7 +148,7 @@ def runPopulationEnsemble(populationSizes : list[int] , fileOutputPath : str =""
     plt.show()
 
 
-def searchCriticalPopsize(w : float = 0.4, matrix=None) -> int:
+def searchCriticalPopsize(w : float = 0.4, matrix=None, low=0, high=2000) -> int:
 
   # Binary search for critical popsize where drift reversal occurs.
   # Hardcoded for initial deltaM being positive.
@@ -152,10 +157,10 @@ def searchCriticalPopsize(w : float = 0.4, matrix=None) -> int:
   criticalN = None
   iteration = 0
 
-  low = 100
-  high = 3000
   max_iterations = 20
   mid = 0
+
+  matrix = matrix
 
   prevSign = None
 
@@ -168,7 +173,7 @@ def searchCriticalPopsize(w : float = 0.4, matrix=None) -> int:
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
     
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 20000000, matrix, np.array([0.25,0.25,0.25,0.25]))
+    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 2000000, matrix, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
@@ -234,15 +239,21 @@ def criticalPopsizeEnsemble(fileOutputPath : str, option="W_TEST", matrices=None
                     , args = [f"W range {ws[0]}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
                     , optionalComments="Critical population size search for varied w.")
       return
-    case "MATRIX_TEST":
+    case "MATRIX_TEST" | "MATRIX_TEST_G":
       if matrices is None:
         raise TypeError("Missing matrix values for testing")
       
+      betas = []
       for matrix in tqdm(matrices, position=0, leave=True):
+        print(matrix)
+        if option == "MATRIX_TEST_G":
+          betas.append(matrix[0][3])
+        else:
+          betas.append(matrix[3][0])
         criticalN = searchCriticalPopsize(w=defaultW, matrix=matrix)
         Ns.append(criticalN)
 
-      pd.DataFrame({"beta_gamma" : f"{matrix[0][3]} {matrix[3][0]}", "CriticalN": Ns})
+      df = pd.DataFrame({"beta_gamma" : betas, "CriticalN": Ns})
 
       deltaH_Write(df, filePath=fileOutputPath, optionalComments="Matrix ensemble")
 
@@ -378,7 +389,7 @@ def delta_H_parser():
 
 
 # Helper function to run matrix parameter tests.
-def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.5, beta=0.1):
+def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
 
 
   matrices = []
@@ -469,16 +480,17 @@ if  __name__ == "__main__":
                       [2, 2, 2, 0]])
   
   basicRps = Games.AUGMENTED_RPS
-  """
-  deltamoran, deltaRps, mResults = simulation.moran_batch_drift(20000, 1000000, 0.45, 1, basicRps, np.array([0.25,0.25,0.25,0.25]), traj=True)
-  df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
+  
+  deltamoran, deltaRps, mResults = simulation.moran_batch_drift(40000, 6000000, 0.45, 1, basicRps, np.array([0.5,0.2,0.2,0.1]), traj=True)
+  
+  df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
   
   print("DELTA RPS ", deltaRps)
   print("DELTA MORAN ", deltamoran)
 
   trajectoryWrite(df_RPS_MO, "./results/moranTest.csv")
 
-  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran")
+  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45)
   trajectoryWrite(test, "./results/moranNumerical.csv")
 
 
@@ -486,43 +498,67 @@ if  __name__ == "__main__":
   filePaths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
   norms = [True, False]
 
-  simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["Moran"])
+  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["Moran"])
 
-  simulation.highDim2dplot(filePaths, [20000, None], norm=norms, t_eval=t_eval, data_res=1)
-  """
+  simulation.highDim2dplot(filePaths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
+  
+
+
+
+
+  """runPopulationEnsemble(range(50,400,10), 
+                        fileOutputPath="./results/population_ensemble_MORAN.csv", 
+                        plotDelta=True,
+                        process="MORAN"
+                        )
+  
+
+  runPopulationEnsemble(range(50,400,10), 
+                        fileOutputPath="./results/population_ensemble_LOCAL.csv", 
+                        plotDelta=True,
+                        process="LOCAL"
+                        )"""
+  
+  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_4$", r"$\Delta H_{rps}$"])
+
+
+  simulation.driftPlotH(["./results/population_ensemble_LOCAL.csv","./results/population_ensemble_MORAN.csv"], labels=["MORAN", "LOCAL"], column=0)
 
   # maybe these functions should return file name - and autogerenrate one if one isnt given.
-  criticalPopsizeEnsemble("./results/criticalN_w.csv")
-  simulation.wEnsemblePlot("./results/criticalN_w.csv")
+  criticalPopsizeEnsemble("./results/criticalN_w_2.csv")
+  simulation.wEnsemblePlot("./results/criticalN_w_2.csv", log=True)
 
 
 
-  betas = np.linspace(0, 1, 10)
+  """betas = np.linspace(0.1, 1, 10)
   matrices = getMatricesFourPlayer(betas=betas, gamma=0.5)
   criticalPopsizeEnsemble("./results/criticalN_matrix_betas.csv", option="MATRIX_TEST",
-                          defaultW=0.45)
+                          defaultW=0.45, matrices=matrices)"""
   
-  gammas = np.linspace(0, 1, 10)
-  matrices = getMatricesFourPlayer(gammas=gammas, beta=0.5)
-  criticalPopsizeEnsemble("./results/criticalN_matrix_gammas.csv", option="MATRIX_TEST",
-                          defaultW=0.45)
-  
+  simulation.wEnsemblePlot("./results/criticalN_matrix_betas.csv", log=True)
 
-  #matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
+  """gammas = np.linspace(0, 0.6, 6)
+  matrices = getMatricesFourPlayer(gammas=gammas, beta=0.2)
+  criticalPopsizeEnsemble("./results/criticalN_matrix_gammas.csv", option="MATRIX_TEST_G",
+                          defaultW=0.45, matrices=matrices)"""
 
-  #matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),popSize=400,w=0.45, plotDelta=True)
+  simulation.wEnsemblePlot("./results/criticalN_matrix_gammas.csv", log=True)
+  """
+    matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
 
-  #matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),popSize=600,w=0.45, plotDelta=True)
+    matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),popSize=400,w=0.45, plotDelta=True)
 
-
-  #matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,popSize=200,w=0.45, plotDelta=True)
-
-  #matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,popSize=200,w=0.45, plotDelta=True)
-
-  #matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,popSize=200,w=0.45, plotDelta=True)
+    matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),popSize=600,w=0.45, plotDelta=True)
 
 
-  simulation.driftPlotH(["./results/parameterTest_0.2.csv","./results/parameterTest_0.6.csv","./results/parameterTest_1.csv"],
+    matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,popSize=200,w=0.45, plotDelta=True)
+
+    matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,popSize=200,w=0.45, plotDelta=True)
+
+    matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,popSize=200,w=0.45, plotDelta=True)
+
+  """
+  simulation.driftPlotH(["./results/parameterTest_200.csv","./results/parameterTest_400.csv","./results/parameterTest_600.csv"],
                         xlabel="beta", labels=["gamma=0.2", "0.6", "1"], column=0)
 
 
@@ -538,12 +574,7 @@ if  __name__ == "__main__":
 
   simulation.highDim2dplot(filePaths, [20000, None], norm=norms, t_eval=t_eval, data_res=1)
 
-  """
-    
-    runPopulationEnsemble(range(50,700,10), 
-                          fileOutputPath="./results/population_ensemble.csv", 
-                          plotDelta=True,
-                          )"""
+
 
  
  
