@@ -265,22 +265,23 @@ def driftPlotH(filePaths : list[str], labels = ["Moran process", "Local update"]
         plt.plot(xVals, data.iloc[:,i+1], label = labels[i], marker=markers[i])
 
   plt.xlabel(xlabel)
-  plt.ylabel(r"$\langle \Delta H \rangle$")
+  plt.ylabel(r"$\langle \Delta H \rangle N$")
   #plt.ylabel("delta H") # switch if latex not installed.
   plt.legend()
   plt.show()
 
 
-def wEnsemblePlot(filePath : str):
+def wEnsemblePlot(filePath : str, log=True):
   data = pd.read_csv(filePath, comment = '#')
 
   ws = data.iloc[:, 0]
 
 
   plt.plot(ws, data.iloc[:, 1], marker="s")
-  plt.yscale("log", base=10)
+  if log:
+    plt.yscale("log", base=10)
 
-  plt.yticks([100,1000])
+    plt.yticks([100,1000])
 
   plt.xlabel("w")
   plt.ylabel("Nc")

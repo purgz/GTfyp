@@ -256,7 +256,7 @@ def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         initial = np.append(random_simplex, fixed)
 
 
-        population = np.random.multinomial(popSize, initialDist)
+        population = np.random.multinomial(popSize, initial)
 
         deltaPi = np.max(matrix) - np.min(matrix)
 
