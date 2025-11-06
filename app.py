@@ -76,7 +76,7 @@ def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
 
   rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
 
-  _, _, mResults = simulation.moran_batch_drift(popSize=N, iterations=iterations, w=w,
+  _, _, mResults, _= simulation.moran_batch_drift(popSize=N, iterations=iterations, w=w,
                                             matrix=rpsArray, simulations=1, initialDist=np.array([0.5,0.25,0.25]),
                                             traj=True)
   _,_, lResults = simulation.local_batch_drift(popSize=N, iterations=iterations, w=w,
@@ -118,7 +118,7 @@ def runPopulationEnsemble(populationSizes : list[int] ,w : float = 0.45, fileOut
 
     match process:
       case "MORAN":
-        driftH, driftRps, _ = simulation.moran_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
+        driftH, driftRps, _, _ = simulation.moran_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
         driftHs.append(driftH * populationSizes[i])
         driftRpss.append(driftRps * populationSizes[i])
       case "LOCAL":
@@ -175,7 +175,7 @@ def searchCriticalPopsize(w : float = 0.4, matrix=None, low=0, high=2000) -> int
     mid = (low + high) // 2
     print("Testing popsize: ", mid)
     
-    deltaMoran, _ , _= simulation.moran_batch_drift(mid, 2, w, 2000000, matrix, np.array([0.25,0.25,0.25,0.25]))
+    deltaMoran, _ , _, _= simulation.moran_batch_drift(mid, 2, w, 2000000, matrix, np.array([0.25,0.25,0.25,0.25]))
 
 
     if deltaMoran > 0:
@@ -292,7 +292,7 @@ def matrixParamEnsemble(fileOutputPath : str,betas : list[float],gamma : float =
                           [-s,   1,   0,        gamma],
                           [betas[i], betas[i], betas[i], 0]])
 
-    driftH, driftRps, _ = simulation.moran_batch_drift(popSize=popSize,
+    driftH, driftRps, _,_ = simulation.moran_batch_drift(popSize=popSize,
                                                         iterations=2,
                                                         w=w,
                                                         simulations=simulations,
@@ -473,9 +473,57 @@ if  __name__ == "__main__":
       arpsExample(N = args.N, iterations=args.iterations)
 
 
-  testdf = pd.read_csv("./results/moran400_100000.csv",comment="#")
+  #deltamoran, deltaRps, mResults,_ = simulation.moran_batch_drift(20000, 1000000, 0.45, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
+  
+  #df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
+  
+  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["Moran"])
 
-  simulation.pointCloud(testdf)
+  """
+  basicRps = np.array([[0,   -0.6,   1,       0.5],
+                    [1,    0,   -0.6,       0.5],
+                    [-0.6,   1,   0,        0.5],
+                    [0.25, 0.25, 0.25, 0]])
+  """
+
+
+  """
+  
+  Cant see the second case where they end along the vertical axis for low pop,
+  issue is that rps tends to sprial outwards
+
+  Either we get fixation at central point, or RPS drifts outwards and SD fixes
+  or both drift and we end in the bottom corners.
+  dont see the case where rps fixes at center and sd doesnt drift as SD has lower crit N for drift to occur than rps.
+  (in the games tested.)
+  """
+
+  # Double reversal??????
+  # _,_,_, allTraj = simulation.moran_batch_drift(10000, 3000000, 0.45, 300, pointCloud=True)
+
+  #_,_,_, allTraj = simulation.moran_batch_drift(200, 3000000, 0.45, 300, pointCloud=True)
+
+  # RPS and SD different critical sizes where the drift occurs.
+  _,_,_, allTraj = simulation.moran_batch_drift(200, 3000000, 0.45, 200, pointCloud=True)
+
+
+  sims, n, frames = allTraj.shape
+
+  allTraj_transposed = allTraj.transpose(0, 2, 1)  # shape: (sims, frames, n)
+
+  # Reshape to long format
+  df = pd.DataFrame(
+      allTraj_transposed.reshape(-1, n),  # shape (sims*frames, n)
+      columns=[f"c{i+1}" for i in range(n)]
+  )
+
+  # Add sim and frame columns
+  df["sim"] = np.repeat(np.arange(sims), frames)
+  df["frame"] = np.tile(np.arange(frames), sims)
+  
+  print(df.head())
+
+  simulation.pointCloud(df)
 
 
 
@@ -488,7 +536,7 @@ if  __name__ == "__main__":
   
   #basicRps = Games.AUGMENTED_RPS
   """
-  deltamoran, deltaRps, mResults = simulation.moran_batch_drift(40000, 6000000, 0.45, 1, basicRps, np.array([0.5,0.2,0.2,0.1]), traj=True)
+  deltamoran, deltaRps, mResults,_ = simulation.moran_batch_drift(40000, 6000000, 0.45, 1, basicRps, np.array([0.5,0.2,0.2,0.1]), traj=True)
   
   df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
   

@@ -19,10 +19,10 @@ from .plotting import quaternaryPlot
 
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -1,   1,       0.2],
-                    [1,    0,   -1,       0.2],
-                    [-1,   1,   0,        0.2],
-                    [0.1, 0.1, 0.1, 0]])
+basicRps = np.array([[0,   -0.8,   1,       0.5],
+                    [1,    0,   -0.8,       0.5],
+                    [-0.8,   1,   0,        0.5],
+                    [0.25, 0.25, 0.25, 0]])
 
 
 
@@ -313,17 +313,24 @@ def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
 
 
 @njit(parallel=True, cache=True)
-def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist =np.array([0.25,0.25,0.25,0.25]), traj=False):
+def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist =np.array([0.25,0.25,0.25,0.25]), traj=False, pointCloud = False):
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
     deltas_rps = np.zeros(simulations)
     allResults = np.zeros((n, iterations))
 
     initialDist = initialDist / np.sum(initialDist)
-            
+        
+    sample_rate = 10000
+    num_frames = iterations // sample_rate
+    
+    
+    allTraj = np.zeros((simulations, n, num_frames))
+
 
     for s in prange(simulations):
 
+        """
         # Randomize in the simplex
         fixed = initialDist[3]
         remaining = 1 - fixed
@@ -331,9 +338,12 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         random_simplex /= np.sum(random_simplex)
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
+        """
 
+        initial = np.random.rand(4)
+        initial /= np.sum(initial)
 
-        population = np.random.multinomial(popSize, initialDist)
+        population = np.random.multinomial(popSize, initial)
 
         results = np.zeros((n , iterations))
         for i in range(iterations):
@@ -364,11 +374,14 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         if traj:
             allResults += results
 
+        if pointCloud:
+            allTraj[s, :, :] = results[:, ::sample_rate]
+
   
     meanDeltaH = np.mean(deltas)
     meanDeltaRps = np.mean(deltas_rps)
 
-    return meanDeltaH, meanDeltaRps, allResults / simulations
+    return meanDeltaH, meanDeltaRps, allResults / simulations, allTraj
 
 
 
