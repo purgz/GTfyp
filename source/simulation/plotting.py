@@ -199,15 +199,31 @@ def pointCloud(df):
   ax.set_zticks([])
   ax.set_box_aspect([1, 1, 1]) 
 
-  carts = get_cartesian_array_from_barycentric(df.values)[::100]
+  frames = sorted(df["frame"].unique())
 
-  scatter = ax.scatter([],[],[], s=10, alpha=0.6)
+  carts = get_cartesian_array_from_barycentric(df[["c1","c2","c3","c4"]].to_numpy())
+
+  print(df[["c1","c2","c3","c4"]].values)
+
+  print(carts)
+
+  df["x"], df["y"], df["z"] = carts[:, 0], carts[:, 1], carts[:, 2]
+
+  first_frame = df[df["frame"] == frames[0]]
+  scatter = ax.scatter(
+      first_frame["x"].values,
+      first_frame["y"].values,
+      first_frame["z"].values,
+      s=10, alpha=0.6
+  )
+
 
   def update(frame):
-    x, y, z = carts[:frame, 0], carts[:frame, 1], carts[:frame, 2]
-    scatter._offsets3d = (x,y,z)
+    sub = df[df["frame"] == frame]
+    scatter._offsets3d = (sub["x"].values, sub["y"].values, sub["z"].values)
+    
 
-  ani = FuncAnimation(fig, update, frames=len(carts), interval=1, blit=False, repeat=True)
+  ani = FuncAnimation(fig, update, frames=frames, interval=0.1, blit=False, repeat=True)
 
   plt.show()
 
