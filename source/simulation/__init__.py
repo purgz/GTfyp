@@ -9,3 +9,4 @@ from .games import Games
 from .plotting import driftPlotH
 from .plotting import highDim2dplot
 from .plotting import wEnsemblePlot
+from .plotting import pointCloud

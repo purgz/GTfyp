@@ -473,6 +473,10 @@ if  __name__ == "__main__":
       arpsExample(N = args.N, iterations=args.iterations)
 
 
+  testdf = pd.read_csv("./results/moran400_100000.csv",comment="#")
+
+  simulation.pointCloud(testdf)
+
 
 
 

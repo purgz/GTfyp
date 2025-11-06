@@ -10,6 +10,8 @@ import scienceplots
 #python-ternary
 import ternary
 
+from matplotlib.animation import FuncAnimation
+
 """
 SciencePlots library - ref in paper
 """
@@ -174,6 +176,38 @@ def quaternaryPlot(dfs, numPerRow=2, labels=["Local update", "Moran Process"], c
       ax.scatter(deterministic_point[0, 0], deterministic_point[0, 1], deterministic_point[0, 2], 
                   color=colors[i], s=50, label="Deterministic Point")
 
+
+  plt.show()
+
+
+
+
+
+def pointCloud(df):
+   
+
+  fig = plt.figure()
+
+  ax = fig.add_subplot(projection="3d")
+  plot_ax(ax)
+  label_points(ax)
+  add_edge_labels(ax)
+  add_grid_lines(ax)
+  ax.grid(False)
+  ax.set_xticks([])
+  ax.set_yticks([])
+  ax.set_zticks([])
+  ax.set_box_aspect([1, 1, 1]) 
+
+  carts = get_cartesian_array_from_barycentric(df.values)[::100]
+
+  scatter = ax.scatter([],[],[], s=10, alpha=0.6)
+
+  def update(frame):
+    x, y, z = carts[:frame, 0], carts[:frame, 1], carts[:frame, 2]
+    scatter._offsets3d = (x,y,z)
+
+  ani = FuncAnimation(fig, update, frames=len(carts), interval=1, blit=False, repeat=True)
 
   plt.show()
 
