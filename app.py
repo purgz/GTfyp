@@ -606,6 +606,15 @@ if __name__ == "__main__":
   or both drift and we end in the bottom corners.
   dont see the case where rps fixes at center and sd doesnt drift as SD has lower crit N for drift to occur than rps.
   (in the games tested.)
+
+
+  potentially an example of microbes
+  RPS in e coli
+  invader cheaters taking advantage of public good microbes
+  producers make resources that otherss can benefit from,
+  but proudcers have to pay a cost to make these.
+  rps, 0.1,
+  0.1, 0 cheaters get nothign against themselvs
   """
 
     # Double reversal??????
@@ -615,7 +624,7 @@ if __name__ == "__main__":
 
     # RPS and SD different critical sizes where the drift occurs.
     _, _, _, all_traj = simulation.moran_batch_sim(
-        100, 1000000, 0.9, 1000, point_cloud=True
+        100, 1000000, 0.45, 1000, point_cloud=True
     )
 
     sims, n, frames = all_traj.shape
