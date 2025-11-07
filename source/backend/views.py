@@ -43,8 +43,8 @@ class SimulationDataView(APIView):
         try:
             results = runSimulationPool(
                 simulations=1,
-                popSize=10000,
-                initialDist=[0.7,0.1,0.1,0.1],
+                pop_size=10000,
+                initial_dist=[0.7,0.1,0.1,0.1],
                 iterations=2000000,
                 w=0.2,
                 H=3)
@@ -66,8 +66,8 @@ class SimulationView(TemplateView):
         results = runSimulationPool(
             matrix=self.rpsArray,
             simulations=1,
-            popSize=30000,
-            initialDist=[0.5, 0.25,0.25],
+            pop_size=30000,
+            initial_dist=[0.5, 0.25,0.25],
             iterations=100000,
             w=0.2,
             H=2)
@@ -101,8 +101,8 @@ class ThreeDGameView(TemplateView):
         results = runSimulationPool(
             matrix=self.rpsArray,
             simulations=1,
-            popSize=30000,
-            initialDist=[0.5, 0.25,0.25],
+            pop_size=30000,
+            initial_dist=[0.5, 0.25,0.25],
             iterations=100000,
             w=0.2,
             H=2)
@@ -135,8 +135,8 @@ class SimpleTemplateView(TemplateView):
         results = runSimulationPool(
             matrix=self.rpsArray,
             simulations=1,
-            popSize=30000,
-            initialDist=[0.5, 0.25,0.25],
+            pop_size=30000,
+            initial_dist=[0.5, 0.25,0.25],
             iterations=100000,
             w=0.2,
             H=2)

@@ -52,7 +52,7 @@ public class Main {
 
 
 
-    public static double[] payoffsAgainstPop(int[] population, double[][] matrix, int popSize){
+    public static double[] payoffsAgainstPop(int[] population, double[][] matrix, int pop_size){
 
         double[] payoffs = new double[4];
 
@@ -66,7 +66,7 @@ public class Main {
                     total += population[j] * matrix[i][j];
                 }
             }
-            payoffs[i] = total / (popSize - 1);
+            payoffs[i] = total / (pop_size - 1);
         }
 
 
@@ -74,14 +74,14 @@ public class Main {
     }
 
 
-    public static double[] moranSelection(double[] payoffs, double avg, int[] population, int popSize){
+    public static double[] moran_selection(double[] payoffs, double avg, int[] population, int pop_size){
 
 
         double[] probs = new double[4];
 
         for (int i = 0; i < 4; i++){
 
-            probs[i] = (population[i] * payoffs[i]) / (double) (popSize * avg);
+            probs[i] = (population[i] * payoffs[i]) / (double) (pop_size * avg);
         }
 
 
@@ -109,7 +109,7 @@ public class Main {
     }
 
 
-    public static double[][] moranSimulation(double[][] matrix, int popSize, int[] population, int iterations){
+    public static double[][] moranSimulation(double[][] matrix, int pop_size, int[] population, int iterations){
 
         double w = 0.4;
 
@@ -117,15 +117,15 @@ public class Main {
 
         for (int i =0 ; i < iterations; i++){
 
-            int killed = weightedChoice(arrayDiv(population, popSize));
+            int killed = weightedChoice(arrayDiv(population, pop_size));
 
-            double[] payoffs = payoffsAgainstPop(population, matrix, popSize);
+            double[] payoffs = payoffsAgainstPop(population, matrix, pop_size);
 
             double[] p = pHelper(payoffs, w);
 
-            double average = avg(p, population, popSize);
+            double average = avg(p, population, pop_size);
 
-            double[] probs = moranSelection(payoffs, average, population, popSize);
+            double[] probs = moran_selection(payoffs, average, population, pop_size);
 
             int chosen = weightedChoice(probs);
 
@@ -133,7 +133,7 @@ public class Main {
             population[killed] -= 1;
 
             for (int j = 0; j < 4; j++){
-                results[j][i] = population[j] / (double) popSize;
+                results[j][i] = population[j] / (double) pop_size;
             }
         }
 
@@ -141,7 +141,7 @@ public class Main {
     
     }
 
-    public static double avg(double[] p, int[] pop, int popSize){
+    public static double avg(double[] p, int[] pop, int pop_size){
 
         double avg = 0d;
 
@@ -149,7 +149,7 @@ public class Main {
             avg += p[i] * pop[i];
         }
 
-        return avg / (double) popSize;
+        return avg / (double) pop_size;
     }
 
 
