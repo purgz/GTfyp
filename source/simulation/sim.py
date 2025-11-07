@@ -19,10 +19,10 @@ from .plotting import quaternary_plot
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
 basic_rps = np.array(
-    [[0, -0.8, 1, 0.5], 
-     [1, 0, -0.8, 0.5], 
-     [-0.8, 1, 0, 0.5], 
-     [0.25, 0.25, 0.25, 0]]
+    [[0, -0.8, 1, 0.15], 
+     [1, 0, -0.8, 0.15], 
+     [-0.8, 1, 0, 0.15], 
+     [0.3, 0.3, 0.3, 0]]
 )
 
 
