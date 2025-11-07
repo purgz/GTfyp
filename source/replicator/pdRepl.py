@@ -84,7 +84,7 @@ df_PD_ADJ = pd.DataFrame({
 Computes the numerical trajectory for the standard replicator dynamics which correspond
 to the local update microscopic process with the scaling factor as in literature.
 """
-def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
+def pdNumerical(matrix, w=0.9, initial_dist=[0.9,0.1]):
   # Convert np matrices to sympy ..
   maxi = matrix.max()
   mini = matrix.min()
@@ -100,7 +100,7 @@ def pdNumerical(matrix, w=0.9, initialDist=[0.9,0.1]):
   t = sp.symbols("t")
   f = lambdify((t, x), [x_dot], modules="numpy")
 
-  x0 = [initialDist[0]]
+  x0 = [initial_dist[0]]
   t_span = (0, 35)
   t_eval = np.linspace(*t_span, 500)
 

@@ -96,7 +96,7 @@ def getFixedPoints(subs, variables):
 
 
 
-def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDist = [0.5,0.2,0.2]):
+def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initial_dist = [0.5,0.2,0.2]):
 
 
   # Returns a dataframe with trajectory data for numerical solution to replicators
@@ -112,7 +112,7 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initialDis
       return [dxdt, dydt, dzdt]
 
 
-  x0 = initialDist
+  x0 = initial_dist
   t_span=(0,timeSpan)
   t_eval=np.linspace(*t_span, numPoints)
 

@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-from mpl_toolkits.mplot3d import axes3d, Axes3D 
+from mpl_toolkits.mplot3d import axes3d, Axes3D
 from itertools import combinations
 from multiprocessing import Pool
 from tqdm import tqdm
@@ -11,23 +11,23 @@ from tqdm import tqdm
 from numba import njit, prange
 
 
-#If running this file directly uncomment following
+# If running this file directly uncomment following
 
-#from plotting import quaternaryPlot
-from .plotting import quaternaryPlot
-
+# from plotting import quaternary_plot
+from .plotting import quaternary_plot
 
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
-basicRps = np.array([[0,   -0.8,   1,       0.5],
-                    [1,    0,   -0.8,       0.5],
-                    [-0.8,   1,   0,        0.5],
-                    [0.25, 0.25, 0.25, 0]])
-
+basic_rps = np.array(
+    [[0, -0.8, 1, 0.5], 
+     [1, 0, -0.8, 0.5], 
+     [-0.8, 1, 0, 0.5], 
+     [0.5, 0.5, 0.5, 0]]
+)
 
 
 @njit(inline="always")
-def payoffAgainstPop(population, matrix, popSize):
+def payoff_against_pop(population, matrix, pop_size):
     payoffs = np.zeros(matrix.shape[0])
     for i in range(matrix.shape[0]):
         total = 0.0
@@ -38,9 +38,7 @@ def payoffAgainstPop(population, matrix, popSize):
             else:
                 total += population[j] * matrix[i][j]
         payoffs[i] = total
-    return payoffs / (popSize - 1)
-
-
+    return payoffs / (pop_size - 1)
 
 
 """
@@ -50,18 +48,18 @@ Paper coevolutionary dynamics in large but finite populations
 where phi = average payoff.
 """
 
+
 @njit(inline="always")
-def moranSelection(payoffs, avg, population, popSize, numStrategies=4):
+def moran_selection(payoffs, avg, population, pop_size, numStrategies=4):
     probs = np.zeros(numStrategies)
     for i in range(numStrategies):
 
-        probs[i] = (population[i] * payoffs[i]) / (popSize * avg)
+        probs[i] = (population[i] * payoffs[i]) / (pop_size * avg)
 
     return probs
 
 
-
-@njit(inline='always')
+@njit(inline="always")
 def weighted_choice(weights):
     # Unnormalized weights allowed
     total = np.sum(weights)
@@ -75,195 +73,47 @@ def weighted_choice(weights):
 
 
 
-@njit()
-def moranSimulation_numba(matrix, popSize, population, iterations=100000, w=0.3):
-    numStrategies = matrix.shape[0]
-    results = np.zeros((numStrategies, iterations))
-    
-
-    for i in range(iterations):
-
-        
-        killed = weighted_choice(population / popSize)
-
-
-        payoffs = payoffAgainstPop(population, matrix, popSize)
-        p = 1 - w + w * payoffs
-        
-        avg = np.sum(p * population) / popSize
-
-        probs_birth = moranSelection(p, avg, population, popSize, matrix.shape[0])
-        
-        chosen = weighted_choice(probs_birth)
-
-    
-        population[chosen] += 1
-        population[killed] -= 1
-
-        for j in range(numStrategies):
-          results[j, i] = population[j] / popSize
-
-
-    return results
-
-
-@njit()
-def fermiSim_numba(matrix, popSize, population, iterations=100000, w=0.3):
-    numStrategies = matrix.shape[0]
-    results = np.zeros((numStrategies, iterations))
-    individuals = np.empty(popSize, dtype=np.int64)
-
-    # Build individuals array from population
-    idx = 0
-    for s in range(numStrategies):
-        for _ in range(population[s]):
-            individuals[idx] = s
-            idx += 1
-
-    deltaPi = np.max(matrix) - np.min(matrix)
-
-    for i in range(iterations):
-        # Pick two distinct individuals
-        ind1 = np.random.randint(popSize)
-        ind2 = ind1
-        while ind2 == ind1:
-            ind2 = np.random.randint(popSize)
-
-        p1 = individuals[ind1]
-        p2 = individuals[ind2]
-
-        payoffs = payoffAgainstPop(population, matrix, popSize)
-
-        p = 1 / (1 + np.exp(-w * (payoffs[p2] - payoffs[p1])))
-
-        if np.random.rand() < p:
-            population[p1] -= 1
-            population[p2] += 1
-            individuals[ind1] = p2
-
-        for j in range(numStrategies):
-            results[j, i] = population[j] / popSize
-
-    return results
-
-
-
-
-
 def reseed():
-  seed = (os.getpid() * int.from_bytes(os.urandom(4), "little")) % (2**32 - 1)
-  np.random.seed(seed)
-  random.seed(seed)
-
-
-
-@njit
-def singleSim(matrix, popSize, initialDist, iterations, w, H, data_res, processes):
-    
-    population = np.random.multinomial(popSize, initialDist)
-    population2 = np.random.multinomial(popSize, initialDist)
-
-    results = []
-
-    if "Moran" in processes:
-      moranResult = moranSimulation_numba(matrix, popSize, population.copy(), iterations,w)
-      delta_L_moran = np.mean(np.diff(-(moranResult[H] * (1 - moranResult[H]))))
-
-      # This will break non 4x4 games for now
-      delta_H_RPS = np.mean(np.diff(-(moranResult[0] * moranResult[1] * moranResult[2])))
-
-      moranResult = moranResult[:, ::data_res]
-      results.append((moranResult, delta_L_moran, delta_H_RPS))
-    if "Local" in processes:
-      localResult = localUpdate_numba(matrix, popSize, population2.copy(), iterations,w)
-      delta_L_local = np.mean(np.diff(-(localResult[H] * (1 - localResult[H]))))
-      localResult = localResult[:, ::data_res]
-      results.append((localResult, delta_L_local))
-    if "Fermi" in processes:
-      fermiResult = fermiSim_numba(matrix, popSize, population.copy(),iterations, w)
-      delta_L_fermi = np.mean(np.diff(-(fermiResult[H] * (1 - fermiResult[H]))))
-      fermiResult = fermiResult[:, ::data_res]
-      results.append((fermiResult, delta_L_fermi))
-
-
-    return results
-
-
-def simHelper(args):  
-    return singleSim(*args)
-
-
-@njit()
-def localUpdate_numba(matrix, popSize, population, iterations=100000, w=0.4):
-    numStrategies = matrix.shape[0]
-    results = np.zeros((numStrategies, iterations))
-    
-    individuals = np.empty(popSize, dtype=np.int64)
-
-    # Build individuals array from population
-    idx = 0
-    for s in range(numStrategies):
-        for _ in range(population[s]):
-            individuals[idx] = s
-            idx += 1
-
-    deltaPi = np.max(matrix) - np.min(matrix)
-
-    for i in range(iterations):
-        # Pick two distinct individuals
-        ind1 = np.random.randint(popSize)
-        ind2 = ind1
-        while ind2 == ind1:
-            ind2 = np.random.randint(popSize)
-
-        p1 = individuals[ind1]
-        p2 = individuals[ind2]
-
-        payoffs = payoffAgainstPop(population, matrix, popSize)
-
-        p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
-
-        if np.random.rand() < p:
-            population[p1] -= 1
-            population[p2] += 1
-            individuals[ind1] = p2
-
-        for j in range(numStrategies):
-            results[j, i] = population[j] / popSize
-
-  
-    return results
-
+    seed = (os.getpid() * int.from_bytes(os.urandom(4), "little")) % (2**32 - 1)
+    np.random.seed(seed)
+    random.seed(seed)
 
 @njit(parallel=True, cache=True)
-def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist=np.array([0.25,0.25,0.25,0.25]), traj=False):
+def fermi_batch_sim(
+    pop_size,
+    iterations,
+    w,
+    simulations,
+    matrix=basic_rps,
+    initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
+    traj=False,
+):
 
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
     deltas_rps = np.zeros(simulations)
-    allResults = np.zeros((n, iterations))
+    all_results = np.zeros((n, iterations))
 
     # help with weird floating point errors
-    initialDist = initialDist / np.sum(initialDist)
+    initial_dist = initial_dist / np.sum(initial_dist)
 
     for s in prange(simulations):
         # Randomize in the simplex
-        fixed = initialDist[3]
+        fixed = initial_dist[3]
         remaining = 1 - fixed
         random_simplex = np.random.rand(n - 1)
         random_simplex /= np.sum(random_simplex)
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
 
-
-        population = np.random.multinomial(popSize, initialDist)
+        population = np.random.multinomial(pop_size, initial_dist)
 
         deltaPi = np.max(matrix) - np.min(matrix)
 
-        results = np.zeros((n , iterations))
+        results = np.zeros((n, iterations))
 
-        individuals = np.empty(popSize, dtype=np.int64)
-       
+        individuals = np.empty(pop_size, dtype=np.int64)
+
         # Build individuals array from population
         idx = 0
         for i in range(n):
@@ -272,15 +122,100 @@ def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
                 idx += 1
 
         for i in range(iterations):
-            ind1 = np.random.randint(popSize)
+            ind1 = np.random.randint(pop_size)
             ind2 = ind1
             while ind2 == ind1:
-                ind2 = np.random.randint(popSize)
+                ind2 = np.random.randint(pop_size)
 
             p1 = individuals[ind1]
             p2 = individuals[ind2]
 
-            payoffs = payoffAgainstPop(population, matrix, popSize)
+            payoffs = payoff_against_pop(population, matrix, pop_size)
+
+            p = 1 / (1 + np.exp(-w * (payoffs[p2] - payoffs[p1])))
+
+            if np.random.rand() < p:
+                population[p1] -= 1
+                population[p2] += 1
+                individuals[ind1] = p2
+
+            for j in range(n):
+                results[j, i] = population[j] / pop_size
+
+        H = n - 1 if n == 4 else 0
+        if iterations >= 2:
+            delta_H = (-(results[H, 1] * (1 - results[H, 1]))) - (
+                -(results[H, 0] * (1 - results[H, 0]))
+            )
+
+        deltas[s] = delta_H
+
+        if n >= 3:
+            H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
+            H_after = -(results[0, 1] * results[1, 1] * results[2, 1])
+            deltas_rps[s] = H_after - H_before
+
+        if traj:
+            all_results += results
+
+    mean_delta_H = np.mean(deltas)
+    mean_delta_rps = np.mean(deltas_rps)
+
+    return mean_delta_H, mean_delta_rps, all_results / simulations
+
+@njit(parallel=True, cache=True)
+def local_batch_sim(
+    pop_size,
+    iterations,
+    w,
+    simulations,
+    matrix=basic_rps,
+    initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
+    traj=False,
+):
+
+    n = matrix.shape[0]
+    deltas = np.zeros(simulations)
+    deltas_rps = np.zeros(simulations)
+    all_results = np.zeros((n, iterations))
+
+    # help with weird floating point errors
+    initial_dist = initial_dist / np.sum(initial_dist)
+
+    for s in prange(simulations):
+        # Randomize in the simplex
+        fixed = initial_dist[3]
+        remaining = 1 - fixed
+        random_simplex = np.random.rand(n - 1)
+        random_simplex /= np.sum(random_simplex)
+        random_simplex *= remaining
+        initial = np.append(random_simplex, fixed)
+
+        population = np.random.multinomial(pop_size, initial_dist)
+
+        deltaPi = np.max(matrix) - np.min(matrix)
+
+        results = np.zeros((n, iterations))
+
+        individuals = np.empty(pop_size, dtype=np.int64)
+
+        # Build individuals array from population
+        idx = 0
+        for i in range(n):
+            for _ in range(population[i]):
+                individuals[idx] = i
+                idx += 1
+
+        for i in range(iterations):
+            ind1 = np.random.randint(pop_size)
+            ind2 = ind1
+            while ind2 == ind1:
+                ind2 = np.random.randint(pop_size)
+
+            p1 = individuals[ind1]
+            p2 = individuals[ind2]
+
+            payoffs = payoff_against_pop(population, matrix, pop_size)
             p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
             if np.random.rand() < p:
@@ -289,50 +224,58 @@ def local_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
                 individuals[ind1] = p2
 
             for j in range(n):
-                results[j, i] = population[j] / popSize
+                results[j, i] = population[j] / pop_size
 
-        H = n-1 if n ==4 else 0
+        H = n - 1 if n == 4 else 0
         if iterations >= 2:
-            deltaH = (-(results[H, 1] * (1 - results[H, 1]))) - (-(results[H, 0] * (1 - results[H, 0])))
+            delta_H = (-(results[H, 1] * (1 - results[H, 1]))) - (
+                -(results[H, 0] * (1 - results[H, 0]))
+            )
 
-        deltas[s] = deltaH 
-        
+        deltas[s] = delta_H
+
         if n >= 3:
             H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
             H_after = -(results[0, 1] * results[1, 1] * results[2, 1])
             deltas_rps[s] = H_after - H_before
 
         if traj:
-            allResults += results
+            all_results += results
 
-  
-    meanDeltaH = np.mean(deltas)
-    meanDeltaRps = np.mean(deltas_rps)
+    mean_delta_H = np.mean(deltas)
+    mean_delta_rps = np.mean(deltas_rps)
 
-    return meanDeltaH, meanDeltaRps, allResults / simulations
+    return mean_delta_H, mean_delta_rps, all_results / simulations
 
 
 @njit(parallel=True, cache=True)
-def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, initialDist =np.array([0.25,0.25,0.25,0.25]), traj=False, pointCloud = False):
+def moran_batch_sim(
+    pop_size,
+    iterations,
+    w,
+    simulations,
+    matrix=basic_rps,
+    initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
+    traj=False,
+    point_cloud=False,
+):
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
     deltas_rps = np.zeros(simulations)
-    allResults = np.zeros((n, iterations))
+    all_results = np.zeros((n, iterations))
 
-    initialDist = initialDist / np.sum(initialDist)
-        
-    sample_rate = 10000
+    initial_dist = initial_dist / np.sum(initial_dist)
+
+    sample_rate = 1000
     num_frames = iterations // sample_rate
-    
-    
-    allTraj = np.zeros((simulations, n, num_frames))
 
+    all_traj = np.zeros((simulations, n, num_frames))
 
     for s in prange(simulations):
 
         """
         # Randomize in the simplex
-        fixed = initialDist[3]
+        fixed = initial_dist[3]
         remaining = 1 - fixed
         random_simplex = np.random.rand(n - 1)
         random_simplex /= np.sum(random_simplex)
@@ -343,214 +286,61 @@ def moran_batch_drift(popSize, iterations, w, simulations, matrix=basicRps, init
         initial = np.random.rand(4)
         initial /= np.sum(initial)
 
-        population = np.random.multinomial(popSize, initial)
+        population = np.random.multinomial(pop_size, initial)
 
-        results = np.zeros((n , iterations))
+        results = np.zeros((n, iterations))
         for i in range(iterations):
-            killed = weighted_choice(population / popSize)
-            payoffs = payoffAgainstPop(population, matrix, popSize)
+            killed = weighted_choice(population / pop_size)
+            payoffs = payoff_against_pop(population, matrix, pop_size)
             p = 1.0 - w + w * payoffs
-            avg = np.sum(p * population) / popSize
-            probs_birth = moranSelection(p, avg, population, popSize, n)
+            avg = np.sum(p * population) / pop_size
+            probs_birth = moran_selection(p, avg, population, pop_size, n)
             chosen = weighted_choice(probs_birth)
 
             population[chosen] += 1
             population[killed] -= 1
 
             for j in range(n):
-                results[j, i] = population[j] / popSize
+                results[j, i] = population[j] / pop_size
 
-        H = n-1 if n ==4 else 0
+        H = n - 1 if n == 4 else 0
         if iterations >= 2:
-            deltaH = (-(results[H, 1] * (1 - results[H, 1]))) - (-(results[H, 0] * (1 - results[H, 0])))
+            delta_H = (-(results[H, 1] * (1 - results[H, 1]))) - (
+                -(results[H, 0] * (1 - results[H, 0]))
+            )
 
-        deltas[s] = deltaH 
-        
+        deltas[s] = delta_H
+
         if n >= 3:
             H_before = -(results[0, 0] * results[1, 0] * results[2, 0])
             H_after = -(results[0, 1] * results[1, 1] * results[2, 1])
             deltas_rps[s] = H_after - H_before
 
         if traj:
-            allResults += results
+            all_results += results
 
-        if pointCloud:
-            allTraj[s, :, :] = results[:, ::sample_rate]
+        if point_cloud:
+            all_traj[s, :, :] = results[:, ::sample_rate]
 
-  
-    meanDeltaH = np.mean(deltas)
-    meanDeltaRps = np.mean(deltas_rps)
+    mean_delta_H = np.mean(deltas)
+    mean_delta_rps = np.mean(deltas_rps)
 
-    return meanDeltaH, meanDeltaRps, allResults / simulations, allTraj
-
-
-
-
-# Method for api to call
-def runSimulationPool(matrix=basicRps, popSize=100,
-                       simulations=100, 
-                       initialDist=[0.1, 0.1, 0.1, 0.7],
-                       iterations=100000, w=0.4, H=3, data_res = 1,
-                       processes=["Moran"], pool=None, randomizeStart=False):
-    # Runs multiprocessing simulations for moran and local update process
-
-    # H parameter decides which strategy will be focussed for the drift analysis
-    print("Processes " , processes)
-
-    deltaMoran = []
-
-    rpsDeltaMoran = []
-
-    deltaLocal = []
-    mResults = []
-    lResults = []
-
-    numStrategies = matrix.shape[0]
-
-    """
-    Testing with random initial conditions
-    """
-
-    # This needs to be removed when checking for a single starting point - e.g specific starting point trajectory simulation 
-    # Prepare initial dist
-    
-    args = []
-    if randomizeStart:
-      # Randomize the starting points in the plane given by H
-      # Fix at the H - distance from RPS plane, then random starting points within this plane
-      fixed = initialDist[H]
-      
-      for i in range(simulations):
-          remaining = 1 - fixed
-          random_simplex = np.random.rand(numStrategies - 1)
-          random_simplex /= np.sum(random_simplex)
-          random_simplex *= remaining
-          initial = np.append(random_simplex, fixed)
-          args.append((matrix, popSize, initial, iterations, w, H, data_res, processes))  
-    else:
-      # Just use the provided initial dist
-      args = [(matrix, popSize, initialDist, iterations, w, H, data_res, processes) for _ in range(simulations)]
-
-    #print("Running simulation pool")
-    #print("Strategies: ", numStrategies, " Population size: ", popSize, " Simulations: ", simulations, " Iterations: ", iterations, "w: ", w, " Initial distribution: ", initialDist)
-
-    if pool:
-        # Use provided Pool(), better for large repetitions to remove pool startup overhead
-       # Imap unordered allows usage of tqdm for progress bar.
-      for i , (results) in tqdm(
-          enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
-          ):
-
-          moranResult = results[0][0]
-          delta_L_moran = results[0][1]
-          deltaMoran.append(delta_L_moran)
-          rpsDeltaMoran.append(results[0][2])
-          
-          localResult = results[0][0]
-          delta_L_local = results[0][1]
-          
-          deltaLocal.append(delta_L_local)
-
-          if i == 0:
-              mResults = np.array(moranResult)
-              lResults = np.array(localResult)
-          else:
-              mResults += np.array(moranResult)
-              lResults += np.array(localResult)
-    else:
-      #No pool provided.
-      with Pool() as pool:
-          
-        for i , (results) in tqdm(
-            enumerate(pool.imap_unordered(simHelper, args)), total=simulations, position=1, leave=False
-            ):
-
-            moranResult = results[0][0]
-            delta_L_moran = results[0][1]
-            deltaMoran.append(delta_L_moran)
-            
-            localResult = results[0][0]
-            delta_L_local = results[0][1]
-            
-            deltaLocal.append(delta_L_local)
-
-            if i == 0:
-                mResults = np.array(moranResult)
-                lResults = np.array(localResult)
-            else:
-                mResults += np.array(moranResult)
-                lResults += np.array(localResult)
-            
-
-
-    #print(np.mean(deltaMoran), " Moran drift")
-    #print(np.mean(deltaLocal), " local drift")
-
-    mResults /= simulations
-    lResults /= simulations
-
-    return mResults, lResults, np.mean(deltaMoran), np.mean(deltaLocal), np.mean(rpsDeltaMoran)
-
+    return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
 
 
 
 # Running the file directly no longer works due to changed packacge structure, run via app.py
-if __name__ == '__main__':
+if __name__ == "__main__":
     """
     from cProfile import Profile
     from pstats import SortKey, Stats
 
     with Profile() as profile:
-        print(f"{singleSim(basicRps,20000,[0.5,0.2,0.2,0.1], 1000000, 0.2,3, data_res=50, processes="Moran")}")
+        print(f"{singleSim(basic_rps,20000,[0.5,0.2,0.2,0.1], 1000000, 0.2,3, data_res=50, processes="Moran")}")
         (
             Stats(profile)
             .strip_dirs()
             .sort_stats(SortKey.CALLS)
             .print_stats()
         )
-    
-    
-    moran, local, a, b = singleSim(
-                          basicRps,
-                          popSize=1000,
-                          initialDist=[0.1,0.1,0.1,0.7], 
-                          iterations=1000000, w=0.3,H=3, data_res=1)
-    
-
-    
-    df_RPS_MO = pd.DataFrame({"c1": moran[0], "c2": moran[1], "c3": moran[2], "c4": moran[3]})
-
-    quaternaryPlot(dfs=[df_RPS_MO],labels="Moran process")
-    """
-
-    """
-    with Pool() as pool:
-        results = pool.map(singleSim, range(simulations))
-
-    for i, (moranResult, localResult, delta_L_moran, delta_L_local) in enumerate(results):
-        deltaMoran.append(delta_L_moran)
-        deltaLocal.append(delta_L_local)
-
-        if i == 0:
-            mResults = np.array(moranResult)
-            lResults = np.array(localResult)
-        else:
-            mResults += np.array(moranResult)
-            lResults += np.array(localResult)
-
-            
-    print(np.mean(deltaMoran), " Moran drift")
-    print(np.mean(deltaLocal), " local drift")
-
-    mResults /= simulations
-    lResults /= simulations
-
-
-    df_RPS_MO = pd.DataFrame({"c1": mResults[0], "c2": mResults[1], "c3": mResults[2], "c4": mResults[3]})
-
-    df_RPS_LU = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
-
-
-    # Plot multiple results
-    quaternaryPlot([df_RPS_LU, df_RPS_MO, df_RPS_MO, df_RPS_MO], labels=["Local update", "Moran process"], numPerRow=3, colors=['g', 'b'])
     """

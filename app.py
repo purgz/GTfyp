@@ -15,252 +15,325 @@ import plotly.express as px
 from multiprocessing import Pool
 
 
-#plt.style.use(['science'])
+# plt.style.use(['science'])
 
-plt.style.use(['science', "no-latex"])
+plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-#plt.rcParams['text.usetex'] = True
-#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+# plt.rcParams['text.usetex'] = True
+# plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
+def pd_example(
+    pop_size: int = 1000,
+    iterations: int = 10000,
+    w: float = 0.9,
+    initial_dist: list[float] = [0.9, 0.1],
+) -> None:
 
-def pdExample(popsize : int = 1000, iterations : int = 10000, w : float =0.9, initialDist : list[float] = [0.9,0.1]) -> None:
+    # Example running prisoners dilemma example.
+    N = pop_size
 
-  # Example running prisoners dilemma example.
-  N = popsize
+    # Standard prisoners dilemma payoff matrix
 
-  # Standard prisoners dilemma payoff matrix
-  
-  pdArray = Games.PRISONERS_DILEMMA
+    pd_array = Games.PRISONERS_DILEMMA
 
-  initialDist = np.array([0.9,0.1])
+    initial_dist = np.array([0.9, 0.1])
 
-  iterations = popsize * 35
+    iterations = pop_size * 35
 
-  _, _, mResults = simulation.moran_batch_drift(popSize=popsize, iterations=iterations, w=w,
-                                            matrix=pdArray, simulations=1, initialDist=initialDist,
-                                            traj=True)
-  _,_, lResults = simulation.local_batch_drift(popSize=popsize, iterations=iterations, w=w,
-                                            matrix=pdArray, simulations=1, initialDist=initialDist,
-                                            traj=True)
-  
-  print("Simulations complete")
+    _, _, m_results = simulation.moran_batch_sim(
+        pop_size=pop_size,
+        iterations=iterations,
+        w=w,
+        matrix=pd_array,
+        simulations=1,
+        initial_dist=initial_dist,
+        traj=True,
+    )
+    _, _, l_results = simulation.local_batch_sim(
+        pop_size=pop_size,
+        iterations=iterations,
+        w=w,
+        matrix=pd_array,
+        simulations=1,
+        initial_dist=initial_dist,
+        traj=True,
+    )
 
-  # Collect results into dataframe
-  df_PD_MO = pd.DataFrame({"C": mResults[0], "D": mResults[1]})
-  df_PD_LU = pd.DataFrame({"C": lResults[0], "D": lResults[1]})
+    print("Simulations complete")
 
-  # Get numerical trajectory for prisoners dilemma.
-  test = replicator.pdNumerical(pdArray, w, initialDist)
+    # Collect results into dataframe
+    df_PD_MO = pd.DataFrame({"C": m_results[0], "D": m_results[1]})
+    df_PD_LU = pd.DataFrame({"C": l_results[0], "D": l_results[1]})
 
-  # Get numerical trajectory for adjusted dynamics - moran process
-  adjusted, t_eval = replicator.pdNumericalAdjusted()
+    # Get numerical trajectory for prisoners dilemma.
+    test = replicator.pdNumerical(pd_array, w, initial_dist)
 
-  # Plot the 4 trajectories on the same graph.
-  # This method also normalizes the numerical solutions timeframe.
-  simulation.game2dPlot([df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"),  test.get("D")],
-                        N=N, 
-                        labels=["MO", "LO", "Adjusted", "Standard"],
-                        norm=[True, True, False, False],
-                        t_eval=t_eval)
+    # Get numerical trajectory for adjusted dynamics - moran process
+    adjusted, t_eval = replicator.pdNumericalAdjusted()
+
+    # Plot the 4 trajectories on the same graph.
+    # This method also normalizes the numerical solutions timeframe.
+    simulation.game_2d_plot(
+        [df_PD_MO.get("D"), df_PD_LU.get("D"), adjusted.get("D"), test.get("D")],
+        N=N,
+        labels=["MO", "LO", "Adjusted", "Standard"],
+        norm=[True, True, False, False],
+        t_eval=t_eval,
+    )
 
 
-def rpsExample(N : int =10000, iterations : int = 1000000) -> None:
+def rps_example(N: int = 10000, iterations: int = 1000000) -> None:
 
-  w = 0.5
+    w = 0.5
 
-  #rpsArray = np.array([[0, -1.2 , 1], [1, 0, -1.2], [-1.2, 1, 0]])
+    # rps_array = np.array([[0, -1.2 , 1], [1, 0, -1.2], [-1.2, 1, 0]])
 
-  rpsArray = np.array([[0, -1 , 1], [1, 0, -1], [-1, 1, 0]])
+    rps_array = np.array([[0, -1, 1], [1, 0, -1], [-1, 1, 0]])
 
-  _, _, mResults, _= simulation.moran_batch_drift(popSize=N, iterations=iterations, w=w,
-                                            matrix=rpsArray, simulations=1, initialDist=np.array([0.5,0.25,0.25]),
-                                            traj=True)
-  _,_, lResults = simulation.local_batch_drift(popSize=N, iterations=iterations, w=w,
-                                            matrix=rpsArray, simulations=1, initialDist=np.array([0.5,0.25,0.25]),
-                                            traj=True)
-  
-  df_RPS_MO = pd.DataFrame({"R": mResults[0], "P": mResults[1], "S": mResults[2]})
-  
-  df_RPS_LO = pd.DataFrame({"R": lResults[0], "P": lResults[1], "S": lResults[2]})
+    _, _, m_results, _ = simulation.moran_batch_sim(
+        pop_size=N,
+        iterations=iterations,
+        w=w,
+        matrix=rps_array,
+        simulations=1,
+        initial_dist=np.array([0.5, 0.25, 0.25]),
+        traj=True,
+    )
+    _, _, l_results = simulation.local_batch_sim(
+        pop_size=N,
+        iterations=iterations,
+        w=w,
+        matrix=rps_array,
+        simulations=1,
+        initial_dist=np.array([0.5, 0.25, 0.25]),
+        traj=True,
+    )
 
-  #fig = px.line_ternary(df_RPS_MO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
-  #fig2 = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS LOCAL Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+    df_RPS_MO = pd.DataFrame({"R": m_results[0], "P": m_results[1], "S": m_results[2]})
 
-  #fig.show()
-  #fig2.show()
+    df_RPS_LO = pd.DataFrame({"R": l_results[0], "P": l_results[1], "S": l_results[2]})
 
-  simulation.ternaryPlot(df_RPS_MO)
-  simulation.ternaryPlot(df_RPS_LO)
+    # fig = px.line_ternary(df_RPS_MO, a="R", b="P", c="S", title="RPS Moran Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+    # fig2 = px.line_ternary(df_RPS_LO, a="R", b="P", c="S", title="RPS LOCAL Process Trajectory", labels={"R":"Rock", "P":"Paper", "S":"Scissors"})
+
+    # fig.show()
+    # fig2.show()
+
+    simulation.ternary_plot(df_RPS_MO)
+    simulation.ternary_plot(df_RPS_LO)
 
 
 """
-For popualtion drift test and critical popsize search, data res is very high so we dont waste cpu on memory accesses - 10 - 20% speedup
+For popualtion drift test and critical pop_size search, data res is very high so we dont waste cpu on memory accesses - 10 - 20% speedup
 As the trajectory is not needed for the final results - only care about accurate delta H values.
 Delta H is calculated before the dimension reduction
 """
-def runPopulationEnsemble(populationSizes : list[int] ,w : float = 0.45, fileOutputPath : str ="", plotDelta : bool = True, simulations : int = 20000000, process="MORAN", matrix=Games.AUGMENTED_RPS) -> None:
 
 
-  
-  start = time.time()
-  
-  # Add the rest of the simulation options as arguments
-  driftHs = []
-  driftRpss = []
+def runPopulationEnsemble(
+    pop_sizes: list[int],
+    w: float = 0.45,
+    file_output_path: str = "",
+    plot_delta: bool = True,
+    simulations: int = 20000000,
+    process="MORAN",
+    matrix=Games.AUGMENTED_RPS,
+) -> None:
 
- 
-  # Simulation for each popsize.
-  for i in tqdm(range(len(populationSizes)), position=0, leave=True):
+    start = time.time()
 
-    match process:
-      case "MORAN":
-        driftH, driftRps, _, _ = simulation.moran_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
-        driftHs.append(driftH * populationSizes[i])
-        driftRpss.append(driftRps * populationSizes[i])
-      case "LOCAL":
-        driftH, driftRps, _ = simulation.local_batch_drift(populationSizes[i], 2, w, simulations, matrix, np.array([0.25,0.25,0.25,0.25]))
-        driftHs.append(driftH * populationSizes[i])
-        driftRpss.append(driftRps * populationSizes[i])
+    # Add the rest of the simulation options as arguments
+    drift_SD = []
+    drift_rpss = []
 
-  end = time.time()
-  
-  print("Time taken to run population test ensemble ", process)
-  print(end - start)
+    # Simulation for each pop_size.
+    for i in tqdm(range(len(pop_sizes)), position=0, leave=True):
+
+        match process:
+            case "MORAN":
+                drift_H, drift_rps, _, _ = simulation.moran_batch_sim(
+                    pop_sizes[i],
+                    2,
+                    w,
+                    simulations,
+                    matrix,
+                    np.array([0.25, 0.25, 0.25, 0.25]),
+                )
+                drift_SD.append(drift_H * pop_sizes[i])
+                drift_rpss.append(drift_rps * pop_sizes[i])
+            case "LOCAL":
+                drift_H, drift_rps, _ = simulation.local_batch_sim(
+                    pop_sizes[i],
+                    2,
+                    w,
+                    simulations,
+                    matrix,
+                    np.array([0.25, 0.25, 0.25, 0.25]),
+                )
+                drift_SD.append(drift_H * pop_sizes[i])
+                drift_rpss.append(drift_rps * pop_sizes[i])
+
+    end = time.time()
+
+    print("Time taken to run population test ensemble ", process)
+    print(end - start)
+
+    # Combine into a single file for csv saving.
+    df_deltaResults = pd.DataFrame(
+        np.column_stack((pop_sizes, drift_SD, drift_rpss)),
+        columns=["pop_sizes", "delta_H", "deltaRps"],
+    )
+
+    delta_H_Write(
+        df_deltaResults,
+        filePath=file_output_path,
+        args=[
+            "w: 0.45",
+            "simulations: 1000000",
+            "iterations 2",
+            "matrix=Standard rps, 0.2, 0.1",
+        ],
+        optionalComments="Large average delta H experiment with randomizes starting point in the RPS plane",
+    )
+
+    if plot_delta:
+
+        plt.plot(
+            df_deltaResults["pop_sizes"],
+            df_deltaResults["delta_H"],
+            marker="o",
+            label="H_4",
+        )
+        plt.plot(
+            df_deltaResults["pop_sizes"],
+            df_deltaResults["deltaRps"],
+            marker="s",
+            label="H_RPS",
+        )
+        plt.xlabel("N")
+        plt.ylabel("delta H")
+        plt.legend()
+        plt.show()
 
 
-  # Combine into a single file for csv saving.
-  df_deltaResults = pd.DataFrame(np.column_stack((populationSizes,driftHs, driftRpss)), columns=["popsizes","deltaH", "deltaRps"])
+def searchCriticalpop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> int:
 
-  deltaH_Write(df_deltaResults, filePath=fileOutputPath
-               , args = ["w: 0.45" , "simulations: 1000000", "iterations 2", "matrix=Standard rps, 0.2, 0.1"]
-               , optionalComments="Large average delta H experiment with randomizes starting point in the RPS plane")
+    # Binary search for critical pop_size where drift reversal occurs.
+    # Hardcoded for initial deltaM being positive.
 
+    # Searches for a sign change with tolerance of 1 in pop_size.
+    critical_N = None
+    iteration = 0
 
-  if plotDelta:
+    max_iterations = 20
+    mid = 0
 
-    plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaH"], marker="o",label="H_4")
-    plt.plot(df_deltaResults["popsizes"], df_deltaResults["deltaRps"], marker="s",label="H_RPS")
-    plt.xlabel("N")
-    plt.ylabel("delta H")
-    plt.legend()
-    plt.show()
+    matrix = matrix
 
+    prev_sign = None
 
-def searchCriticalPopsize(w : float = 0.4, matrix=None, low=0, high=2000) -> int:
+    if matrix is None:
+        matrix = Games.AUGMENTED_RPS
 
-  # Binary search for critical popsize where drift reversal occurs.
-  # Hardcoded for initial deltaM being positive.
+    while low <= high and iteration < max_iterations:
+        iteration += 1
+        mid = (low + high) // 2
+        print("Testing pop_size: ", mid)
 
-  # Searches for a sign change with tolerance of 1 in popsize.
-  criticalN = None
-  iteration = 0
+        delta_moran, _, _, _ = simulation.moran_batch_sim(
+            mid, 2, w, 2000000, matrix, np.array([0.25, 0.25, 0.25, 0.25])
+        )
 
-  max_iterations = 20
-  mid = 0
-
-  matrix = matrix
-
-  prevSign = None
-
-  if matrix is None:
-    matrix = Games.AUGMENTED_RPS
-
-
-  while low <= high and iteration < max_iterations:
-    iteration += 1
-    mid = (low + high) // 2
-    print("Testing popsize: ", mid)
-    
-    deltaMoran, _ , _, _= simulation.moran_batch_drift(mid, 2, w, 2000000, matrix, np.array([0.25,0.25,0.25,0.25]))
-
-
-    if deltaMoran > 0:
-      sign = 1
-    elif deltaMoran < 0:
-      sign = -1
-    else:
-      sign = 0
-
-    # Checks for a sign change
-    if prevSign is not None and (sign * prevSign) < 0:
-      # Sign change
-     
-      if high - low > 1:
-        if sign > 0:
-          low = mid
+        if delta_moran > 0:
+            sign = 1
+        elif delta_moran < 0:
+            sign = -1
         else:
-          high = mid
-        continue      
-      criticalN = mid
-      break
+            sign = 0
 
-    if sign >= 0:
-      low = mid + 1
-    else:
-      high = mid - 1
-    
-    prevSign = sign
+        # Checks for a sign change
+        if prev_sign is not None and (sign * prev_sign) < 0:
+            # Sign change
 
-  if criticalN is None:
-    criticalN = mid  # best estimate
-  if criticalN is not None:
-    print("Critical popsize found: ", criticalN)
-  else:
-    print("Critical popsize not found in range.")
-  return criticalN
+            if high - low > 1:
+                if sign > 0:
+                    low = mid
+                else:
+                    high = mid
+                continue
+            critical_N = mid
+            break
 
-
-
-
-
-
-
-
-# Find critical popsize for a range over W values - very long run time simulation so needs to write to file output.
-def criticalPopsizeEnsemble(fileOutputPath : str, option="W_TEST", matrices=None, defaultW=0.45) -> None:
-
-  Ns = []
-
-  match option:
-    case "W_TEST":
-      ws = np.linspace(0.1, 0.5, 15)
-
-      for w in tqdm(ws, position=0, leave=True):
-        criticalN = searchCriticalPopsize(w=w)
-        Ns.append(criticalN)
-
-      print("Critical Ns ", Ns)
-
-      df = pd.DataFrame({"W": ws, "CriticalN": Ns})
-
-      deltaH_Write(df, filePath=fileOutputPath
-                    , args = [f"W range {ws[0]}" , "4000", "iterations 100000", "matrix=Standard rps, 0.2, 0.1"]
-                    , optionalComments="Critical population size search for varied w.")
-      return
-    case "MATRIX_TEST" | "MATRIX_TEST_G":
-      if matrices is None:
-        raise TypeError("Missing matrix values for testing")
-      
-      betas = []
-      for matrix in tqdm(matrices, position=0, leave=True):
-        print(matrix)
-        if option == "MATRIX_TEST_G":
-          betas.append(matrix[0][3])
+        if sign >= 0:
+            low = mid + 1
         else:
-          betas.append(matrix[3][0])
-        criticalN = searchCriticalPopsize(w=defaultW, matrix=matrix)
-        Ns.append(criticalN)
+            high = mid - 1
 
-      df = pd.DataFrame({"beta_gamma" : betas, "CriticalN": Ns})
+        prev_sign = sign
 
-      deltaH_Write(df, filePath=fileOutputPath, optionalComments="Matrix ensemble")
+    if critical_N is None:
+        critical_N = mid  # best estimate
+    if critical_N is not None:
+        print("Critical pop_size found: ", critical_N)
+    else:
+        print("Critical pop_size not found in range.")
+    return critical_N
 
 
+# Find critical pop_size for a range over W values - very long run time simulation so needs to write to file output.
+def criticalpop_sizeEnsemble(
+    file_output_path: str, option="W_TEST", matrices=None, defaultW=0.45
+) -> None:
 
+    Ns = []
+
+    match option:
+        case "W_TEST":
+            ws = np.linspace(0.1, 0.5, 15)
+
+            for w in tqdm(ws, position=0, leave=True):
+                critical_N = searchCriticalpop_size(w=w)
+                Ns.append(critical_N)
+
+            print("Critical Ns ", Ns)
+
+            df = pd.DataFrame({"W": ws, "critical_N": Ns})
+
+            delta_H_Write(
+                df,
+                filePath=file_output_path,
+                args=[
+                    f"W range {ws[0]}",
+                    "4000",
+                    "iterations 100000",
+                    "matrix=Standard rps, 0.2, 0.1",
+                ],
+                optionalComments="Critical population size search for varied w.",
+            )
+            return
+        case "MATRIX_TEST" | "MATRIX_TEST_G":
+            if matrices is None:
+                raise TypeError("Missing matrix values for testing")
+
+            betas = []
+            for matrix in tqdm(matrices, position=0, leave=True):
+                print(matrix)
+                if option == "MATRIX_TEST_G":
+                    betas.append(matrix[0][3])
+                else:
+                    betas.append(matrix[3][0])
+                critical_N = searchCriticalpop_size(w=defaultW, matrix=matrix)
+                Ns.append(critical_N)
+
+            df = pd.DataFrame({"beta_gamma": betas, "critical_N": Ns})
+
+            delta_H_Write(
+                df, filePath=file_output_path, optionalComments="Matrix ensemble"
+            )
 
 
 # Vary the values of alpha and beta and s(rps param) in the 4x4 game
@@ -268,226 +341,263 @@ def criticalPopsizeEnsemble(fileOutputPath : str, option="W_TEST", matrices=None
 Two graphs needed;
   - delta H against different values for params
   - critical N for different params
-  - can reuse search critical popsize method here.
+  - can reuse search critical pop_size method here.
 """
-def matrixParamEnsemble(fileOutputPath : str,betas : list[float],gamma : float = 0.8,  w : int = 0.45, popSize : int = 500, simulations : int = 10000000, plotDelta : bool = False) -> None:
-
-  s = 1
-
-  alpha = 0
-  beta = 0.5
-
-  start = time.time()
-  
-  # Add the rest of the simulation options as arguments
-  driftHs = []
-  driftRpss = []
-
- 
-  # Simulation for each popsize.
-  for i in tqdm(range(len(betas)), position=0, leave=True):
-
-    matrix =  np.array([[0,   -s,   1,       gamma],
-                          [1,    0,   -s,       gamma],
-                          [-s,   1,   0,        gamma],
-                          [betas[i], betas[i], betas[i], 0]])
-
-    driftH, driftRps, _,_ = simulation.moran_batch_drift(popSize=popSize,
-                                                        iterations=2,
-                                                        w=w,
-                                                        simulations=simulations,
-                                                        matrix=matrix,
-                                                        initialDist=np.array([0.25,0.25,0.25,0.25]))
-    driftHs.append(driftH)
-    driftRpss.append(driftRps)
- 
-  end = time.time()
-  
-  print("Time taken to run population test ensemble")
-  print(end - start)
 
 
-  # Combine into a single file for csv saving.
-  df_deltaResults = pd.DataFrame(np.column_stack((betas,driftHs, driftRpss)), columns=["betas", "deltaH", "deltaRps"])
+def matrixParamEnsemble(
+    file_output_path: str,
+    betas: list[float],
+    gamma: float = 0.8,
+    w: int = 0.45,
+    pop_size: int = 500,
+    simulations: int = 10000000,
+    plot_delta: bool = False,
+) -> None:
 
-  deltaH_Write(df_deltaResults, filePath=fileOutputPath
-               , args = ["w: 0.45" , "simulations: 1000000", "iterations 2", "matrix=Variable"]
-               , optionalComments="Delta H experiement with different values for betas\n#" + str(betas))
+    s = 1
+
+    alpha = 0
+    beta = 0.5
+
+    start = time.time()
+
+    # Add the rest of the simulation options as arguments
+    drift_SD = []
+    drift_rpss = []
+
+    # Simulation for each pop_size.
+    for i in tqdm(range(len(betas)), position=0, leave=True):
+
+        matrix = np.array(
+            [
+                [0, -s, 1, gamma],
+                [1, 0, -s, gamma],
+                [-s, 1, 0, gamma],
+                [betas[i], betas[i], betas[i], 0],
+            ]
+        )
+
+        drift_H, drift_rps, _, _ = simulation.moran_batch_sim(
+            pop_size=pop_size,
+            iterations=2,
+            w=w,
+            simulations=simulations,
+            matrix=matrix,
+            initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
+        )
+        drift_SD.append(drift_H)
+        drift_rpss.append(drift_rps)
+
+    end = time.time()
+
+    print("Time taken to run population test ensemble")
+    print(end - start)
+
+    # Combine into a single file for csv saving.
+    df_deltaResults = pd.DataFrame(
+        np.column_stack((betas, drift_SD, drift_rpss)),
+        columns=["betas", "delta_H", "deltaRps"],
+    )
+
+    delta_H_Write(
+        df_deltaResults,
+        filePath=file_output_path,
+        args=["w: 0.45", "simulations: 1000000", "iterations 2", "matrix=Variable"],
+        optionalComments="Delta H experiement with different values for betas\n#"
+        + str(betas),
+    )
+
+    if plot_delta:
+
+        plt.plot(
+            df_deltaResults["betas"], df_deltaResults["delta_H"], marker="o", label="H_4"
+        )
+        plt.plot(
+            df_deltaResults["betas"],
+            df_deltaResults["deltaRps"],
+            marker="s",
+            label="H_RPS",
+        )
+        plt.xlabel("beta")
+        plt.ylabel("delta H")
+        plt.legend()
+        plt.show()
 
 
-  if plotDelta:
+def arps_example(N: int = 500, iterations: int = 100000) -> None:
+    moranResults, local_results, dMoran, dLocal = simulation.runSimulationPool(
+        pop_size=N,
+        simulations=10,
+        iterations=iterations,
+        H=3,
+        initial_dist=[0.5, 0.25, 0.25, 0],
+        w=0.2,
+        data_res=50,
+    )
 
-    plt.plot(df_deltaResults["betas"], df_deltaResults["deltaH"], marker="o",label="H_4")
-    plt.plot(df_deltaResults["betas"], df_deltaResults["deltaRps"], marker="s",label="H_RPS")
-    plt.xlabel("beta")
-    plt.ylabel("delta H")
-    plt.legend()
-    plt.show()
+    df_RPS_MO = pd.DataFrame(
+        {
+            "c1": moranResults[0],
+            "c2": moranResults[1],
+            "c3": moranResults[2],
+            "c4": moranResults[3],
+        }
+    )
+    df_RPS_LU = pd.DataFrame(
+        {
+            "c1": local_results[0],
+            "c2": local_results[1],
+            "c3": local_results[2],
+            "c4": local_results[3],
+        }
+    )
 
+    trajectoryWrite(
+        df_RPS_MO,
+        "./results/moran" + str(N) + "_" + str(iterations) + ".csv",
+        args=[N, iterations, 0.2],
+        optionalComments="Testing the file writing for trajectories.",
+    )
 
+    trajectoryWrite(
+        df_RPS_LU,
+        "./results/local" + str(N) + "_" + str(iterations) + ".csv",
+        args=[N, iterations, 0.2],
+    ),
 
-
-def arpsExample(N : int  = 500, iterations : int = 100000) -> None:
-  moranResults, localResults, dMoran, dLocal = simulation.runSimulationPool(popSize=N,simulations=10, 
-                                                                            iterations=iterations,
-                                                                            H=3,
-                                                                            initialDist=[0.5,0.25, 0.25,0],
-                                                                            w=0.2, data_res=50)
-  
-  
-  df_RPS_MO = pd.DataFrame({"c1": moranResults[0], "c2": moranResults[1], "c3": moranResults[2], "c4": moranResults[3]})
-  df_RPS_LU = pd.DataFrame({"c1": localResults[0], "c2": localResults[1], "c3": localResults[2], "c4": localResults[3]})
-
-
-  trajectoryWrite(df_RPS_MO, "./results/moran" + str(N) + "_" + str(iterations) + ".csv", args = [N, iterations, 0.2], 
-                  optionalComments= "Testing the file writing for trajectories.")
-
-  trajectoryWrite(df_RPS_LU, "./results/local" + str(N) + "_" + str(iterations) + ".csv", args = [N, iterations, 0.2]),
-
-  simulation.quaternaryPlot([df_RPS_MO, df_RPS_LU],labels=["Moran", "Local"])
-
+    simulation.quaternary_plot([df_RPS_MO, df_RPS_LU], labels=["Moran", "Local"])
 
 
 def trajectoryWrite(df, filePath, args=[], optionalComments=None):
 
-  # Construct and add comments
-  with open(filePath, "w") as f:
+    # Construct and add comments
+    with open(filePath, "w") as f:
 
-    if optionalComments:
-      f.write("# " + optionalComments + "\n")
+        if optionalComments:
+            f.write("# " + optionalComments + "\n")
 
-    f.write("# Arguments used\n# args=")
-    for arg in args:
-      f.write(str(arg) + " ")
-    f.write("\n")
+        f.write("# Arguments used\n# args=")
+        for arg in args:
+            f.write(str(arg) + " ")
+        f.write("\n")
 
-  df.to_csv(filePath, mode = "a", index=False)
+    df.to_csv(filePath, mode="a", index=False)
 
 
-def deltaH_Write(df, filePath, args=[], optionalComments=None):
+def delta_H_Write(df, filePath, args=[], optionalComments=None):
 
-  with open(filePath, "w") as f:
-    f.write("# Drift (delta H) plot results")
-    if optionalComments:
-      f.write("# " + optionalComments + "\n")
+    with open(filePath, "w") as f:
+        f.write("# Drift (delta H) plot results")
+        if optionalComments:
+            f.write("# " + optionalComments + "\n")
 
-    f.write("# Arguments used\n# args=")
-    for arg in args:
-      f.write(str(arg) + " ")
-    f.write("\n")
+        f.write("# Arguments used\n# args=")
+        for arg in args:
+            f.write(str(arg) + " ")
+        f.write("\n")
 
-  df.to_csv(filePath, mode = "a", index=False)
-
+    df.to_csv(filePath, mode="a", index=False)
 
 
 # run ensembles from the command line and output to a file
 # Can include the option to plot as a sub argument.
 def crit_N_search_parser():
-  pass
+    pass
+
 
 def delta_H_parser():
-  pass
-
+    pass
 
 
 # Helper function to run matrix parameter tests.
 def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
 
+    matrices = []
+    s = 1
 
-  matrices = []
-  s=1
+    if betas is None and gammas is None:
+        raise TypeError("Provide betas or gammas")
 
-  if betas is None and gammas is None:
-    raise TypeError("Provide betas or gammas")
+    # Produce beta or gamma variations.
+    if betas is not None:
+        for b in betas:
+            matrix = np.array(
+                [[0, -s, 1, gamma], [1, 0, -s, gamma], [-s, 1, 0, gamma], [b, b, b, 0]]
+            )
+            matrices.append(matrix)
+    elif gammas is not None:
+        for g in gammas:
+            matrix = np.array(
+                [[0, -s, 1, g], [1, 0, -s, g], [-s, 1, 0, g], [beta, beta, beta, 0]]
+            )
+            matrices.append(matrix)
 
-  # Produce beta or gamma variations.
-  if betas is not None:
-    for b in betas:
-      matrix =  np.array([[0,   -s,   1,       gamma],
-                          [1,    0,   -s,       gamma],
-                          [-s,   1,   0,        gamma],
-                          [b, b, b, 0]])
-      matrices.append(matrix)
-  elif gammas is not None:
-    for g in gammas:
-      matrix =  np.array([[0,   -s,   1,       g],
-                          [1,    0,   -s,       g],
-                          [-s,   1,   0,        g],
-                          [beta, beta, beta, 0]])
-      matrices.append(matrix)
-
-  return matrices
-
-
+    return matrices
 
 
 # Need this because of multiprocessing
-if  __name__ == "__main__":
+if __name__ == "__main__":
 
-  parser = argparse.ArgumentParser()
-  """
+    parser = argparse.ArgumentParser()
+    """
   CMD Arguments:
   Game presets:
   standard prisoners dilemma: -pd
   """
 
+    sub_parsers = parser.add_subparsers(dest="preset")
 
-  subParsers = parser.add_subparsers(dest="preset")
+    # 2x2 game
+    pd_parser = sub_parsers.add_parser("pd")
+    pd_parser.add_argument("-N", type=int, default=1000)
+    pd_parser.add_argument("-iterations", type=int, default=1000000)
 
-  # 2x2 game
-  pd_parser = subParsers.add_parser("pd")
-  pd_parser.add_argument("-N", type = int, default=1000)
-  pd_parser.add_argument("-iterations", type=int, default=1000000)
+    # 3x3 game
+    rps_parser = sub_parsers.add_parser("rps")
+    rps_parser.add_argument("-N", type=int, default=10000)
+    rps_parser.add_argument("-iterations", type=int, default=1000000)
 
-  # 3x3 game
-  rps_parser = subParsers.add_parser("rps")
-  rps_parser.add_argument("-N", type=int, default=10000)
-  rps_parser.add_argument("-iterations", type=int, default=1000000)
+    # 4x4 game
+    arps_parser = sub_parsers.add_parser("arps")
+    arps_parser.add_argument("-N", type=int, default=500)
+    arps_parser.add_argument("-iterations", type=int, default=100000)
 
-  # 4x4 game
-  arps_parser = subParsers.add_parser("arps")
-  arps_parser.add_argument("-N", type=int, default=500)
-  arps_parser.add_argument("-iterations", type=int, default=100000)
+    # Other options
+    # experimentParser = parser.add_sub_parsers(dest="experiment")
+    # Add args for critical W finding, and ensembles for population and W.
 
-  # Other options
-  #experimentParser = parser.add_subparsers(dest="experiment")
-  # Add args for critical W finding, and ensembles for population and W.
+    args = parser.parse_args()
 
+    if args.preset:
+        print("Preset ", args.preset, " has been selected")
 
-  args = parser.parse_args()
+    if args.preset:
+        if args.preset == "pd":
+            # add check for args.N
+            print("Running prisoners dilemma preset: [[3,0],[5,1]]")
+            pd_example(pop_size=args.N, iterations=args.iterations)
+        elif args.preset == "rps":
+            print("Running rock paper scissors preset : [0,-1,1],[1,0,-1],[-1,1,0]")
+            rps_example(N=args.N, iterations=args.iterations)
+        elif args.preset == "arps":
+            print("Running augmented rps: " + str(Games.AUGMENTED_RPS))
+            arps_example(N=args.N, iterations=args.iterations)
 
+    # delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(20000, 1000000, 0.45, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
 
-  if args.preset:
-    print("Preset ", args.preset, " has been selected")
-  
-  if args.preset:
-    if args.preset == "pd":
-      # add check for args.N
-      print("Running prisoners dilemma preset: [[3,0],[5,1]]")
-      pdExample(popsize=args.N, iterations=args.iterations)  
-    elif args.preset == "rps":
-      print("Running rock paper scissors preset : [0,-1,1],[1,0,-1],[-1,1,0]")
-      rpsExample(N = args.N, iterations=args.iterations)
-    elif args.preset == "arps":
-      print("Running augmented rps: " + str(Games.AUGMENTED_RPS))
-      arpsExample(N = args.N, iterations=args.iterations)
+    # df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
 
+    # simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
 
-  #deltamoran, deltaRps, mResults,_ = simulation.moran_batch_drift(20000, 1000000, 0.45, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
-  
-  #df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
-  
-  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["Moran"])
-
-  """
-  basicRps = np.array([[0,   -0.6,   1,       0.5],
+    """
+  basic_rps = np.array([[0,   -0.6,   1,       0.5],
                     [1,    0,   -0.6,       0.5],
                     [-0.6,   1,   0,        0.5],
                     [0.25, 0.25, 0.25, 0]])
   """
 
-
-  """
+    """
   
   Cant see the second case where they end along the vertical axis for low pop,
   issue is that rps tends to sprial outwards
@@ -498,50 +608,47 @@ if  __name__ == "__main__":
   (in the games tested.)
   """
 
-  # Double reversal??????
-  # _,_,_, allTraj = simulation.moran_batch_drift(10000, 3000000, 0.45, 300, pointCloud=True)
+    # Double reversal??????
+    # _,_,_, all_traj = simulation.moran_batch_sim(10000, 3000000, 0.45, 300, point_cloud=True)
 
-  #_,_,_, allTraj = simulation.moran_batch_drift(200, 3000000, 0.45, 300, pointCloud=True)
+    # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
 
-  # RPS and SD different critical sizes where the drift occurs.
-  _,_,_, allTraj = simulation.moran_batch_drift(200, 3000000, 0.45, 200, pointCloud=True)
+    # RPS and SD different critical sizes where the drift occurs.
+    _, _, _, all_traj = simulation.moran_batch_sim(
+        200, 1000000, 0.60, 1000, point_cloud=True
+    )
 
+    sims, n, frames = all_traj.shape
 
-  sims, n, frames = allTraj.shape
+    all_traj_transposed = all_traj.transpose(0, 2, 1)  # shape: (sims, frames, n)
 
-  allTraj_transposed = allTraj.transpose(0, 2, 1)  # shape: (sims, frames, n)
+    # Reshape to long format
+    df = pd.DataFrame(
+        all_traj_transposed.reshape(-1, n),  # shape (sims*frames, n)
+        columns=[f"c{i+1}" for i in range(n)],
+    )
 
-  # Reshape to long format
-  df = pd.DataFrame(
-      allTraj_transposed.reshape(-1, n),  # shape (sims*frames, n)
-      columns=[f"c{i+1}" for i in range(n)]
-  )
+    # Add sim and frame columns
+    df["sim"] = np.repeat(np.arange(sims), frames)
+    df["frame"] = np.tile(np.arange(frames), sims)
 
-  # Add sim and frame columns
-  df["sim"] = np.repeat(np.arange(sims), frames)
-  df["frame"] = np.tile(np.arange(frames), sims)
+    print(df.head())
+
+    simulation.point_cloud(df)
+
+    # Below is testig code - remove at some point
+    basic_rps = np.array(
+        [[0, -0.3, 1, 0.3], [1, 0, -0.3, 0.3], [-0.3, 1, 0, 0.3], [0.2, 0.2, 0.2, 0]]
+    )
+
+    # basic_rps = Games.AUGMENTED_RPS
+    """
+  delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(40000, 6000000, 0.45, 1, basic_rps, np.array([0.5,0.2,0.2,0.1]), traj=True)
   
-  print(df.head())
-
-  simulation.pointCloud(df)
-
-
-
-
-  # Below is testig code - remove at some point
-  basicRps = np.array([[0,   -0.3,   1,       0.3],
-                      [1,    0,   -0.3,       0.3],
-                      [-0.3,   1,   0,        0.3],
-                      [0.2, 0.2, 0.2, 0]])
-  
-  #basicRps = Games.AUGMENTED_RPS
-  """
-  deltamoran, deltaRps, mResults,_ = simulation.moran_batch_drift(40000, 6000000, 0.45, 1, basicRps, np.array([0.5,0.2,0.2,0.1]), traj=True)
-  
-  df_RPS_MO = pd.DataFrame({"c1": mResults[0][::1], "c2": mResults[1][::1], "c3": mResults[2][::1], "c4": mResults[3][::1]})
+  df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
   
   print("DELTA RPS ", deltaRps)
-  print("DELTA MORAN ", deltamoran)
+  print("DELTA MORAN ", delta_moran)
 
   trajectoryWrite(df_RPS_MO, "./results/moranTest.csv")
 
@@ -549,105 +656,121 @@ if  __name__ == "__main__":
   trajectoryWrite(test, "./results/moranNumerical.csv")
 
 
-  #filePaths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  filePaths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
+  #file_paths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+  file_paths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
   norms = [True, False]
 
-  #simulation.quaternaryPlot([df_RPS_MO], numPerRow=1, labels=["Moran"])
+  #simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
 
-  simulation.highDim2dplot(filePaths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
+  simulation.high_dim_2d_plot(file_paths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
   
   """
-  """
+    """
   runPopulationEnsemble(range(50,400,10), 
-                        fileOutputPath="./results/population_ensemble_MORAN_new_matrix.csv", 
-                        plotDelta=True,
+                        file_output_path="./results/population_ensemble_MORAN_new_matrix.csv", 
+                        plot_delta=True,
                         process="MORAN",
-                        matrix=basicRps,
+                        matrix=basic_rps,
                         simulations=1000000,
                         w=0.45
                         )
                         
   
-  simulation.driftPlotH(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
+  simulation.drift_plot_H(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
   """
 
-
-  """runPopulationEnsemble(range(50,400,10), 
-                        fileOutputPath="./results/population_ensemble_MORAN.csv", 
-                        plotDelta=True,
+    """runPopulationEnsemble(range(50,400,10), 
+                        file_output_path="./results/population_ensemble_MORAN.csv", 
+                        plot_delta=True,
                         process="MORAN"
                         )
   
 
   runPopulationEnsemble(range(50,400,10), 
-                        fileOutputPath="./results/population_ensemble_LOCAL.csv", 
-                        plotDelta=True,
+                        file_output_path="./results/population_ensemble_LOCAL.csv", 
+                        plot_delta=True,
                         process="LOCAL"
                         )"""
-  
-  simulation.driftPlotH(["./results/population_ensemble_MORAN.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
 
-  simulation.driftPlotH(["./results/population_ensemble_LOCAL.csv","./results/population_ensemble_MORAN.csv"], labels=["Local", "Moran"], column=0)
+    simulation.drift_plot_H(
+        ["./results/population_ensemble_MORAN.csv"],
+        labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"],
+    )
 
-  # maybe these functions should return file name - and autogerenrate one if one isnt given.
-  #criticalPopsizeEnsemble("./results/criticalN_w_2.csv")
-  simulation.wEnsemblePlot("./results/criticalN_w_2.csv", log=True)
+    simulation.drift_plot_H(
+        [
+            "./results/population_ensemble_LOCAL.csv",
+            "./results/population_ensemble_MORAN.csv",
+        ],
+        labels=["Local", "Moran"],
+        column=0,
+    )
 
+    # maybe these functions should return file name - and autogerenrate one if one isnt given.
+    # criticalpop_sizeEnsemble("./results/critical_N_w_2.csv")
+    simulation.w_ensemble_plot("./results/critical_N_w_2.csv", log=True)
 
-
-  """betas = np.linspace(0.1, 1, 10)
+    """betas = np.linspace(0.1, 1, 10)
   matrices = getMatricesFourPlayer(betas=betas, gamma=0.5)
-  criticalPopsizeEnsemble("./results/criticalN_matrix_betas.csv", option="MATRIX_TEST",
+  criticalpop_sizeEnsemble("./results/critical_N_matrix_betas.csv", option="MATRIX_TEST",
                           defaultW=0.45, matrices=matrices)"""
-  
-  simulation.wEnsemblePlot("./results/criticalN_matrix_betas.csv", log=True, x_label=r"$\beta$")
 
-  """gammas = np.linspace(0, 0.6, 6)
+    simulation.w_ensemble_plot(
+        "./results/critical_N_matrix_betas.csv", log=True, x_label=r"$\beta$"
+    )
+
+    """gammas = np.linspace(0, 0.6, 6)
   matrices = getMatricesFourPlayer(gammas=gammas, beta=0.2)
-  criticalPopsizeEnsemble("./results/criticalN_matrix_gammas.csv", option="MATRIX_TEST_G",
+  criticalpop_sizeEnsemble("./results/critical_N_matrix_gammas.csv", option="MATRIX_TEST_G",
                           defaultW=0.45, matrices=matrices)"""
 
-  simulation.wEnsemblePlot("./results/criticalN_matrix_gammas.csv", log=True, x_label=r"$\gamma$")
+    simulation.w_ensemble_plot(
+        "./results/critical_N_matrix_gammas.csv", log=True, x_label=r"$\gamma$"
+    )
+    """
+    matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),pop_size=200,w=0.45, plot_delta=True)
+
+    matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),pop_size=400,w=0.45, plot_delta=True)
+
+    matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),pop_size=600,w=0.45, plot_delta=True)
+
+
+    matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,pop_size=200,w=0.45, plot_delta=True)
+
+    matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,pop_size=200,w=0.45, plot_delta=True)
+
+    matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,pop_size=200,w=0.45, plot_delta=True)
+
   """
-    matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),popSize=200,w=0.45, plotDelta=True)
 
-    matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),popSize=400,w=0.45, plotDelta=True)
+    simulation.drift_plot_H(
+        [
+            "./results/parameterTest_0.2.csv",
+            "./results/parameterTest_0.6.csv",
+            "./results/parameterTest_1.csv",
+        ],
+        xlabel="beta",
+        labels=["0.2", "0.6", "1"],
+        column=0,
+    )
 
-    matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),popSize=600,w=0.45, plotDelta=True)
-
-
-    matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,popSize=200,w=0.45, plotDelta=True)
-
-    matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,popSize=200,w=0.45, plotDelta=True)
-
-    matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,popSize=200,w=0.45, plotDelta=True)
-
-  """
-
-
-  simulation.driftPlotH(["./results/parameterTest_0.2.csv","./results/parameterTest_0.6.csv","./results/parameterTest_1.csv"],
-                        xlabel="beta", labels=["0.2", "0.6", "1"], column=0)
-  
-  """
-  deltaLocal, deltaRps, lResults = simulation.local_batch_drift(20000, 3000000, 0.45, 1, Games.AUGMENTED_RPS, traj=True, initialDist=np.array([0.5,0.2,0.2,0.1]))
-  df_RPS_LO = pd.DataFrame({"c1": lResults[0], "c2": lResults[1], "c3": lResults[2], "c4": lResults[3]})
+    """
+  delta_local, deltaRps, l_results = simulation.local_batch_sim(20000, 3000000, 0.45, 1, Games.AUGMENTED_RPS, traj=True, initial_dist=np.array([0.5,0.2,0.2,0.1]))
+  df_RPS_LO = pd.DataFrame({"c1": l_results[0], "c2": l_results[1], "c3": l_results[2], "c4": l_results[3]})
   trajectoryWrite(df_RPS_LO, "./results/localTest.csv")
   """
 
-  test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45)
-  trajectoryWrite(test, "./results/localNumerical.csv")
-  
-  filePaths = ["./results/localTest.csv", "./results/localNumerical.csv"]
-  norms = [True, False]
+    test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45)
+    trajectoryWrite(test, "./results/localNumerical.csv")
 
-  simulation.highDim2dplot(filePaths, [20000, None], norm=norms, t_eval=t_eval, data_res=1)
+    file_paths = ["./results/localTest.csv", "./results/localNumerical.csv"]
+    norms = [True, False]
+
+    simulation.high_dim_2d_plot(
+        file_paths, [20000, None], norm=norms, t_eval=t_eval, data_res=1
+    )
 
 
-
-  
- 
-  
 """
 Notes:
 
@@ -661,11 +784,3 @@ low pop - final point in ring around equilibrium or vertical line
 high pop - all concentrated at central point.
 
 """
-  
-
-
-      
-    
-
-
-  
