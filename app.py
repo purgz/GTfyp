@@ -615,7 +615,7 @@ if __name__ == "__main__":
 
     # RPS and SD different critical sizes where the drift occurs.
     _, _, _, all_traj = simulation.moran_batch_sim(
-        200, 1000000, 0.60, 1000, point_cloud=True
+        100, 1000000, 0.9, 1000, point_cloud=True
     )
 
     sims, n, frames = all_traj.shape

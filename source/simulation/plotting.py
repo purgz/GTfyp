@@ -268,7 +268,8 @@ def point_cloud(df):
     ani = FuncAnimation(
         fig, update, frames=frames, interval=0.1, blit=False, repeat=True
     )
-
+    # find a better format
+    #ani.save("./results/animations/ani.gif")
     plt.show()
 
 
