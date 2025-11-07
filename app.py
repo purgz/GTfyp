@@ -13,7 +13,10 @@ import scienceplots
 import plotly.express as px
 
 from multiprocessing import Pool
+import logging
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 # plt.style.use(['science'])
 
@@ -538,6 +541,8 @@ def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
 
 # Need this because of multiprocessing
 if __name__ == "__main__":
+
+    logger.info("Running main")
 
     parser = argparse.ArgumentParser()
     """
