@@ -627,9 +627,17 @@ if __name__ == "__main__":
 
     # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
 
+    """
+    basic_rps = np.array(
+    [[0, -0.5, 1, 0.1], 
+     [1, 0, -0.5, 0.1], 
+     [-0.5, 1, 0, 0.1], 
+     [0.1, 0.1, 0.1, 0]]
+    )"""
+
     # RPS and SD different critical sizes where the drift occurs.
     _, _, _, all_traj = simulation.moran_batch_sim(
-        100, 1000000, 0.45, 1000, point_cloud=True
+        30000, 2000000, 0.45, 300, point_cloud=True
     )
 
     sims, n, frames = all_traj.shape
