@@ -19,10 +19,10 @@ from .plotting import quaternary_plot
 
 # Here the loner > 0, therefore some central equivilibrium should be present - drift away from this would be towards pure RPS
 basic_rps = np.array(
-    [[0, -0.8, 1, 0.15], 
-     [1, 0, -0.8, 0.15], 
-     [-0.8, 1, 0, 0.15], 
-     [0.3, 0.3, 0.3, 0]]
+    [[0, -0.8, 1, 0.2], 
+     [1, 0, -0.8, 0.2], 
+     [-0.8, 1, 0, 0.2], 
+     [0.2, 0.2, 0.2, 0]]
 )
 
 
@@ -266,7 +266,7 @@ def moran_batch_sim(
 
     initial_dist = initial_dist / np.sum(initial_dist)
 
-    sample_rate = 1000
+    sample_rate = 5000
     num_frames = iterations // sample_rate
 
     all_traj = np.zeros((simulations, n, num_frames))
