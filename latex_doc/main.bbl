@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{SciencePlots}
+John~D. Garrett.
+\newblock {garrettj403/SciencePlots}.
+\newblock September 2021.
+
+\bibitem{lam2015numba}
+Siu~Kwan Lam, Antoine Pitrou, and Stanley Seibert.
+\newblock Numba: A llvm-based python jit compiler.
+\newblock In {\em Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC}, pages 1--6, 2015.
+
+\bibitem{PhysRevLett.95.238701}
+Arne Traulsen, Jens~Christian Claussen, and Christoph Hauert.
+\newblock Coevolutionary dynamics: From finite to infinite populations.
+\newblock {\em Phys. Rev. Lett.}, 95:238701, Dec 2005.
+
+\end{thebibliography}
