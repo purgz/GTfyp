@@ -257,19 +257,34 @@ Adjusted deterministic equations for the interaction processes, derived from the
 
 \subsection{Transition probabilities}
 
+Finite population, $i$ rock players, $j$ paper players, $k$ scissors players, and $N - i - j - k$ $+$ players.
 
+The average payoff is $\langle \pi \rangle = \frac{i}{N} \pi_R + \frac{j}{N} \pi_P + \frac{k}{N} \pi_S + \frac{N - i - j -k}{N} \pi_+$
 
+For the Moran process the transition probabilities are as follows:
 \begin{equation}
-    T^{R \rightarrow +}, T^{P \rightarrow +},T^{S \rightarrow +},T^{+ \rightarrow R}, T^{+ \rightarrow P}, T^{+ \rightarrow S}
-\end{equation}
-
-\begin{equation}
-    T^{R \rightarrow +} = \text{insert}    
+    T^{R \rightarrow +} = \frac{1}{2} \frac{1 - w + w \pi_+}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{N - i - j - k}{N}
 \end{equation}  
-And the internal transitions between RPS
+\begin{equation}
+    T^{+ \rightarrow R} = \frac{1}{2} \frac{1 - w + w \pi_R}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{N - i - j - k}{N}
+\end{equation}  
 
+Also transitions within RPS
 
+\begin{equation}
+    T^{R \rightarrow S} = \frac{1}{2} \frac{1 - w + w \pi_S}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{k}{N}
+\end{equation}  
 
+\begin{equation}
+    T^{S \rightarrow R} = \frac{1}{2} \frac{1 - w + w \pi_R}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{k}{N}
+\end{equation}  
+
+The rest of the transitions, $T^{R \rightarrow P}, T^{P \rightarrow R}, T^{S \rightarrow P}, T^{P \rightarrow S}, T^{P \rightarrow +}, T^{+ \rightarrow P}, T^{ S \rightarrow +}, T^{+ \rightarrow S}$
+formed from permuations ($R, P, S, +$) and ($i, j, k, N-i-j-k$)
+
+Example output from python for $T^{R \rightarrow +}$, with x, y, z, 1-x-y-z,
+and parameters a,b,c for rps, $\gamma$ and $a + \beta$ version of the 4x4 matrix.
+$- \frac{0.5 x \left(w \left(a + \beta\right) \left(x + y + z\right) - w + 1\right) \left(x + y + z - 1\right)}{w \left(x \left(a x + b z + c y - \gamma \left(x + y + z - 1\right)\right) + y \left(a y + b x + c z - \gamma \left(x + y + z - 1\right)\right) + z \left(a z + b y + c x - \gamma \left(x + y + z - 1\right)\right) - \left(a + \beta\right) \left(x + y + z\right) \left(x + y + z - 1\right)\right) - w + 1}$
 
 \subsection{Constant of motion $\Delta H$ definition (drift)}
 
