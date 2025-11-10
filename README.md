@@ -1,7 +1,7 @@
 # GTfyp
 Final year project work - evolutionary game theory 
 
-
+Up to date document with derviations and more images in /latex_doc/main.pdf
 
 
 Basic RPS example: 
@@ -36,7 +36,7 @@ Also now contains 2d ternary plots for regular 3x3 matrix games.
 
 
 Drift analysis:
-![alt text](source/simulation/images/drift.png)
+Include some examples here.
 
 
 Need to include detail of running both web app and python app locally with docker, setup docker pipeline for app.
