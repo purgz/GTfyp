@@ -19,15 +19,16 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-#plt.style.use(['science'])
+plt.style.use(['science'])
 
-plt.style.use(["science", "no-latex"])
+
+#plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-#plt.rcParams['text.usetex'] = True
-#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -628,18 +629,13 @@ if __name__ == "__main__":
 
     # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
 
+   
     
     basic_rps = np.array(
-    [[0, -0.4, 1,     0.05], 
-     [1, 0, -0.4,     0.05], 
-     [-0.4, 1, 0,     0.05], 
-     [0.21, 0.21, 0.21, 0]]
-    )
-    basic_rps = np.array(
-    [[0, -0.2, 1,     0.05], 
-     [1, 0, -0.2,     0.05], 
-     [-0.2, 1, 0,     0.05], 
-     [0.27, 0.27, 0.27, 0]]
+    [[0, -0.2, 1,     0.04], 
+     [1, 0, -0.2,     0.04], 
+     [-0.2, 1, 0,     0.04], 
+     [0.3, 0.3, 0.3, 0]]
     )
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.
@@ -647,14 +643,16 @@ if __name__ == "__main__":
     # Small pop - SD drifts first end up with the rod
     # 90,000, 10,000,000
     # 1000, 100,000
+    
     _, _, _, all_traj = simulation.moran_batch_sim(
-        20000, 30000000, 0.6, 300, point_cloud=True, matrix=basic_rps
+        50000, 20000000, 0.45, 200, point_cloud=True, matrix=basic_rps
     )
 
     """
     _, _, _, all_traj = simulation.moran_batch_sim(
-            1000, 100000, 0.45, 3000, point_cloud=True, matrix=basic_rps
+        850, 100000, 0.45, 3000, point_cloud=True, matrix=basic_rps
     )"""
+
 
 
 

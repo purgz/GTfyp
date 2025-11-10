@@ -240,9 +240,9 @@ def point_cloud(df):
     ax.set_zticks([])
     ax.set_box_aspect([1, 1, 1])
 
-    test = r"$\begin{bmatrix} 0 & -0.2 & 1 & 0.05 \\ 1 & 0 & -0.2 & 0.05 \\ -0.2 & 1 & 0 & 0.05 \\ 0.27 & 0.27 & 0.27 & 0 \end{bmatrix}$"
+    test = r"$\begin{bmatrix} 0 & -0.2 & 1 & 0.07 \\ 1 & 0 & -0.2 & 0.07 \\ -0.2 & 1 & 0 & 0.07 \\ 0.30 & 0.30 & 0.30 & 0 \end{bmatrix}$"
 
-    #ax.text2D(0.7,0.7, test, transform=ax.transAxes)
+    ax.text2D(0.7,0.7, test, transform=ax.transAxes)
 
 
     frames = sorted(df["frame"].unique())
