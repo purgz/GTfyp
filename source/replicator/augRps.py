@@ -30,6 +30,16 @@ y = sp.symbols('y')
 z = sp.symbols('z')
 q = 1 - x - y - z
 
+w_sym = sp.symbols('w')
+
+payoffR = a * x + y * c + b * z + gamma * q
+payoffP = b * x + a * y + c * z + gamma * q
+payoffS = c * x + b * y + a * z + gamma * q 
+payoffL = (a + beta) * x + (a + beta) * y + (a + beta) * z
+
+
+averagePayoff = payoffR * x + payoffP * y + payoffS * z + payoffL * q
+
 # Pairwise replicator equations 
 """x_dot = (x * y) * (payoffR - payoffP) + (x * z) * (payoffR - payoffS) + (x * q) * (payoffR - payoffL)
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
@@ -198,46 +208,32 @@ def findEigenvalues(replicators, config, vars, substitution):
     print(latex(result.as_real_imag()))
 
 
+def moran_reproductive_func(payoff, w, average_payoff):
+  numerator = 1 - w + w * payoff
+  denominator = 1 - w + w * average_payoff
+  return (1/2) * (numerator / denominator)
+  
 
+# Returns the transition probabilities given a repoductive function and payoffs.
+# Returns dict indexed by T_RS for example between Rocker and Scissors
+# The 4th strategy is labelled as L
+def transition_probs_moran(reproductive_func, payoffs : list):
+  # x y z, q = 1 - x - y - z
 
+  pi_R, pi_P, pi_S, pi_L = payoffs
 
-"""
-# Eigenvalue stuff need to put this in methods also!
+  names = ["R", "P", "S", "L"]
+  pis = [pi_R, pi_P, pi_S, pi_L]
+  freqs = [x, y, z, q]
 
-F_x = sp.diff(x_dot, x)
-F_y = sp.diff(x_dot, y)
-F_z = sp.diff(x_dot, z)
+  return {
+      f"T_{a}{b}": reproductive_func(pis[j], w_sym, averagePayoff) * freqs[i] * freqs[j]
+      for i, a in enumerate(names)
+      for j, b in enumerate(names)
+      if i != j
+  }
+  
 
-G_x = sp.diff(y_dot, x)
-G_y = sp.diff(y_dot, y)
-G_z = sp.diff(y_dot, z)
-
-P_x = sp.diff(z_dot, x)
-P_y = sp.diff(z_dot, y)
-P_z = sp.diff(z_dot, z)
-
-# 3x3 Jacobian Matrix
-J = sp.Matrix([[F_x, F_y, F_z],
-               [G_x, G_y, G_z],
-               [P_x, P_y, P_z]])
-
-
-
-eigenvalues = J.eigenvals()
-
-
-
-standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
-eigenvalues_sub = {eig.subs(standardConfig) for eig in eigenvalues}
-
-
-results = {eig.subs({x: 2/9, y: 2/9, z: 2/9}) for eig in eigenvalues_sub}
-
-print(latex(results))
-
-#print(latex(eigenvalues_sub))
-
-"""
 
 
 if __name__ == "__main__":
@@ -259,6 +255,10 @@ if __name__ == "__main__":
 
   #print(latex(fixedPoints))
 
-  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
-  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
-
+  #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
+  #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
+  print("**************************************************")
+  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  print(latex(sp.simplify(transitions["T_RP"])))
+  print("***************************")
+  print(latex(sp.simplify(transitions["T_RL"])))
