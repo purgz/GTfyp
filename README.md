@@ -3,6 +3,9 @@ Final year project work - evolutionary game theory
 
 Up to date document with derviations and more images in /latex_doc/main.pdf
 
+- aim for the project - general game simulator with time series plots for 2x2,3x3,4x4..NxN wth numerical trajectories options.
+- drift analysis, different interaction processes, unique plots and animations particularly for 4x4.
+- main focus is on 4x4 game (RPS + SD) 
 
 Basic RPS example: 
 ![alt text](source/simulation/images/rps.png)
