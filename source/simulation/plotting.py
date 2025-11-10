@@ -15,7 +15,7 @@ from matplotlib.animation import FuncAnimation
 """
 SciencePlots library - ref in paper
 """
-# plt.style.use(['science','no-latex'])
+#plt.style.use(['science','no-latex'])
 plt.style.use(["science"])
 mpl.rcParams["text.usetex"] = True
 mpl.rcParams["text.latex.preamble"] = r"\usepackage{amsmath}"
@@ -240,6 +240,11 @@ def point_cloud(df):
     ax.set_zticks([])
     ax.set_box_aspect([1, 1, 1])
 
+    test = r"$\begin{bmatrix} 0 & -0.2 & 1 & 0.05 \\ 1 & 0 & -0.2 & 0.05 \\ -0.2 & 1 & 0 & 0.05 \\ 0.27 & 0.27 & 0.27 & 0 \end{bmatrix}$"
+
+    #ax.text2D(0.7,0.7, test, transform=ax.transAxes)
+
+
     frames = sorted(df["frame"].unique())
 
     carts = get_cartesian_array_from_barycentric(
@@ -266,7 +271,7 @@ def point_cloud(df):
         scatter._offsets3d = (sub["x"].values, sub["y"].values, sub["z"].values)
 
     ani = FuncAnimation(
-        fig, update, frames=frames, interval=0.1, blit=False, repeat=True
+        fig, update, frames=frames, interval=0.1, blit=False, repeat=False
     )
     # find a better format
     #ani.save("./results/animations/ani.gif")
