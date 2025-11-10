@@ -266,7 +266,7 @@ def moran_batch_sim(
 
     initial_dist = initial_dist / np.sum(initial_dist)
 
-    sample_rate = 100000
+    sample_rate = 10000
     num_frames = iterations // sample_rate
 
     all_traj = np.zeros((simulations, n, num_frames))
