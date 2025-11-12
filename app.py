@@ -22,13 +22,13 @@ logger = logging.getLogger(__name__)
 plt.style.use(['science'])
 
 
-#plt.style.use(["science", "no-latex"])
+plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -644,14 +644,17 @@ if __name__ == "__main__":
     # 90,000, 10,000,000
     # 1000, 100,000
     
-    _, _, _, all_traj = simulation.moran_batch_sim(
-        50000, 20000000, 0.45, 200, point_cloud=True, matrix=basic_rps
-    )
 
-    """
+    """_, _, _, all_traj = simulation.moran_batch_sim(
+        50000, 20000000, 0.45, 200, point_cloud=True, matrix=basic_rps
+    )"""
+
+    deltaMoran, deltaRPS,_,_ = simulation.moran_batch_sim(850, 2, 0.45, 10000000, matrix=basic_rps)
+    
+    print("D_4, D_RPS", deltaMoran, deltaRPS)
     _, _, _, all_traj = simulation.moran_batch_sim(
         850, 100000, 0.45, 3000, point_cloud=True, matrix=basic_rps
-    )"""
+    )
 
 
 
