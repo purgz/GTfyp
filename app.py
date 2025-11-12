@@ -632,9 +632,9 @@ if __name__ == "__main__":
    
     
     basic_rps = np.array(
-    [[0, -0.2, 1,     0.04], 
-     [1, 0, -0.2,     0.04], 
-     [-0.2, 1, 0,     0.04], 
+    [[0, -0.2, 1,     0.07], 
+     [1, 0, -0.2,     0.07], 
+     [-0.2, 1, 0,     0.07], 
      [0.3, 0.3, 0.3, 0]]
     )
     # 5000, 300, 100
@@ -643,6 +643,19 @@ if __name__ == "__main__":
     # Small pop - SD drifts first end up with the rod
     # 90,000, 10,000,000
     # 1000, 100,000
+
+    runPopulationEnsemble(range(150,250,2), 
+                        file_output_path="./results/rod_example_delta.csv", 
+                        plot_delta=True,
+                        process="MORAN",
+                        matrix=basic_rps,
+                        simulations=100000000,
+                        w=0.45
+                        )
+                        
+  
+    simulation.drift_plot_H(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
+  
     
 
     """_, _, _, all_traj = simulation.moran_batch_sim(
