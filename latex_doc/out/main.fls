@@ -455,6 +455,11 @@ INPUT ./images/850POP.png
 INPUT images/850POP.png
 INPUT ./images/850POP.png
 INPUT ./images/850POP.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
+INPUT images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
 INPUT ./main.bbl
 INPUT main.bbl
 INPUT ./main.bbl

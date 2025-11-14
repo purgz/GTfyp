@@ -22,13 +22,13 @@ logger = logging.getLogger(__name__)
 plt.style.use(['science'])
 
 
-plt.style.use(["science", "no-latex"])
+#plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-#plt.rcParams['text.usetex'] = True
-#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -219,6 +219,9 @@ def runPopulationEnsemble(
             marker="s",
             label="H_RPS",
         )
+
+        plt.plot(df_deltaResults["pop_sizes"], [0 for i in range(len(pop_sizes))])
+
         plt.xlabel("N")
         plt.ylabel("delta H")
         plt.legend()
@@ -632,10 +635,10 @@ if __name__ == "__main__":
    
     
     basic_rps = np.array(
-    [[0, -0.2, 1,     0.07], 
-     [1, 0, -0.2,     0.07], 
-     [-0.2, 1, 0,     0.07], 
-     [0.3, 0.3, 0.3, 0]]
+    [[0, 1, 1,     0.1], 
+     [1, 0, 1,     0.1], 
+     [1, 1, 0,     0.1], 
+     [0.7, 0.7, 0.7, 0]]
     )
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.
@@ -644,31 +647,31 @@ if __name__ == "__main__":
     # 90,000, 10,000,000
     # 1000, 100,000
 
-    runPopulationEnsemble(range(150,250,2), 
+    """
+    runPopulationEnsemble(range(50,200,5), 
                         file_output_path="./results/rod_example_delta.csv", 
                         plot_delta=True,
                         process="MORAN",
                         matrix=basic_rps,
-                        simulations=100000000,
+                        simulations=20000000,
                         w=0.45
                         )
-                        
+    """                      
   
-    simulation.drift_plot_H(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
-  
-    
 
+    
     """_, _, _, all_traj = simulation.moran_batch_sim(
         50000, 20000000, 0.45, 200, point_cloud=True, matrix=basic_rps
     )"""
 
-    deltaMoran, deltaRPS,_,_ = simulation.moran_batch_sim(850, 2, 0.45, 10000000, matrix=basic_rps)
-    
-    print("D_4, D_RPS", deltaMoran, deltaRPS)
+    """
     _, _, _, all_traj = simulation.moran_batch_sim(
-        850, 100000, 0.45, 3000, point_cloud=True, matrix=basic_rps
-    )
+        1000, 50000, 0.45, 10000, point_cloud=True, matrix=basic_rps
+    )"""
 
+    _, _, _, all_traj = simulation.moran_batch_sim(
+        30000, 3000000, 0.45, 10000, point_cloud=True, matrix=basic_rps
+    )
 
 
 
