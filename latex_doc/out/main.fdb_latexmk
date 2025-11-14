@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1762807295 "main.aux" "main.bbl" "main" 1762808400
+["bibtex main"] 1763119514 "main.aux" "main.bbl" "main" 1763119517
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1762804818 7236 056c3db4555670c60fb734a806f77c30 ""
+  "main.aux" 1763116455 7734 61b61a6147261c2831cafbd3b19bb6de ""
   "ref.bib" 1762804818 1056 ba678232ca479bc4c7e2034993ae5cbb ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1762808398 "/home/henry/gametheory/hxb265/latex_doc/main.tex" "out/main.pdf" "main" 1762808400
+["pdflatex"] 1763119515 "/home/henry/gametheory/hxb265/latex_doc/main.tex" "out/main.pdf" "main" 1763119517
   "/etc/texmf/web2c/texmf.cnf" 1761782458 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/henry/gametheory/hxb265/latex_doc/main.tex" 1762808398 17676 88b90f80dcdad3584b1f187e3c1c8192 ""
+  "/home/henry/gametheory/hxb265/latex_doc/main.tex" 1763119513 18088 bcf4a05672995fd0bd54f9cfb0f6753c ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -88,6 +88,7 @@
   "images/3d.png" 1762804818 83632 cd4ab129d77753013bc652677ef99bf8 ""
   "images/50000POP.png" 1762806426 49339 5f6b826401a924378ed859f2478586dc ""
   "images/850POP.png" 1762808197 136671 707c9d0f1eca26604a07393f46114942 ""
+  "images/RPS_cross_fist.png" 1763119355 49107 5ff3e4cde33c7da4d7fa4796d44d293b ""
   "images/critN.png" 1762804818 44132 7a190a44629771dc25886121039ba68e ""
   "images/drift_4.eps" 1762804818 241314 57332d4648fd68c4eee58dbdfba8689d ""
   "images/drift_reversal_rps.png" 1762804818 32667 aa2e26995a279587f11920c4aeadd188 ""
@@ -100,9 +101,9 @@
   "images/point_cloud_4.png" 1762804818 127146 206dea6ce478ed6018bf1fe1e5b8d536 ""
   "images/point_cloud_5.png" 1762804818 98020 b59d17b4d89b3212903c388c04dead86 ""
   "images/w_test.eps" 1762804818 32251 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.bbl" 1762807295 621 6c3360c04dfc9701b5178ead3dbe7417 "bibtex main"
-  "main.tex" 1762808398 17676 88b90f80dcdad3584b1f187e3c1c8192 ""
-  "out/main.aux" 1762808400 7385 eb2b984c59f056d56960e862e4931bbc "pdflatex"
+  "main.bbl" 1763119514 621 6c3360c04dfc9701b5178ead3dbe7417 "bibtex main"
+  "main.tex" 1763119513 18088 bcf4a05672995fd0bd54f9cfb0f6753c ""
+  "out/main.aux" 1763119517 7721 5a7c0ce1ca32c33b052714043e14e0ca "pdflatex"
   "parameter_tests/crit_n_beta.eps" 1762804818 29473 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762804818 30718 c81090af7ea62cbabd93c306588ccc5b ""
   "parameter_tests/fixed_gamma_parameter.eps" 1762804818 40937 d9ecac25ccd67a874acbaf0c54aa183f ""

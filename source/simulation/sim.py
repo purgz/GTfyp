@@ -273,8 +273,8 @@ def moran_batch_sim(
 
     for s in prange(simulations):
 
-        """
-        # Randomize in the simplex
+        
+        """# Randomize in the simplex
         fixed = initial_dist[3]
         remaining = 1 - fixed
         random_simplex = np.random.rand(n - 1)
@@ -283,7 +283,8 @@ def moran_batch_sim(
         initial = np.append(random_simplex, fixed)
         """
 
-        initial = np.random.rand(4)
+        #initial = np.random.rand(4)
+        initial = np.random.exponential(1,4)
         initial /= np.sum(initial)
 
         population = np.random.multinomial(pop_size, initial)
