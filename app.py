@@ -49,7 +49,7 @@ def pd_example(
 
     iterations = pop_size * 35
 
-    _, _, m_results = simulation.moran_batch_sim(
+    _, _, m_results,_ = simulation.moran_batch_sim(
         pop_size=pop_size,
         iterations=iterations,
         w=w,
@@ -57,8 +57,9 @@ def pd_example(
         simulations=1,
         initial_dist=initial_dist,
         traj=True,
+        initial_rand=False
     )
-    _, _, l_results = simulation.local_batch_sim(
+    _, _, l_results,_ = simulation.local_batch_sim(
         pop_size=pop_size,
         iterations=iterations,
         w=w,
@@ -66,6 +67,7 @@ def pd_example(
         simulations=1,
         initial_dist=initial_dist,
         traj=True,
+        initial_rand=False
     )
 
     print("Simulations complete")
@@ -107,8 +109,9 @@ def rps_example(N: int = 10000, iterations: int = 1000000) -> None:
         simulations=1,
         initial_dist=np.array([0.5, 0.25, 0.25]),
         traj=True,
+        initial_rand=False
     )
-    _, _, l_results = simulation.local_batch_sim(
+    _, _, l_results,_ = simulation.local_batch_sim(
         pop_size=N,
         iterations=iterations,
         w=w,
@@ -116,6 +119,7 @@ def rps_example(N: int = 10000, iterations: int = 1000000) -> None:
         simulations=1,
         initial_dist=np.array([0.5, 0.25, 0.25]),
         traj=True,
+        initial_rand=False
     )
 
     df_RPS_MO = pd.DataFrame({"R": m_results[0], "P": m_results[1], "S": m_results[2]})
@@ -647,16 +651,15 @@ if __name__ == "__main__":
     # 90,000, 10,000,000
     # 1000, 100,000
 
-    """
+    
     runPopulationEnsemble(range(50,200,5), 
                         file_output_path="./results/rod_example_delta.csv", 
                         plot_delta=True,
                         process="MORAN",
-                        matrix=basic_rps,
                         simulations=20000000,
                         w=0.45
                         )
-    """                      
+                          
   
 
     
@@ -670,7 +673,7 @@ if __name__ == "__main__":
     )"""
 
     _, _, _, all_traj = simulation.moran_batch_sim(
-        30000, 3000000, 0.45, 10000, point_cloud=True, matrix=basic_rps
+        1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
     )
 
 
