@@ -175,7 +175,7 @@ def runPopulationEnsemble(
                 drift_SD.append(drift_H * pop_sizes[i])
                 drift_rpss.append(drift_rps * pop_sizes[i])
             case "LOCAL":
-                drift_H, drift_rps, _ = simulation.local_batch_sim(
+                drift_H, drift_rps, _,_ = simulation.local_batch_sim(
                     pop_sizes[i],
                     2,
                     w,
@@ -548,6 +548,9 @@ def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
     return matrices
 
 
+def point_cloud_animation():
+    pass
+
 # Need this because of multiprocessing
 if __name__ == "__main__":
 
@@ -652,12 +655,13 @@ if __name__ == "__main__":
     # 1000, 100,000
 
     
-    runPopulationEnsemble(range(50,200,5), 
+    runPopulationEnsemble(range(10,100,5), 
                         file_output_path="./results/rod_example_delta.csv", 
                         plot_delta=True,
-                        process="MORAN",
+                        process="LOCAL",
                         simulations=20000000,
-                        w=0.45
+                        w=0.45,
+                        matrix=basic_rps
                         )
                           
   
@@ -672,8 +676,13 @@ if __name__ == "__main__":
         1000, 50000, 0.45, 10000, point_cloud=True, matrix=basic_rps
     )"""
 
-    _, _, _, all_traj = simulation.moran_batch_sim(
+    """_, _, _, all_traj = simulation.moran_batch_sim(
         1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
+    )"""
+
+
+    _, _, _, all_traj = simulation.local_batch_sim(
+        50000, 10000000, 0.45, 300, point_cloud=True, matrix=basic_rps
     )
 
 
