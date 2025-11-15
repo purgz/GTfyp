@@ -143,7 +143,7 @@ Delta H is calculated before the dimension reduction
 """
 
 
-def runPopulationEnsemble(
+def run_population_ensemble(
     pop_sizes: list[int],
     w: float = 0.45,
     file_output_path: str = "",
@@ -232,7 +232,7 @@ def runPopulationEnsemble(
         plt.show()
 
 
-def searchCriticalpop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> int:
+def search_critical_pop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> int:
 
     # Binary search for critical pop_size where drift reversal occurs.
     # Hardcoded for initial deltaM being positive.
@@ -297,7 +297,7 @@ def searchCriticalpop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> int
 
 
 # Find critical pop_size for a range over W values - very long run time simulation so needs to write to file output.
-def criticalpop_sizeEnsemble(
+def critical_pop_size_ensemble(
     file_output_path: str, option="W_TEST", matrices=None, defaultW=0.45
 ) -> None:
 
@@ -308,7 +308,7 @@ def criticalpop_sizeEnsemble(
             ws = np.linspace(0.1, 0.5, 15)
 
             for w in tqdm(ws, position=0, leave=True):
-                critical_N = searchCriticalpop_size(w=w)
+                critical_N = search_critical_pop_size(w=w)
                 Ns.append(critical_N)
 
             print("Critical Ns ", Ns)
@@ -338,7 +338,7 @@ def criticalpop_sizeEnsemble(
                     betas.append(matrix[0][3])
                 else:
                     betas.append(matrix[3][0])
-                critical_N = searchCriticalpop_size(w=defaultW, matrix=matrix)
+                critical_N = search_critical_pop_size(w=defaultW, matrix=matrix)
                 Ns.append(critical_N)
 
             df = pd.DataFrame({"beta_gamma": betas, "critical_N": Ns})
@@ -357,7 +357,7 @@ Two graphs needed;
 """
 
 
-def matrixParamEnsemble(
+def matrix_param_ensemble(
     file_output_path: str,
     betas: list[float],
     gamma: float = 0.8,
@@ -465,14 +465,14 @@ def arps_example(N: int = 500, iterations: int = 100000) -> None:
         }
     )
 
-    trajectoryWrite(
+    write_trajectory(
         df_RPS_MO,
         "./results/moran" + str(N) + "_" + str(iterations) + ".csv",
         args=[N, iterations, 0.2],
         optionalComments="Testing the file writing for trajectories.",
     )
 
-    trajectoryWrite(
+    write_trajectory(
         df_RPS_LU,
         "./results/local" + str(N) + "_" + str(iterations) + ".csv",
         args=[N, iterations, 0.2],
@@ -481,7 +481,7 @@ def arps_example(N: int = 500, iterations: int = 100000) -> None:
     simulation.quaternary_plot([df_RPS_MO, df_RPS_LU], labels=["Moran", "Local"])
 
 
-def trajectoryWrite(df, filePath, args=[], optionalComments=None):
+def write_trajectory(df, filePath, args=[], optionalComments=None):
 
     # Construct and add comments
     with open(filePath, "w") as f:
@@ -523,7 +523,7 @@ def delta_H_parser():
 
 
 # Helper function to run matrix parameter tests.
-def getMatricesFourPlayer(betas=None, gammas=None, gamma=0.2, beta=0.1):
+def get_four_player_matrices(betas=None, gammas=None, gamma=0.2, beta=0.1):
 
     matrices = []
     s = 1
@@ -655,7 +655,7 @@ if __name__ == "__main__":
     # 1000, 100,000
 
     
-    runPopulationEnsemble(range(10,100,5), 
+    run_population_ensemble(range(10,100,5), 
                         file_output_path="./results/rod_example_delta.csv", 
                         plot_delta=True,
                         process="LOCAL",
@@ -719,10 +719,10 @@ if __name__ == "__main__":
   print("DELTA RPS ", deltaRps)
   print("DELTA MORAN ", delta_moran)
 
-  trajectoryWrite(df_RPS_MO, "./results/moranTest.csv")
+  write_trajectory(df_RPS_MO, "./results/moranTest.csv")
 
   test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45)
-  trajectoryWrite(test, "./results/moranNumerical.csv")
+  write_trajectory(test, "./results/moranNumerical.csv")
 
 
   #file_paths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
@@ -735,7 +735,7 @@ if __name__ == "__main__":
   
   """
     """
-  runPopulationEnsemble(range(50,400,10), 
+  run_population_ensemble(range(50,400,10), 
                         file_output_path="./results/population_ensemble_MORAN_new_matrix.csv", 
                         plot_delta=True,
                         process="MORAN",
@@ -748,14 +748,14 @@ if __name__ == "__main__":
   simulation.drift_plot_H(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
   """
 
-    """runPopulationEnsemble(range(50,400,10), 
+    """run_population_ensemble(range(50,400,10), 
                         file_output_path="./results/population_ensemble_MORAN.csv", 
                         plot_delta=True,
                         process="MORAN"
                         )
   
 
-  runPopulationEnsemble(range(50,400,10), 
+  run_population_ensemble(range(50,400,10), 
                         file_output_path="./results/population_ensemble_LOCAL.csv", 
                         plot_delta=True,
                         process="LOCAL"
@@ -776,12 +776,12 @@ if __name__ == "__main__":
     )
 
     # maybe these functions should return file name - and autogerenrate one if one isnt given.
-    # criticalpop_sizeEnsemble("./results/critical_N_w_2.csv")
+    # critical_pop_size_ensemble("./results/critical_N_w_2.csv")
     simulation.w_ensemble_plot("./results/critical_N_w_2.csv", log=True)
 
     """betas = np.linspace(0.1, 1, 10)
-  matrices = getMatricesFourPlayer(betas=betas, gamma=0.5)
-  criticalpop_sizeEnsemble("./results/critical_N_matrix_betas.csv", option="MATRIX_TEST",
+  matrices = get_four_player_matrices(betas=betas, gamma=0.5)
+  critical_pop_size_ensemble("./results/critical_N_matrix_betas.csv", option="MATRIX_TEST",
                           defaultW=0.45, matrices=matrices)"""
 
     simulation.w_ensemble_plot(
@@ -789,26 +789,26 @@ if __name__ == "__main__":
     )
 
     """gammas = np.linspace(0, 0.6, 6)
-  matrices = getMatricesFourPlayer(gammas=gammas, beta=0.2)
-  criticalpop_sizeEnsemble("./results/critical_N_matrix_gammas.csv", option="MATRIX_TEST_G",
+  matrices = get_four_player_matrices(gammas=gammas, beta=0.2)
+  critical_pop_size_ensemble("./results/critical_N_matrix_gammas.csv", option="MATRIX_TEST_G",
                           defaultW=0.45, matrices=matrices)"""
 
     simulation.w_ensemble_plot(
         "./results/critical_N_matrix_gammas.csv", log=True, x_label=r"$\gamma$"
     )
     """
-    matrixParamEnsemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),pop_size=200,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),pop_size=200,w=0.45, plot_delta=True)
 
-    matrixParamEnsemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),pop_size=400,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),pop_size=400,w=0.45, plot_delta=True)
 
-    matrixParamEnsemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),pop_size=600,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),pop_size=600,w=0.45, plot_delta=True)
 
 
-    matrixParamEnsemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,pop_size=200,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,pop_size=200,w=0.45, plot_delta=True)
 
-    matrixParamEnsemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,pop_size=200,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,pop_size=200,w=0.45, plot_delta=True)
 
-    matrixParamEnsemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,pop_size=200,w=0.45, plot_delta=True)
+    matrix_param_ensemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,pop_size=200,w=0.45, plot_delta=True)
 
   """
 
@@ -826,11 +826,11 @@ if __name__ == "__main__":
     """
   delta_local, deltaRps, l_results = simulation.local_batch_sim(20000, 3000000, 0.45, 1, Games.AUGMENTED_RPS, traj=True, initial_dist=np.array([0.5,0.2,0.2,0.1]))
   df_RPS_LO = pd.DataFrame({"c1": l_results[0], "c2": l_results[1], "c3": l_results[2], "c4": l_results[3]})
-  trajectoryWrite(df_RPS_LO, "./results/localTest.csv")
+  write_trajectory(df_RPS_LO, "./results/localTest.csv")
   """
 
     test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45)
-    trajectoryWrite(test, "./results/localNumerical.csv")
+    write_trajectory(test, "./results/localNumerical.csv")
 
     file_paths = ["./results/localTest.csv", "./results/localNumerical.csv"]
     norms = [True, False]
