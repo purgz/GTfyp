@@ -144,7 +144,7 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initial_di
   return df, t_eval
 
 
-def numericalTrajectory(interactionProcess="Moran", w=0.2):
+def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2,0.2]):
   # Runge kutta order 5
   # External module method.
   # Derive replicator equations
@@ -157,7 +157,7 @@ def numericalTrajectory(interactionProcess="Moran", w=0.2):
 
   substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 
-  df = numericalIntegration(substitutions)
+  df = numericalIntegration(substitutions, initial_dist=initial_dist)
 
   return df
 
