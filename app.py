@@ -548,6 +548,23 @@ def get_four_player_matrices(betas=None, gammas=None, gamma=0.2, beta=0.1):
     return matrices
 
 
+
+def trajectories_to_anim(trajectories):
+
+    sims, n, frames = trajectories.shape
+    transposed = trajectories.transpose(0,2,1)
+
+    df = pd.DataFrame(
+        transposed.reshape(-1, n),  # shape (sims*frames, n)
+        columns=[f"c{i+1}" for i in range(n)],
+    )
+
+    df["sim"] = np.repeat(np.arange(sims), frames)
+    df["frame"] = np.tile(np.arange(frames), sims)
+
+    return df
+
+
 def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None):
     
     _, _, _, all_traj = simulation.local_batch_sim(
@@ -555,19 +572,8 @@ def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=1
     )
 
 
-    sims, n, frames = all_traj.shape
+    df = trajectories_to_anim(all_traj)
 
-    all_traj_transposed = all_traj.transpose(0, 2, 1)  # shape: (sims, frames, n)
-
-    # Reshape to long format
-    df = pd.DataFrame(
-        all_traj_transposed.reshape(-1, n),  # shape (sims*frames, n)
-        columns=[f"c{i+1}" for i in range(n)],
-    )
-
-    # Add sim and frame columns
-    df["sim"] = np.repeat(np.arange(sims), frames)
-    df["frame"] = np.tile(np.arange(frames), sims)
 
     if file_output_path is not None:
         df.to_csv(file_output_path, index=False)
@@ -706,10 +712,27 @@ if __name__ == "__main__":
         1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
     )"""
 
-    point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps)
+    #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps)
 
+    all_traj = np.zeros((100, 4, 500))
+    for i in range(100):
+
+  
+        initial = np.random.exponential(1,4)
+        initial /= np.sum(initial)
+     
+  
+
+        a, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45, initial_dist=initial[:3])
+        a = a.to_numpy().T
+        all_traj[i, :, :] = a[:, ::10]
+
+    df = trajectories_to_anim(all_traj)
+
+    simulation.point_cloud(df)
 
     point_cloud_animation(pop_size=800, iterations=100000, w=0.45, num_points=300, matrix=basic_rps)
+
 
     
 
