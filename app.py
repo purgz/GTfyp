@@ -548,8 +548,34 @@ def get_four_player_matrices(betas=None, gammas=None, gamma=0.2, beta=0.1):
     return matrices
 
 
-def point_cloud_animation():
-    pass
+def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None):
+    
+    _, _, _, all_traj = simulation.local_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
+    )
+
+
+    sims, n, frames = all_traj.shape
+
+    all_traj_transposed = all_traj.transpose(0, 2, 1)  # shape: (sims, frames, n)
+
+    # Reshape to long format
+    df = pd.DataFrame(
+        all_traj_transposed.reshape(-1, n),  # shape (sims*frames, n)
+        columns=[f"c{i+1}" for i in range(n)],
+    )
+
+    # Add sim and frame columns
+    df["sim"] = np.repeat(np.arange(sims), frames)
+    df["frame"] = np.tile(np.arange(frames), sims)
+
+    if file_output_path is not None:
+        df.to_csv(file_output_path, index=False)
+
+    simulation.point_cloud(df, matrix=matrix)
+
+
+
 
 # Need this because of multiprocessing
 if __name__ == "__main__":
@@ -655,14 +681,14 @@ if __name__ == "__main__":
     # 1000, 100,000
 
     
-    run_population_ensemble(range(10,100,5), 
+    """run_population_ensemble(range(10,100,5), 
                         file_output_path="./results/rod_example_delta.csv", 
                         plot_delta=True,
                         process="LOCAL",
                         simulations=20000000,
                         w=0.45,
                         matrix=basic_rps
-                        )
+                        )"""
                           
   
 
@@ -680,30 +706,12 @@ if __name__ == "__main__":
         1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
     )"""
 
-
-    _, _, _, all_traj = simulation.local_batch_sim(
-        50000, 10000000, 0.45, 300, point_cloud=True, matrix=basic_rps
-    )
+    point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps)
 
 
+    point_cloud_animation(pop_size=800, iterations=100000, w=0.45, num_points=300, matrix=basic_rps)
 
-    sims, n, frames = all_traj.shape
-
-    all_traj_transposed = all_traj.transpose(0, 2, 1)  # shape: (sims, frames, n)
-
-    # Reshape to long format
-    df = pd.DataFrame(
-        all_traj_transposed.reshape(-1, n),  # shape (sims*frames, n)
-        columns=[f"c{i+1}" for i in range(n)],
-    )
-
-    # Add sim and frame columns
-    df["sim"] = np.repeat(np.arange(sims), frames)
-    df["frame"] = np.tile(np.arange(frames), sims)
-
-    print(df.head())
-
-    simulation.point_cloud(df)
+    
 
     # Below is testig code - remove at some point
     basic_rps = np.array(
@@ -838,18 +846,3 @@ if __name__ == "__main__":
     simulation.high_dim_2d_plot(
         file_paths, [20000, None], norm=norms, t_eval=t_eval, data_res=1
     )
-
-
-"""
-Notes:
-
-
-Compute H4 -xyz(1-x-y-z)
-
-Point cloud for random starting pos
-
-4 plot diagrm - starting point cloud
-low pop - final point in ring around equilibrium or vertical line
-high pop - all concentrated at central point.
-
-"""
