@@ -225,7 +225,18 @@ def quaternary_plot(
     plt.show()
 
 
-def point_cloud(df):
+
+def matrix_to_latex(matrix):
+    rows = []
+    for row in matrix:
+        res = " & ".join(f"{x}" for x in row)
+        rows.append(res)
+
+    result = " \\\\ ".join(rows)
+    return r"$\begin{bmatrix} " + result + r" \end{bmatrix}$"
+
+
+def point_cloud(df, matrix=None):
 
     fig = plt.figure()
 
@@ -240,9 +251,10 @@ def point_cloud(df):
     ax.set_zticks([])
     ax.set_box_aspect([1, 1, 1])
 
-    test = r"$\begin{bmatrix} 0 & -0.2 & 1 & 0.07 \\ 1 & 0 & -0.2 & 0.07 \\ -0.2 & 1 & 0 & 0.07 \\ 0.30 & 0.30 & 0.30 & 0 \end{bmatrix}$"
+    if matrix is not None:
+        test = matrix_to_latex(matrix)
 
-    ax.text2D(0.7,0.7, test, transform=ax.transAxes)
+        ax.text2D(0.7,0.7, test, transform=ax.transAxes)
 
 
     frames = sorted(df["frame"].unique())
