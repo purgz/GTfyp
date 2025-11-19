@@ -144,16 +144,21 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initial_di
   return df, t_eval
 
 
-def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2,0.2]):
+def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2,0.2], matrix=None):
   # Runge kutta order 5
   # External module method.
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=interactionProcess, w=w)
 
-  
+  # convert to sympy Matrix for replicators.
+  if matrix is not None:
+    matrix = sp.Matrix(matrix)
+
+  x_dot, y_dot, z_dot = replicators(matrix=matrix, interactionProcess=interactionProcess, w=w)
+
   print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
+  print(matrix[0])
 
-  standardConfig = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
+  standardConfig = {a: matrix.row(0)[0], b: matrix.row(0)[2], c: matrix.row(0)[1], gamma: matrix.row(0)[3], beta: matrix.row(3)[0]}
 
   substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 

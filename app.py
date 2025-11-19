@@ -714,8 +714,8 @@ if __name__ == "__main__":
 
     #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps)
 
-    all_traj = np.zeros((100, 4, 500))
-    for i in range(100):
+    all_traj = np.zeros((1000, 4, 500))
+    for i in range(1000):
 
   
         initial = np.random.exponential(1,4)
@@ -723,7 +723,7 @@ if __name__ == "__main__":
      
   
 
-        a, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45, initial_dist=initial[:3])
+        a, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45, initial_dist=initial[:3], matrix=basic_rps)
         a = a.to_numpy().T
         all_traj[i, :, :] = a[:, ::10]
 
