@@ -155,8 +155,8 @@ def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2
 
   x_dot, y_dot, z_dot = replicators(matrix=matrix, interactionProcess=interactionProcess, w=w)
 
-  print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
-  print(matrix[0])
+  #print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
+  #print(matrix[0])
 
   standardConfig = {a: matrix.row(0)[0], b: matrix.row(0)[2], c: matrix.row(0)[1], gamma: matrix.row(0)[3], beta: matrix.row(3)[0]}
 

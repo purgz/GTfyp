@@ -578,7 +578,7 @@ def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=1
     if file_output_path is not None:
         df.to_csv(file_output_path, index=False)
 
-    simulation.point_cloud(df, matrix=matrix)
+    #simulation.point_cloud(df, matrix=matrix)
 
 
 
@@ -712,10 +712,13 @@ if __name__ == "__main__":
         1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
     )"""
 
-    #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps)
+    #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
-    all_traj = np.zeros((1000, 4, 500))
-    for i in range(1000):
+    point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=3000, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+
+
+    all_traj = np.zeros((3000, 4, 500))
+    for i in range(3000):
 
   
         initial = np.random.exponential(1,4)
@@ -729,9 +732,10 @@ if __name__ == "__main__":
 
     df = trajectories_to_anim(all_traj)
 
-    simulation.point_cloud(df)
+    df2 = pd.read_csv("point_cloud_test.csv", comment="#")
 
-    point_cloud_animation(pop_size=800, iterations=100000, w=0.45, num_points=300, matrix=basic_rps)
+    simulation.point_cloud([df2,df])
+
 
 
     
