@@ -236,7 +236,7 @@ def matrix_to_latex(matrix):
     return r"$\begin{bmatrix} " + result + r" \end{bmatrix}$"
 
 
-def point_cloud(df, matrix=None):
+def point_cloud(dfs, matrix=None):
 
     fig = plt.figure()
 
@@ -255,37 +255,54 @@ def point_cloud(df, matrix=None):
         test = matrix_to_latex(matrix)
 
         ax.text2D(0.7,0.7, test, transform=ax.transAxes)
+        
+    colors = ["b", "g"]
 
+    total_frames = 0
 
-    frames = sorted(df["frame"].unique())
+    all_trajectories = []
 
-    carts = get_cartesian_array_from_barycentric(
-        df[["c1", "c2", "c3", "c4"]].to_numpy()
-    )
+    for i, df in enumerate(dfs):
 
-    print(df[["c1", "c2", "c3", "c4"]].values)
+        frames = sorted(df["frame"].unique())
+        total_frames = max(total_frames, len(frames))
 
-    print(carts)
+        carts = get_cartesian_array_from_barycentric(
+            df[["c1", "c2", "c3", "c4"]].to_numpy()
+        )
 
-    df["x"], df["y"], df["z"] = carts[:, 0], carts[:, 1], carts[:, 2]
+        print(df[["c1", "c2", "c3", "c4"]].values)
 
-    first_frame = df[df["frame"] == frames[0]]
-    scatter = ax.scatter(
-        first_frame["x"].values,
-        first_frame["y"].values,
-        first_frame["z"].values,
-        s=10,
-        alpha=0.6,
-    )
+        print(carts)
+
+        df["x"], df["y"], df["z"] = carts[:, 0], carts[:, 1], carts[:, 2]
+
+        first_frame = df[df["frame"] == frames[0]]
+        scatter = ax.scatter(
+            first_frame["x"].values,
+            first_frame["y"].values,
+            first_frame["z"].values,
+            s=10,
+            alpha=0.6,
+            color=colors[i]
+        )
+
+        all_trajectories.append((df, frames, scatter))
 
     def update(frame):
-        sub = df[df["frame"] == frame]
-        scatter._offsets3d = (sub["x"].values, sub["y"].values, sub["z"].values)
+        for df, frames, scatter in all_trajectories:
+            if frame >= len(frames):
+                continue
+            sub = df[df["frame"] == frame]
+            scatter._offsets3d = (sub["x"].values, sub["y"].values, sub["z"].values)
+
+        return [s[2] for s in all_trajectories]
 
     ani = FuncAnimation(
-        fig, update, frames=frames, interval=0.1, blit=False, repeat=False
+        fig, update, frames=total_frames, interval=0.1, blit=False, repeat=False
     )
-    # find a better format
+
+    # Todo - create a proper file writer instead of gif for better quality. - gives the balls transparency - alpha parameter for visbility with multiple overlaps.
     #ani.save("./results/animations/ani.gif")
     plt.show()
 
