@@ -256,7 +256,7 @@ def point_cloud(dfs, matrix=None):
 
         ax.text2D(0.7,0.7, test, transform=ax.transAxes)
         
-    colors = ["b", "g"]
+    colors = ["g", "b"]
 
     total_frames = 0
 
@@ -283,7 +283,7 @@ def point_cloud(dfs, matrix=None):
             first_frame["y"].values,
             first_frame["z"].values,
             s=10,
-            alpha=0.6,
+            alpha=0.1,
             color=colors[i]
         )
 
@@ -303,7 +303,7 @@ def point_cloud(dfs, matrix=None):
     )
 
     # Todo - create a proper file writer instead of gif for better quality. - gives the balls transparency - alpha parameter for visbility with multiple overlaps.
-    #ani.save("./results/animations/ani.gif")
+    ani.save("./results/animations/ani.gif")
     plt.show()
 
 
