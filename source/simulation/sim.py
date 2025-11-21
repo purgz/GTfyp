@@ -87,6 +87,8 @@ def fermi_batch_sim(
     matrix=basic_rps,
     initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
     traj=False,
+    point_cloud=False,
+    initial_rand=True
 ):
 
     n = matrix.shape[0]
@@ -97,16 +99,20 @@ def fermi_batch_sim(
     # help with weird floating point errors
     initial_dist = initial_dist / np.sum(initial_dist)
 
-    for s in prange(simulations):
-        # Randomize in the simplex
-        fixed = initial_dist[3]
-        remaining = 1 - fixed
-        random_simplex = np.random.rand(n - 1)
-        random_simplex /= np.sum(random_simplex)
-        random_simplex *= remaining
-        initial = np.append(random_simplex, fixed)
+    sample_rate = 5000
+    num_frames = iterations // sample_rate
+    all_traj = np.zeros((simulations, n, num_frames))
 
-        population = np.random.multinomial(pop_size, initial_dist)
+
+    for s in prange(simulations):
+
+        if initial_rand:
+            initial = np.random.exponential(1,n)
+            initial /= np.sum(initial)
+        else:
+            initial = initial_dist
+
+        population = np.random.multinomial(pop_size, initial)
 
         deltaPi = np.max(matrix) - np.min(matrix)
 
@@ -158,10 +164,13 @@ def fermi_batch_sim(
         if traj:
             all_results += results
 
+        if point_cloud:
+            all_traj[s, :, :] = results[:, ::sample_rate]
+
     mean_delta_H = np.mean(deltas)
     mean_delta_rps = np.mean(deltas_rps)
 
-    return mean_delta_H, mean_delta_rps, all_results / simulations
+    return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
 
 @njit(parallel=True, cache=True)
 def local_batch_sim(

@@ -299,11 +299,11 @@ def point_cloud(dfs, matrix=None):
         return [s[2] for s in all_trajectories]
 
     ani = FuncAnimation(
-        fig, update, frames=total_frames, interval=0.1, blit=False, repeat=False
+        fig, update, frames=total_frames, interval=0.5, blit=False, repeat=False
     )
 
     # Todo - create a proper file writer instead of gif for better quality. - gives the balls transparency - alpha parameter for visbility with multiple overlaps.
-    ani.save("./results/animations/ani.gif")
+    #ani.save("./results/animations/ani.gif")
     plt.show()
 
 

@@ -1,6 +1,7 @@
 # Exposed methods
 from .sim import moran_batch_sim
 from .sim import local_batch_sim
+from .sim import fermi_batch_sim
 from .plotting import quaternary_plot 
 from .plotting import game_2d_plot
 from .plotting import ternary_plot
