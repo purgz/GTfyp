@@ -19,16 +19,16 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-plt.style.use(['science'])
+#plt.style.use(['science'])
 
 
-#plt.style.use(["science", "no-latex"])
+plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -714,18 +714,15 @@ if __name__ == "__main__":
 
     #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
-    point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=3000, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+    #point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=3000, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
 
-    all_traj = np.zeros((3000, 4, 500))
-    for i in range(3000):
+    all_traj = np.zeros((300, 4, 500))
+    for i in range(300):
 
-  
         initial = np.random.exponential(1,4)
         initial /= np.sum(initial)
      
-  
-
         a, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45, initial_dist=initial[:3], matrix=basic_rps)
         a = a.to_numpy().T
         all_traj[i, :, :] = a[:, ::10]
@@ -735,10 +732,6 @@ if __name__ == "__main__":
     df2 = pd.read_csv("point_cloud_test.csv", comment="#")
 
     simulation.point_cloud([df2,df])
-
-
-
-    
 
     # Below is testig code - remove at some point
     basic_rps = np.array(
