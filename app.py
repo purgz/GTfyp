@@ -567,18 +567,25 @@ def trajectories_to_anim(trajectories):
 
 def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None):
     
+    """ _, _, _, all_traj = simulation.fermi_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
+    )"""
+
     _, _, _, all_traj = simulation.local_batch_sim(
         pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
     )
 
+    """_, _, _, all_traj = simulation.moran_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
+    )"""
+
 
     df = trajectories_to_anim(all_traj)
-
 
     if file_output_path is not None:
         df.to_csv(file_output_path, index=False)
 
-    #simulation.point_cloud(df, matrix=matrix)
+    #simulation.point_cloud([df])
 
 
 
@@ -714,7 +721,9 @@ if __name__ == "__main__":
 
     #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
-    #point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=3000, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+
+
+    point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
 
     all_traj = np.zeros((300, 4, 500))
@@ -723,7 +732,7 @@ if __name__ == "__main__":
         initial = np.random.exponential(1,4)
         initial /= np.sum(initial)
      
-        a, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45, initial_dist=initial[:3], matrix=basic_rps)
+        a, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45, initial_dist=initial[:3], matrix=basic_rps)
         a = a.to_numpy().T
         all_traj[i, :, :] = a[:, ::10]
 
@@ -739,29 +748,29 @@ if __name__ == "__main__":
     )
 
     # basic_rps = Games.AUGMENTED_RPS
+  
+    """delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(40000, 6000000, 0.45, 1, basic_rps, np.array([0.5,0.2,0.2,0.1]), traj=True, initial_rand=False)
+    
+    df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
+    
+    print("DELTA RPS ", deltaRps)
+    print("DELTA MORAN ", delta_moran)
+
+    write_trajectory(df_RPS_MO, "./results/moranTest.csv")
+
+    test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45, matrix=basic_rps)
+    write_trajectory(test, "./results/moranNumerical.csv")
+
+
+    #file_paths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
+    file_paths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
+    norms = [True, False]
+
+    #simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
+
+    simulation.high_dim_2d_plot(file_paths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
     """
-  delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(40000, 6000000, 0.45, 1, basic_rps, np.array([0.5,0.2,0.2,0.1]), traj=True)
   
-  df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
-  
-  print("DELTA RPS ", deltaRps)
-  print("DELTA MORAN ", delta_moran)
-
-  write_trajectory(df_RPS_MO, "./results/moranTest.csv")
-
-  test, t_eval = replicator.numericalTrajectory(interactionProcess="Moran", w=0.45)
-  write_trajectory(test, "./results/moranNumerical.csv")
-
-
-  #file_paths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-  file_paths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
-  norms = [True, False]
-
-  #simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
-
-  simulation.high_dim_2d_plot(file_paths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
-  
-  """
     """
   run_population_ensemble(range(50,400,10), 
                         file_output_path="./results/population_ensemble_MORAN_new_matrix.csv", 

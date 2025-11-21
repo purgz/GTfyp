@@ -45,7 +45,7 @@ averagePayoff = payoffR * x + payoffP * y + payoffS * z + payoffL * q
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
 z_dot = (z * x) * (payoffS - payoffR) + (z * y) * (payoffS - payoffP) + (z * q) * (payoffS - payoffL)
 """
-def replicators(matrix, interactionProcess="Moran", w=0.2):
+def replicators(matrix, interactionProcess="Moran", w=0.2, local_delta_pi = 2):
   
   # Standard payoffs
   payoffR = a * x + y * c + b * z + gamma * q
@@ -70,10 +70,8 @@ def replicators(matrix, interactionProcess="Moran", w=0.2):
       y_dot = y * (payoffP - averagePayoff) * adjustedScaling
       z_dot = z * (payoffS - averagePayoff) * adjustedScaling
     case "Local":
-      
-
-      deltaPi = 2 # Hardcoded for now
-      k = w / (deltaPi)
+    
+      k = w / (local_delta_pi)
 
       x_dot = x * (payoffR - averagePayoff) * k
       y_dot = y * (payoffP - averagePayoff) * k
@@ -150,10 +148,14 @@ def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2
   # Derive replicator equations
 
   # convert to sympy Matrix for replicators.
+  local_delta_pi = 2 # Default value
+
   if matrix is not None:
+
+    local_delta_pi = matrix.max() - matrix.min()
     matrix = sp.Matrix(matrix)
 
-  x_dot, y_dot, z_dot = replicators(matrix=matrix, interactionProcess=interactionProcess, w=w)
+  x_dot, y_dot, z_dot = replicators(matrix=matrix, interactionProcess=interactionProcess, w=w, local_delta_pi=local_delta_pi)
 
   #print("Computing numerical solutions to ", x_dot, y_dot, z_dot)
   #print(matrix[0])
