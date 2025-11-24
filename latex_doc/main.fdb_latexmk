@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex main"] 1763984274.27591 "main.aux" "main.bbl" "main" 1763987504.26445 0
+["bibtex main"] 1764005449.52909 "main.aux" "main.bbl" "main" 1764005453.66301 0
   "./ref.bib" 1762764855 1091 ba678232ca479bc4c7e2034993ae5cbb ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762765177 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1763987503 8053 06c2593ba0cb5dd191160bd412d973bc "pdflatex"
+  "main.aux" 1764005453 8057 be02c8048d6d44b84526ffe47c2a7281 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1763987500.38603 "c:/GTfyp/latex_doc/main.tex" "main.pdf" "main" 1763987504.26545 0
+["pdflatex"] 1764005449.71303 "c:/GTfyp/latex_doc/main.tex" "main.pdf" "main" 1764005453.66402 0
   "beta_test.eps" 1762764854 45316 787c4a23d5aaef788a61a13f67b99f92 ""
-  "c:/GTfyp/latex_doc/main.tex" 1763987499 20753 f34e30388335f454aed891708ccad9b3 ""
+  "c:/GTfyp/latex_doc/main.tex" 1764005444 21867 5140824d6974df16515ea15437b76ebe ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762765042 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1762765042 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -44,12 +44,14 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1762765043 30251 6afa5cb1d0204815a708a080681d4674 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1762765043 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1762765043 36741 0ee9e374ec3e30da87cdfb0ea3575226 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb" 1762765043 37912 07513ec114ac737ab54cea0152f4424b ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1762765043 36281 c355509802a035cadc5f15869451dcee ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1762765043 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb" 1762765043 36094 798f80770b3b148ceedd006d487db67c ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1762765043 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1762765043 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1762765043 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1762765043 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1762765043 32762 7fee39e011c23b3589931effd97b9702 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1762765043 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1762765043 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -104,9 +106,9 @@
   "images/point_cloud_4.png" 1762764854 127146 53f804cd633290fb3eae4e7a140ffc9b ""
   "images/point_cloud_5.png" 1762764854 98020 74050891881d918b03501c4c6d80928c ""
   "images/w_test.eps" 1762764854 35340 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.aux" 1763987503 8053 06c2593ba0cb5dd191160bd412d973bc "pdflatex"
-  "main.bbl" 1763984274 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex main"
-  "main.tex" 1763987499 20753 f34e30388335f454aed891708ccad9b3 ""
+  "main.aux" 1764005453 8057 be02c8048d6d44b84526ffe47c2a7281 "pdflatex"
+  "main.bbl" 1764005449 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex main"
+  "main.tex" 1764005444 21867 5140824d6974df16515ea15437b76ebe ""
   "parameter_tests/crit_n_beta.eps" 1762764855 32193 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762764855 33585 c81090af7ea62cbabd93c306588ccc5b ""
   "parameter_tests/fixed_gamma_parameter.eps" 1762764855 44319 d9ecac25ccd67a874acbaf0c54aa183f ""

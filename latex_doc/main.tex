@@ -343,16 +343,43 @@ P^{\tau+1}(i)-P^\tau(i)
     \Big]
 \\[6pt]
 &\quad
- + \frac{1}{2N^2}\Big(
+ + \frac{1}{2N^2}\Big[
       P\big(T^{PR''}+T^{SR''}+T^{+R''} + T^{RP''} +T^{RS''}+T^{R+''} \big) \\
       &\qquad\qquad 
       + 2P'\big(T^{PR'}+T^{SR'}+T^{+R'}+T^{RP'} +T^{RS'}+T^{R+'} \big) \\
       &\qquad\qquad
       + P''\big(T^{PR}+T^{SR}+T^{+R}+T^{RP} +T^{RS}+T^{R+}\big)
-    \Big).
+    \Big]
+\\
+&=\frac{1}{N}\Big[
+    -\big(P\big(
+          T^{PR} + T^{SR} + T^{+R}
+        - T^{RP} - T^{RS} - T^{R+}
+      \big)\big)'
+\\[6pt]
+&\quad
+ + \frac{1}{2}\big(
+      P\big(\frac{T^{PR}+T^{SR}+T^{+R} + T^{RP} +T^{RS}+T^{R+}}{N}\big)
+    \big)'' \Big]
 \end{aligned}
 \end{equation}
 
+\noindent We then have for rock (i) $a(x) = T^{PR} + T^{SR} + T^{+R} - T^{RP} - T^{RS} - T^{R+}$ and $b^2(x) = \frac{T^{PR}+T^{SR}+T^{+R} + T^{RP} +T^{RS}+T^{R+}}{N}$. In the same way we can find $a(x), b^2(x)$ for the other strategies. 
+
+\par \noindent
+For paper (j) we get $a(x) = $ and $b^2(x) = $ \\
+For scissors (k) we get $a(x) = $ and $b^2(x) = $ \\
+From these we can form the fokker planck equations for each strategies population $(x \in \{i,j,k\})$:
+
+\begin{equation}
+  \frac{1}{N}\Big(-\frac{\partial}{\partial x}\big(P(x) a(x)\big) + \frac{1}{2} \frac{\partial^2}{\partial x^2}\big(P(x) b^2(x)\big)\Big)
+\end{equation}
+
+\noindent Langevin equation with noise term $b(x)\xi$:
+\begin{equation}
+  \dot{x} = a(x) + b(x)\xi
+\end{equation}
+$a(x)$ is our deterministic replicator equation as $N \rightarrow \inf$ noise dissapears.
 
 \subsection{Constant of motion $\Delta H$ definition (drift)}
 
