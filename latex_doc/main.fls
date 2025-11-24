@@ -119,6 +119,7 @@ INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps
@@ -261,11 +262,17 @@ INPUT ./images/850POP.png
 INPUT ./images/850POP.png
 INPUT ./images/850POP.png
 INPUT ./images/850POP.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
+INPUT ./images/RPS_cross_fist.png
 INPUT ./main.bbl
 INPUT ./main.bbl
 INPUT main.bbl
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT main.aux
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
@@ -280,6 +287,7 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb

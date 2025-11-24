@@ -59,6 +59,8 @@ def replicators(matrix, interactionProcess="Moran", w=0.2, local_delta_pi = 2):
   Other form using avg instead of payoff pairwise comparison - should be equivalent.
   """
 
+  w = w_sym
+
   match interactionProcess:
 
     case "Moran":
@@ -246,26 +248,52 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 if __name__ == "__main__":
   
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None)
+  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess="Moran")
 
-  print(latex(x_dot))
+  """print(latex(x_dot))
   print("************************")
   print(latex(y_dot))
   print("*************************")
   print(latex(z_dot))
-
-  standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
+  """
+  """standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
 
   substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
-
+  """
   #print(latex(fixedPoints))
 
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
   print("**************************************************")
   transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
-  print(latex(sp.simplify(transitions["T_RP"])))
-  print("***************************")
-  print(latex(sp.simplify(transitions["T_RL"])))
+  #print(latex(sp.simplify(transitions["T_RP"])))
+  #print("***************************")
+  #print(latex(sp.simplify(transitions["T_RL"])))
+
+  a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
+         - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
+  
+  a_x = sp.simplify(a_x)
+  x_dot = sp.simplify(x_dot)
+  print("Correct adjusted: ")
+  print(latex(x_dot))
+
+  a_x = 2 * a_x
+
+  print("")
+  print("")
+
+  print("a(x) langevin:")
+  print(latex(a_x))
+
+  diff = sp.simplify(a_x - x_dot)
+  print("DIFF")
+  print(latex(diff))
+
+  ratio = sp.simplify(a_x / x_dot)
+  print("ratio a_x / x_dot =")
+  print(latex(ratio))
+
+  print(a_x.equals(x_dot))
