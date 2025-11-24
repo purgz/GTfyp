@@ -220,7 +220,7 @@ def findEigenvalues(replicators, config, vars, substitution):
 def moran_reproductive_func(payoff, w, average_payoff):
   numerator = 1 - w + w * payoff
   denominator = 1 - w + w * average_payoff
-  return (1/2) * (numerator / denominator)
+  return numerator / denominator
   
 
 # Returns the transition probabilities given a repoductive function and payoffs.
@@ -279,8 +279,6 @@ if __name__ == "__main__":
   x_dot = sp.simplify(x_dot)
   print("Correct adjusted: ")
   print(latex(x_dot))
-
-  a_x = 2 * a_x
 
   print("")
   print("")
