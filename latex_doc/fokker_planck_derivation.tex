@@ -1,7 +1,6 @@
-\documentclass[../main.tex]{subfiles}
+\documentclass[./main.tex]{subfiles}
 \graphicspath{{\subfix{../images/}}}
 \begin{document}
-
 
 \noindent Master equation for Rock
 \begin{equation}
@@ -135,7 +134,56 @@ From these we can form the fokker planck equations for each strategies populatio
 \begin{equation}
   \dot{x} = a(x) + b(x)\xi
 \end{equation}
-$a(x)$ is our deterministic replicator equation as $N \rightarrow \infty$ noise dissapears.
+$a(x)$ is our deterministic replicator equation as $N \rightarrow \infty$ noise dissapears ($b^2(x)$ is divided by N).
 
+\par
+For the Moran process, the infinite population dynamics reduce to a scaled version of the ordinary replicator equation by the factor $\frac{1}{\Gamma + \langle \pi(x) \rangle}$
+\begin{equation}
+ a(x) = \frac{1}{\Gamma + \langle \pi(x) \rangle} x_i(\pi_i(x) - \langle \pi(x) \rangle), \Gamma = \frac{1 - w}{w}
+\end{equation}
+
+\begin{equation} \nonumber
+\begin{aligned}
+\langle \pi(x) \rangle &= x \left(a x + b z + c y + \gamma \left(- x - y - z + 1\right)\right) \\
+&+ y \left(a y + b x + c z + \gamma \left(- x - y - z + 1\right)\right) \\
+&+ z \left(a z + b y + c x + \gamma \left(- x - y - z + 1\right)\right) \\
+&+ \left(x \left(a + \beta\right) + y \left(a + \beta\right) + z \left(a + \beta\right)\right) \left(- x - y - z + 1\right)
+\end{aligned}
+\end{equation}
+
+The RHS of the equation corresponding to the un-scaled replicator dynamics is the following.
+\begin{equation}
+\frac{
+\begin{aligned}
+\Big[x\bigl(
+&2awxy + 2awxz + 2awyz - awy - awz \\
+&- bwxy - bwxz - bwyz + bwz \\
+&+ \beta w x^{2} + 2\beta wxy + 2\beta wxz - \beta wx \\
+&+ \beta w y^{2} + 2\beta wyz - \beta wy \\
+&+ \beta w z^{2} - \beta wz \\
+&- c wxy - c wxz - c wyz + cwy \\
+&+ \gamma w x^{2} + 2\gamma wxy + 2\gamma wxz - 2\gamma wx \\
+&+ \gamma w y^{2} + 2\gamma wyz - 2\gamma wy \\
+&+ \gamma w z^{2} - 2\gamma wz + \gamma w
+\bigr)\Big]
+\end{aligned}
+}{
+\begin{aligned}
+\Big[&-2awxy - 2awxz + awx - 2awyz + awy + awz \\
+&+ bwxy + bwxz + bwyz \\
+&- \beta w x^{2} - 2\beta wxy - 2\beta wxz + \beta wx \\
+&- \beta w y^{2} - 2\beta wyz + \beta wy \\
+&- \beta w z^{2} + \beta wz \\
+&+ c wxy + c wxz + c wyz \\
+&- \gamma w x^{2} - 2\gamma wxy - 2\gamma wxz + \gamma wx \\
+&- \gamma w y^{2} - 2\gamma wyz + \gamma wy \\
+&- \gamma w z^{2} + \gamma wz - w + 1\Big]
+\end{aligned}
+}
+\end{equation}
+
+
+
+Next to do - look at $b^2(x)$ and see how it is different between the Moran and local update, focus on whether or not N is present as it can tell us about drift reversal. If N is not present then the drift does not depend on pop size and therfore no reversal. If there is an N then drift is possible.
 
 \end{document}
