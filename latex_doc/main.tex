@@ -7,6 +7,9 @@
 
 \usepackage{subcaption}
 
+
+\usepackage{subfiles}
+
 \title{Replicator derivations for RPS and Augmented RPS games}
 \author{Henry }
 \date{June 2025}
@@ -300,138 +303,8 @@ Given an appropriate $\phi$ reproductive function.
 \subsubsection{Master equation}
 
 
-\begin{equation}
-  \begin{aligned}
-  P^{\tau + 1}(i) - P^\tau(i) &= P^\tau(i-1)T^{PR}(i-1) - P^\tau(i)T^{PR}(i) + P^\tau(i-1)T^{SR}(i-1) - P^\tau(i)T^{SR}(i) \\
-  &+ P^\tau(i-1)T^{+R}(i-1) - P^\tau(i)T^{+R}(i) + P^\tau(i+1)T^{RP}(i+1) - P^\tau(i)T^{RP}(i) \\
-  &+ P^\tau(i+1)T^{RS} - P^\tau(i)T^{RS}(i) + P^\tau(i+1)T^{R+} - P^\tau(i)T^{R+}(i)
-  \end{aligned}
-\end{equation}
-Where $i$ is the number of rock players.
+\subfile{fokker_planck_derivation.tex}
 
-\begin{equation}
-  T(x\pm\frac{1}{N}) = T(x) \pm \frac{1}{N}T'(x) + \frac{1}{2N^2}T''(x)\dots \nonumber
-\end{equation}
-\begin{equation}
-  P(x\pm\frac{1}{N}) = P(x) \pm \frac{1}{N}P'(x) + \frac{1}{2N^2}P''(x)\dots \nonumber
-\end{equation}
-
-
-\begin{equation}
-\begin{aligned}
-P^{\tau + 1}(i) - P^\tau(i) 
-&= (P-\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{PR} - \frac{1}{N}T^{PR'} + \frac{1}{2N^2}T^{PR''}) - PT^{PR} \\
-&+ (P-\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{SR} - \frac{1}{N}T^{SR'} + \frac{1}{2N^2}T^{SR''}) - PT^{SR} \\
-&+ (P-\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{+R} - \frac{1}{N}T^{+R'} + \frac{1}{2N^2}T^{+R''}) - PT^{+R} \\
-&+ (P+\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{RP} + \frac{1}{N}T^{RP'} + \frac{1}{2N^2}T^{RP''}) - PT^{RP} \\
-&+ (P+\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{RS} + \frac{1}{N}T^{RS'} + \frac{1}{2N^2}T^{RS''}) - PT^{RS} \\
-&+ (P+\frac{1}{N}P' + \frac{1}{2N^2}P'')(T^{R+} + \frac{1}{N}T^{R+'} + \frac{1}{2N^2}T^{R+''}) - PT^{R+}
-\end{aligned}
-\end{equation}
-
-\begin{equation}
-\begin{aligned}
-P^{\tau+1}(i)-P^\tau(i)
-&= -\frac{1}{N}\Big[
-      P\big(
-          T^{PR'} + T^{SR'} + T^{+R'}
-        - T^{RP'} - T^{RS'} - T^{R+'}
-      \big)
-\\
-&\qquad\qquad
-    + P'\big(
-          T^{PR} + T^{SR} + T^{+R}
-        - T^{RP} - T^{RS} - T^{R+}
-      \big)
-    \Big]
-\\[6pt]
-&\quad
- + \frac{1}{2N^2}\Big[
-      P\big(T^{PR''}+T^{SR''}+T^{+R''} + T^{RP''} +T^{RS''}+T^{R+''} \big) \\
-      &\qquad\qquad 
-      + 2P'\big(T^{PR'}+T^{SR'}+T^{+R'}+T^{RP'} +T^{RS'}+T^{R+'} \big) \\
-      &\qquad\qquad
-      + P''\big(T^{PR}+T^{SR}+T^{+R}+T^{RP} +T^{RS}+T^{R+}\big)
-    \Big]
-\\
-&\quad=\frac{1}{N}\Big[
-    -\big(P\big(
-          T^{PR} + T^{SR} + T^{+R}
-        - T^{RP} - T^{RS} - T^{R+}
-      \big)\big)'
-\\[6pt]
-&\quad
- + \frac{1}{2}\big(
-      P\big(\frac{T^{PR}+T^{SR}+T^{+R} + T^{RP} +T^{RS}+T^{R+}}{N}\big)
-    \big)'' \Big]
-\end{aligned}
-\end{equation}
-
-
-\hfill
-
-\noindent We then have for rock (i) $a(i) = T^{PR} + T^{SR} + T^{+R} - T^{RP} - T^{RS} - T^{R+}$ and $b^2(i) = \frac{T^{PR}+T^{SR}+T^{+R} + T^{RP} +T^{RS}+T^{R+}}{N}$. 
-
-\hfill
-
-\noindent For paper and scissors we get the same but with the correct ingoing and outgoing transition probabilities.
-
-\hfill
-
-\par \noindent
-\begin{equation}
-\begin{aligned}
-P^{\tau+1}(j)-P^\tau(j)
-&=\frac{1}{N}\Big[
-    -\big(P\big(
-          T^{RP} + T^{SP} + T^{+P}
-        - T^{PR} - T^{PS} - T^{P+}
-      \big)\big)'
-\\[6pt]
-&\quad
- + \frac{1}{2}\big(
-      P\big(\frac{T^{RP}+T^{SP}+T^{+P} + T^{PR} +T^{PS}+T^{P+}}{N}\big)
-    \big)'' \Big]
-\end{aligned}
-\end{equation}
-$a(j) = T^{RP} + T^{SP} + T^{+P} - T^{PR} - T^{PS} - T^{P+}$ and $b^2(j) = \frac{T^{RP}+T^{SP}+T^{+P} + T^{PR} +T^{PS}+T^{P+}}{N}$. 
-
-
-\begin{equation}
-\begin{aligned}
-P^{\tau+1}(k)-P^\tau(k)
-&=\frac{1}{N}\Big[
-    -\big(P\big(
-          T^{RS} + T^{PS} + T^{+S}
-        - T^{SR} - T^{SP} - T^{S+}
-      \big)\big)'
-\\[6pt]
-&\quad
- + \frac{1}{2}\big(
-      P\big(\frac{T^{RS}+T^{PS}+T^{+S} + T^{SR} +T^{SP}+T^{S+}}{N}\big)
-    \big)'' \Big]
-\end{aligned}
-\end{equation}
-
-\hfill
-
-$a(k) = T^{RS} + T^{PS} + T^{+S} - T^{SR} - T^{SP} - T^{S+}$ and $b^2(k) = \frac{T^{RS}+T^{PS}+T^{+S} + T^{SR} +T^{SP}+T^{S+}}{N}$. 
-
-\hfill
-
-\par \noindent
-From these we can form the fokker planck equations for each strategies population $(x \in \{i,j,k\})$:
-
-\begin{equation}
-  \frac{d}{dt}P^\tau(x) = \frac{1}{N}\Big[-\frac{d}{d x}\big(a(x)P^\tau(x) \big) + \frac{1}{2} \frac{d^2}{d x^2}\big(b^2(x)P^\tau(x) \big)\Big]
-\end{equation}
-\hfill
-\\
-\noindent Langevin equation with noise term $b(x)\xi$:
-\begin{equation}
-  \dot{x} = a(x) + b(x)\xi
-\end{equation}
-$a(x)$ is our deterministic replicator equation as $N \rightarrow \infty$ noise dissapears.
 
 \subsection{Constant of motion $\Delta H$ definition (drift)}
 

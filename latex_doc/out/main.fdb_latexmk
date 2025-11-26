@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1764157423 "main.aux" "main.bbl" "main" 1764157426
+["bibtex main"] 1764157423 "main.aux" "main.bbl" "main" 1764161580
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "main.aux" 1764155654 8057 be02c8048d6d44b84526ffe47c2a7281 ""
   "ref.bib" 1762804818 1056 ba678232ca479bc4c7e2034993ae5cbb ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1764157425 "/home/henry/gametheory/hxb265/latex_doc/main.tex" "out/main.pdf" "main" 1764157426
+["pdflatex"] 1764161579 "/home/henry/gametheory/hxb265/latex_doc/main.tex" "out/main.pdf" "main" 1764161580
   "/etc/texmf/web2c/texmf.cnf" 1761782458 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/henry/gametheory/hxb265/latex_doc/main.tex" 1764157423 22207 5e8a2dc8f778d6a793758da63307c85d ""
+  "/home/henry/gametheory/hxb265/latex_doc/main.tex" 1764161578 18188 8887ec8655bde713b1488d94ad320d22 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -83,13 +83,16 @@
   "/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty" 1636758526 7996 a8fb260d598dcaf305a7ae7b9c3e3229 ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty" 1622581934 2671 4de6781a30211fe0ea4c672e4a2a8166 ""
   "/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty" 1636758526 4009 187ea2dc3194cd5a76cd99a8d7a6c4d0 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/import/import.sty" 1586645574 6201 0ad8b5da8e12f60a88d546b2198a56f2 ""
   "/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1642022539 29921 f0f4f870357ebfb8fe58ed9ed4ee9b92 ""
   "/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1279039959 678 4792914a8f45be57bb98413425e4c7af ""
+  "/usr/share/texlive/texmf-dist/tex/latex/subfiles/subfiles.sty" 1605478891 5262 70ab9987ec94ed2beeb5c2d951d465f6 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1762335063 4234243 4a42437c56f0785ccfd4e39da48c38dc ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1762334850 1405654 9cbcdd470fdc8f75d40ad95e6ad69636 ""
   "beta_test.eps" 1762804818 41923 787c4a23d5aaef788a61a13f67b99f92 ""
+  "fokker_planck_derivation.tex" 1764161569 4234 6c2eb3740067de4c82dfb0b282251136 ""
   "images/3d.png" 1762804818 83632 cd4ab129d77753013bc652677ef99bf8 ""
   "images/50000POP.png" 1762806426 49339 5f6b826401a924378ed859f2478586dc ""
   "images/850POP.png" 1762808197 136671 707c9d0f1eca26604a07393f46114942 ""
@@ -107,8 +110,8 @@
   "images/point_cloud_5.png" 1762804818 98020 b59d17b4d89b3212903c388c04dead86 ""
   "images/w_test.eps" 1762804818 32251 5bb9be854a210a1f2cf4229eda1bbd06 ""
   "main.bbl" 1764157423 621 6c3360c04dfc9701b5178ead3dbe7417 "bibtex main"
-  "main.tex" 1764157423 22207 5e8a2dc8f778d6a793758da63307c85d ""
-  "out/main.aux" 1764157426 7840 872f85186c630a579e175f6491c9c403 "pdflatex"
+  "main.tex" 1764161578 18188 8887ec8655bde713b1488d94ad320d22 ""
+  "out/main.aux" 1764161580 7840 4d8be4efb3d114dac67fcc6ff9dd7554 "pdflatex"
   "parameter_tests/crit_n_beta.eps" 1762804818 29473 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762804818 30718 c81090af7ea62cbabd93c306588ccc5b ""
   "parameter_tests/fixed_gamma_parameter.eps" 1762804818 40937 d9ecac25ccd67a874acbaf0c54aa183f ""
