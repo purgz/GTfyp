@@ -49,6 +49,10 @@ INPUT c:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/import/import.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/import/import.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT ./main.aux
@@ -120,6 +124,10 @@ INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT ./fokker_planck_derivation.tex
+INPUT fokker_planck_derivation.tex
+INPUT ./fokker_planck_derivation.tex
+INPUT fokker_planck_derivation.tex
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps

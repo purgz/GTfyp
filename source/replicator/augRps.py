@@ -281,6 +281,10 @@ if __name__ == "__main__":
   print("Correct adjusted: ")
   print(latex(x_dot))
 
+
+
+  # Can essentially use a_x from fp derivation as the return for numerical trajectory now!
+
   print("")
   print("")
 
@@ -295,14 +299,25 @@ if __name__ == "__main__":
   print("ratio a_x / x_dot =")
   print(latex(ratio))
 
-
   print(a_x.equals(x_dot))
 
-
   # a_x = x_dot * scaling factor moran... therefores factored should just give us R
-  factored = sp.factor(sp.cancel(a_x / x_dot))
+  factor = sp.cancel(a_x / x_dot) # Calculated the scaling factor for moran
 
-  # Check that this exactly equals the scaling factor we use in moran replicators.
+  # Adjusted dynamics
+  gam = (1 - w_sym) / w_sym
+  adjustedScaling = 1 / (gam + averagePayoff)  
+  
+  print("Does adjusted scale equal")
+  #print(factor.equals(adjustedScaling))
 
-  print("FACTORED")
-  print(latex(factored))
+  print(factor.equals(adjustedScaling))
+
+  print(latex(adjustedScaling))
+
+  formatted = sp.factor(sp.factor(a_x,w_sym), adjustedScaling)
+
+  print(latex(formatted))
+
+  print("With w = 0")
+  print(latex(formatted.subs(w_sym, 0)))
