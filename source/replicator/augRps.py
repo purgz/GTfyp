@@ -59,7 +59,8 @@ def replicators(matrix, interactionProcess="Moran", w=0.2, local_delta_pi = 2):
   Other form using avg instead of payoff pairwise comparison - should be equivalent.
   """
 
-  w = w_sym
+  if w is None:
+    w = w_sym
 
   match interactionProcess:
 
@@ -248,7 +249,7 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 if __name__ == "__main__":
   
   # Derive replicator equations
-  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess="Moran")
+  x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None, w=None)
 
   """print(latex(x_dot))
   print("************************")
@@ -294,4 +295,14 @@ if __name__ == "__main__":
   print("ratio a_x / x_dot =")
   print(latex(ratio))
 
+
   print(a_x.equals(x_dot))
+
+
+  # a_x = x_dot * scaling factor moran... therefores factored should just give us R
+  factored = sp.factor(sp.cancel(a_x / x_dot))
+
+  # Check that this exactly equals the scaling factor we use in moran replicators.
+
+  print("FACTORED")
+  print(latex(factored))
