@@ -12,8 +12,12 @@ import time
 import scienceplots
 import plotly.express as px
 
+import re
+
 from multiprocessing import Pool
 import logging
+
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -565,7 +569,7 @@ def trajectories_to_anim(trajectories):
     return df
 
 
-def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None):
+def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None, interaction_process="Local"):
     
     """ _, _, _, all_traj = simulation.fermi_batch_sim(
         pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
@@ -584,14 +588,57 @@ def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=1
 
     if file_output_path is not None:
         df.to_csv(file_output_path, index=False)
+        print(f"Animation data saved to {file_output_path}")
 
-    #simulation.point_cloud([df])
+    simulation.point_cloud([df])
 
 
+def point_cloud_parser_handler(args):
+    
+    N = args.N
+    matrix = args.matrix
+    w = args.w
+    num_points = args.num_points
+    file_name = args.file_name
+    iterations = args.iterations
+
+    point_cloud_animation(matrix, pop_size=N, iterations=iterations, 
+                          w=w,
+                          num_points=num_points,
+                          file_output_path=file_name)
+    
+    exit()
+    
+  
+def matrix_input_handler(s: str) -> np.ndarray:
+
+    # The worlds ugliest matrix string parser  
+
+    #Strip - remove outer brackets - leaving ] [ between each new row
+    # Replace commas with spaces
+    # Split by the ] [ to get each row - convert each to float and construct matrix
+    s = s.strip()
+    s = re.sub(r'^\[|\]$', '', s)
+    s = s.replace(',', ' ')
+    s = re.sub(r'\s+', ' ', s).strip()
+    rows = [row.strip() for row in s.split('] [') if row.strip()]
+    matrix = []
+    for r in rows:
+        try:
+            nums = [float(x) for x in r.split()]
+        except ValueError:
+            raise argparse.ArgumentTypeError(f"Invalid matrix row: {r}")
+        matrix.append(nums) 
+    return np.array(matrix)
 
 
 # Need this because of multiprocessing
 if __name__ == "__main__":
+    
+    """
+    TODO - add interaction process as argument for point cloud and sample rate - or automatically calculate sample rate based on the number of iterations for a good animation.
+    # calculate number of frames we want for smooth animation
+    """
 
     logger.info("Running main")
 
@@ -619,6 +666,15 @@ if __name__ == "__main__":
     arps_parser.add_argument("-N", type=int, default=500)
     arps_parser.add_argument("-iterations", type=int, default=100000)
 
+
+    point_cloud_parser = sub_parsers.add_parser("cloud")
+    point_cloud_parser.add_argument("-N", type=int, default=1000)
+    point_cloud_parser.add_argument("-matrix",type=matrix_input_handler)
+    point_cloud_parser.add_argument("-w", type=float, default=0.4)
+    point_cloud_parser.add_argument("-file_name", default=None)
+    point_cloud_parser.add_argument("-num_points", type=int, default=300)
+    point_cloud_parser.add_argument("-iterations", type=int, default=100000)
+
     # Other options
     # experimentParser = parser.add_sub_parsers(dest="experiment")
     # Add args for critical W finding, and ensembles for population and W.
@@ -639,6 +695,10 @@ if __name__ == "__main__":
         elif args.preset == "arps":
             print("Running augmented rps: " + str(Games.AUGMENTED_RPS))
             arps_example(N=args.N, iterations=args.iterations)
+        elif args.preset == "cloud":
+            print("Point cloud animation")
+            point_cloud_parser_handler(args)
+            
 
     # delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(20000, 1000000, 0.45, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
 
