@@ -4,6 +4,7 @@ from sympy.utilities.lambdify import lambdify
 import numpy as np
 from scipy.integrate import solve_ivp
 import pandas as pd
+from scipy.integrate import nquad
 
 
 
@@ -245,6 +246,33 @@ def transition_probs_moran(reproductive_func, payoffs : list):
   
 
 
+def numerical_H_value(transitions, N = 500):
+  
+  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+                    +transitions["T_SL"] + transitions["T_LR"]
+                    +transitions["T_LP"] + transitions["T_LS"])
+              - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
+              - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
+  
+
+  config = {a: 0, b: 1, c: -0.3, gamma: 0.5, beta: 0.2}
+
+  expression = expression.subs(w_sym, 0.2)
+  expression = expression.subs(config)
+
+  f = lambdify((x,y,z), expression, "numpy")
+
+  def integrand(z,y,x):
+    return f(x,y,z)
+  
+  res, err = nquad(integrand, [
+    lambda y, x: [0,1-x-y],
+    lambda x: [0, 1 - x], 
+    [0,1]])
+ 
+  print(res)
+  return res
+
 
 if __name__ == "__main__":
   
@@ -273,51 +301,66 @@ if __name__ == "__main__":
   #print("***************************")
   #print(latex(sp.simplify(transitions["T_RL"])))
 
-  a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
-         - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
+  #a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
+  #       - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
   
-  a_x = sp.simplify(a_x)
-  x_dot = sp.simplify(x_dot)
-  print("Correct adjusted: ")
-  print(latex(x_dot))
+  #a_x = sp.simplify(a_x)
+  #x_dot = sp.simplify(x_dot)
+  #print("Correct adjusted: ")
+  #print(latex(x_dot))
 
 
 
   # Can essentially use a_x from fp derivation as the return for numerical trajectory now!
 
-  print("")
-  print("")
+  
+  #print("a(x) langevin:")
+  #print(latex(a_x))
 
-  print("a(x) langevin:")
-  print(latex(a_x))
+  #diff = sp.simplify(a_x - x_dot)
+  #print("DIFF")
+  #print(latex(diff))
 
-  diff = sp.simplify(a_x - x_dot)
-  print("DIFF")
-  print(latex(diff))
+  #ratio = sp.simplify(a_x / x_dot)
+  #print("ratio a_x / x_dot =")
+  #print(latex(ratio))
 
-  ratio = sp.simplify(a_x / x_dot)
-  print("ratio a_x / x_dot =")
-  print(latex(ratio))
-
-  print(a_x.equals(x_dot))
+  #print(a_x.equals(x_dot))
 
   # a_x = x_dot * scaling factor moran... therefores factored should just give us R
-  factor = sp.cancel(a_x / x_dot) # Calculated the scaling factor for moran
+  #factor = sp.cancel(a_x / x_dot) # Calculated the scaling factor for moran
 
   # Adjusted dynamics
-  gam = (1 - w_sym) / w_sym
-  adjustedScaling = 1 / (gam + averagePayoff)  
+  #gam = (1 - w_sym) / w_sym
+  #adjustedScaling = 1 / (gam + averagePayoff)  
   
-  print("Does adjusted scale equal")
+  #print("Does adjusted scale equal")
   #print(factor.equals(adjustedScaling))
 
-  print(factor.equals(adjustedScaling))
+  #print(factor.equals(adjustedScaling))
 
-  print(latex(adjustedScaling))
+  #print(latex(adjustedScaling))
 
-  formatted = sp.factor(sp.factor(a_x,w_sym), adjustedScaling)
+  #formatted = sp.factor(sp.factor(a_x,w_sym), adjustedScaling)
 
-  print(latex(formatted))
+  #print(latex(formatted))
 
-  print("With w = 0")
-  print(latex(formatted.subs(w_sym, 0)))
+  #print("With w = 0")
+  #print(latex(formatted.subs(w_sym, 0)))
+
+
+  ns = np.linspace(10, 500, 20)
+
+  delta_H = []
+  for n in ns:
+    delta_H.append(numerical_H_value(transitions, n))
+
+  print(delta_H)
+
+  import matplotlib.pyplot as plt
+
+  plt.plot(ns, delta_H)
+  plt.show()
+
+
+

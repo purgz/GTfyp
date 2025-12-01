@@ -31,9 +31,25 @@ $\langle \Delta H \rangle = \sum_{i,j,k}\Big(\Delta H_s - \Delta H_{s'}\Big)T^{s
   &- (N - i - j - k - 1)(2 - N + i + j + k)T^{+S}\Big]
 \end{aligned}
 \end{equation}
-Ignoring some of the transition probabilities not including + as they would cancel out as they are just cycling within RPS and have no effect on $\Delta H_{SD}$. Factorise this, then replace i,j,k with x = i/N, y = j/N... etc then replace sums with integrals.
 
 
 
+$q = 1 - x - y - z$, $p = N - i - j - k$
+
+
+\begin{equation}
+\begin{aligned}
+  \langle \Delta H \rangle &= \frac{1}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  &- (p + 1)(-p)(T^{R+} + T^{P+} + T^{S+}) \\
+  &- (p-1)(2 -p)(T^{+R} + T^{+P} + T^{+S})\Big]
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\langle \Delta H \rangle &= \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+&- (q + \frac{1}{N})(1-q - \frac{1}{N})(T^{R+} + T^{P+} + T^{S+}) - (q - \frac{1}{N})(1-q + \frac{1}{N})(T^{+R} + T^{+P} + T^{+S}) \Big]
+\end{aligned}
+\end{equation}
 
 \end{document}
