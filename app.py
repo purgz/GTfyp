@@ -783,7 +783,7 @@ if __name__ == "__main__":
 
 
 
-    point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+    """point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
 
     all_traj = np.zeros((300, 4, 500))
@@ -800,12 +800,20 @@ if __name__ == "__main__":
 
     df2 = pd.read_csv("point_cloud_test.csv", comment="#")
 
-    simulation.point_cloud([df2,df])
+    simulation.point_cloud([df2,df])"""
 
     # Below is testig code - remove at some point
     basic_rps = np.array(
-        [[0, -0.3, 1, 0.3], [1, 0, -0.3, 0.3], [-0.3, 1, 0, 0.3], [0.2, 0.2, 0.2, 0]]
+        [[0, -1, 1, 0.34], [1, 0, -1, 0.34], [-1, 1, 0, 0.34], [0.1, 0.1, 0.1, 0]]
     )
+
+    run_population_ensemble(range(150, 300, 10),
+                            file_output_path="./results/test_vs_numerical.csv",
+                            plot_delta=True,
+                            matrix=basic_rps,
+                            process="MORAN",
+                            simulations=100000000,
+                            w=0.2)
 
     # basic_rps = Games.AUGMENTED_RPS
   

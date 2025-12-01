@@ -257,7 +257,7 @@ def numerical_H_value(transitions, N = 500):
 
   config = {a: 0, b: 1, c: -1, gamma: 0.34, beta: 0.1}
 
-  expression = expression.subs(w_sym, 0.45)
+  expression = expression.subs(w_sym, 0.2)
   expression = expression.subs(config)
 
   f = lambdify((x,y,z), expression, "numpy")
@@ -349,7 +349,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  ns = np.linspace(150, 600, 100)
+  ns = np.linspace(150, 300, 100)
 
   delta_H = []
   for n in ns:
