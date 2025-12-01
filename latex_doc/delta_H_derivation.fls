@@ -1,8 +1,8 @@
-PWD c:/GTfyp/latex_doc
+PWD g:/Game theory project/GTfyp/latex_doc
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/GTfyp/latex_doc/delta_H_derivation.tex
+INPUT g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex
 OUTPUT delta_H_derivation.log
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls

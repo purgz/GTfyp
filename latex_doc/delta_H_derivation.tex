@@ -47,9 +47,12 @@ $q = 1 - x - y - z$, $p = N - i - j - k$
 
 \begin{equation}
 \begin{aligned}
-\langle \Delta H \rangle &= \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+\langle \Delta H \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
 &- (q + \frac{1}{N})(1-q - \frac{1}{N})(T^{R+} + T^{P+} + T^{S+}) - (q - \frac{1}{N})(1-q + \frac{1}{N})(T^{+R} + T^{+P} + T^{+S}) \Big]
 \end{aligned}
 \end{equation}
+
+
+Numerical integration in python code ./augRps.py, shows change of sign as expected. 
 
 \end{document}
