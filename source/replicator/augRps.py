@@ -255,7 +255,7 @@ def numerical_H_value(transitions, N = 500):
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
 
-  config = {a: 0, b: 1, c: -0.3, gamma: 0.6, beta: 0.3}
+  config = {a: 0, b: 1, c: -1, gamma: 0.34, beta: 0.1}
 
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
@@ -349,7 +349,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  ns = np.linspace(300, 2000, 100)
+  ns = np.linspace(150, 600, 100)
 
   delta_H = []
   for n in ns:
@@ -359,7 +359,9 @@ if __name__ == "__main__":
 
   import matplotlib.pyplot as plt
 
+
   plt.plot(ns, delta_H)
+  plt.plot(ns,[0 for n in ns])
   plt.show()
 
 
