@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex main"] 1764170779.40988 "main.aux" "main.bbl" "main" 1764170781.46828 0
+["bibtex main"] 1764358292.55562 "main.aux" "main.bbl" "main" 1764358306.70752 0
   "./ref.bib" 1762764855 1091 ba678232ca479bc4c7e2034993ae5cbb ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762765177 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1764170781 8059 6969ed22787c647640481767ae6e1c29 "pdflatex"
+  "main.aux" 1764358306 8059 673ad32545d64f9aaeb61e5277ffbf12 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1764170779.56739 "c:/GTfyp/latex_doc/main.tex" "main.pdf" "main" 1764170781.46883 0
+["pdflatex"] 1764358304.75317 "c:/GTfyp/latex_doc/main.tex" "main.pdf" "main" 1764358306.70818 0
   "beta_test.eps" 1762764854 45316 787c4a23d5aaef788a61a13f67b99f92 ""
-  "c:/GTfyp/latex_doc/main.tex" 1764170776 18712 8887ec8655bde713b1488d94ad320d22 ""
+  "c:/GTfyp/latex_doc/main.tex" 1764358304 18746 de4191959232d3ec9f611b00bfd76657 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762765042 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1762765042 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -92,6 +92,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762766710 371233 0f6aca6addd6800b190706172e78fdc2 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762766854 3436873 855fc45e18b815dc01b5849f949988f3 ""
   "c:/texlive/2025/texmf.cnf" 1762766701 713 e69b156964470283e0530f5060668171 ""
+  "delta_H_derivation.tex" 1764358230 157 b1f1346d9a7c0feb056cc2f1caa9411d ""
   "fokker_planck_derivation.tex" 1764170760 6521 e6798cedb47bbef8299335767c822640 ""
   "images/3d.png" 1762764854 83632 96d66c9205c435faa5221d449d3043b1 ""
   "images/50000POP.png" 1762873317 49339 9adf0bb4d105dc2ff08f0c82c112b9d3 ""
@@ -109,9 +110,9 @@
   "images/point_cloud_4.png" 1762764854 127146 53f804cd633290fb3eae4e7a140ffc9b ""
   "images/point_cloud_5.png" 1762764854 98020 74050891881d918b03501c4c6d80928c ""
   "images/w_test.eps" 1762764854 35340 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.aux" 1764170781 8059 6969ed22787c647640481767ae6e1c29 "pdflatex"
-  "main.bbl" 1764170779 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex main"
-  "main.tex" 1764170776 18712 8887ec8655bde713b1488d94ad320d22 ""
+  "main.aux" 1764358306 8059 673ad32545d64f9aaeb61e5277ffbf12 "pdflatex"
+  "main.bbl" 1764358292 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex main"
+  "main.tex" 1764358304 18746 de4191959232d3ec9f611b00bfd76657 ""
   "parameter_tests/crit_n_beta.eps" 1762764855 32193 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762764855 33585 c81090af7ea62cbabd93c306588ccc5b ""
   "parameter_tests/fixed_gamma_parameter.eps" 1762764855 44319 d9ecac25ccd67a874acbaf0c54aa183f ""
