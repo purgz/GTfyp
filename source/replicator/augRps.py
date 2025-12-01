@@ -5,7 +5,9 @@ import numpy as np
 from scipy.integrate import solve_ivp
 import pandas as pd
 from scipy.integrate import nquad
+from scipy.optimize import brentq
 
+import matplotlib.pyplot as plt
 
 
 # This file contains the RPS replicator derivation for the 3x3 standard game
@@ -254,12 +256,12 @@ def numerical_H_value(transitions, N = 500):
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
-  print(latex(expression))
-  exit()
+  #print(latex(expression))
+  
 
   config = {a: 0, b: 1, c: -1, gamma: 0.34, beta: 0.1}
 
-  expression = expression.subs(w_sym, 0.2)
+  expression = expression.subs(w_sym, 0.35637)
   expression = expression.subs(config)
 
   f = lambdify((x,y,z), expression, "numpy")
@@ -275,6 +277,37 @@ def numerical_H_value(transitions, N = 500):
   print(res)
   return res
 
+
+# Root finding with Brent's method to find critical value in a given interval.
+def find_critical_N_fixed_w(config, w, transitions):
+
+  transitions = {key: val.subs(config).subs(w_sym, w) for key, val in transitions.items()} # Numeric transitions
+
+  N = sp.symbols('N')
+
+  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+                    +transitions["T_SL"] + transitions["T_LR"]
+                    +transitions["T_LP"] + transitions["T_LS"])
+              - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
+              - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
+  
+  def brentq_func(N_val):
+    expr_sub = expression.subs(N, N_val)
+    f = lambdify((x,y,z), expr_sub, "numpy")
+
+    def integrand(z,y,x):
+      return f(x,y,z)
+    
+    res, err = nquad(integrand, [
+      lambda y, x: [0,1-x-y],
+      lambda x: [0, 1 - x], 
+      [0,1]])
+   
+    return res
+
+  critical_N = brentq(brentq_func, 50, 1500)
+  
+  return critical_N
 
 if __name__ == "__main__":
   
@@ -351,7 +384,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  ns = np.linspace(150, 300, 100)
+  """ns = np.linspace(150, 300, 100)
 
   delta_H = []
   for n in ns:
@@ -359,12 +392,25 @@ if __name__ == "__main__":
 
   print(delta_H)
 
-  import matplotlib.pyplot as plt
 
 
   plt.plot(ns, delta_H)
   plt.plot(ns,[0 for n in ns])
-  plt.show()
+  plt.show()"""
 
+
+  ws = np.linspace(0.1, 0.5, 25)
+  critical_Ns = []
+  for w in ws:
+    critical_N = find_critical_N_fixed_w({a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, w, transitions)
+    print(f"Critical N at w={w} is ", critical_N)
+    critical_Ns.append(critical_N)
+
+  plt.plot(ws, critical_Ns)
+  plt.xlabel(r"$w$")
+  plt.ylabel(r"$N_c$")
+  #plt.yscale("log", base=10)
+
+  plt.show()
 
 
