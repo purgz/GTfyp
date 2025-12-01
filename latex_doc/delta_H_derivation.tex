@@ -1,0 +1,39 @@
+\documentclass[./main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+
+
+\noindent $\Delta H$
+
+
+i - rock, j - paper, k - scissors, N - i - j - k + players
+
+
+
+H = -x(1-x)
+
+$\Delta H = \Delta H(t+1) - \Delta H (t)$, \\
+$\Delta H = -x_{t+1}(1-x_{t+1}) - (-x_{t}(1-x_t))$ \\
+$\Delta H = -x_{t+1}(1-x_{t+1}) + x_{t}(1-x_t)$ \\
+$\Delta H = x_{t}(1-x_t) -x_{t+1}(1-x_{t+1})$ \\
+Rough equation: \\
+$\langle \Delta H \rangle = \sum_{i,j,k}\Big(\Delta H_s - \Delta H_{s'}\Big)T^{s \rightarrow s'}$
+
+
+\begin{equation}
+\begin{aligned}
+  \langle \Delta H \rangle &= \frac{1}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  &- (N-i-j-k + 1)(-N+i+j+k)T^{R+} \\
+  &- (N-i-j-k + 1)(-N + i + j + k)T^{P+} \\
+  &- (N-i-j-k - 1)(2 - N + i + j + k)T^{+R} \\
+  &- (N - i - j - k - 1)(2 - N + i + j + k)T^{+P} \\
+  &- (N - i - j - k - 1)(2 - N + i + j + k)T^{+S}\Big]
+\end{aligned}
+\end{equation}
+Ignoring some of the transition probabilities not including + as they would cancel out as they are just cycling within RPS and have no effect on $\Delta H_{SD}$. Factorise this, then replace i,j,k with x = i/N, y = j/N... etc then replace sums with integrals.
+
+
+
+
+\end{document}
