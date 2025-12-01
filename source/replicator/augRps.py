@@ -254,6 +254,8 @@ def numerical_H_value(transitions, N = 500):
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
+  print(latex(expression))
+  exit()
 
   config = {a: 0, b: 1, c: -1, gamma: 0.34, beta: 0.1}
 
