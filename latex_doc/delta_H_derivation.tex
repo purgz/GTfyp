@@ -3,6 +3,8 @@
 \begin{document}
 
 
+\subsubsection{$\langle \Delta H_{SD} \rangle$ Derivation}
+
 \noindent The equation $H = -q(1-q)$ defines a constant of motion for the SD part of the game,
 where q is the fraction of players in the 4th strategy. Using the transition probabilities of 
 the different process we can derive an expression for the expected change in H within the simplex.
@@ -19,14 +21,18 @@ the different process we can derive an expression for the expected change in H w
 $\Delta H = -x_{t+1}(1-x_{t+1}) - (-x_{t}(1-x_t))$ \\
 $\Delta H = -x_{t+1}(1-x_{t+1}) + x_{t}(1-x_t)$ \\
 $\Delta H = x_{t}(1-x_t) -x_{t+1}(1-x_{t+1})$ \\
-Rough equation: \\
-$\langle \Delta H \rangle = \sum_{i,j,k}\Big(\Delta H_s - \Delta H_{s'}\Big)T^{s \rightarrow s'}$, $s$ is a 
+
+\hfill
+
+
+$\langle \Delta H \rangle = \sum_{i,j,k}\Big(H_s - H_{s'}\Big)T^{s \rightarrow s'}$, $s$ is a 
 particular state in the simplex.
+
 
 
 \begin{equation}
 \begin{aligned}
-  \langle \Delta H \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (N-i-j-k + 1)(-N+i+j+k)T^{R+} \\
   &- (N-i-j-k + 1)(-N + i + j + k)T^{P+} \\
   &- (N-i-j-k - 1)(2 - N + i + j + k)T^{+R} \\
@@ -37,25 +43,33 @@ particular state in the simplex.
 
 
 
-$q = 1 - x - y - z$, $p = N - i - j - k$
+$p = N - i - j - k$, the number of players playing the 4th strategy.
 
 
 \begin{equation}
 \begin{aligned}
-  \langle \Delta H \rangle &= \text{scaling ?}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \text{scaling ?}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (p + 1)(-p)(T^{R+} + T^{P+} + T^{S+}) \\
   &- (p-1)(2 -p)(T^{+R} + T^{+P} + T^{+S})\Big]
 \end{aligned}
 \end{equation}
 
+
+The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$ and $q = 1 - x - y - z$ leads to:
+
 \begin{equation}
 \begin{aligned}
-\langle \Delta H \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+\langle \Delta H_{SD} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
 &- (q + \frac{1}{N})(1-q - \frac{1}{N})(T^{R+} + T^{P+} + T^{S+}) - (q - \frac{1}{N})(1-q + \frac{1}{N})(T^{+R} + T^{+P} + T^{+S}) \Big]
 \end{aligned}
 \end{equation}
 
+This can then be solved numerically and the critical population values
+can be found where $\langle \Delta H_{SD} \rangle = 0$.
 
+\hfill
+\par
+Critical N found matches nicely with the simulated versions. 
 Numerical integration in python code ./augRps.py, shows change of sign as expected. Matches nicely with the approximated values for the Moran process.
 The specific expression for Moran process is very long. Computed numerically and solved with scipy.integrate (reference scipy)
 \end{document}
