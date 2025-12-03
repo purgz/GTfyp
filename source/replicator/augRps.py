@@ -34,6 +34,7 @@ z = sp.symbols('z')
 q = 1 - x - y - z
 
 w_sym = sp.symbols('w')
+delta_pi = sp.symbols('delta_pi') # for local update
 
 payoffR = a * x + y * c + b * z + gamma * q
 payoffP = b * x + a * y + c * z + gamma * q
@@ -221,9 +222,14 @@ def findEigenvalues(replicators, config, vars, substitution):
     print(latex(result.as_real_imag()))
 
 
-def moran_reproductive_func(payoff, w, average_payoff):
+def local_reproductive_func(payoffs, i, j, w):
+  diff = payoffs[j] - payoffs[i]
+  return (1/2) + (w / 2) * (diff / delta_pi)
+
+def moran_reproductive_func(payoffs, i, j, w):
+  payoff = payoffs[j]
   numerator = 1 - w + w * payoff
-  denominator = 1 - w + w * average_payoff
+  denominator = 1 - w + w * averagePayoff
   return numerator / denominator
   
 
@@ -233,19 +239,18 @@ def moran_reproductive_func(payoff, w, average_payoff):
 def transition_probs_moran(reproductive_func, payoffs : list):
   # x y z, q = 1 - x - y - z
 
-  pi_R, pi_P, pi_S, pi_L = payoffs
-
   names = ["R", "P", "S", "L"]
-  pis = [pi_R, pi_P, pi_S, pi_L]
   freqs = [x, y, z, q]
 
   return {
-      f"T_{a}{b}": reproductive_func(pis[j], w_sym, averagePayoff) * freqs[i] * freqs[j]
+      f"T_{a}{b}": reproductive_func(payoffs, i, j, w_sym) * freqs[i] * freqs[j]
       for i, a in enumerate(names)
       for j, b in enumerate(names)
       if i != j
   }
-  
+
+
+
 
 
 def numerical_H_value(transitions, N = 500):
@@ -330,8 +335,14 @@ if __name__ == "__main__":
 
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
+
   print("**************************************************")
-  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+
+  transitions = transition_probs_moran(local_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
+
+
   #print(latex(sp.simplify(transitions["T_RP"])))
   #print("***************************")
   #print(latex(sp.simplify(transitions["T_RL"])))
@@ -384,7 +395,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  """ns = np.linspace(150, 300, 100)
+  ns = np.linspace(400, 1000, 100)
 
   delta_H = []
   for n in ns:
@@ -396,11 +407,12 @@ if __name__ == "__main__":
 
   plt.plot(ns, delta_H)
   plt.plot(ns,[0 for n in ns])
-  plt.show()"""
+  plt.show()
 
 
   ws = np.linspace(0.1, 0.5, 25)
   critical_Ns = []
+
   for w in ws:
     critical_N = find_critical_N_fixed_w({a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, w, transitions)
     print(f"Critical N at w={w} is ", critical_N)
