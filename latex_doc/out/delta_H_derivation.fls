@@ -44,6 +44,8 @@ INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -90,6 +92,11 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 OUTPUT out/delta_H_derivation.pdf
 INPUT c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
 INPUT out/delta_H_derivation.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

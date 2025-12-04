@@ -30,7 +30,7 @@ particular state in the simplex.
 
 
 
-\begin{equation}
+\begin{equation} \label{delta_h_snowdrift}
 \begin{aligned}
   \langle \Delta H_{SD} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (N-i-j-k + 1)(-N+i+j+k)T^{R+} \\
@@ -59,7 +59,7 @@ The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$ and $
 
 \begin{equation}
 \begin{aligned}
-\langle \Delta H_{SD} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1} dy \int_{0}^{1}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+\langle \Delta H_{SD} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
 &- (q + \frac{1}{N})(1-q - \frac{1}{N})(T^{R+} + T^{P+} + T^{S+}) - (q - \frac{1}{N})(1-q + \frac{1}{N})(T^{+R} + T^{+P} + T^{+S}) \Big]
 \end{aligned}
 \end{equation}
@@ -67,9 +67,69 @@ The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$ and $
 This can then be solved numerically and the critical population values
 can be found where $\langle \Delta H_{SD} \rangle = 0$.
 
+
+\hfill
+
+Moran process equation (needs to be finalised with correct scale factor):
+
+
+
+\begin{equation}
+\begin{aligned}
+\langle \Delta H_{SD} \rangle_{MO} &= \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y} dz \Bigg[\\
+&\frac{
+\begin{aligned}
+&(N^{2} (x+y+z)(x+y+z-1)\bigl(
+x (w (a x + b z + c y - \gamma (x+y+z-1)) - w + 1)
++ x (w (a+\beta)(x+y+z) - w + 1)\\
+& + y (w (a y + b x + c z - \gamma (x+y+z-1)) - w + 1)
++ y (w (a+\beta)(x+y+z) - w + 1)\\
+& + z (w (a z + b y + c x - \gamma (x+y+z-1)) - w + 1)
++ z (w (a+\beta)(x+y+z) - w + 1)
+\bigr) \\
+& - (N(x+y+z)-1)(N(x+y+z-1)-1)(x+y+z)(w(a+\beta)(x+y+z)-w+1)\\
+& - (N(x+y+z)+1)(N(x+y+z-1)+1)\bigl(
+x (w (a x + b z + c y - \gamma (x+y+z-1)) - w + 1) \\
+& + y (w (a y + b x + c z - \gamma (x+y+z-1)) - w + 1)
++ z (w (a z + b y + c x - \gamma (x+y+z-1)) - w + 1)
+\bigr)
+\bigl)(x+y+z-1)
+\end{aligned}
+}{
+\begin{aligned}
+&N^{4}\bigl(
+w\bigl(
+x(a x + b z + c y - \gamma (x+y+z-1))
++ y(a y + b x + c z - \gamma (x+y+z-1)) \\
+&+ z(a z + b y + c x - \gamma (x+y+z-1)) - (a+\beta)(x+y+z)(x+y+z-1)
+\bigr) - w + 1
+\bigr)
+\end{aligned}
+}\Bigg]
+\end{aligned}
+\end{equation}
+
+
+With $w = 0$, this reduces to:
+\begin{equation}
+\langle \Delta H_{SD} \rangle_{MO} = \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y} dz \frac{-2 \left((x+y+z-1)(x+y+z)\right)}{N^{4}}
+\end{equation}
+
+
+
 \hfill
 \par
 Critical N found matches nicely with the simulated versions. 
 Numerical integration in python code ./augRps.py, shows change of sign as expected. Matches nicely with the approximated values for the Moran process.
 The specific expression for Moran process is very long. Computed numerically and solved with scipy.integrate (reference scipy)
+Maybe can plot the simulated critical population sizes against the analyical on the same graph.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/critical_n_analytical.png}
+    \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
+    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.}
+\end{figure}
+
 \end{document}

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex out/main"] 1764761283.02968 "out/main.aux" "out/main.bbl" "out/main" 1764761287.42719 0
+["bibtex out/main"] 1764852647.73025 "out/main.aux" "out/main.bbl" "out/main" 1764852652.46286 0
   "./ref.bib" 1762709849 1056 ba678232ca479bc4c7e2034993ae5cbb ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762710691 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "out/main.aux" 1764761286 8134 e17d6121804fa165da340ee2e06d2ae6 "pdflatex"
+  "out/main.aux" 1764852651 8490 7c83cc9f843da0cd16296a3cdd2efc0e "pdflatex"
   (generated)
   "out/main.bbl"
   "out/main.blg"
   (rewritten before read)
-["pdflatex"] 1764761283.62996 "g:/Game theory project/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1764761287.42777 0
+["pdflatex"] 1764852648.36398 "g:/Game theory project/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1764852652.46347 0
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762711655 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762710169 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1762710169 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -75,6 +75,7 @@
   "c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty" 1762710805 72619 ee90b6612147680fd73c3b1406a74245 ""
   "c:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty" 1762710805 12494 0c0cdb824278a4d51cefeb2e79901315 ""
   "c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1762711430 13886 d1306dcf79a944f6988e688c1785f9ce ""
+  "c:/texlive/2025/texmf-dist/tex/latex/float/float.sty" 1762711625 6749 16d2656a1984957e674b149555f1ea1d ""
   "c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty" 1762711743 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1762711824 1224 978390e9c2234eab29404bc21b268d1e ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def" 1762711824 19626 23e2822b9b2b5005f4c549ca98b9334d ""
@@ -90,14 +91,15 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762714736 5574345 9e0538e80e24c9ae9ee679f6f1bbacd7 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762714996 3635469 0b67af3270e9d7a6bb19d0299e5b47e4 ""
   "c:/texlive/2025/texmf.cnf" 1762714710 713 e69b156964470283e0530f5060668171 ""
-  "delta_H_derivation.tex" 1764761231 2783 877a8d3a4d3644554055d18f8fabcf95 ""
+  "delta_H_derivation.tex" 1764852644 4577 b9bf7f71d88558ff0cb0f2d6b17b612a ""
   "fokker_planck_derivation.tex" 1764611211 6521 e6798cedb47bbef8299335767c822640 ""
-  "g:/Game theory project/GTfyp/latex_doc/main.tex" 1764761277 18727 b89d5c25643b1e01e8a614c88fe231f6 ""
+  "g:/Game theory project/GTfyp/latex_doc/main.tex" 1764852642 18747 d2b33c7351a9ba218cd91b3065a6703e ""
   "images/3d.png" 1762709849 83632 96d66c9205c435faa5221d449d3043b1 ""
   "images/50000POP.png" 1764611211 49339 9adf0bb4d105dc2ff08f0c82c112b9d3 ""
   "images/850POP.png" 1764611211 136671 5d619426bf6a0efc66379352a53e832d ""
   "images/RPS_cross_fist.png" 1764611211 49107 e190276f2132e98fb83fbd036ab34f51 ""
   "images/critN.png" 1762709849 44132 0a41c1e12a8fcca03632f2cc99254560 ""
+  "images/critical_n_analytical.png" 1764852489 20447 670b0f8012368716039ace23529511a9 ""
   "images/drift_4.eps" 1762709849 241314 57332d4648fd68c4eee58dbdfba8689d ""
   "images/drift_reversal_rps.png" 1762709849 32667 9319d623767e2d0f9f01ab65e610dba3 ""
   "images/initial_cloud.png" 1762709849 199035 c043cfbf14df540ace4eb27e3d6285da ""
@@ -109,9 +111,9 @@
   "images/point_cloud_4.png" 1762709849 127146 53f804cd633290fb3eae4e7a140ffc9b ""
   "images/point_cloud_5.png" 1762709849 98020 74050891881d918b03501c4c6d80928c ""
   "images/w_test.eps" 1762709849 32251 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.tex" 1764761277 18727 b89d5c25643b1e01e8a614c88fe231f6 ""
-  "out/main.aux" 1764761286 8134 e17d6121804fa165da340ee2e06d2ae6 "pdflatex"
-  "out/main.bbl" 1764761283 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex out/main"
+  "main.tex" 1764852642 18747 d2b33c7351a9ba218cd91b3065a6703e ""
+  "out/main.aux" 1764852651 8490 7c83cc9f843da0cd16296a3cdd2efc0e "pdflatex"
+  "out/main.bbl" 1764852648 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex out/main"
   "parameter_tests/beta_test.eps" 1764760478 41923 787c4a23d5aaef788a61a13f67b99f92 ""
   "parameter_tests/crit_n_beta.eps" 1762709849 29473 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762709849 30718 c81090af7ea62cbabd93c306588ccc5b ""

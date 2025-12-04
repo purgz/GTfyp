@@ -261,7 +261,7 @@ def search_critical_pop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> i
         print("Testing pop_size: ", mid)
 
         delta_moran, _, _, _ = simulation.moran_batch_sim(
-            mid, 2, w, 2000000, matrix, np.array([0.25, 0.25, 0.25, 0.25])
+            mid, 2, w, 20000000, matrix, np.array([0.25, 0.25, 0.25, 0.25])
         )
 
         if delta_moran > 0:
@@ -309,7 +309,7 @@ def critical_pop_size_ensemble(
 
     match option:
         case "W_TEST":
-            ws = np.linspace(0.1, 0.5, 15)
+            ws = np.linspace(0.1, 0.5, 10)
 
             for w in tqdm(ws, position=0, leave=True):
                 critical_N = search_critical_pop_size(w=w)
@@ -741,11 +741,15 @@ if __name__ == "__main__":
    
     
     basic_rps = np.array(
-    [[0, 1, 1,     0.1], 
-     [1, 0, 1,     0.1], 
-     [1, 1, 0,     0.1], 
-     [0.7, 0.7, 0.7, 0]]
+    [[0, 1, 1,     0.2], 
+     [1, 0, 1,     0.2], 
+     [1, 1, 0,     0.2], 
+     [0.1, 0.1, 0.1, 0]]
     )
+
+
+    critical_pop_size_ensemble("./results/critical_N_w_2.csv", option="W_TEST")
+
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.
     # Large population  lots of iterations converges, interior
