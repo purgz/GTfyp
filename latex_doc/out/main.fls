@@ -37,6 +37,8 @@ INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
@@ -132,6 +134,11 @@ INPUT ./delta_H_derivation.tex
 INPUT delta_H_derivation.tex
 INPUT ./delta_H_derivation.tex
 INPUT delta_H_derivation.tex
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
+INPUT ./images/critical_n_analytical.png
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps
 INPUT ./images/moran_reversal.eps

@@ -296,6 +296,8 @@ def find_critical_N_fixed_w(config, w, transitions):
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
+
+
   def brentq_func(N_val):
     expr_sub = expression.subs(N, N_val)
     f = lambdify((x,y,z), expr_sub, "numpy")
@@ -339,9 +341,8 @@ if __name__ == "__main__":
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
 
-  transitions = transition_probs_moran(local_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
   transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
-
 
   #print(latex(sp.simplify(transitions["T_RP"])))
   #print("***************************")
@@ -354,8 +355,19 @@ if __name__ == "__main__":
   #x_dot = sp.simplify(x_dot)
   #print("Correct adjusted: ")
   #print(latex(x_dot))
+  """N = sp.symbols('N')
+
+  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+                    +transitions["T_SL"] + transitions["T_LR"]
+                    +transitions["T_LP"] + transitions["T_LS"])
+              - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
+              - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
+  
+  #print(latex(sp.simplify(expression)))
 
 
+  expression = expression.subs(w_sym, 0)
+  print(latex(sp.simplify(expression)))"""
 
   # Can essentially use a_x from fp derivation as the return for numerical trajectory now!
 
@@ -395,7 +407,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  ns = np.linspace(400, 1000, 100)
+  """ns = np.linspace(400, 1000, 100)
 
   delta_H = []
   for n in ns:
@@ -407,10 +419,12 @@ if __name__ == "__main__":
 
   plt.plot(ns, delta_H)
   plt.plot(ns,[0 for n in ns])
-  plt.show()
+  plt.show()"""
 
+  estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
+  print(estimated)
 
-  ws = np.linspace(0.1, 0.5, 25)
+  ws = np.linspace(0.1, 0.5, 10)
   critical_Ns = []
 
   for w in ws:
@@ -422,6 +436,8 @@ if __name__ == "__main__":
   plt.xlabel(r"$w$")
   plt.ylabel(r"$N_c$")
   #plt.yscale("log", base=10)
+
+  plt.plot(estimated["W"], estimated["critical_N"], marker='o', label='Simulated Critical N')
 
   plt.show()
 
