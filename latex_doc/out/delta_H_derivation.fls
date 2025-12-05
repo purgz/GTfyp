@@ -97,6 +97,16 @@ INPUT ./images/critical_n_analytical.png
 INPUT ./images/critical_n_analytical.png
 INPUT ./images/critical_n_analytical.png
 INPUT ./images/critical_n_analytical.png
+INPUT ./images/rps_sd_delta_H.png
+INPUT ./images/rps_sd_delta_H.png
+INPUT ./images/rps_sd_delta_H.png
+INPUT ./images/rps_sd_delta_H.png
+INPUT ./images/rps_sd_delta_H.png
+INPUT ./images/sd_rps_double_drift.png
+INPUT ./images/sd_rps_double_drift.png
+INPUT ./images/sd_rps_double_drift.png
+INPUT ./images/sd_rps_double_drift.png
+INPUT ./images/sd_rps_double_drift.png
 INPUT out/delta_H_derivation.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
