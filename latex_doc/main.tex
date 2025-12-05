@@ -11,19 +11,20 @@
 
 \usepackage{subfiles}
 
-\title{Replicator derivations for RPS and Augmented RPS games}
-\author{Henry }
-\date{June 2025}
+\title{Composite games evolutionary dynamics in finite populations.}
+\author{Henry Brooks}
+\date{June - December 2025}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-    Some derivations and longer background work for final year project.
-    This is not the final concise report.
-    \\
-    Includes derivations of some common replicator equations, fixed points and stability analysis, figures and drift properties of the 4 player game (\ref{AugRpsMatrix}).
+Final year masters project. Replicator dynamics in rock paper scissors (RPS) and composition of RPS and the snowdrift game (SD) in both the infinite and finite population cases. 
+Payoff matrices and replicator derivations, stochastic simulations and drift analysis under different interaction process.
+Extensive simulation tool for graphing and animation of the different processes and large ensemble averages for general games.
+Derivation and analytical solution for observation
+variable $H$ and exact calculation of critical population sizes under different parameters.
 \end{abstract}
 
 \section{Standard RPS}
@@ -150,8 +151,17 @@ The augmented game can be described by the following payoff matrix.
     a + \beta & a + \beta & a + \beta & 0
 \end{bmatrix}
 \end{align}
+
+\begin{align} \nonumber
+\label{CompositeGame}
+\begin{bmatrix}
+    \langle RPS \rangle & \gamma\\
+    \beta & 0 \\
+\end{bmatrix}
+\end{align}
+
 Where the strategies are labelled as R,P,S (as before) and L (the loner strategy).
-We will now have a Jacobian with dimensions $3 \times 3$ after using the trick to remove one replicator equation. (q = 1 - x - y - z)
+From this the Jacobian matrix can be derived with dimensions $3 \times 3$ after using the trick to remove one replicator equation. (q = 1 - x - y - z)
 
 \subsection{Payoffs}
 Payoffs for the augmented game:
