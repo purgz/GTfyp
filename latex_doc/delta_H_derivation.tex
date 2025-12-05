@@ -40,8 +40,9 @@ particular state in the simplex.
   &- (N - i - j - k - 1)(2 - N + i + j + k)T^{+S}\Big]
 \end{aligned}
 \end{equation}
+The terms with transitions within the RPS simplex can be ignored as $q$ would not change between these states, therefore the term $H_s - H_{s'} = 0$ 
 
-
+\hfill
 
 $p = N - i - j - k$, the number of players playing the 4th strategy.
 
@@ -131,5 +132,32 @@ Maybe can plot the simulated critical population sizes against the analyical on 
     \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
     to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.}
 \end{figure}
+
+
+\subsubsection{$\langle \Delta H_{RPS} \rangle$ Derivation}
+
+$\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
+
+\begin{equation} \label{delta_h_snowdrift}
+\begin{aligned}
+  \langle \Delta H_{RPS} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+ } \\
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
+  &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \\
+  &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+} \\
+  &- (i+1)j(k-1)T^{SR} - i(j+1)(k-1)T^{SP} - ij(k-1)T^{S+} \\
+  &- jk(i+1)T^{+R} - ik(j+1)T^{+P} - ij(k+1)T^{+S}\Big]
+\end{aligned}
+\end{equation}
+
+... convert to continuous version.
+
+
+\subsubsection{$\langle \Delta H_4 \rangle$ Derivation}
+
+
+
+All 4 strategies, $H = -xyz(1-x-y-z)$
+Basically the same as the one above.
+
 
 \end{document}
