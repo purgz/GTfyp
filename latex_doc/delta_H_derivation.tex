@@ -140,7 +140,7 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 
 \begin{equation} \label{delta_h_snowdrift}
 \begin{aligned}
-  \langle \Delta H_{RPS} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+ } \\
+  \langle \Delta H_{RPS} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
   &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
   &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \\
   &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+} \\
@@ -149,15 +149,37 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 \end{aligned}
 \end{equation}
 
-... convert to continuous version.
+\begin{equation}
+\begin{aligned}
+\langle \Delta H_{RPS} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz \Big[xyz(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
+&+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
+&- z(x - \frac{1}{N})(y + \frac{1}{N})T^{RP} - (x - \frac{1}{N})y(z + \frac{1}{N})T^{RS} - yz(x - \frac{1}{N})T^{R+} \\
+&- z(x + \frac{1}{N})(y - \frac{1}{N})T^{PR} - x(y - \frac{1}{N})(z + \frac{1}{N})T^{PS} - xz(y - \frac{1}{N})T^{P+} \\
+&- (x + \frac{1}{N})y(z - \frac{1}{N})T^{SR} - x(y + \frac{1}{N})(z - \frac{1}{N})T^{SP} - xy(z - \frac{1}{N})T^{S+} \\
+&- yz(x + \frac{1}{N})T^{+R} - xz(y + \frac{1}{N})T^{+P} - xy(z + \frac{1}{N})T^{+S}\Big]
+\end{aligned}
+\end{equation}
 
+
+Rough figures of rps and SD delta H values.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/rps_sd_delta_H.png}
+    \caption{Blue - SD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/sd_rps_double_drift.png}
+    \caption{Double reversal case. Blue - SD}
+\end{figure}
 
 \subsubsection{$\langle \Delta H_4 \rangle$ Derivation}
 
 
 
 All 4 strategies, $H = -xyz(1-x-y-z)$
-Basically the same as the one above.
+As above.
 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  5 DEC 2025 11:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  5 DEC 2025 17:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -275,7 +275,18 @@ File: ./images/critical_n_analytical.png Graphic file (type png)
 <use ./images/critical_n_analytical.png>
 Package pdftex.def Info: ./images/critical_n_analytical.png  used on input line 131.
 (pdftex.def)             Requested size: 360.29568pt x 270.09108pt.
- [2 <./images/critical_n_analytical.png>] [3] (out/delta_H_derivation.aux)
+ [2 <./images/critical_n_analytical.png>]
+<./images/rps_sd_delta_H.png, id=21, 462.528pt x 346.896pt>
+File: ./images/rps_sd_delta_H.png Graphic file (type png)
+<use ./images/rps_sd_delta_H.png>
+Package pdftex.def Info: ./images/rps_sd_delta_H.png  used on input line 167.
+(pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
+<./images/sd_rps_double_drift.png, id=22, 462.528pt x 346.896pt>
+File: ./images/sd_rps_double_drift.png Graphic file (type png)
+<use ./images/sd_rps_double_drift.png>
+Package pdftex.def Info: ./images/sd_rps_double_drift.png  used on input line 173.
+(pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
+ [3 <./images/rps_sd_delta_H.png>] [4 <./images/sd_rps_double_drift.png>] (out/delta_H_derivation.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -286,18 +297,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4724 strings out of 468662
- 76116 string characters out of 5444563
- 496358 words of memory out of 5000000
- 33425 multiletter control sequences out of 15000+600000
+ 4738 strings out of 468662
+ 76625 string characters out of 5444563
+ 496381 words of memory out of 5000000
+ 33439 multiletter control sequences out of 15000+600000
  629728 words of font info for 49 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  87i,18n,94p,377b,323s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on out/delta_H_derivation.pdf (3 pages, 122579 bytes).
+Output written on out/delta_H_derivation.pdf (4 pages, 154379 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 69 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

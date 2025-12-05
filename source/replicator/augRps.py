@@ -253,7 +253,7 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 
 
 
-def numerical_H_value(transitions, N = 500):
+def numerical_H_value(transitions, N = 100):
   
   expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
                     +transitions["T_SL"] + transitions["T_LR"]
@@ -263,24 +263,57 @@ def numerical_H_value(transitions, N = 500):
   
   #print(latex(expression))
   
+  expression_rps = (1/(N**2)) * ((x * y * z) * (transitions["T_RP"]  
+    + transitions["T_RS"] + transitions["T_RL"]
+    + transitions["T_PR"] + transitions["T_PS"] 
+    + transitions["T_PL"] + transitions["T_SR"] 
+    + transitions["T_SP"] + transitions["T_SL"]
+    + transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])
+    - z*(x - (1/N))*(y + (1/N)) * transitions["T_RP"]
+    - (x - (1/N)) * y * (z + (1/N)) * transitions["T_RS"]
+    - y * z * (x - (1/N)) * transitions["T_RL"]
+    - z * (x + (1/N)) * (y - (1/N)) * transitions["T_PR"] 
+    - x * (y - (1/N)) * (z + (1/N)) * transitions["T_PS"]
+    - x * z * (y - (1/N)) * transitions["T_PL"] 
+    - (x + (1/N)) * y * (z - (1/N)) * transitions["T_SR"]
+    - x * (y + (1/N)) * (z - (1/N)) * transitions["T_SP"]
+    - x * y * (z - (1/N)) * transitions["T_SL"]
+    - y * z * (x + (1/N)) * transitions["T_LR"]
+    - x * z * (y + (1/N)) * transitions["T_LP"]
+    - x * y * (z + (1/N)) * transitions["T_LS"])
+  
 
-  config = {a: 0, b: 1, c: -1, gamma: 0.34, beta: 0.1}
+  config = {a: 0, b: 1, c: -0.8, gamma: 0.1, beta: 0.1}
 
   expression = expression.subs(w_sym, 0.35637)
   expression = expression.subs(config)
 
+  expression_rps = expression_rps.subs(w_sym, 0.35637)
+  expression_rps = expression_rps.subs(config)
+
   f = lambdify((x,y,z), expression, "numpy")
+
+  f_rps = lambdify((x,y,z), expression_rps, "numpy")
 
   def integrand(z,y,x):
     return f(x,y,z)
+  
+  def integrand_rps(z,y,x):
+    return f_rps(x, y, z)
   
   res, err = nquad(integrand, [
     lambda y, x: [0,1-x-y],
     lambda x: [0, 1 - x], 
     [0,1]])
- 
-  print(res)
-  return res
+  
+  res_rps, err = nquad(integrand_rps, [
+    lambda y, x: [0,1-x-y],
+    lambda x: [0, 1 - x], 
+    [0,1]])
+  
+  print("SD: ", res)
+  print("RPS: ", res_rps)
+  return res, res_rps
 
 
 # Root finding with Brent's method to find critical value in a given interval.
@@ -355,19 +388,22 @@ if __name__ == "__main__":
   #x_dot = sp.simplify(x_dot)
   #print("Correct adjusted: ")
   #print(latex(x_dot))
-  """N = sp.symbols('N')
+  N = sp.symbols('N')
 
-  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+  """expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
                     +transitions["T_SL"] + transitions["T_LR"]
                     +transitions["T_LP"] + transitions["T_LS"])
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
+  
+  expression =sp.collect(sp.simplify(expression), N)
+  print(latex(expression))
+  """
+
+
+  #expression = expression.subs(w_sym, 0)
   #print(latex(sp.simplify(expression)))
-
-
-  expression = expression.subs(w_sym, 0)
-  print(latex(sp.simplify(expression)))"""
 
   # Can essentially use a_x from fp derivation as the return for numerical trajectory now!
 
@@ -407,19 +443,19 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  """ns = np.linspace(400, 1000, 100)
+  ns = np.linspace(250, 750, 50)
 
   delta_H = []
+  delta_H_RPS = []
   for n in ns:
-    delta_H.append(numerical_H_value(transitions, n))
-
-  print(delta_H)
-
-
+    res, res_rps = numerical_H_value(transitions, n)
+    delta_H.append(res)
+    delta_H_RPS.append(res_rps)
 
   plt.plot(ns, delta_H)
+  plt.plot(ns, delta_H_RPS)
   plt.plot(ns,[0 for n in ns])
-  plt.show()"""
+  plt.show()
 
   estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
   print(estimated)
