@@ -251,8 +251,6 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 
 
 
-
-
 def numerical_H_value(transitions, N = 100):
   
   expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
@@ -349,6 +347,30 @@ def find_critical_N_fixed_w(config, w, transitions):
   
   return critical_N
 
+
+
+
+def numerical_delta_H_range(n_range = np.linspace(250, 750, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+
+
+  delta_H_SD = []
+  delta_H_RPS = []
+
+  for n in n_range:
+    res_sd, res_rps = numerical_H_value(transitions, n)
+    delta_H_SD.append(res_sd * (n*n))
+    delta_H_RPS.append(res_rps * (n*n))
+
+  if plot:
+    plt.xlabel("$N$")
+    plt.ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
+    plt.plot(n_range, delta_H_SD, label="SD")
+    plt.plot(n_range, delta_H_RPS, label="RPS")
+    plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black")
+    plt.legend()
+    plt.show()
+
+
 if __name__ == "__main__":
   
   # Derive replicator equations
@@ -443,22 +465,9 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  ns = np.linspace(250, 750, 50)
+  #numerical_delta_H_range()
 
-  delta_H = []
-  delta_H_RPS = []
-  for n in ns:
-    res, res_rps = numerical_H_value(transitions, n)
-    delta_H.append(res)
-    delta_H_RPS.append(res_rps)
-
-  plt.plot(ns, delta_H)
-  plt.plot(ns, delta_H_RPS)
-  plt.plot(ns,[0 for n in ns])
-  plt.show()
-
-  estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
-  print(estimated)
+  estimated = pd.read_csv("C:/GTfyp/results/criticalN_w_2.csv", comment='#')
 
   ws = np.linspace(0.1, 0.5, 10)
   critical_Ns = []
@@ -473,7 +482,7 @@ if __name__ == "__main__":
   plt.ylabel(r"$N_c$")
   #plt.yscale("log", base=10)
 
-  plt.plot(estimated["W"], estimated["critical_N"], marker='o', label='Simulated Critical N')
+  plt.plot(estimated["W"], estimated["CriticalN"], marker='o', label='Simulated Critical N')
 
   plt.show()
 
