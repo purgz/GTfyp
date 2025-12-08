@@ -7,13 +7,14 @@ Up to date document with derviations and more images in /latex_doc/main.pdf
 - drift analysis, different interaction processes, unique plots and animations particularly for 4x4.
 - main focus is on 4x4 game (RPS + SD) 
 
+
+aug_rps, analytical solutions for delta H observation value, and calculation of critical population sizes. 
+
+
 Basic RPS example: 
 ![alt text](source/simulation/images/rps.png)
 
 
-
-Example of drift reversal:
-![alt text](source/simulation/images/moran-drift.png)
 
 
 LU, MO, and numerical integration result for a particular payoff matrix. 1000000 iterations.
@@ -23,7 +24,6 @@ LU, MO, and numerical integration result for a particular payoff matrix. 1000000
 
 Simulation code contained in the source/simulation subdirectory - for offline and adjusting
 
-backend/ for django backend - hope to create a rest api for the simulations in aim to produce an interactive web app.
 
 Now contains support for 2d games - below is prisoners dilemma plot with numerical solutions for adjusted and standard replicator dynamics.
 ![alt text](source/simulation/images/pd-dynamics.png)

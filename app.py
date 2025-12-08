@@ -48,8 +48,9 @@ def pd_example(
     # Standard prisoners dilemma payoff matrix
 
     pd_array = Games.PRISONERS_DILEMMA
+    pd_array = Games.HAWK_DOVE
 
-    initial_dist = np.array([0.9, 0.1])
+    initial_dist = np.array([0.8, 0.2])
 
     iterations = pop_size * 35
 
@@ -84,7 +85,7 @@ def pd_example(
     test = replicator.pdNumerical(pd_array, w, initial_dist)
 
     # Get numerical trajectory for adjusted dynamics - moran process
-    adjusted, t_eval = replicator.pdNumericalAdjusted()
+    adjusted, t_eval = replicator.pd_adjusted(pd_array, w, initial_dist)
 
     # Plot the 4 trajectories on the same graph.
     # This method also normalizes the numerical solutions timeframe.

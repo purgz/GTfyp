@@ -19,6 +19,8 @@ def standardPayoffs(matrix):
   payoffB = matrix.row(1)[0] * x + matrix.row(1)[1] * y
   return payoffA, payoffB
 
+
+
 payoffC = 3 * x
 payoffD = 5 * x + y
 
@@ -28,6 +30,11 @@ def standardReplicator(payoffs, w, deltaPi):
 
   return x_dot
   
+def adjusted_replicator(payoffs, w):
+  gamma = (1 - w) / w
+  avg_payoff = x * payoffs[0] + y * payoffs[1]
+  x_dot = (x * y * (payoffs[0] - payoffs[1])) * (1 / (gamma + avg_payoff))
+  return x_dot
 
 # HARDCODED VALUES - FIX THIS
 x_dot = (0.9 / 5) * (x * y * (payoffC - payoffD))
@@ -120,6 +127,39 @@ def pdNumerical(matrix, w=0.9, initial_dist=[0.9,0.1]):
   })
 
   return df_PD
+
+def pd_adjusted(matrix, w=0.9, initial_dist=[0.9,0.1]):
+  # Convert np matrices to sympy ..
+
+  #print("DeltaPI for PD:" , deltaPi)
+
+  matrix = sp.Matrix(matrix)
+  payoffs = standardPayoffs(matrix)
+  x_dot = adjusted_replicator(payoffs, w)
+
+  t = sp.symbols("t")
+  f = lambdify((t, x), [x_dot], modules="numpy")
+
+  x0 = [initial_dist[0]]
+  t_span = (0, 35)
+  t_eval = np.linspace(*t_span, 500)
+
+  def replicatorSystem(t, vars):
+    x = vars
+    dxdt = f(t,x)
+    return [dxdt]
+
+  sol = solve_ivp(replicatorSystem, t_span, x0, t_eval=t_eval)
+
+  x_vals = sol.y[0]
+  y_vals = 1 - x_vals
+
+  df_PD = pd.DataFrame({
+    "C": x_vals,
+    "D": y_vals
+  })
+
+  return df_PD, t_eval
 
 def pdNumericalAdjusted():
   return df_PD_ADJ, t_eval
