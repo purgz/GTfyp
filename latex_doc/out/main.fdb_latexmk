@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex out/main"] 1764933425.96806 "out/main.aux" "out/main.bbl" "out/main" 1764933430.1111 0
-  "./ref.bib" 1762764855 1091 ba678232ca479bc4c7e2034993ae5cbb ""
+["bibtex out/main"] 1765187589.7648 "out/main.aux" "out/main.bbl" "out/main" 1765187589.86951 0
+  "./ref.bib" 1765187589 1570 c12c87d69ca73e84f213554c9a96d7fe ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762765177 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "out/main.aux" 1764933429 8916 97fc3242408373bed0572dd9933b79fa "pdflatex"
+  "out/main.aux" 1765187131 9168 ce78bafcb66dd629ac2f0c01340ae5a7 "pdflatex"
   (generated)
   "out/main.bbl"
   "out/main.blg"
   (rewritten before read)
-["pdflatex"] 1764933426.14447 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1764933430.11213 0
-  "c:/GTfyp/latex_doc/main.tex" 1764933421 19219 c0d45af635387309f6a6add0d3d862ea ""
+["pdflatex"] 1765187129.67168 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1765187589.86977 0
+  "c:/GTfyp/latex_doc/main.tex" 1765187124 19219 c0d45af635387309f6a6add0d3d862ea ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762765042 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1762765042 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -92,7 +92,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762766710 371233 0f6aca6addd6800b190706172e78fdc2 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762766854 3436873 855fc45e18b815dc01b5849f949988f3 ""
   "c:/texlive/2025/texmf.cnf" 1762766701 713 e69b156964470283e0530f5060668171 ""
-  "delta_H_derivation.tex" 1764932710 5691 474ea5e9bec834f2f117152243048121 ""
+  "delta_H_derivation.tex" 1764956735 6742 cfb3d96c92f4d0568730d5b42bdf8aaa ""
   "fokker_planck_derivation.tex" 1764170760 6521 e6798cedb47bbef8299335767c822640 ""
   "images/3d.png" 1762764854 83632 96d66c9205c435faa5221d449d3043b1 ""
   "images/50000POP.png" 1762873317 49339 9adf0bb4d105dc2ff08f0c82c112b9d3 ""
@@ -110,10 +110,12 @@
   "images/point_cloud_3.png" 1762764854 76764 f5ddb4ad10d01c33868bd6233de8bf19 ""
   "images/point_cloud_4.png" 1762764854 127146 53f804cd633290fb3eae4e7a140ffc9b ""
   "images/point_cloud_5.png" 1762764854 98020 74050891881d918b03501c4c6d80928c ""
+  "images/rps_sd_delta_H.png" 1764955910 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
+  "images/sd_rps_double_drift.png" 1764956433 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
   "images/w_test.eps" 1762764854 35340 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.tex" 1764933421 19219 c0d45af635387309f6a6add0d3d862ea ""
-  "out/main.aux" 1764933429 8916 97fc3242408373bed0572dd9933b79fa "pdflatex"
-  "out/main.bbl" 1764933426 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex out/main"
+  "main.tex" 1765187124 19219 c0d45af635387309f6a6add0d3d862ea ""
+  "out/main.aux" 1765187131 9168 ce78bafcb66dd629ac2f0c01340ae5a7 "pdflatex"
+  "out/main.bbl" 1765187589 619 070d883ab5502e73f5c5ad277d4caf71 "bibtex out/main"
   "parameter_tests/beta_test.eps" 1764930483 45316 787c4a23d5aaef788a61a13f67b99f92 ""
   "parameter_tests/crit_n_beta.eps" 1762764855 32193 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762764855 33585 c81090af7ea62cbabd93c306588ccc5b ""

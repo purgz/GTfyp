@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  5 DEC 2025 11:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  8 DEC 2025 09:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -332,7 +332,18 @@ File: ./images/critical_n_analytical.png Graphic file (type png)
 <use ./images/critical_n_analytical.png>
 Package pdftex.def Info: ./images/critical_n_analytical.png  used on input line 131.
 (pdftex.def)             Requested size: 360.29568pt x 270.09108pt.
-) [10 <./images/critical_n_analytical.png>]
+ [10 <./images/critical_n_analytical.png>]
+<./images/rps_sd_delta_H.png, id=63, 462.528pt x 346.896pt>
+File: ./images/rps_sd_delta_H.png Graphic file (type png)
+<use ./images/rps_sd_delta_H.png>
+Package pdftex.def Info: ./images/rps_sd_delta_H.png  used on input line 167.
+(pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
+<./images/sd_rps_double_drift.png, id=64, 462.528pt x 346.896pt>
+File: ./images/sd_rps_double_drift.png Graphic file (type png)
+<use ./images/sd_rps_double_drift.png>
+Package pdftex.def Info: ./images/sd_rps_double_drift.png  used on input line 173.
+(pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
+ [11 <./images/rps_sd_delta_H.png>]) [12 <./images/sd_rps_double_drift.png>]
 Package epstopdf Info: Source file: <images/moran_reversal.eps>
 (epstopdf)                    date: 2025-11-10 08:54:14
 (epstopdf)                    size: 56132 bytes
@@ -342,12 +353,12 @@ Package epstopdf Info: Source file: <images/moran_reversal.eps>
 (epstopdf)             Command: <repstopdf --outfile=images/moran_reversal-eps-converted-to.pdf images/moran_reversal.eps>
 (epstopdf)             \includegraphics on input line 345.
 Package epstopdf Info: Output file is already uptodate.
-<images/moran_reversal-eps-converted-to.pdf, id=63, 436.63126pt x 273.02pt>
+<images/moran_reversal-eps-converted-to.pdf, id=73, 436.63126pt x 273.02pt>
 File: images/moran_reversal-eps-converted-to.pdf Graphic file (type pdf)
 <use images/moran_reversal-eps-converted-to.pdf>
 Package pdftex.def Info: images/moran_reversal-eps-converted-to.pdf  used on input line 345.
 (pdftex.def)             Requested size: 308.82936pt x 193.10818pt.
-<images/drift_reversal_rps.png, id=64, 1621.05624pt x 850.17625pt>
+<images/drift_reversal_rps.png, id=74, 1621.05624pt x 850.17625pt>
 File: images/drift_reversal_rps.png Graphic file (type png)
 <use images/drift_reversal_rps.png>
 Package pdftex.def Info: images/drift_reversal_rps.png  used on input line 352.
@@ -361,7 +372,7 @@ Package epstopdf Info: Source file: <images/drift_4.eps>
 (epstopdf)             Command: <repstopdf --outfile=images/drift_4-eps-converted-to.pdf images/drift_4.eps>
 (epstopdf)             \includegraphics on input line 360.
 Package epstopdf Info: Output file is already uptodate.
-<images/drift_4-eps-converted-to.pdf, id=65, 402.50375pt x 272.01625pt>
+<images/drift_4-eps-converted-to.pdf, id=75, 402.50375pt x 272.01625pt>
 File: images/drift_4-eps-converted-to.pdf Graphic file (type pdf)
 <use images/drift_4-eps-converted-to.pdf>
 Package pdftex.def Info: images/drift_4-eps-converted-to.pdf  used on input line 360.
@@ -375,7 +386,7 @@ Package epstopdf Info: Source file: <parameter_tests/beta_test.eps>
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/beta_test-eps-converted-to.pdf parameter_tests/beta_test.eps>
 (epstopdf)             \includegraphics on input line 368.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/beta_test-eps-converted-to.pdf, id=66, 442.65375pt x 322.20375pt>
+<parameter_tests/beta_test-eps-converted-to.pdf, id=76, 442.65375pt x 322.20375pt>
 File: parameter_tests/beta_test-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/beta_test-eps-converted-to.pdf>
 Package pdftex.def Info: parameter_tests/beta_test-eps-converted-to.pdf  used on input line 368.
@@ -384,7 +395,7 @@ Package pdftex.def Info: parameter_tests/beta_test-eps-converted-to.pdf  used on
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11 <./images/moran_reversal-eps-converted-to.pdf> <./images/drift_reversal_rps.png>]
+[13 <./images/moran_reversal-eps-converted-to.pdf> <./images/drift_reversal_rps.png>]
 Package epstopdf Info: Source file: <parameter_tests/fixed_n_gamma_beta.eps>
 (epstopdf)                    date: 2025-11-10 08:54:15
 (epstopdf)                    size: 43847 bytes
@@ -394,7 +405,7 @@ Package epstopdf Info: Source file: <parameter_tests/fixed_n_gamma_beta.eps>
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf parameter_tests/fixed_n_gamma_beta.eps>
 (epstopdf)             \includegraphics on input line 392.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf, id=101, 259.97125pt x 159.59625pt>
+<parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf, id=112, 259.97125pt x 159.59625pt>
 File: parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>
 Package pdftex.def Info: parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf  used on input line 392.
@@ -412,7 +423,7 @@ Package epstopdf Info: Source file: <parameter_tests/fixed_gamma_parameter.eps>
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf parameter_tests/fixed_gamma_parameter.eps>
 (epstopdf)             \includegraphics on input line 399.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf, id=102, 674.52pt x 539.01375pt>
+<parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf, id=113, 674.52pt x 539.01375pt>
 File: parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf>
 Package pdftex.def Info: parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf  used on input line 399.
@@ -420,8 +431,8 @@ Package pdftex.def Info: parameter_tests/fixed_gamma_parameter-eps-converted-to.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[12 <./images/drift_4-eps-converted-to.pdf>] [13 <./parameter_tests/beta_test-eps-converted-to.pdf> <./parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>] [14 <./parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf>]
-<images/critN.png, id=225, 2027.575pt x 1100.11pt>
+[14 <./images/drift_4-eps-converted-to.pdf>] [15 <./parameter_tests/beta_test-eps-converted-to.pdf> <./parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>] [16 <./parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf>]
+<images/critN.png, id=235, 2027.575pt x 1100.11pt>
 File: images/critN.png Graphic file (type png)
 <use images/critN.png>
 Package pdftex.def Info: images/critN.png  used on input line 421.
@@ -435,7 +446,7 @@ Package epstopdf Info: Source file: <images/w_test.eps>
 (epstopdf)             Command: <repstopdf --outfile=images/w_test-eps-converted-to.pdf images/w_test.eps>
 (epstopdf)             \includegraphics on input line 428.
 Package epstopdf Info: Output file is already uptodate.
-<images/w_test-eps-converted-to.pdf, id=226, 356.33125pt x 300.12125pt>
+<images/w_test-eps-converted-to.pdf, id=236, 356.33125pt x 300.12125pt>
 File: images/w_test-eps-converted-to.pdf Graphic file (type pdf)
 <use images/w_test-eps-converted-to.pdf>
 Package pdftex.def Info: images/w_test-eps-converted-to.pdf  used on input line 428.
@@ -449,7 +460,7 @@ Package epstopdf Info: Source file: <parameter_tests/crit_n_beta.eps>
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/crit_n_beta-eps-converted-to.pdf parameter_tests/crit_n_beta.eps>
 (epstopdf)             \includegraphics on input line 439.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/crit_n_beta-eps-converted-to.pdf, id=227, 303.1325pt x 216.81pt>
+<parameter_tests/crit_n_beta-eps-converted-to.pdf, id=237, 303.1325pt x 216.81pt>
 File: parameter_tests/crit_n_beta-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/crit_n_beta-eps-converted-to.pdf>
 Package pdftex.def Info: parameter_tests/crit_n_beta-eps-converted-to.pdf  used on input line 439.
@@ -467,7 +478,7 @@ Package epstopdf Info: Source file: <parameter_tests/crit_n_gamma.eps>
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/crit_n_gamma-eps-converted-to.pdf parameter_tests/crit_n_gamma.eps>
 (epstopdf)             \includegraphics on input line 446.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/crit_n_gamma-eps-converted-to.pdf, id=228, 358.33875pt x 241.90375pt>
+<parameter_tests/crit_n_gamma-eps-converted-to.pdf, id=238, 358.33875pt x 241.90375pt>
 File: parameter_tests/crit_n_gamma-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/crit_n_gamma-eps-converted-to.pdf>
 Package pdftex.def Info: parameter_tests/crit_n_gamma-eps-converted-to.pdf  used on input line 446.
@@ -475,35 +486,35 @@ Package pdftex.def Info: parameter_tests/crit_n_gamma-eps-converted-to.pdf  used
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15
+[17
 
- <./images/critN.png> <./images/w_test-eps-converted-to.pdf>] [16 <./parameter_tests/crit_n_beta-eps-converted-to.pdf> <./parameter_tests/crit_n_gamma-eps-converted-to.pdf>]
-<images/initial_cloud.png, id=283, 872.25874pt x 828.09375pt>
+ <./images/critN.png> <./images/w_test-eps-converted-to.pdf>] [18 <./parameter_tests/crit_n_beta-eps-converted-to.pdf> <./parameter_tests/crit_n_gamma-eps-converted-to.pdf>]
+<images/initial_cloud.png, id=293, 872.25874pt x 828.09375pt>
 File: images/initial_cloud.png Graphic file (type png)
 <use images/initial_cloud.png>
 Package pdftex.def Info: images/initial_cloud.png  used on input line 460.
 (pdftex.def)             Requested size: 154.41467pt x 146.58649pt.
-<images/point_cloud_2.png, id=284, 756.8275pt x 734.745pt>
+<images/point_cloud_2.png, id=294, 756.8275pt x 734.745pt>
 File: images/point_cloud_2.png Graphic file (type png)
 <use images/point_cloud_2.png>
 Package pdftex.def Info: images/point_cloud_2.png  used on input line 466.
 (pdftex.def)             Requested size: 154.41467pt x 149.90617pt.
-<images/point_cloud_3.png, id=285, 664.4825pt x 682.55pt>
+<images/point_cloud_3.png, id=295, 664.4825pt x 682.55pt>
 File: images/point_cloud_3.png Graphic file (type png)
 <use images/point_cloud_3.png>
 Package pdftex.def Info: images/point_cloud_3.png  used on input line 472.
 (pdftex.def)             Requested size: 154.41467pt x 158.60791pt.
-<images/point_cloud_4.png, id=286, 863.225pt x 765.86125pt>
+<images/point_cloud_4.png, id=296, 863.225pt x 765.86125pt>
 File: images/point_cloud_4.png Graphic file (type png)
 <use images/point_cloud_4.png>
 Package pdftex.def Info: images/point_cloud_4.png  used on input line 482.
 (pdftex.def)             Requested size: 205.881pt x 182.65353pt.
-<images/point_cloud_5.png, id=287, 657.45625pt x 678.535pt>
+<images/point_cloud_5.png, id=297, 657.45625pt x 678.535pt>
 File: images/point_cloud_5.png Graphic file (type png)
 <use images/point_cloud_5.png>
 Package pdftex.def Info: images/point_cloud_5.png  used on input line 488.
 (pdftex.def)             Requested size: 257.35518pt x 265.61118pt.
-<images/50000POP.png, id=288, 693.59125pt x 602.25pt>
+<images/50000POP.png, id=298, 693.59125pt x 602.25pt>
 File: images/50000POP.png Graphic file (type png)
 <use images/50000POP.png>
 Package pdftex.def Info: images/50000POP.png  used on input line 494.
@@ -512,12 +523,12 @@ File: images/50000POP.png Graphic file (type png)
 <use images/50000POP.png>
 Package pdftex.def Info: images/50000POP.png  used on input line 501.
 (pdftex.def)             Requested size: 257.35518pt x 223.46309pt.
-<images/850POP.png, id=289, 725.71124pt x 766.865pt>
+<images/850POP.png, id=299, 725.71124pt x 766.865pt>
 File: images/850POP.png Graphic file (type png)
 <use images/850POP.png>
 Package pdftex.def Info: images/850POP.png  used on input line 506.
 (pdftex.def)             Requested size: 257.35518pt x 271.9523pt.
-<images/RPS_cross_fist.png, id=290, 1660.2025pt x 846.16125pt>
+<images/RPS_cross_fist.png, id=300, 1660.2025pt x 846.16125pt>
 File: images/RPS_cross_fist.png Graphic file (type png)
 <use images/RPS_cross_fist.png>
 Package pdftex.def Info: images/RPS_cross_fist.png  used on input line 516.
@@ -526,7 +537,7 @@ Package pdftex.def Info: images/RPS_cross_fist.png  used on input line 516.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17 <./images/initial_cloud.png> <./images/point_cloud_2.png> <./images/point_cloud_3.png> <./images/point_cloud_4.png>] [18 <./images/point_cloud_5.png> <./images/50000POP.png>] [19 <./images/850POP.png> <./images/RPS_cross_fist.png>] (out/main.bbl) [20
+[19 <./images/initial_cloud.png> <./images/point_cloud_2.png> <./images/point_cloud_3.png> <./images/point_cloud_4.png>] [20 <./images/point_cloud_5.png> <./images/50000POP.png>] [21 <./images/850POP.png> <./images/RPS_cross_fist.png>] (out/main.bbl) [22
 
 
 ] (out/main.aux)
@@ -540,18 +551,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4956 strings out of 468662
- 82630 string characters out of 5444563
+ 4972 strings out of 468662
+ 83172 string characters out of 5444563
  506499 words of memory out of 5000000
- 33633 multiletter control sequences out of 15000+600000
+ 33647 multiletter control sequences out of 15000+600000
  637783 words of font info for 79 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  67i,18n,77p,699b,509s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on out/main.pdf (20 pages, 1766626 bytes).
+Output written on out/main.pdf (22 pages, 1798795 bytes).
 PDF statistics:
- 397 PDF objects out of 1000 (max. 8388607)
- 172 compressed objects within 2 object streams
+ 407 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
