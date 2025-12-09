@@ -48,7 +48,7 @@ The terms with transitions within the RPS simplex can be ignored as $q$ would no
 $p = N - i - j - k$, the number of players playing the 4th strategy.
 
 
-\begin{equation}
+\begin{equation} \nonumber
 \begin{aligned}
   \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (p + 1)(-p)(T^{R+} + T^{P+} + T^{S+}) \\
@@ -57,19 +57,53 @@ $p = N - i - j - k$, the number of players playing the 4th strategy.
 \end{equation}
 
 
-\begin{equation}
+\begin{equation} \nonumber
 \begin{aligned}
 \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} 
-\Big[T^{R+}\left(p(1-p) + p(p+1)\right) \Big]
+\Big[T^{R+}\left(p(1-p) + p(p+1)\right) + T^{+R}\left(p(1-p) - (p-1)(2-p)\right) \\
+&+ T^{P+}\left(p(1-p) + p(p+1)\right) + T^{+P}\left(p(1-p) - (p-1)(2-p)\right) \\
+&+ T^{S+}\left(p(1-p) + p(p+1)\right) + T^{+S}\left(p(1-p) - (p-1)(2-p)\right) 
+\Big] \\
+&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} \Big[
+2p\left(T^{R+} + T^{P+} + T^{S+}\right) + (p - p^2 - (3p - p^2 -2))(T^{+R} + T^{+P} + T^{+S})
+\Big] \\
+&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[
+2p\left(T^{R+} + T^{P+} + T^{S+}\right) + (2 - 2p)(T^{+R} + T^{+P} + T^{+S})
+\Big] 
 \end{aligned}
 \end{equation}
 
-The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$ and $q = 1 - x - y - z$ leads to:
+
+\begin{equation} \nonumber
+\langle \Delta H_{SD} \rangle = \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} \Big[
+p\left(T^{R+} + T^{P+} + T^{S+}\right) + (1 - p)(T^{+R} + T^{+P} + T^{+S})
+\Big]
+\end{equation}
 
 \begin{equation}
 \begin{aligned}
-\langle \Delta H_{SD} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz \Big[q(1-q)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
-&- (q + \frac{1}{N})(1-q - \frac{1}{N})(T^{R+} + T^{P+} + T^{S+}) - (q - \frac{1}{N})(1-q + \frac{1}{N})(T^{+R} + T^{+P} + T^{+S}) \Big]
+\langle \Delta H_{SD} \rangle &= \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}
+p\Big[ (T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) +(T^{S+} - T^{+S}) \Big]+ T^{+R} + T^{+P} + T^{+S}
+\end{aligned}
+\end{equation}
+
+The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$, $p = Nq$ and $q = 1 - x - y - z$ leads to:
+
+\begin{equation} \nonumber
+\begin{aligned}
+\langle \Delta H_{SD} \rangle &= \frac{12}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+\Big[Nq\left[(T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) +(T^{S+} - T^{+S})\right] \\
+&+ (T^{+R} + T^{+P} + T^{+S}) \Big]
+\end{aligned}
+\end{equation}
+
+Finally,
+
+\begin{equation}
+\begin{aligned}
+\langle \Delta H_{SD} \rangle &= \frac{12}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+\Big[q\left[(T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) +(T^{S+} - T^{+S})\right]\Big] \\
+&+ \frac{12}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left[T^{+R} + T^{+P} + T^{+S}\right]
 \end{aligned}
 \end{equation}
 
@@ -78,51 +112,6 @@ can be found where $\langle \Delta H_{SD} \rangle = 0$.
 
 
 \hfill
-
-Moran process equation (needs to be finalised with correct scale factor):
-
-
-
-\begin{equation}
-\begin{aligned}
-\langle \Delta H_{SD} \rangle_{MO} &= \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y} dz \Bigg[\\
-&\frac{
-\begin{aligned}
-&(N^{2} (x+y+z)(x+y+z-1)\bigl(
-x (w (a x + b z + c y - \gamma (x+y+z-1)) - w + 1)
-+ x (w (a+\beta)(x+y+z) - w + 1)\\
-& + y (w (a y + b x + c z - \gamma (x+y+z-1)) - w + 1)
-+ y (w (a+\beta)(x+y+z) - w + 1)\\
-& + z (w (a z + b y + c x - \gamma (x+y+z-1)) - w + 1)
-+ z (w (a+\beta)(x+y+z) - w + 1)
-\bigr) \\
-& - (N(x+y+z)-1)(N(x+y+z-1)-1)(x+y+z)(w(a+\beta)(x+y+z)-w+1)\\
-& - (N(x+y+z)+1)(N(x+y+z-1)+1)\bigl(
-x (w (a x + b z + c y - \gamma (x+y+z-1)) - w + 1) \\
-& + y (w (a y + b x + c z - \gamma (x+y+z-1)) - w + 1)
-+ z (w (a z + b y + c x - \gamma (x+y+z-1)) - w + 1)
-\bigr)
-\bigl)(x+y+z-1)
-\end{aligned}
-}{
-\begin{aligned}
-&N^{4}\bigl(
-w\bigl(
-x(a x + b z + c y - \gamma (x+y+z-1))
-+ y(a y + b x + c z - \gamma (x+y+z-1)) \\
-&+ z(a z + b y + c x - \gamma (x+y+z-1)) - (a+\beta)(x+y+z)(x+y+z-1)
-\bigr) - w + 1
-\bigr)
-\end{aligned}
-}\Bigg]
-\end{aligned}
-\end{equation}
-
-
-With $w = 0$, this reduces to:
-\begin{equation}
-\langle \Delta H_{SD} \rangle_{MO} = \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y} dz \frac{-2 \left((x+y+z-1)(x+y+z)\right)}{N^{4}}
-\end{equation}
 
 
 
@@ -146,9 +135,9 @@ Maybe can plot the simulated critical population sizes against the analyical on 
 
 $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 
-\begin{equation} \label{delta_h_snowdrift}
+\begin{equation} \nonumber
 \begin{aligned}
-  \langle \Delta H_{RPS} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
   &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
   &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \\
   &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+} \\
@@ -157,14 +146,41 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 \end{aligned}
 \end{equation}
 
+
+
+
+\begin{equation} 
+\begin{aligned}
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}
+  \Big[k(j-i)(T^{RP} - T^{PR}) + j(k-i)(T^{RS} - T^{SR}) + i(j-k)(T^{SP} - T^{PS}) \\
+  &+ k(T^{RP} + T^{PR}) + j(T^{RS} + T^{SR}) + i(T^{SP} + T^{PS}) \\
+  &+ jk(T^{R+} - T^{+R}) + ik(T^{P+} - T^{+P}) + ij(T^{S+} - T^{+S})
+  \Big]
+\end{aligned}
+\end{equation}
+Compared to the derivation of simply the RPS case in\cite{PhysRevLett.100.058104_cyclic}, this has the additional
+terms including the difference in tranition probabilities in and out of the 4th strategy.
+
+
+\begin{equation} \nonumber
+\begin{aligned}
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^3} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+  \Big[N^2z(y-x)(T^{RP} - T^{PR}) + N^2y(z-x)(T^{RS} - T^{SR}) \\
+  &+ N^2x(y-z)(T^{SP} - T^{PS}) \\
+  &+ Nz(T^{RP} + T^{PR}) + Ny(T^{RS} + T^{SR}) + Nx(T^{SP} + T^{PS}) \\
+  &+ N^2xz(T^{P+} - T^{+P}) + N^2yz(T^{R+} - T^{+R}) + N^2xy(T^{S+} - T^{+S})
+  \Big]
+\end{aligned}
+\end{equation}
+
 \begin{equation}
 \begin{aligned}
-\langle \Delta H_{RPS} \rangle &= \text{scaling?} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz \Big[xyz(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
-&+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
-&- z(x - \frac{1}{N})(y + \frac{1}{N})T^{RP} - (x - \frac{1}{N})y(z + \frac{1}{N})T^{RS} - yz(x - \frac{1}{N})T^{R+} \\
-&- z(x + \frac{1}{N})(y - \frac{1}{N})T^{PR} - x(y - \frac{1}{N})(z + \frac{1}{N})T^{PS} - xz(y - \frac{1}{N})T^{P+} \\
-&- (x + \frac{1}{N})y(z - \frac{1}{N})T^{SR} - x(y + \frac{1}{N})(z - \frac{1}{N})T^{SP} - xy(z - \frac{1}{N})T^{S+} \\
-&- yz(x + \frac{1}{N})T^{+R} - xz(y + \frac{1}{N})T^{+P} - xy(z + \frac{1}{N})T^{+S}\Big]
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+  \Big[z(y-x)(T^{RP} - T^{PR}) + y(z-x)(T^{RS} - T^{SR}) \\
+  &+ x(y-z)(T^{SP} - T^{PS}) + xz(T^{P+} - T^{+P})+ yz(T^{R+} - T^{+R}) + xy(T^{S+} - T^{+S})
+  \Big] \\
+  &+ \frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\Big[
+  z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) + x(T^{SP} + T^{PS})\Big]
 \end{aligned}
 \end{equation}
 

@@ -285,6 +285,8 @@ def numerical_H_value(transitions, N = 100):
     - x * z * (y + (1/N)) * transitions["T_LP"]
     - x * y * (z + (1/N)) * transitions["T_LS"])
   
+  
+  
 
   config = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
 
