@@ -253,15 +253,20 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 
 def numerical_H_value(transitions, N = 100):
   
-  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+  """expression = (6 / (N * N * N * N * N)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
                     +transitions["T_SL"] + transitions["T_LR"]
                     +transitions["T_LP"] + transitions["T_LS"])
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
   
-  #print(latex(expression))
-  
-  expression_rps = (1/(N**2)) * ((x * y * z) * (transitions["T_RP"]  
+ 
+  """
+  # New corrected normalized expression.
+  expression = ((12/N) * q * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] + transitions["T_SL"] - transitions["T_LS"]) 
+                + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
+                )
+
+  expression_rps = (12 / (N*N*N*N*N)) * ((x * y * z) * (transitions["T_RP"]  
     + transitions["T_RS"] + transitions["T_RL"]
     + transitions["T_PR"] + transitions["T_PS"] 
     + transitions["T_PL"] + transitions["T_SR"] 
@@ -281,7 +286,7 @@ def numerical_H_value(transitions, N = 100):
     - x * y * (z + (1/N)) * transitions["T_LS"])
   
 
-  config = {a: 0, b: 1, c: -0.8, gamma: 0.1, beta: 0.1}
+  config = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
 
   expression = expression.subs(w_sym, 0.35637)
   expression = expression.subs(config)
@@ -321,13 +326,16 @@ def find_critical_N_fixed_w(config, w, transitions):
 
   N = sp.symbols('N')
 
-  expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
+  """expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
                     +transitions["T_SL"] + transitions["T_LR"]
                     +transitions["T_LP"] + transitions["T_LS"])
               - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
               - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
-  
+  """
 
+  expression = ((12/N) * q * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] + transitions["T_SL"] - transitions["T_LS"]) 
+                + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
+                )
 
   def brentq_func(N_val):
     expr_sub = expression.subs(N, N_val)
@@ -350,7 +358,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(250, 750, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(100, 1000, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -358,14 +366,14 @@ def numerical_delta_H_range(n_range = np.linspace(250, 750, 50), config : dict =
 
   for n in n_range:
     res_sd, res_rps = numerical_H_value(transitions, n)
-    delta_H_SD.append(res_sd * (n*n))
+    delta_H_SD.append(res_sd)
     delta_H_RPS.append(res_rps * (n*n))
 
   if plot:
     plt.xlabel("$N$")
     plt.ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
     plt.plot(n_range, delta_H_SD, label="SD")
-    plt.plot(n_range, delta_H_RPS, label="RPS")
+    #plt.plot(n_range, delta_H_RPS, label="RPS")
     plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black")
     plt.legend()
     plt.show()
@@ -465,9 +473,8 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  numerical_delta_H_range()
-
-  estimated = pd.read_csv("C:/GTfyp/results/criticalN_w_2.csv", comment='#')
+  #numerical_delta_H_range()
+  estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
 
   ws = np.linspace(0.1, 0.5, 10)
   critical_Ns = []
@@ -482,7 +489,7 @@ if __name__ == "__main__":
   plt.ylabel(r"$N_c$")
   #plt.yscale("log", base=10)
 
-  plt.plot(estimated["W"], estimated["CriticalN"], marker='o', label='Simulated Critical N')
+  plt.plot(estimated["W"], estimated["critical_N"], marker='o', label='Simulated Critical N')
 
   plt.show()
 

@@ -32,7 +32,7 @@ particular state in the simplex.
 
 \begin{equation} \label{delta_h_snowdrift}
 \begin{aligned}
-  \langle \Delta H_{SD} \rangle &= \text{scaling ? } \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (N-i-j-k + 1)(-N+i+j+k)T^{R+} \\
   &- (N-i-j-k + 1)(-N + i + j + k)T^{P+} \\
   &- (N-i-j-k - 1)(2 - N + i + j + k)T^{+R} \\
@@ -42,6 +42,7 @@ particular state in the simplex.
 \end{equation}
 The terms with transitions within the RPS simplex can be ignored as $q$ would not change between these states, therefore the term $H_s - H_{s'} = 0$ 
 
+
 \hfill
 
 $p = N - i - j - k$, the number of players playing the 4th strategy.
@@ -49,12 +50,19 @@ $p = N - i - j - k$, the number of players playing the 4th strategy.
 
 \begin{equation}
 \begin{aligned}
-  \langle \Delta H_{SD} \rangle &= \text{scaling ?}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (p + 1)(-p)(T^{R+} + T^{P+} + T^{S+}) \\
   &- (p-1)(2 -p)(T^{+R} + T^{+P} + T^{+S})\Big]
 \end{aligned}
 \end{equation}
 
+
+\begin{equation}
+\begin{aligned}
+\langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} 
+\Big[T^{R+}\left(p(1-p) + p(p+1)\right) \Big]
+\end{aligned}
+\end{equation}
 
 The continuous limit, where $x = i/N$, $y = j/N$, $z = k/N$, and $q = p/N$ and $q = 1 - x - y - z$ leads to:
 
