@@ -465,7 +465,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  #numerical_delta_H_range()
+  numerical_delta_H_range()
 
   estimated = pd.read_csv("C:/GTfyp/results/criticalN_w_2.csv", comment='#')
 
