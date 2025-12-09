@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1765290633.87806 "g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1765290634.97916 0
+["pdflatex"] 1765302444.66743 "g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1765302445.77791 0
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762711655 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762710169 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1762710169 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -53,13 +53,13 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762714736 5574345 9e0538e80e24c9ae9ee679f6f1bbacd7 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762714996 3635469 0b67af3270e9d7a6bb19d0299e5b47e4 ""
   "c:/texlive/2025/texmf.cnf" 1762714710 713 e69b156964470283e0530f5060668171 ""
-  "delta_H_derivation.tex" 1765290632 6945 7cb9184cb3ea44c4dd6453198e4c50c8 ""
-  "g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex" 1765290632 6945 7cb9184cb3ea44c4dd6453198e4c50c8 ""
+  "delta_H_derivation.tex" 1765302443 7721 3eaabf26a6ceee27fe88d5679b0c78e7 ""
+  "g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex" 1765302443 7721 3eaabf26a6ceee27fe88d5679b0c78e7 ""
   "images/critical_n_analytical.png" 1764852489 20447 670b0f8012368716039ace23529511a9 ""
   "images/rps_sd_delta_H.png" 1765282830 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
   "images/sd_rps_double_drift.png" 1765282830 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
-  "main.tex" 1765282830 19219 c0d45af635387309f6a6add0d3d862ea ""
-  "out/delta_H_derivation.aux" 1765290634 1117 e8564d6c39bafe2ea8d2fbf2ee0ec300 "pdflatex"
+  "main.tex" 1765301869 19227 e517e2bb4199e3d779ca566c95b8ae37 ""
+  "out/delta_H_derivation.aux" 1765302445 1105 45f29b6ecaa67c53bd62bd1df3f3998a "pdflatex"
   (generated)
   "out/delta_H_derivation.aux"
   "out/delta_H_derivation.log"
