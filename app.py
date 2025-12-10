@@ -169,16 +169,18 @@ def run_population_ensemble(
 
         match process:
             case "MORAN":
-                drift_H, drift_rps, _, _ = simulation.moran_batch_sim(
+                drift_H, drift_rps, _, _= simulation.moran_batch_sim(
                     pop_sizes[i],
-                    2,
+                    1,
                     w,
                     simulations,
                     matrix,
                     np.array([0.25, 0.25, 0.25, 0.25]),
+                    initial_rand=True
                 )
-                drift_SD.append(drift_H * pop_sizes[i])
-                drift_rpss.append(drift_rps * pop_sizes[i])
+                drift_SD.append(drift_H)
+                drift_rpss.append(drift_rps)
+  
             case "LOCAL":
                 drift_H, drift_rps, _,_ = simulation.local_batch_sim(
                     pop_sizes[i],
@@ -188,8 +190,8 @@ def run_population_ensemble(
                     matrix,
                     np.array([0.25, 0.25, 0.25, 0.25]),
                 )
-                drift_SD.append(drift_H * pop_sizes[i])
-                drift_rpss.append(drift_rps * pop_sizes[i])
+                drift_SD.append(drift_H)
+                drift_rpss.append(drift_rps)
 
     end = time.time()
 
@@ -222,12 +224,12 @@ def run_population_ensemble(
             marker="o",
             label="H_4",
         )
-        plt.plot(
+        """plt.plot(
             df_deltaResults["pop_sizes"],
             df_deltaResults["deltaRps"],
             marker="s",
             label="H_RPS",
-        )
+        )"""
 
         plt.plot(df_deltaResults["pop_sizes"], [0 for i in range(len(pop_sizes))])
 
@@ -749,7 +751,7 @@ if __name__ == "__main__":
     )
 
 
-    critical_pop_size_ensemble("./results/critical_N_w_2.csv", option="W_TEST")
+    #critical_pop_size_ensemble("./results/critical_N_w_2.csv", option="W_TEST")
 
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.
@@ -809,16 +811,16 @@ if __name__ == "__main__":
 
     # Below is testig code - remove at some point
     basic_rps = np.array(
-        [[0, -1, 1, 0.34], [1, 0, -1, 0.34], [-1, 1, 0, 0.34], [0.1, 0.1, 0.1, 0]]
+        [[0, -0.8, 1, 0.2], [1, 0, -0.8, 0.2], [-0.8, 1, 0, 0.2], [0.1, 0.1, 0.1, 0]]
     )
 
-    run_population_ensemble(range(150, 300, 10),
+    run_population_ensemble(range(50, 500, 60),
                             file_output_path="./results/test_vs_numerical.csv",
                             plot_delta=True,
                             matrix=basic_rps,
                             process="MORAN",
-                            simulations=100000000,
-                            w=0.2)
+                            simulations=1000000,
+                            w=0.45)
 
     # basic_rps = Games.AUGMENTED_RPS
   

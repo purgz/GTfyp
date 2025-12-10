@@ -251,6 +251,7 @@ def transition_probs_moran(reproductive_func, payoffs : list):
 
 
 
+
 def numerical_H_value(transitions, N = 100):
   
   """expression = (6 / (N * N * N * N * N)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
@@ -261,10 +262,16 @@ def numerical_H_value(transitions, N = 100):
   
  
   """
+
+  
   # New corrected normalized expression.
-  expression = ((12/N) * q * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] + transitions["T_SL"] - transitions["T_LS"]) 
+  expression = ((12/N) * (1 - x - y - z) * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] 
+                              + transitions["T_SL"] - transitions["T_LS"]) 
                 + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
                 )
+  
+
+  
 
   """expression_rps = (12 / (N*N*N*N*N)) * ((x * y * z) * (transitions["T_RP"]  
     + transitions["T_RS"] + transitions["T_RL"]
@@ -285,24 +292,24 @@ def numerical_H_value(transitions, N = 100):
     - x * z * (y + (1/N)) * transitions["T_LP"]
     - x * y * (z + (1/N)) * transitions["T_LS"])"""
   
-  expression_rps = ((12/N) * (z * (y-x) * (transitions["T_RP"] - transitions["T_PR"])
+  expression_rps = ((2/N) * (z * (y-x) * (transitions["T_RP"] - transitions["T_PR"])
           + y * (z - x)*(transitions["T_RS"] - transitions["T_SR"])
           + x * (y - z)*(transitions["T_SP"] - transitions["T_PS"]) +
           x * z * (transitions["T_PL"] - transitions["T_LP"]) + 
           y * z * (transitions["T_RL"] - transitions["T_LR"]) +
           x * y * (transitions["T_SL"] - transitions["T_LS"]))
-          + (12 / (N*N)) * (z * (transitions["T_RP"] + transitions["T_PR"]) + 
-                            y * (transitions["T_RS"] + transitions["T_SR"] + 
-                            x * (transitions["T_SP"] + transitions["T_PS"])))
+          + (2 / (N*N)) * (z * (transitions["T_RP"] + transitions["T_PR"]) + 
+                            y * (transitions["T_RS"] + transitions["T_SR"]) + 
+                            x * (transitions["T_SP"] + transitions["T_PS"]))
                   )
   
 
-  config = {a: 0, b: 1, c: -0.2, gamma: 6, beta: 6}
+  config = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}
 
-  expression = expression.subs(w_sym, 0.35637)
+  expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
 
-  expression_rps = expression_rps.subs(w_sym, 0.35637)
+  expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
 
   f = lambdify((x,y,z), expression, "numpy")
@@ -312,21 +319,27 @@ def numerical_H_value(transitions, N = 100):
   def integrand(z,y,x):
     return f(x,y,z)
   
+  TOL = 1e-14
+    
+
   def integrand_rps(z,y,x):
     return f_rps(x, y, z)
   
   res, err = nquad(integrand, [
     lambda y, x: [0,1-x-y],
     lambda x: [0, 1 - x], 
-    [0,1]])
+    [0,1]], opts={'epsabs': TOL, 'epsrel': TOL})
   
+
   res_rps, err = nquad(integrand_rps, [
     lambda y, x: [0,1-x-y],
     lambda x: [0, 1 - x], 
     [0,1]])
   
-  print("SD: ", res)
-  print("RPS: ", res_rps)
+
+  
+  print("N", N, "SD:", res, "RPS:", res_rps)
+
   return res, res_rps
 
 
@@ -369,7 +382,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(50, 1000, 100), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(50, 600, 30), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -485,13 +498,14 @@ if __name__ == "__main__":
 
 
   numerical_delta_H_range()
+
   estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
 
   ws = np.linspace(0.1, 0.5, 10)
   critical_Ns = []
 
   for w in ws:
-    critical_N = find_critical_N_fixed_w({a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, w, transitions)
+    critical_N = find_critical_N_fixed_w({a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}, w, transitions)
     print(f"Critical N at w={w} is ", critical_N)
     critical_Ns.append(critical_N)
 
