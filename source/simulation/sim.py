@@ -298,6 +298,10 @@ def moran_batch_sim(
 
     all_traj = np.zeros((simulations, n, num_frames))
 
+    
+
+    all_H_whole = np.zeros((simulations, iterations))
+
     for s in prange(simulations):
 
         
@@ -318,7 +322,12 @@ def moran_batch_sim(
 
         population = np.random.multinomial(pop_size, initial)
 
-        results = np.zeros((n, iterations))
+        results = np.zeros((n, iterations + 1))
+
+
+        for i in range(n):
+            results[i, 0] = population[i] / pop_size
+
         for i in range(iterations):
             killed = weighted_choice(population / pop_size)
             payoffs = payoff_against_pop(population, matrix, pop_size)
@@ -331,10 +340,11 @@ def moran_batch_sim(
             population[killed] -= 1
 
             for j in range(n):
-                results[j, i] = population[j] / pop_size
+                results[j, i+1] = population[j] / pop_size
+
 
         H = n - 1 if n == 4 else 0
-        if iterations >= 2:
+        if iterations >= 1:
             delta_H = (-(results[H, 1] * (1 - results[H, 1]))) - (
                 -(results[H, 0] * (1 - results[H, 0]))
             )
