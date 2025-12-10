@@ -250,7 +250,112 @@ def transition_probs_moran(reproductive_func, payoffs : list):
   }
 
 
+# Test method to see if stationary dist is the culprit - hardcoded for a c=-0.8, peak in Rock
+def non_uniform_weight(x,y,z, alpha=20):
+    center = np.array([0.5, 0.2, 0.1])
+    point = np.array([x, y, z])
+    dist_sq = np.sum((point - center)**2)
+    return np.exp(-alpha * dist_sq)
 
+
+from scipy.linalg import solve_lyapunov
+from scipy.stats import multivariate_normal
+from scipy.optimize import fsolve
+# Idk what this even is 
+def stationary_distribution_approximation(a_x_sym, a_y_sym, a_z_sym, b_x_sym, b_y_sym, b_z_sym, config, w, N_val):
+    """
+    Approximates the stationary distribution P(x, y, z) as a Gaussian 
+    using the Jacobian (J) and Diffusion Matrix (B) at the fixed point.
+    
+    Returns: A numerical function P_gauss(x, y, z) for the integrand weighting.
+    """
+
+    # Substitute hyperparameters into the drift/diffusion terms
+
+    a_x_sub = a_x_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+    a_y_sub = a_y_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+    a_z_sub = a_z_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+
+    b_x_sub = b_x_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+    b_y_sub = b_y_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+    b_z_sub = b_z_sym.subs(config).subs(w_sym, w).subs(N, N_val)
+  
+    
+    # 2. Find the Fixed Point (x*, y*, z*)
+    # Solve a_x = 0, a_y = 0, a_z = 0 for x, y, z
+    drift_func = lambdify((x,y,z), [a_x_sub, a_y_sub, a_z_sub], "numpy")
+
+    def equations(vars):
+        return drift_func(vars[0], vars[1], vars[2])
+
+    # Use a reasonable initial guess
+    initial_guess = np.array([0.2, 0.2, 0.2])
+
+    try:
+        sol, info, ier, msg = fsolve(equations, initial_guess, full_output=True)
+        print(sol)
+        if ier != 1:
+            raise RuntimeError("fsolve did not converge: " + msg)
+
+        x_star, y_star, z_star = sol
+
+        # sanity check: ensure inside simplex
+        if not (0 < x_star < 1 and 0 < y_star < 1 and 0 < z_star < 1 and x_star + y_star + z_star < 1):
+            raise ValueError("Solution outside simplex")
+
+    except Exception as e:
+        print(f"Warning: numeric solver failed ({e}). Using fallback (0.2,0.2,0.2).")
+        x_star, y_star, z_star = 0.2, 0.2, 0.2
+    x_star_vec = np.array([x_star, y_star, z_star])
+    
+    # 3. Calculate the Jacobian Matrix J
+    drift_vec = [a_x_sub, a_y_sub, a_z_sub]
+    vars_vec = [x, y, z]
+    
+    J_sym = sp.Matrix([[sp.diff(eq, var) for var in vars_vec] for eq in drift_vec])
+    J_func = lambdify(vars_vec, J_sym, "numpy")
+    J_at_star = J_func(*x_star_vec).astype(float)
+    
+    # 4. Calculate the Diffusion Matrix B(x*)
+    # Simplified Diagonal B Matrix: B_ii = x_i * (1-x_i) * sum(T_i <-> j)
+    # We approximate it using your derived b_sym terms (undoing the 1/N factor)
+    B_sym = sp.diag(b_x_sub, b_y_sub, b_z_sub)
+    B_func = lambdify(vars_vec, B_sym, "numpy")
+    B_at_star = B_func(*x_star_vec).astype(float)
+    
+    # 5. Solve the Lyapunov Equation for Covariance Sigma
+    # J * Sigma + Sigma * J^T = -B
+    # We use -B because solve_lyapunov solves A*X + X*A.T = Q, where A=J and Q=-B.
+    # We divide B_at_star by 2N because the stationary distribution is P(x) ~ N(x*, 1/(2N) * Sigma)
+    # The term we need for the PDF covariance is Sigma_Cov = 1/(2N) * Sigma_Lyapunov
+    
+    # Sigma_Lyapunov = solve_lyapunov(J, -B)
+    Sigma_Lyapunov = solve_lyapunov(J_at_star, -B_at_star)
+    
+    # 6. Define the PDF function P_gauss
+    def P_gauss(x_val, y_val, z_val, N_val):
+        """Returns the Gaussian probability density at (x, y, z) for a given N."""
+        # The true covariance is Sigma_Lyapunov / (2 * N)
+        Sigma_Cov = Sigma_Lyapunov / (2 * N_val)
+        
+        # Since the matrix J is calculated based on the differential equation
+        # which is inherently about the full N, the division by 2N is necessary here.
+        
+        # Ensure Sigma_Cov is positive definite (critical for numerical stability)
+        try:
+            # Use multivariate_normal to create the PDF object
+            pdf = multivariate_normal(mean=x_star_vec, cov=Sigma_Cov)
+            return pdf.pdf(np.array([x_val, y_val, z_val]))
+        except np.linalg.LinAlgError:
+            # Fallback if covariance matrix is not positive definite
+            print("Warning: Covariance matrix is singular. Using fixed-width clamping.")
+            return np.ones_like(x_val) # Fallback to uniform weighting (equivalent to clamping)
+        
+    return P_gauss, x_star_vec, Sigma_Lyapunov
+
+
+
+from scipy.integrate import tplquad
 
 def numerical_H_value(transitions, N = 100):
   
@@ -312,12 +417,28 @@ def numerical_H_value(transitions, N = 100):
   expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
 
+
+  """P_gauss, x_star_vec, Sigma_Lyapunov = stationary_distribution_approximation(
+    a_x, a_y, a_z, b_x, b_y, b_z, # Pass your a_x, a_y, a_z and b_x, b_y, b_z symbols
+    config, 0.45, N
+  )
+  print("Stationary dist approx computed", P_gauss)"""
+
+
   f = lambdify((x,y,z), expression, "numpy")
 
   f_rps = lambdify((x,y,z), expression_rps, "numpy")
 
+  #Sigma_Cov = Sigma_Lyapunov / (2 * N) 
+  #pdf_obj = multivariate_normal(mean=x_star_vec, cov=Sigma_Cov)
+
+  """def integrand(z,y,x):
+    
+    return pdf_obj.pdf([x, y, z]) * f(x, y, z)"""
+  
   def integrand(z,y,x):
-    return f(x,y,z)
+    
+    return f(x, y, z)
   
   TOL = 1e-14
     
@@ -325,10 +446,20 @@ def numerical_H_value(transitions, N = 100):
   def integrand_rps(z,y,x):
     return f_rps(x, y, z)
   
-  res, err = nquad(integrand, [
+  """res, err = nquad(integrand, [
     lambda y, x: [0,1-x-y],
     lambda x: [0, 1 - x], 
-    [0,1]], opts={'epsabs': TOL, 'epsrel': TOL})
+    [0,1]])"""
+  
+
+  res, err = tplquad(
+    integrand,
+    0, 1,
+    lambda x: 0,
+    lambda x: 1 - x,
+    lambda x, y: 0,
+    lambda x, y: 1 - x - y,
+  )
   
 
   res_rps, err = nquad(integrand_rps, [
@@ -382,7 +513,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(50, 600, 30), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(50, 600, 100), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -401,6 +532,8 @@ def numerical_delta_H_range(n_range = np.linspace(50, 600, 30), config : dict = 
     plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black")
     plt.legend()
     plt.show()
+
+
 
 
 if __name__ == "__main__":
@@ -435,14 +568,28 @@ if __name__ == "__main__":
   #print("***************************")
   #print(latex(sp.simplify(transitions["T_RL"])))
 
-  #a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
-  #       - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
+  N = sp.symbols('N')
+
+  a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
+         - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
   
+  b_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"] + transitions["T_RP"] + transitions["T_RS"] + transitions["T_RL"]) / N
+
+  a_y = (transitions["T_RP"] + transitions["T_SP"] + transitions["T_LP"]
+         - transitions["T_PR"] - transitions["T_PS"] - transitions["T_PL"])
+  
+  b_y = (transitions["T_RP"] + transitions["T_SP"] + transitions["T_LP"] + transitions["T_PR"] + transitions["T_PS"] + transitions["T_PL"]) / N
+  
+  a_z = (transitions["T_RS"] + transitions["T_PS"] + transitions["T_LS"]
+         - transitions["T_SR"] - transitions["T_SP"] - transitions["T_SL"])
+  
+  b_z = (transitions["T_RS"] + transitions["T_PS"] + transitions["T_LS"] + transitions["T_SR"] + transitions["T_SP"] + transitions["T_SL"]) / N
+
   #a_x = sp.simplify(a_x)
   #x_dot = sp.simplify(x_dot)
   #print("Correct adjusted: ")
   #print(latex(x_dot))
-  N = sp.symbols('N')
+  
 
   """expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
                     +transitions["T_SL"] + transitions["T_LR"]
