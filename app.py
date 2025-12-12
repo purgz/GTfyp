@@ -578,13 +578,13 @@ def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=1
         pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
     )"""
 
-    _, _, _, all_traj = simulation.local_batch_sim(
-        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
-    )
-
-    """_, _, _, all_traj = simulation.moran_batch_sim(
+    """_, _, _, all_traj = simulation.local_batch_sim(
         pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
     )"""
+
+    _, _, _, all_traj = simulation.moran_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
+    )
 
 
     df = trajectories_to_anim(all_traj)
@@ -744,9 +744,9 @@ if __name__ == "__main__":
    
     
     basic_rps = np.array(
-    [[0, 1, 1,     0.2], 
-     [1, 0, 1,     0.2], 
-     [1, 1, 0,     0.2], 
+    [[0, -0.8, 1,     0.2], 
+     [1, 0, -0.8,     0.2], 
+     [-0.8, 1, 0,     0.2], 
      [0.1, 0.1, 0.1, 0]]
     )
 
@@ -789,10 +789,11 @@ if __name__ == "__main__":
     #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps, file_output_path="point_cloud_test.csv")
 
 
+    point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+    df2 = pd.read_csv("point_cloud_test.csv", comment="#")
+    simulation.point_cloud([df2])
 
-    """point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
-
-
+    """
     all_traj = np.zeros((300, 4, 500))
     for i in range(300):
 
@@ -814,12 +815,15 @@ if __name__ == "__main__":
         [[0, -0.8, 1, 0.2], [1, 0, -0.8, 0.2], [-0.8, 1, 0, 0.2], [0.1, 0.1, 0.1, 0]]
     )
 
-    run_population_ensemble(range(50, 500, 60),
+
+    # Add function to solve for fixed points of given matrix, - pass into moran_batch to bias initial distribution
+
+    run_population_ensemble(range(50, 500, 30),
                             file_output_path="./results/test_vs_numerical.csv",
                             plot_delta=True,
                             matrix=basic_rps,
                             process="MORAN",
-                            simulations=1000000,
+                            simulations=100000000,
                             w=0.45)
 
     # basic_rps = Games.AUGMENTED_RPS

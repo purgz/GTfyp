@@ -199,6 +199,7 @@ def local_batch_sim(
 
     all_traj = np.zeros((simulations, n, num_frames))
 
+  
     for s in prange(simulations):
         # Randomize in the simplex
         """fixed = initial_dist[3]
@@ -211,6 +212,7 @@ def local_batch_sim(
         if initial_rand:
             initial = np.random.exponential(1,n)
             initial /= np.sum(initial)
+     
         else:
             initial = initial_dist
 
@@ -293,14 +295,12 @@ def moran_batch_sim(
 
     initial_dist = initial_dist / np.sum(initial_dist)
 
-    sample_rate = 10000
+    sample_rate = 1000
     num_frames = iterations // sample_rate
 
     all_traj = np.zeros((simulations, n, num_frames))
 
-    
-
-    all_H_whole = np.zeros((simulations, iterations))
+    #  Need to be able to pass the fixedd point for given matrix - bias initial slightly
 
     for s in prange(simulations):
 
@@ -313,10 +313,19 @@ def moran_batch_sim(
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
         """
-
         if initial_rand:
-            initial = np.random.exponential(1,n)
+            """initial = np.random.exponential(1,n)
+            #initial = np.random.rand(4)
+            initial /= np.sum(initial)"""
+
+            x_star_vec = np.array([0.28, 0.28, 0.28, 0.16])
+            scale = 1.0
+            alpha_centered = x_star_vec * scale + 1e-3  # scale >> 1 sharpens around fixed point
+            initial = np.random.dirichlet(alpha_centered)
+            initial = np.clip(initial, 1e-3, 1-1e-3)
             initial /= np.sum(initial)
+
+           
         else:
             initial = initial_dist
 
@@ -360,7 +369,7 @@ def moran_batch_sim(
             all_results += results
 
         if point_cloud:
-            all_traj[s, :, :] = results[:, ::sample_rate]
+            all_traj[s, :, :] = results[:, 1::sample_rate]
 
     mean_delta_H = np.mean(deltas)
     mean_delta_rps = np.mean(deltas_rps)
