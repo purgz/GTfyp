@@ -32,7 +32,7 @@ particular state in the simplex.
 
 \begin{equation} \label{delta_h_snowdrift}
 \begin{aligned}
-  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (N-i-j-k + 1)(-N+i+j+k)T^{R+} \\
   &- (N-i-j-k + 1)(-N + i + j + k)T^{P+} \\
   &- (N-i-j-k - 1)(2 - N + i + j + k)T^{+R} \\
@@ -50,7 +50,7 @@ $p = N - i - j - k$, the number of players playing the 4th strategy.
 
 \begin{equation} \nonumber
 \begin{aligned}
-  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+  \langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[p(1-p)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
   &- (p + 1)(-p)(T^{R+} + T^{P+} + T^{S+}) \\
   &- (p-1)(2 -p)(T^{+R} + T^{+P} + T^{+S})\Big]
 \end{aligned}
@@ -59,15 +59,15 @@ $p = N - i - j - k$, the number of players playing the 4th strategy.
 
 \begin{equation} \nonumber
 \begin{aligned}
-\langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} 
+\langle \Delta H_{SD} \rangle &= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j} 
 \Big[T^{R+}\left(p(1-p) + p(p+1)\right) + T^{+R}\left(p(1-p) - (p-1)(2-p)\right) \\
 &+ T^{P+}\left(p(1-p) + p(p+1)\right) + T^{+P}\left(p(1-p) - (p-1)(2-p)\right) \\
 &+ T^{S+}\left(p(1-p) + p(p+1)\right) + T^{+S}\left(p(1-p) - (p-1)(2-p)\right) 
 \Big] \\
-&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} \Big[
+&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j} \Big[
 2p\left(T^{R+} + T^{P+} + T^{S+}\right) + (p - p^2 - (3p - p^2 -2))(T^{+R} + T^{+P} + T^{+S})
 \Big] \\
-&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[
+&= \frac{6}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[
 2p\left(T^{R+} + T^{P+} + T^{S+}\right) + (2 - 2p)(T^{+R} + T^{+P} + T^{+S})
 \Big] 
 \end{aligned}
@@ -75,14 +75,14 @@ $p = N - i - j - k$, the number of players playing the 4th strategy.
 
 
 \begin{equation} \nonumber
-\langle \Delta H_{SD} \rangle = \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N} \Big[
+\langle \Delta H_{SD} \rangle = \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j} \Big[
 p\left(T^{R+} + T^{P+} + T^{S+}\right) + (1 - p)(T^{+R} + T^{+P} + T^{+S})
 \Big]
 \end{equation}
 
 \begin{equation}
 \begin{aligned}
-\langle \Delta H_{SD} \rangle &= \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}
+\langle \Delta H_{SD} \rangle &= \frac{12}{N^5} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}
 p\Big[ (T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) +(T^{S+} - T^{+S}) \Big]+ T^{+R} + T^{+P} + T^{+S}
 \end{aligned}
 \end{equation}
@@ -137,7 +137,7 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 
 \begin{equation} \nonumber
 \begin{aligned}
-  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
   &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
   &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \\
   &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+} \\
@@ -151,7 +151,7 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 
 \begin{equation} 
 \begin{aligned}
-  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{k=1}^{N}
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}
   \Big[k(j-i)(T^{RP} - T^{PR}) + j(k-i)(T^{RS} - T^{SR}) + i(j-k)(T^{SP} - T^{PS}) \\
   &+ k(T^{RP} + T^{PR}) + j(T^{RS} + T^{SR}) + i(T^{SP} + T^{PS}) \\
   &+ jk(T^{R+} - T^{+R}) + ik(T^{P+} - T^{+P}) + ij(T^{S+} - T^{+S})
@@ -204,6 +204,18 @@ Rough figures of rps and SD delta H values.
 
 All 4 strategies, $H = -xyz(1-x-y-z)$
 As above.
+
+
+\begin{equation} \label{delta_h_4}
+\begin{aligned}
+  \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijk(1-i-j-k)
+  (T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
+  &- (i-1)(j+1)k(1-i-j-k)T^{RP} - (i-1)j(k+1)(1-i-j-k)T^{RS} \\
+  &- (i-1)jk(2-i-j-k)T^{R+} - (i+1)(j-1)k(1-i-j-k)T^{PR} \\
+  &- i(j-1)(k+1)(1-i-j-k)T^{PS} - i(j-1)k(2-i-j-k)T^{P+}\Big]
+\end{aligned}
+\end{equation}
 
 
 \end{document}
