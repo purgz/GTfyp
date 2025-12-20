@@ -314,7 +314,7 @@ def numerical_H_value(transitions, N = 100):
                   )
   
 
-  config = {a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}
+  config = {a: 0, b: 10, c:-8, gamma: 0.2, beta:0.5 }
 
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
@@ -405,7 +405,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(50, 600, 100), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(50, 600, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -427,15 +427,15 @@ def numerical_delta_H_range(n_range = np.linspace(50, 600, 100), config : dict =
 
 
 """
-Simulation matches when using a weak drichlet - boundary distribution, i guess makes sense for integral 0 - 1, 
-
-Add option for this, or for original in simulation code.
+Simulation matches when using a weak drichlet a << 1 - boundary distribution, i guess makes sense for integral 0 - 1, 
 
 Need to add derivation and then code for delta H_4, then make some plots of all 3,
 
 Try and see the point at which double drift occurs, any pattern.
 
 Critial population size for double drift in the combined game.
+
+Do the same for local and fermi....
 """
 
 
@@ -494,10 +494,10 @@ def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
 if __name__ == "__main__":
 
   basic_rps = np.array(
-  [[0, -0.8, 1,     0.2], 
-    [1, 0, -0.8,     0.2], 
-    [-0.8, 1, 0,     0.2], 
-    [0.1, 0.1, 0.1, 0]]
+  [[0, -0.8, 1,     0.06], 
+    [1, 0, -0.8,     0.06], 
+    [-0.8, 1, 0,     0.06], 
+    [0.02, 0.02, 0.02, 0]]
   )
   
   find_fixed_point_a_x(basic_rps)
