@@ -300,6 +300,7 @@ def moran_batch_sim(
 
     all_traj = np.zeros((simulations, n, num_frames))
 
+
     #  Need to be able to pass the fixedd point for given matrix - bias initial slightly
 
     for s in prange(simulations):
@@ -319,10 +320,11 @@ def moran_batch_sim(
             initial /= np.sum(initial)"""
 
             x_star_vec = np.array([0.28, 0.28, 0.28, 0.16])
-            scale = 1.0
-            alpha_centered = x_star_vec * scale + 1e-3  # scale >> 1 sharpens around fixed point
-            initial = np.random.dirichlet(alpha_centered)
-            initial = np.clip(initial, 1e-3, 1-1e-3)
+           
+            scale = 0.2
+            alpha_centered = x_star_vec * scale # scale >> 1 sharpens around fixed point
+            initial = np.random.dirichlet(alpha_centered) # dirchlet centered around the fixed point.
+            initial = np.clip(initial, 1e-7, 1-1e-7)
             initial /= np.sum(initial)
 
            

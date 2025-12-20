@@ -9,6 +9,7 @@ from scipy.optimize import brentq
 
 from scipy.integrate import tplquad
 
+from scipy.optimize import fsolve
 
 import matplotlib.pyplot as plt
 
@@ -425,10 +426,82 @@ def numerical_delta_H_range(n_range = np.linspace(50, 600, 100), config : dict =
     plt.show()
 
 
+"""
+Simulation matches when using a weak drichlet - boundary distribution, i guess makes sense for integral 0 - 1, 
+
+Add option for this, or for original in simulation code.
+
+Need to add derivation and then code for delta H_4, then make some plots of all 3,
+
+Try and see the point at which double drift occurs, any pattern.
+
+Critial population size for double drift in the combined game.
+"""
+
+
+# Compute fixed point
+def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
+  # Matrix : np.matrix
+
+
+
+  a_val = matrix[0, 0]
+  b_val = matrix[1, 0]
+  c_val = matrix[0, 1]
+  gamma_val = matrix[0, 3]
+  beta_val = matrix[3, 0]
+
+
+  # Construct config from matrix.
+  config = {a : a_val, b : b_val, c : c_val, gamma : gamma_val, beta : beta_val}
+
+  delta_pi = matrix.max() - matrix.min()
+  matrix = sp.Matrix(matrix)
+  
+  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
+
+  a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
+         - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
+
+  a_y = (transitions["T_RP"] + transitions["T_SP"] + transitions["T_LP"]
+         - transitions["T_PR"] - transitions["T_PS"] - transitions["T_PL"])
+  
+
+  a_z = (transitions["T_RS"] + transitions["T_PS"] + transitions["T_LS"]
+         - transitions["T_SR"] - transitions["T_SP"] - transitions["T_SL"])
+    
+  a_x_sub = a_x.subs(config).subs(w_sym, w)
+  a_y_sub = a_y.subs(config).subs(w_sym, w) 
+  a_z_sub = a_z.subs(config).subs(w_sym, w)
+
+  numerical = lambdify((x,y,z), [a_x_sub, a_y_sub, a_z_sub], "numpy") 
+
+  def equations(vars):
+    return numerical(vars[0], vars[1], vars[2])
+
+  initial_guess = np.array([0.2,0.2,0.2])
+  sol = fsolve(equations, initial_guess, full_output=True)
+
+  print("Solution found", sol[0])
+
+  return np.concatenate([sol[0], [1 - np.sum(sol[0])]])
+
+
+
 
 
 if __name__ == "__main__":
+
+  basic_rps = np.array(
+  [[0, -0.8, 1,     0.2], 
+    [1, 0, -0.8,     0.2], 
+    [-0.8, 1, 0,     0.2], 
+    [0.1, 0.1, 0.1, 0]]
+  )
   
+  find_fixed_point_a_x(basic_rps)
+
   # Derive replicator equations
   x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None, w=None)
 

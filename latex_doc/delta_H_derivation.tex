@@ -210,12 +210,19 @@ As above.
 \begin{aligned}
   \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijk(1-i-j-k)
   (T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
-  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
-  &- (i-1)(j+1)k(1-i-j-k)T^{RP} - (i-1)j(k+1)(1-i-j-k)T^{RS} \\
-  &- (i-1)jk(2-i-j-k)T^{R+} - (i+1)(j-1)k(1-i-j-k)T^{PR} \\
-  &- i(j-1)(k+1)(1-i-j-k)T^{PS} - i(j-1)k(2-i-j-k)T^{P+}\Big]
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) - (i-1)(j+1)k(1-i-j-k)T^{RP} \\
+  &- (i-1)j(k+1)(1-i-j-k)T^{RS} - (i-1)jk(2-i-j-k)T^{R+} \\
+  &- (i+1)(j-1)k(1-i-j-k)T^{PR} - i(j-1)(k+1)(1-i-j-k)T^{PS} \\
+  &- i(j-1)k(2-i-j-k)T^{P+} - (i+1)j(k-1)(1-i-j-k)T^{SR} \\
+  &- i(j+1)(k-1)(1-i-j-k)T^{SP} - ij(k-1)(2-i-j-k)T^{S+} \\
+  &- (i+1)jk(-i-j-k)T^{+R} - i(j+1)k(-i-j-k)T^{+P} - ij(k+1)(-i-j-k)T^{+S}\Big]
 \end{aligned}
 \end{equation}
+Normalization $\frac{6}{N^7}$, as its over the whole simplex (pyramid volume 1/6) and triple summation, ($N^3$), then 4 populations $N^4$.
 
+
+
+\hfill
+Collect the terms e.g $T^{RP} - T^{PR}$...
 
 \end{document}

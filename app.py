@@ -222,7 +222,7 @@ def run_population_ensemble(
             df_deltaResults["pop_sizes"],
             df_deltaResults["delta_H"],
             marker="o",
-            label="H_4",
+            label="H_SD",
         )
         """plt.plot(
             df_deltaResults["pop_sizes"],
@@ -751,6 +751,22 @@ if __name__ == "__main__":
     )
 
 
+
+    fixed_point = replicator.find_fixed_point_a_x(basic_rps, w = 0.45)
+    print("Fixed point for matrix: ", fixed_point)
+
+
+    run_population_ensemble(range(50, 500, 30),
+                        file_output_path="./results/test_vs_numerical.csv",
+                        plot_delta=True,
+                        matrix=basic_rps,
+                        process="MORAN",
+                        simulations=100000000,
+                        w=0.45)
+
+    simulation.drift_plot_H(["./results/test_vs_numerical.csv"], labels=["SD", "RPS"])
+    exit(0)
+
     #critical_pop_size_ensemble("./results/critical_N_w_2.csv", option="W_TEST")
 
     # 5000, 300, 100
@@ -818,13 +834,7 @@ if __name__ == "__main__":
 
     # Add function to solve for fixed points of given matrix, - pass into moran_batch to bias initial distribution
 
-    run_population_ensemble(range(50, 500, 30),
-                            file_output_path="./results/test_vs_numerical.csv",
-                            plot_delta=True,
-                            matrix=basic_rps,
-                            process="MORAN",
-                            simulations=100000000,
-                            w=0.45)
+
 
     # basic_rps = Games.AUGMENTED_RPS
   
