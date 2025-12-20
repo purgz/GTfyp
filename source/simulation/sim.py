@@ -286,7 +286,8 @@ def moran_batch_sim(
     initial_dist=np.array([0.25, 0.25, 0.25, 0.25]),
     traj=False,
     point_cloud=False,
-    initial_rand=True
+    initial_rand=True,
+    fixed_point=None
 ):
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
@@ -314,21 +315,23 @@ def moran_batch_sim(
         random_simplex *= remaining
         initial = np.append(random_simplex, fixed)
         """
+        # Sample distribution options.
         if initial_rand:
-            """initial = np.random.exponential(1,n)
-            #initial = np.random.rand(4)
-            initial /= np.sum(initial)"""
-
-            x_star_vec = np.array([0.28, 0.28, 0.28, 0.16])
            
-            scale = 0.2
-            alpha_centered = x_star_vec * scale # scale >> 1 sharpens around fixed point
-            initial = np.random.dirichlet(alpha_centered) # dirchlet centered around the fixed point.
-            initial = np.clip(initial, 1e-7, 1-1e-7)
-            initial /= np.sum(initial)
-
-           
+            if fixed_point is not None:
+              # If we have a fixd point bias around it.
+              x_star_vec = fixed_point
+              scale = 0.2
+              alpha_centered = x_star_vec * scale  + 1e-7 # scale >> 1 sharpens around fixed point
+              initial = np.random.dirichlet(alpha_centered) # dirchlet centered around the fixed point.
+              initial = np.clip(initial, 1e-7, 1-1e-7)
+              initial /= np.sum(initial)
+            else:
+              initial = np.random.exponential(1,n)
+              initial = np.random.rand(4)
+              initial /= np.sum(initial)
         else:
+            # For non random (single trajectory plottting) just use the provided dist.
             initial = initial_dist
 
         population = np.random.multinomial(pop_size, initial)

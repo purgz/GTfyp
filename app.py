@@ -157,6 +157,9 @@ def run_population_ensemble(
     process="MORAN",
     matrix=Games.AUGMENTED_RPS,
 ) -> None:
+    
+    fixed_point = replicator.find_fixed_point_a_x(matrix, w = w)
+    print("Fixed point for matrix: ", fixed_point)
 
     start = time.time()
 
@@ -176,7 +179,8 @@ def run_population_ensemble(
                     simulations,
                     matrix,
                     np.array([0.25, 0.25, 0.25, 0.25]),
-                    initial_rand=True
+                    initial_rand=True,
+                    fixed_point=fixed_point
                 )
                 drift_SD.append(drift_H)
                 drift_rpss.append(drift_rps)
@@ -752,16 +756,12 @@ if __name__ == "__main__":
 
 
 
-    fixed_point = replicator.find_fixed_point_a_x(basic_rps, w = 0.45)
-    print("Fixed point for matrix: ", fixed_point)
-
-
     run_population_ensemble(range(50, 500, 30),
                         file_output_path="./results/test_vs_numerical.csv",
                         plot_delta=True,
                         matrix=basic_rps,
                         process="MORAN",
-                        simulations=100000000,
+                        simulations=10000000,
                         w=0.45)
 
     simulation.drift_plot_H(["./results/test_vs_numerical.csv"], labels=["SD", "RPS"])
