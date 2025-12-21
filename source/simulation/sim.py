@@ -328,7 +328,7 @@ def moran_batch_sim(
               initial /= np.sum(initial)
             else:
               initial = np.random.exponential(1,n)
-              initial = np.random.rand(4)
+         
               initial /= np.sum(initial)
         else:
             # For non random (single trajectory plottting) just use the provided dist.
