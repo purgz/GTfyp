@@ -757,11 +757,12 @@ if __name__ == "__main__":
    
     
     basic_rps = np.array(
-    [[0, -0.8, 1,     0.2], 
-     [1, 0, -0.8,     0.2], 
-     [-0.8, 1, 0,     0.2], 
-     [0.1, 0.1, 0.1, 0]]
+    [[0, -0.8, 1,     0.02], 
+     [1, 0, -0.8,     0.02], 
+     [-0.8, 1, 0,     0.02], 
+     [0.05, 0.05, 0.05, 0]]
     )
+
 
     basic_rps = np.array(
     [[0, -1, 1,     0.2], 
@@ -785,6 +786,9 @@ if __name__ == "__main__":
     simulation.drift_plot_H(["./results/test_vs_numerical.csv"], labels=["SD", "RPS"])
     exit(0)
 
+    point_cloud_animation(pop_size=1000, iterations=200000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
+    df2 = pd.read_csv("point_cloud_test.csv", comment="#")
+    simulation.point_cloud([df2])
  
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.

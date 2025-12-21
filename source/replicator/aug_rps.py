@@ -313,8 +313,10 @@ def numerical_H_value(transitions, N = 100):
                             x * (transitions["T_SP"] + transitions["T_PS"]))
                   )
   
-
-  config = {a: 0, b: 10, c:-8, gamma: 0.2, beta:0.5 }
+  """
+    config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 } - config where CritN_rps is lower than critN_SD
+  """
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 }
 
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
@@ -608,7 +610,7 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  #numerical_delta_H_range()
+  numerical_delta_H_range()
 
   estimated = pd.read_csv("C:/GTfyp/results/critical_N_w_2_0.8.csv", comment='#')
 

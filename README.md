@@ -1,6 +1,29 @@
 # GTfyp
 Final year project work - evolutionary game theory 
 
+
+### Commands
+
+Preset examples:
+python app.py pd [Optional args]
+python app.py rps [Optional args]
+Optional Commands:
+  - -N \<pop size\>
+  - -iterations
+e.g. python app.py -N 5000 -iterations 10000
+Iterations automatically calculated if not provided for 35 normalized timesteps in pd example.
+
+-matrix argument in progess for general example with numerical solution.
+pd example is will be generally any 2x2 symmetric game with matrix argument option.
+replicators and integral solutions automatically calculated.
+
+---
+
+
+
+
+
+
 Up to date document with derviations and more images in /latex_doc/main.pdf
 
 - aim for the project - general game simulator with time series plots for 2x2,3x3,4x4..NxN wth numerical trajectories options.

@@ -292,7 +292,7 @@ def moran_batch_sim(
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
     deltas_rps = np.zeros(simulations)
-    all_results = np.zeros((n, iterations))
+    all_results = np.zeros((n, iterations + 1))
 
     initial_dist = initial_dist / np.sum(initial_dist)
 
