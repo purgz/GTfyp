@@ -243,7 +243,7 @@ def run_population_ensemble(
         plt.show()
 
 
-def search_critical_pop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> int:
+def search_critical_pop_size(w: float = 0.45, matrix=None, low=0, high=1500) -> int:
 
     # Binary search for critical pop_size where drift reversal occurs.
     # Hardcoded for initial deltaM being positive.
@@ -259,8 +259,17 @@ def search_critical_pop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> i
 
     prev_sign = None
 
+    matrix = np.array(
+    [[0, -0.8, 1,     0.2], 
+     [1, 0, -0.8,     0.2], 
+     [-0.8, 1, 0,     0.2], 
+     [0.1, 0.1, 0.1, 0]]
+    )
+
     if matrix is None:
         matrix = Games.AUGMENTED_RPS
+
+    fixed = replicator.find_fixed_point_a_x(matrix)
 
     while low <= high and iteration < max_iterations:
         iteration += 1
@@ -268,7 +277,7 @@ def search_critical_pop_size(w: float = 0.4, matrix=None, low=0, high=2000) -> i
         print("Testing pop_size: ", mid)
 
         delta_moran, _, _, _ = simulation.moran_batch_sim(
-            mid, 2, w, 20000000, matrix, np.array([0.25, 0.25, 0.25, 0.25])
+            mid, 1, w, 20000000, matrix, fixed_point=fixed
         )
 
         if delta_moran > 0:
@@ -754,6 +763,15 @@ if __name__ == "__main__":
      [0.1, 0.1, 0.1, 0]]
     )
 
+    basic_rps = np.array(
+    [[0, -1, 1,     0.2], 
+     [1, 0, -1,     0.2], 
+     [-1, 1, 0,     0.2], 
+     [0.1, 0.1, 0.1, 0]]
+    )
+
+    critical_pop_size_ensemble("./results/critical_N_w_2_0.8.csv", option="W_TEST")
+
 
 
     run_population_ensemble(range(50, 500, 30),
@@ -767,8 +785,7 @@ if __name__ == "__main__":
     simulation.drift_plot_H(["./results/test_vs_numerical.csv"], labels=["SD", "RPS"])
     exit(0)
 
-    #critical_pop_size_ensemble("./results/critical_N_w_2.csv", option="W_TEST")
-
+ 
     # 5000, 300, 100
     # RPS and SD different critical sizes where the drift occurs.
     # Large population  lots of iterations converges, interior

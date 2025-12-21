@@ -608,9 +608,9 @@ if __name__ == "__main__":
   #print(latex(formatted.subs(w_sym, 0)))
 
 
-  numerical_delta_H_range()
+  #numerical_delta_H_range()
 
-  estimated = pd.read_csv("G:/Game theory project/GTfyp/results/critical_N_w_2.csv", comment='#')
+  estimated = pd.read_csv("C:/GTfyp/results/critical_N_w_2_0.8.csv", comment='#')
 
   ws = np.linspace(0.1, 0.5, 10)
   critical_Ns = []
