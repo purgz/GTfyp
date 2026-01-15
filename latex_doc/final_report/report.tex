@@ -86,11 +86,81 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 
 %\tableofcontents
 
-\section{\label{sec:level1}Introduction:\protect\\ RPS dynamics \lowercase{via} \textbackslash\textbackslash}
+\section{\label{sec:level1}Introduction:\protect\\ RPS dynamics}
 
 This is where I will introduce replicator equations and standard work for rock paper scissors
 \cite{PhysRevLett.95.238701}
 
+\hfill
+
+The general rock paper scissors matrix is defined as:
+
+\begin{align} 
+\begin{bmatrix}
+    a & c & b\\
+    b & a & c\\
+    c & b & a
+\end{bmatrix}
+\end{align}
+
+For the standard symmetric case of the RPS game, $a = 0, c = -1, b = 1$
+where rock crushes scissors, paper covers rock, and scissors cuts paper. 
+Ties are awarded the payoff of 0 resulting in cyclical dynamics about the internal
+fixed point of $\left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)$.
+
+\subsection{\label{sec:rps_replicator} Replicator dynamics}
+
+Let $x$, $y$ and $z$ represent the fraction of players using rock, paper, and scissors
+respectively. $z$ can be defined as $z = 1 - x - y$, reducing the dimension of the replicator equations.
+Expected payoffs for each strategy can then be defined as follows:
+\begin{align}
+   \pi_R = a x + b \left(- x - y + 1\right) + c y \\
+   \pi_P = a y + b x + c \left(- x - y + 1\right) \\
+   \pi_S = a \left(- x - y + 1\right) + b y + c x
+\end{align}
+
+
+
+The replicator equations can be defined (ref Evo games and pop dynamics hofbauer) for $(x, y)$ using the standard formula:
+\begin{equation}
+    \dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
+\end{equation}
+
+where the average payoff (or mean fitness) in the population is:
+\[
+\langle \pi(x) \rangle = x \pi_R + y \pi_P + z \pi_S
+\]
+
+
+
+This leads to the following replicator equations for x and y:
+
+
+\begin{widetext}
+\begin{equation}
+    \begin{split}
+        \dot{x} &= x y \left(a x - a y - b x + b \left(-x - y + 1\right) + c y 
+        - c \left(-x - y + 1\right)\right) \\
+        & + x \left(-x - y + 1\right) \left(a x - a \left(-x - y + 1\right)
+        - b y + b \left(-x - y + 1\right) - c x + c y\right)
+    \end{split}
+\end{equation}
+\begin{equation}
+    \begin{split}
+        \dot{y} &= x y \left(- a x + a y + b x - b \left(- x - y + 1\right) - c y 
+        + c \left(- x - y + 1\right)\right) \\
+        & + y \left(- x - y + 1\right) \left(a y - a \left(- x - y + 1\right)
+        + b x - b y - c x + c \left(- x - y + 1\right)\right)
+    \end{split}
+\end{equation}
+\end{widetext}
+
+The stability of this system of replicator equations can be analyzed by
+computing the eigenvalues of the Jacobian matrix of functions
+$F = \dot x, G = \dot y$.
+
+
+Should include a figure for RPS cyclic dynamics.
 
 
 
@@ -99,6 +169,9 @@ This is where I will introduce replicator equations and standard work for rock p
 
 
 
+
+
+\clearpage
 
 \clearpage
 
