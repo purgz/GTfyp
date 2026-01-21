@@ -8,6 +8,7 @@ For supporting hand written derivations see /hand_written_derivations
 
 
 
+pip install git+https://github.com/purgz/GTfyp.git
 
 # Documentation.
 
