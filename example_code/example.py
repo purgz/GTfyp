@@ -12,7 +12,6 @@ pip install git+https://github.com/purgz/GTfyp.git
 Below is an example script for the prisoners dilemma.
 
 """
-
 import numpy as np
 
 import simulation
@@ -73,10 +72,11 @@ def main():
     df2 = pd.DataFrame({"C": traj2[0], "D": traj2[1]})
     df3 = pd.DataFrame({"C": traj3[0], "D": traj3[1]})
 
+    simulation.game_2d_plot([df["D"], df2["D"], df3["D"]], N=[200,20000,100000], norm=[True,True,True], labels=["N=200","N=20000","N=100000"])
 
-    simulation.game_2d_plot([df["D"]],  N=200,    norm=[True], labels=["N=200"])
+    """simulation.game_2d_plot([df["D"]],  N=200,    norm=[True], labels=["N=200"])
     simulation.game_2d_plot([df2["D"]], N=20000,  norm=[True], labels=["N=20000"])
-    simulation.game_2d_plot([df3["D"]], N=100000, norm=[True], labels=["N=100000"])
+    simulation.game_2d_plot([df3["D"]], N=100000, norm=[True], labels=["N=100000"])"""
 
 
 if __name__ == "__main__":
