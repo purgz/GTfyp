@@ -225,17 +225,22 @@ Normalization $\frac{6}{N^7}$, as its over the whole simplex (pyramid volume 1/6
 
 
 Looking at one pair of transitions in and out of the same state. ($R
-\rightarrow P, P \rightarrow R$)
+\rightarrow P, P \rightarrow R$) this can be rewritten as before for 
+$\langle \Delta H_{RPS} \rangle$ as differences of transition probabilities
+in and out of a state.
 
-\begin{equation} \nonumber
+
+\begin{equation} \label{delta_h_4_pairs}
 \begin{aligned}
-&ijk(1-i-j-k)(T^{RP} + T^{PR}) - (i-1)(j+1)k(1-i-j-k)T^{RP} - (i+1)(j-1)k(1-i-j-k) \\
-&= ijk(1-i-j-k)(T^{RP} + T^{PR}) - (ij + i - j - 1)k(1-i-j-k)T^{RP} - (ij - i + j - 1)k(1-i-j-k)T^{PR} \\
-&= ijk(1-i-j-k)(T^{RP} + T^{PR}) + (1-i-j-k)k(T^{RP} + T^{PR}) - (ij + i - j)k(1-i-j-k)T^{RP} \\
-&- (ij - i + j)k(1-i-j-k)T^{PR} 
+  \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[
+  k(1-i-j-k)(j-i)(T^{RP} - T^{PR}) + j(1-i-j-k)(k-i)(T^{RS} - T^{SR}) \\
+  &+ i(1-i-j-k)(j-k)(T^{SP} - T^{PS}) + k(1-i-j-k)(T^{RP} + T^{PR}) + j(1-i-j-k)(T^{RS} + T^{SR}) \\
+  &+ i(1-i-j-k)(T^{SP} + T^{PS}) + jk(-2i-k-j)(T^{R+} - T^{+R}) + ik(-2j-k-i)(T^{P+} - T^{+P}) \\
+  &+ ij(-2k-i-j)(T^{S+} - T^{+S}) + 2jkT^{R+} + 2ikT^{P+} + 2ijT^{S+}\Big]
 \end{aligned}
 \end{equation}
-... need to do this on paper
+
+
 
 
 \end{document}
