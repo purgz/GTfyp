@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1766319478.08686 "c:/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1766319478.84593 0
-  "c:/GTfyp/latex_doc/delta_H_derivation.tex" 1766319476 9149 0c390a7aa4e40f642b58f1ff68467550 ""
+["pdflatex"] 1769621126.56652 "c:/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1769621126.99455 0
+  "c:/GTfyp/latex_doc/delta_H_derivation.tex" 1769621126 9409 baf0af8444a00c45e2c33b8619839dfe ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762765042 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1762765043 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -55,12 +55,12 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762766710 371233 0f6aca6addd6800b190706172e78fdc2 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762766854 3436873 855fc45e18b815dc01b5849f949988f3 ""
   "c:/texlive/2025/texmf.cnf" 1762766701 713 e69b156964470283e0530f5060668171 ""
-  "delta_H_derivation.tex" 1766319476 9149 0c390a7aa4e40f642b58f1ff68467550 ""
+  "delta_H_derivation.tex" 1769621126 9409 baf0af8444a00c45e2c33b8619839dfe ""
   "images/critical_n_analytical.png" 1764930483 20447 670b0f8012368716039ace23529511a9 ""
   "images/rps_sd_delta_H.png" 1764955910 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
   "images/sd_rps_double_drift.png" 1764956433 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
-  "main.tex" 1765375748 19227 e517e2bb4199e3d779ca566c95b8ae37 ""
-  "out/delta_H_derivation.aux" 1766319478 1150 a1b19739134a52a73989e1e0984f83ec "pdflatex"
+  "main.tex" 1766319488 19227 e517e2bb4199e3d779ca566c95b8ae37 ""
+  "out/delta_H_derivation.aux" 1769621126 1201 907b19e0a03b60ed8f1955b224a219ae "pdflatex"
   (generated)
   "out/delta_H_derivation.aux"
   "out/delta_H_derivation.log"
