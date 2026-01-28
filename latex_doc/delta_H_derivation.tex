@@ -202,26 +202,43 @@ Rough figures of rps and SD delta H values.
 
 
 
-All 4 strategies, $H = -xyz(1-x-y-z)$
-As above.
+All 4 strategies, $H = -xyz(1-x-y-z)$, Therefore $\langle \Delta H_4 \rangle$ for the population counts can be defined as:
 
 
 \begin{equation} \label{delta_h_4}
 \begin{aligned}
-  \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijk(1-i-j-k)
+  \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijk(N-i-j-k)
   (T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
-  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) - (i-1)(j+1)k(1-i-j-k)T^{RP} \\
-  &- (i-1)j(k+1)(1-i-j-k)T^{RS} - (i-1)jk(2-i-j-k)T^{R+} \\
-  &- (i+1)(j-1)k(1-i-j-k)T^{PR} - i(j-1)(k+1)(1-i-j-k)T^{PS} \\
-  &- i(j-1)k(2-i-j-k)T^{P+} - (i+1)j(k-1)(1-i-j-k)T^{SR} \\
-  &- i(j+1)(k-1)(1-i-j-k)T^{SP} - ij(k-1)(2-i-j-k)T^{S+} \\
-  &- (i+1)jk(-i-j-k)T^{+R} - i(j+1)k(-i-j-k)T^{+P} - ij(k+1)(-i-j-k)T^{+S}\Big]
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) - (i-1)(j+1)k(N-i-j-k)T^{RP} \\
+  &- (i-1)j(k+1)(N-i-j-k)T^{RS} - (i-1)jk(N-i-j-k + 1)T^{R+} \\
+  &- (i+1)(j-1)k(N-i-j-k)T^{PR} - i(j-1)(k+1)(N-i-j-k)T^{PS} \\
+  &- i(j-1)k(N-i-j-k + 1)T^{P+} - (i+1)j(k-1)(N-i-j-k)T^{SR} \\
+  &- i(j+1)(k-1)(N-i-j-k)T^{SP} - ij(k-1)(N-i-j-k + 1)T^{S+} \\
+  &- (i+1)jk(N - 1 -i-j-k)T^{+R} - i(j+1)k(N - 1-i-j-k)T^{+P} - ij(k+1)(N - 1-i-j-k)T^{+S}\Big]
 \end{aligned}
 \end{equation}
 
 
 
 Normalization $\frac{6}{N^7}$, as its over the whole simplex (pyramid volume 1/6) and triple summation, ($N^3$), then 4 populations $N^4$.
+
+\hfill
+
+Let $p$ = N - i - j - k (4th strategy count):
+
+
+\begin{equation} \label{delta_h_4}
+\begin{aligned}
+  \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijkp
+  (T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) - (i-1)(j+1)kpT^{RP} \\
+  &- (i-1)j(k+1)pT^{RS} - (i-1)jk(p+ 1)T^{R+} \\
+  &- (i+1)(j-1)kpT^{PR} - i(j-1)(k+1)pT^{PS} \\
+  &- i(j-1)k(p + 1)T^{P+} - (i+1)j(k-1)pT^{SR} \\
+  &- i(j+1)(k-1)pT^{SP} - ij(k-1)(p + 1)T^{S+} \\
+  &- (i+1)jk(p - 1)T^{+R} - i(j+1)k(p - 1)T^{+P} - ij(k+1)(p - 1)T^{+S}\Big]
+\end{aligned}
+\end{equation}
 
 
 Looking at one pair of transitions in and out of the same state. ($R
@@ -233,14 +250,44 @@ in and out of a state.
 \begin{equation} \label{delta_h_4_pairs}
 \begin{aligned}
   \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[
-  k(1-i-j-k)(j-i)(T^{RP} - T^{PR}) + j(1-i-j-k)(k-i)(T^{RS} - T^{SR}) \\
-  &+ i(1-i-j-k)(j-k)(T^{SP} - T^{PS}) + k(1-i-j-k)(T^{RP} + T^{PR}) + j(1-i-j-k)(T^{RS} + T^{SR}) \\
-  &+ i(1-i-j-k)(T^{SP} + T^{PS}) + jk(-2i-k-j)(T^{R+} - T^{+R}) + ik(-2j-k-i)(T^{P+} - T^{+P}) \\
-  &+ ij(-2k-i-j)(T^{S+} - T^{+S}) + 2jkT^{R+} + 2ikT^{P+} + 2ijT^{S+}\Big]
+  kp(j-i)(T^{RP} - T^{PR}) + jp(k-i)(T^{RS} - T^{SR}) \\
+  &+ ip(j-k)(T^{SP} - T^{PS}) + kp(T^{RP} + T^{PR}) + jp(T^{RS} + T^{SR}) \\
+  &+ ip(T^{SP} + T^{PS}) + jk(p-i)(T^{R+} - T^{+R}) + ik(p-j)(T^{P+} - T^{+P}) \\
+  &+ ij(p-k)(T^{S+} - T^{+S}) + jk(T^{R+} + T^{+R}) + ik(T^{P+} + T^{+P}) + ij(T^{S+} + T^{+S})\Big]
+\end{aligned}
+\end{equation}
+
+As before, converting this to the integral form where $x= i / N, y = j/N, z=k/N$ and $q=p/N, p=Nq$ where $q=1-x-y-z$ leads to:
+
+\begin{equation}
+\begin{aligned}
+  \langle \Delta H_{4} \rangle &= \frac{6}{N^4} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+  \Big[N^3zq(y - x)(T^{RP} - T^{PR}) - N^3yq(z - x)(T^{RS} - T^{SR}) \\
+  &+ N^3xq(y-z)(T^{SP} - T^{PS}) + N^2zq(T^{RP} + T^{PR}) + N^2yq(T^{RS} + T^{SR}) + N^2xq(T^{SP} + T^{PS}) \\
+  &+ N^3yz(q-x)(T^{R+} - T^{+R}) + N^3xz(q-y)(T^{P+} - T^{+P}) + N^3xy(q-z)(T^{S+} - T^{+S}) \\
+  &+ N^2yz(T^{R+} + T^{+R}) + N^2xz(T^{P+} + T^{+P}) + N^2xy(T^{S+} + T^{+S})\Big]
 \end{aligned}
 \end{equation}
 
 
+\begin{equation}\label{final_delta_H_4}
+\begin{aligned}
+  \langle \Delta H_{4} \rangle &= \frac{6}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+  \Big[zq(y - x)(T^{RP} - T^{PR}) - yq(z - x)(T^{RS} - T^{SR}) +xq(y-z)(T^{SP} - T^{PS}) \\ 
+  &+ yz(q-x)(T^{R+} - T^{+R}) + xz(q-y)(T^{P+} - T^{+P}) + xy(q-z)(T^{S+} - T^{+S})\Big] \\
+  &+ \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\Big[zq(T^{RP} + T^{PR}) + yq(T^{RS} + T^{SR}) + xq(T^{SP} + T^{PS}) \\
+  &+ yz(T^{R+} + T^{+R}) + xz(T^{P+} + T^{+P}) + xy(T^{S+} + T^{+S})\Big]
+\end{aligned}
+\end{equation}
 
+Final derivation of $\langle \Delta H_4 \rangle$. There are clear similarities to the other two expected values
+$\langle \Delta H_{SD} \rangle, \langle \Delta_{RPS} \rangle$ with some terms missing due to the different
+observation variable $H$ used but they can all be rewritten in terms of differences of transition  probabilities
+into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ plus positive terms in a second integral scaled by $1/N^2$.
+
+\subsubsection{Graphical comparison of $H$}
+
+
+Compare the 3 together on same plot for some of the interesting cases.
 
 \end{document}
