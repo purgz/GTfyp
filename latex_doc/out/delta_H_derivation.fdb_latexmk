@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1769626759.63752 "c:/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1769626760.08341 0
+["pdflatex"] 1769627007.37823 "c:/GTfyp/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1769627007.81644 0
   "c:/GTfyp/latex_doc/delta_H_derivation.tex" 1769626759 12021 aada2fda18a33c340f320f9a8945ce7c ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1762765042 1004 54797486969f23fa377b128694d548df ""
@@ -59,8 +59,8 @@
   "images/critical_n_analytical.png" 1764930483 20447 670b0f8012368716039ace23529511a9 ""
   "images/rps_sd_delta_H.png" 1764955910 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
   "images/sd_rps_double_drift.png" 1764956433 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
-  "main.tex" 1766319488 19227 e517e2bb4199e3d779ca566c95b8ae37 ""
-  "out/delta_H_derivation.aux" 1769626759 1424 63535c7aab0126ac62f0c444f5deb265 "pdflatex"
+  "main.tex" 1769626913 23245 ff28a3e3eb401d8687a3eb85bb1809d6 ""
+  "out/delta_H_derivation.aux" 1769627007 1424 63535c7aab0126ac62f0c444f5deb265 "pdflatex"
   (generated)
   "out/delta_H_derivation.aux"
   "out/delta_H_derivation.log"

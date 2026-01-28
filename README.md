@@ -1,6 +1,23 @@
 # GTfyp
 Final year project work - evolutionary game theory 
 
+For full report and the final submission report see source latex in /latex_doc.
+
+For full derivations of all formula - see the full uncut document.
+For supporting hand written derivations see /hand_written_derivations
+
+
+
+pip install git+https://github.com/purgz/GTfyp.git
+
+# Documentation.
+
+More documentation in simulation folder - add this, 
+
+Convert simulation to a library downloadable with pip and provide a code example. (/example_code)
+
+
+
 
 ### Commands
 

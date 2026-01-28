@@ -27,6 +27,104 @@ Derivation and analytical solution for observation
 variable $H$ and exact calculation of critical population sizes under different parameters.
 \end{abstract}
 
+
+\section{Introduction}
+
+\subsection{Background and Motivation}
+% Introduce evolutionary game theory and its relevance.
+% Contrast classical game theory with population-based dynamics.
+% Motivate the importance of studying evolutionary dynamics.
+Further the work on drift reversal (battle of the sexes, RPS).
+Double drift reversal? Multiple games interacting. Falling in and out of 
+stable RPS cyclic behaviour. 
+
+
+
+\subsection{Deterministic and Stochastic Evolutionary Dynamics}
+% Discuss limitations in finite populations.
+% Motivate stochastic modelling approaches.
+Infinite population replicator dynamics, stochastic equations for finite populations.
+
+\subsection{Cyclic and Composite Games}
+% Introduce Rock-Paper-Scissors as a canonical cyclic game.
+% Motivate extensions to higher-dimensional and composite games.
+RPS game, adding our 4th stategy.
+
+This project focuses on a specific composite evolutionary game formed by 
+combining a cyclic Rock-Paper-Scissors (RPS) subgame with a Snowdrift (SD) component.
+
+
+
+\subsection{Aims of the project}
+The aim of this project is to analyse evolutionary dynamics in finite populations 
+for a specific composite game combining an RPS subgame with a Snowdrift component, 
+focussing on the effects of stochastic drift, microscopic interaction processes, payoff parameters, and the effect of population size. This will involve the 
+development of an efficient simulation and visualisation tool for analyzing symmetric games in finite populations.
+
+
+\subsection{Objectives}
+\begin{itemize}
+    \item Formulate the composite RPS-SD game payoff structure and its deterministic replicator dynamics, including fixed points and stability.
+    \item Implement efficient stochastic simulations of composite game (and general symmetric games) for differerent microscopic interaction processes (Moran, Local update, Fermi).
+    \item Define an observation variable, $H$\cite{PhysRevLett.95.238701}, 
+    for the game components, $H_{SD}, H_{RPS}, H_4$, and compute the expected drift $\langle \Delta H \rangle$ 
+    both numerically from simulations and analytically.
+    \item Analyse drift and trajectory behaviour across interaction processes,
+     selection strengths, and payoff parameters.
+    \item Calculate critical population sizes associated with drift
+     reversal\cite{PhysRevLett.95.238701} under different conditions.
+    \item Develop visualisation tools (time series and simplex-based plots)
+     to compare stochastic and deterministic trajectories and analse drift.
+\end{itemize}
+
+
+\section{Literature Review}
+
+\subsection{Evolutionary Game Theory}
+% Overview of evolutionary game theory.
+% Strategies as population fractions.
+% Payoff matrices and fitness.
+
+\subsection{Replicator Dynamics in Infinite Populations}
+% Derivation of the replicator equation.
+% Mean fitness and invariance properties.
+% Fixed points and stability analysis.
+
+\subsection{Rock-Paper-Scissors and Cyclic Dominance}
+% Standard RPS dynamics.
+% Neutral cycles and constants of motion.
+% Biological and social examples of cyclic dominance.
+
+\subsection{Finite Population Effects}
+% Breakdown of deterministic dynamics at finite population sizes.
+% Demographic noise and stochastic fluctuations.
+% Absorbing states and fixation.
+
+\subsection{Microscopic Interaction Processes}
+% Overview of stochastic update rules.
+% Markov processes and discrete state spaces.
+
+\subsubsection{Moran Process}
+% Definition and interpretation.
+% Connection to replicator dynamics in the infinite-population limit.
+
+\subsubsection{Local Update Process}
+% Pairwise comparison dynamics.
+% Differences from Moran selection.
+
+\subsubsection{Fermi Process}
+% Probabilistic imitation dynamics.
+% Role of selection intensity.
+
+\subsection{Drift and Observation Variables}
+% Definition of stochastic drift.
+% Observation variable H and expected change ΔH.
+% Relation to stability and long-term behaviour.
+
+
+
+
+\newpage
 \section{Standard RPS}
 
 

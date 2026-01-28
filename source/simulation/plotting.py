@@ -333,7 +333,15 @@ def game_2d_plot(
 
     for i, df in enumerate(dfs):
         if norm[i]:
-            time_norm = np.arange(len(df)) / N
+
+            # Support for multiple Ns
+
+            if isinstance(N, (list, tuple, np.ndarray)):
+                N_i = N[i]
+            else:
+                N_i = N
+
+            time_norm = np.arange(len(df)) / N_i
             plt.plot(time_norm, df.values, label=labels[i])
         else:
 

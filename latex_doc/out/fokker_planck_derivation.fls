@@ -1,8 +1,8 @@
-PWD g:/Game theory project/GTfyp/latex_doc
+PWD c:/GTfyp/latex_doc
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT g:/Game theory project/GTfyp/latex_doc/fokker_planck_derivation.tex
+INPUT c:/GTfyp/latex_doc/fokker_planck_derivation.tex
 OUTPUT out/fokker_planck_derivation.log
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls
@@ -44,6 +44,8 @@ INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
