@@ -261,6 +261,37 @@ def non_uniform_weight(x,y,z, alpha=20):
     dist_sq = np.sum((point - center)**2)
     return np.exp(-alpha * dist_sq)
 
+"""
+<Delta H_RPS>
+"""
+
+"""
+<Delta H_SD>
+"""
+
+"""
+<Delta H_4> from derived equation in final report / paper.
+"""
+def delta_H_4(transitions):
+  N = sp.symbols('N')
+
+  d_h_4 = ((6 / N) * ((z * q * (y - x) * (transitions["T_RP"] - transitions["T_PR"]))
+                    + (y * q * (z - x) * (transitions["T_RS"] - transitions["T_SR"]))
+                    + (x * q * (y - z) * (transitions["T_SP"] - transitions["T_PS"]))
+                    + (y * z * (q - x) * (transitions["T_RL"] - transitions["T_LR"]))
+                    + (x * z * (q - y) * (transitions["T_PL"] - transitions["T_LP"]))
+                    + (x * y * (q - z) * (transitions["T_SL"] - transitions["T_LS"])))
+          + (6 / (N * N)) * (
+              (z * q) * (transitions["T_RP"] + transitions["T_PR"])
+            + (y * q) * (transitions["T_RS"] + transitions["T_SR"])
+            + (x * q) * (transitions["T_SP"] + transitions["T_PS"])
+            + (y * z) * (transitions["T_RL"] + transitions["T_LR"])
+            + (x * z) * (transitions["T_PL"] + transitions["T_LP"])
+            + (x * y) * (transitions["T_SL"] + transitions["T_LS"])
+          )
+           )
+
+
 
 def numerical_H_value(transitions, N = 100):
   
