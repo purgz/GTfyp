@@ -275,6 +275,8 @@ def non_uniform_weight(x,y,z, alpha=20):
 def delta_H_4(transitions):
   N = sp.symbols('N')
 
+  "Double check this"
+
   d_h_4 = ((6 / N) * ((z * q * (y - x) * (transitions["T_RP"] - transitions["T_PR"]))
                     + (y * q * (z - x) * (transitions["T_RS"] - transitions["T_SR"]))
                     + (x * q * (y - z) * (transitions["T_SP"] - transitions["T_PS"]))
@@ -290,6 +292,7 @@ def delta_H_4(transitions):
             + (x * y) * (transitions["T_SL"] + transitions["T_LS"])
           )
            )
+  return d_h_4
 
 
 
@@ -311,6 +314,8 @@ def numerical_H_value(transitions, N = 100):
                 + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
                 )
   
+
+  expression_h_4 = delta_H_4(transitions)
 
   
 
@@ -349,6 +354,13 @@ def numerical_H_value(transitions, N = 100):
   """
   config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 }
 
+  #RPS not reversing
+  config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
+
+
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.01, beta: 0.01 }
+
+
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
 
@@ -356,9 +368,15 @@ def numerical_H_value(transitions, N = 100):
   expression_rps = expression_rps.subs(config)
 
 
+  expression_h_4 = expression_h_4.subs(w_sym, 0.45)
+  expression_h_4 = expression_h_4.subs(config)
+  expression_h_4 = expression_h_4.subs(sp.symbols("N"), N)
+
   f = lambdify((x,y,z), expression, "numpy")
 
   f_rps = lambdify((x,y,z), expression_rps, "numpy")
+
+  f_4 = lambdify((x,y,z), expression_h_4, "numpy")
 
 
   def integrand(z,y,x):
@@ -371,6 +389,9 @@ def numerical_H_value(transitions, N = 100):
   def integrand_rps(z,y,x):
     return f_rps(x, y, z)
   
+  def integrand_4(z,y,x):
+    return f_4(x,y,z)
+
   """res, err = nquad(integrand, [
     lambda y, x: [0,1-x-y],
     lambda x: [0, 1 - x], 
@@ -392,11 +413,14 @@ def numerical_H_value(transitions, N = 100):
     lambda x: [0, 1 - x], 
     [0,1]])
   
-
+  res_4, err =  nquad(integrand_4, [
+    lambda y, x: [0,1-x-y],
+    lambda x: [0, 1 - x], 
+    [0,1]])
   
-  print("N", N, "SD:", res, "RPS:", res_rps)
+  print("N", N, "SD:", res, "RPS:", res_rps, "+:", res_4)
 
-  return res, res_rps
+  return res, res_rps, res_4
 
 
 # Root finding with Brent's method to find critical value in a given interval.
@@ -438,23 +462,27 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(50, 600, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(400, 1000, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
   delta_H_RPS = []
 
+  delta_H_4 = []
+
   for n in n_range:
-    res_sd, res_rps = numerical_H_value(transitions, n)
+    res_sd, res_rps, res_4 = numerical_H_value(transitions, n)
     delta_H_SD.append(res_sd)
     delta_H_RPS.append(res_rps)
+    delta_H_4.append(res_4)
 
   if plot:
     plt.xlabel("$N$")
     plt.ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
     plt.plot(n_range, delta_H_SD, label="SD")
     plt.plot(n_range, delta_H_RPS, label="RPS")
-    plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black")
+    plt.plot(n_range, delta_H_4, label="+") 
+    plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black") # Plot the x axis
     plt.legend()
     plt.show()
 
