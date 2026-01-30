@@ -157,13 +157,163 @@ $F = \dot x, G = \dot y$.
 
 Should include a figure for RPS cyclic dynamics.
 
+\section{Model and Stochastic Dynamics}
+
+We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
+The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
+At each update step, individuals interact according to a payoff matrix $\mathbf{A}$ and reproduce according to a specified microscopic update rule.
+In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker--Planck equation governing the probability density $P(\mathbf{x},t)$.
+
+\section{Fokker-Planck Approximation}
+
+In the diffusion approximation, the master equation may be expanded to second order in $1/N$, yielding a Fokker--Planck equation of the form
+
+\begin{widetext}
+\begin{equation}
+\label{eq:fokker_planck}
+\frac{\partial P(\mathbf{x},t)}{\partial t}
+=
+- \sum_{i} \frac{\partial}{\partial x_i}
+\left[
+A_i(\mathbf{x}) P(\mathbf{x},t)
+\right]
++
+\frac{1}{2N}
+\sum_{i,j}
+\frac{\partial^2}{\partial x_i \partial x_j}
+\left[
+B_{ij}(\mathbf{x}) P(\mathbf{x},t)
+\right].
+\end{equation}
+\end{widetext}
 
 
 
+\section{Drift of Coexistence Measures}
+
+To characterize finite-population effects beyond deterministic dynamics, we study the expected one--step change of suitable coexistence measures,
+\[
+\langle \Delta H \rangle = \mathbb{E}[H(\mathbf{x}_{t+1}) - H(\mathbf{x}_t)].
+\]
+The sign of $\langle \Delta H \rangle$ determines whether stochastic drift favors interior coexistence or boundary attraction.
 
 
+\subsection{Rock-Paper-Scissors Drift}
+
+For the three-strategy subsystem, we consider the standard coexistence measure
+\[
+H_{\mathrm{RPS}} = - x y z .
+\]
 
 
+\begin{equation}
+\begin{aligned}
+\langle \Delta H_{\mathrm{RPS}} \rangle
+&= \frac{2}{N}
+\Big[
+z (y-x) (T^{RP} - T^{PR}) \\
+&\quad
++ y (z-x) (T^{RS} - T^{SR}) \\
+&\quad
++ x (y-z) (T^{SP} - T^{PS})
+\Big]
++ \mathcal{O}\!\left(\frac{1}{N^2}\right).
+\end{aligned}
+\end{equation}
+
+
+\begin{widetext}
+\begin{equation}
+\label{eq:delta_h_rps}
+\langle \Delta H_{\mathrm{RPS}} \rangle
+=
+\frac{2}{N}
+\Big[
+z (y-x) (T^{RP} - T^{PR})
++ y (z-x) (T^{RS} - T^{SR})
++ x (y-z) (T^{SP} - T^{PS})
+\Big]
++
+\mathcal{O}\!\left(\frac{1}{N^2}\right).
+\end{equation}
+\end{widetext}
+This expression shows that finite--population drift is controlled by antisymmetric differences of transition probabilities between competing strategies.
+
+\subsection{Snowdrift Drift}
+
+Introducing a loner strategy with frequency $q = 1 - x - y - z$, we define the snowdrift coexistence measure
+\[
+H_{\mathrm{SD}} = - q (1-q).
+\]
+
+
+\begin{widetext}
+\begin{equation}
+\label{eq:delta_h_sd}
+\langle \Delta H_{\mathrm{SD}} \rangle
+=
+\frac{12}{N}
+\, q \,
+\Big(
+T^{RL} - T^{LR}
++ T^{PL} - T^{LP}
++ T^{SL} - T^{LS}
+\Big)
++
+\frac{12}{N^2}
+\Big(
+T^{LR} + T^{LP} + T^{LS}
+\Big).
+\end{equation}
+\end{widetext}
+The leading $1/N$ term governs directional drift between the RPS subspace and the loner strategy, while the $1/N^2$ term represents finite--population diffusion.
+These equations are not correct form just yet - need to manually change.
+
+\subsection{Four-Strategy Coexistence Drift}
+
+To capture full four-strategy coexistence, we consider the measure
+\[
+H_4 = - x y z q ,
+\]
+which vanishes on all faces of the simplex and is maximized in the interior.
+
+
+\begin{widetext}
+\begin{align}
+\label{eq:delta_h_4}
+\langle \Delta H_{4} \rangle
+&=
+\frac{6}{N^7}
+\sum_{i=1}^{N}
+\sum_{j=1}^{N-i}
+\sum_{k=1}^{N-i-j}
+\Big[
+k(1-i-j-k)(j-i)(T^{RP}-T^{PR})
+\nonumber \\
+&\quad
++ j(1-i-j-k)(k-i)(T^{RS}-T^{SR})
++ i(1-i-j-k)(j-k)(T^{SP}-T^{PS})
+\nonumber \\
+&\quad
++ jk(-2i-j-k)(T^{R+}-T^{+R})
++ ik(-2j-i-k)(T^{P+}-T^{+P})
++ ij(-2k-i-j)(T^{S+}-T^{+S})
+\nonumber \\
+&\quad
++ 2jkT^{R+} + 2ikT^{P+} + 2ijT^{S+}
+\Big].
+\end{align}
+\end{widetext}
+
+
+This expression naturally decomposes into RPS--like drift terms, snowdrift--like drift terms, and diffusion corrections.
+The sign of $\langle \Delta H_4 \rangle$ determines whether stochastic dynamics favors four--strategy coexistence or boundary attraction.
+
+
+\section{Interpretation}
+
+While $\langle \Delta H_{\mathrm{RPS}} \rangle$ and $\langle \Delta H_{\mathrm{SD}} \rangle$ describe drift within lower--dimensional subspaces, $\langle \Delta H_4 \rangle$ captures stability of full interior coexistence.
+Sign reversals of $\langle \Delta H_4 \rangle$ generally occur at larger population sizes, reflecting the additional geometric suppression of interior states in the four--strategy simplex.
 
 
 \clearpage
