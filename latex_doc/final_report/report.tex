@@ -157,53 +157,70 @@ $F = \dot x, G = \dot y$.
 
 Should include a figure for RPS cyclic dynamics.
 
-\section{Model and Stochastic Dynamics}
+\section{Combined game definition}
+Define our combined game and explain the subgame etc. Link to previous work about RPS
 
+\section{Model and Stochastic Dynamics}
 We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
 The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
 At each update step, individuals interact according to a payoff matrix $\mathbf{A}$ and reproduce according to a specified microscopic update rule.
 In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker--Planck equation governing the probability density $P(\mathbf{x},t)$.
 
-\section{Fokker-Planck Approximation}
-
-In the diffusion approximation, the master equation may be expanded to second order in $1/N$, yielding a Fokker--Planck equation of the form
-
-\begin{widetext}
-\begin{equation}
-\label{eq:fokker_planck}
-\frac{\partial P(\mathbf{x},t)}{\partial t}
+\section{Fokker-Planck Equation}
+In the diffusion approximation, the master equation may be expanded
+to second order in $1/N$, yielding 
+a Fokker-Planck equation of the form
+\begin{eqnarray}
+\frac{d}{dt}P^\tau(x)
 =
-- \sum_{i} \frac{\partial}{\partial x_i}
+\frac{1}{N}
 \left[
-A_i(\mathbf{x}) P(\mathbf{x},t)
+-\frac{d}{dx}\!\left(a(x)P^\tau(x)\right)
++ \frac{1}{2}\frac{d^2}{dx^2}\!\left(b^2(x)P^\tau(x)\right)
 \right]
-+
-\frac{1}{2N}
-\sum_{i,j}
-\frac{\partial^2}{\partial x_i \partial x_j}
-\left[
-B_{ij}(\mathbf{x}) P(\mathbf{x},t)
-\right].
+\end{eqnarray}
+Here $x \in (i,j,k)$ denotes the frequency of a given strategy in the RPS subsystem, and
+\begin{equation} \nonumber
+\begin{aligned}
+a(i) &= T^{PR} + T^{SR} + T^{+R}
+       - T^{RP} - T^{RS} - T^{R+}, \\
+b(i) &= \sqrt{\frac{1}{N}
+\left(
+T^{PR} + T^{SR} + T^{+R}
++ T^{RP} + T^{RS} + T^{R+}
+\right)}
+\end{aligned}
 \end{equation}
-\end{widetext}
+for strategy $i$, rock and similarly $a(j), b(j)$ for paper and $a(k), b(k)$ 
+for scissors can be defined in the same way with the pairs of transition probabilities into
+and out of the respective states and must be derived for each microscopic update process and set of payoff matrices. Full derivation of Fokker-Planck equation
+and expressions for $a(x), b(x)$ can be found in full report detailing 2nd order 
+expansion of the master equation for the 4x4 game.
 
-
-
-\section{Drift of Coexistence Measures}
+\section{Drift Measures}
 
 To characterize finite-population effects beyond deterministic dynamics, we study the expected one--step change of suitable coexistence measures,
 \[
 \langle \Delta H \rangle = \mathbb{E}[H(\mathbf{x}_{t+1}) - H(\mathbf{x}_t)].
 \]
 The sign of $\langle \Delta H \rangle$ determines whether stochastic drift favors interior coexistence or boundary attraction.
+$\langle \Delta H \rangle$ can be written as a sum over the simplex 
+($1 \le i, j \le N -i, k \le N - i - j$).
 
+\begin{equation}
+\langle \Delta H \rangle = \sum_{i=1}^{N} \sum_{j=1}^{N-i} 
+\sum_{k=1}^{N-i-j} \left(H_{s} - H_{s^\prime}\right)T^{s
+\rightarrow s^\prime}
+\end{equation}
+for all the states $s, s^\prime \in \{R, P, S, L\}$ and transition probabilities $T^{s \rightarrow s^\prime}$.
 
 \subsection{Rock-Paper-Scissors Drift}
+Fix eq here..
+For the three-strategy subsystem, the replicator equations have the constant of motion:
+\begin{eqnarray}
+H_{\mathrm{RPS}} = - x y z
+\end{eqnarray}
 
-For the three-strategy subsystem, we consider the standard coexistence measure
-\[
-H_{\mathrm{RPS}} = - x y z .
-\]
 
 
 \begin{equation}
