@@ -1,8 +1,8 @@
-PWD c:/GTfyp/latex_doc/final_report
+PWD g:/Game theory project/GTfyp/latex_doc/final_report
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/GTfyp/latex_doc/final_report/report.tex
+INPUT g:/Game theory project/GTfyp/latex_doc/final_report/report.tex
 OUTPUT out/report.log
 INPUT c:/texlive/2025/texmf-dist/tex/latex/revtex/revtex4-2.cls
 INPUT c:/texlive/2025/texmf-dist/tex/latex/revtex/revtex4-2.cls
