@@ -170,7 +170,7 @@ def add_grid_lines(ax, numEdgeLabels=10):  # Add ternary-style grid lines to ABC
 
 # Method for plotting multile experiments results
 def quaternary_plot(
-    dfs, numPerRow=2, labels=["Local update", "Moran Process"], colors=["b", "g"]
+    dfs, numPerRow=2, labels=["Local update", "Moran Process"], colors=["b", "g"], show=True
 ):
 
     numPlots = len(dfs)
@@ -196,6 +196,7 @@ def quaternary_plot(
     for i, df in enumerate(dfs):
 
         ax = fig.add_subplot(rows, cols, i + 1, projection="3d")
+
         plot_ax(ax)
         label_points(ax)
         plot_3d_ternary(df, ax, colour=colors[i])
@@ -224,7 +225,10 @@ def quaternary_plot(
             label="Deterministic Point",
         )
 
-    plt.show()
+    if show:
+      plt.show()
+    
+    return fig
 
 
 
