@@ -2,16 +2,21 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from chart_studio import plotly
+import plotly.tools as tls
+import plotly.express as px
 import sys
 import os
-
+import pandas as pd
+import streamlit.components.v1 as components
 
 # Now you can import your modules
 from source import simulation
 from source.simulation import Games
 from source.simulation import quaternary_plot
+from source.simulation import plotting
 # -----------------
-
+plt.style.use(['science','no-latex'])
 st.set_page_config(page_title="Evolutionary Game Dynamics Lab", layout="wide")
 
 
@@ -43,25 +48,49 @@ matrix = edited_df.to_numpy()
 if st.button("▶️ Run Simulation"):
     with st.spinner("Running Moran Process..."):
         # Calling the function from your sim.py
-        mean_h, mean_rps, avg_traj, all_traj = simulation.run_simulation(
-            pop_size=pop_size,
-            iterations=iterations,
-            simulations=num_sims,
-            w=w,
-            matrix=matrix,
-            process=process,
-            point_cloud=True
-        )
+        if process == "Moran":
+            
+          delta_h, delta_rps, avg_traj, all_traj = simulation.moran_batch_sim(
+              pop_size=pop_size,
+              iterations=iterations,
+              simulations=num_sims,
+              w=w,
+              matrix=matrix,
+              point_cloud=False,
+              initial_rand=False,
+              traj=True
+          )
+        elif process == "Local":
+            delta_h, delta_rps, avg_traj, all_traj = simulation.local_batch_sim(
+              pop_size=pop_size,
+              iterations=iterations,
+              simulations=num_sims,
+              w=w,
+              matrix=matrix,
+              point_cloud=False,
+              initial_rand=False,
+              traj=True
+          )
+        elif process == "Fermi":
+          delta_h, delta_rps, avg_traj, all_traj = simulation.fermi_batch_sim(
+              pop_size=pop_size,
+              iterations=iterations,
+              simulations=num_sims,
+              w=w,
+              matrix=matrix,
+              point_cloud=False,
+              initial_rand=False,
+              traj=True
+          )
 
     # --- DISPLAY RESULTS ---
     col1, col2 = st.columns(2)
     
     with col1:
-        st.metric("Mean ΔH (Snowdrift)", f"{mean_h:.8f}")
-        st.write("This is the average change in your Hamiltonian over the total simulations.")
+        st.metric("Mean ΔH (Snowdrift)", f"{delta_h:.8f}")
         
     with col2:
-        st.metric("Mean ΔH (RPS)", f"{mean_rps:.8f}")
+        st.metric("Mean ΔH (RPS)", f"{delta_rps:.8f}")
 
     # --- PLOTTING ---
     st.divider()
@@ -72,24 +101,19 @@ if st.button("▶️ Run Simulation"):
     fig, ax = plt.subplots(figsize=(10, 7))
     
     if plot_type == "Trajectory (3D/Quaternary)":
-        # Using your custom quaternary_plot from plotting.py
-        # You might need to adjust the input format to match your plotting.py function
-        # For now, showing a simple 3D trajectory plot as a placeholder
-        ax = fig.add_subplot(111, projection='3d')
-        ax.plot(avg_traj[0], avg_traj[1], avg_traj[2])
-        ax.set_xlabel("Strategy 1")
-        ax.set_ylabel("Strategy 2")
-        ax.set_zlabel("Strategy 3")
-        st.pyplot(fig)
+        df = pd.DataFrame({"R": avg_traj[0], "P": avg_traj[1], "S": avg_traj[2], "L": avg_traj[3]})
+        st.write(df.head())
+        #fig = quaternary_plot([df], labels=[process], show=False)
         
+        carts = plotting.get_cartesian_array_from_barycentric(df.values)
+        print(carts)
+        plotly_fig = px.line_3d(carts, x=0, y =1, z=2)
+        
+        st.plotly_chart(plotly_fig)
+
+
     else:
-        # Time series of frequencies
-        for i in range(avg_traj.shape[0]):
-            ax.plot(avg_traj[i], label=f"Strategy {i+1}")
-        ax.set_xlabel("Iterations")
-        ax.set_ylabel("Frequency")
-        ax.legend()
-        st.pyplot(fig)
+        pass
 
 # --- COMPARISON WITH ANALYTICAL (Optional) ---
 with st.expander("Compare with Analytical Integration (nquad)"):
