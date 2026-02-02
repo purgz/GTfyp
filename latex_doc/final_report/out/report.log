@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  30 JAN 2026 13:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  2 FEB 2026 13:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"g:/Game theory project/GTfyp/latex_doc/final_report/report.tex"
-(g:/Game theory project/GTfyp/latex_doc/final_report/report.tex
+**c:/GTfyp/latex_doc/final_report/report.tex
+(c:/GTfyp/latex_doc/final_report/report.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
 (c:/texlive/2025/texmf-dist/tex/latex/revtex/revtex4-2.cls
@@ -253,178 +253,184 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \openout3 = `reportNotes.bib'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 90.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (9.7141pt too wide) in alignment at lines 173--181
+Overfull \hbox (9.7141pt too wide) in alignment at lines 195--203
  [][][] []
  []
 
-[2] [3]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 341.
+[2]
+Overfull \vbox (12.69334pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (12.69334pt too high) has occurred while \output is active []
+
+ [3] [4]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 362.
  (c:/texlive/2025/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2024/11/19 v2.5n Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 341.
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 362.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 358.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 379.
 
 
-Package natbib Warning: Citation `witten2001' on page 4 undefined on input line 413.
+Package natbib Warning: Citation `witten2001' on page 5 undefined on input line 434.
 
 
-Package natbib Warning: Citation `feyn54' on page 4 undefined on input line 413.
+Package natbib Warning: Citation `feyn54' on page 5 undefined on input line 434.
 
 
-Package natbib Warning: Citation `epr' on page 4 undefined on input line 422.
+Package natbib Warning: Citation `epr' on page 5 undefined on input line 443.
 
 
-Package natbib Warning: Citation `epr' on page 4 undefined on input line 431.
+Package natbib Warning: Citation `epr' on page 5 undefined on input line 452.
 
 
-Package natbib Warning: Citation `Beutler1994' on page 4 undefined on input line 445.
+Package natbib Warning: Citation `Beutler1994' on page 5 undefined on input line 466.
 
 
-Package natbib Warning: Citation `witten2001' on page 4 undefined on input line 448.
+Package natbib Warning: Citation `witten2001' on page 5 undefined on input line 469.
 
 
-Package natbib Warning: Citation `Bire82' on page 4 undefined on input line 448.
+Package natbib Warning: Citation `Bire82' on page 5 undefined on input line 469.
 
 
-Package natbib Warning: Citation `feyn54' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `feyn54' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `epr' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `epr' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `witten2001' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `witten2001' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `Berman1983' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `Berman1983' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `Davies1998' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `Davies1998' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `Bire82' on page 4 undefined on input line 453.
+Package natbib Warning: Citation `Bire82' on page 5 undefined on input line 474.
 
 
-Package natbib Warning: Citation `epr' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `epr' on page 5 undefined on input line 475.
 
 
-Package natbib Warning: Citation `feyn54' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `feyn54' on page 5 undefined on input line 475.
 
 
-Package natbib Warning: Citation `Bire82' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `Bire82' on page 5 undefined on input line 475.
 
 
-Package natbib Warning: Citation `Berman1983' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `Berman1983' on page 5 undefined on input line 475.
 
 
-Package natbib Warning: Citation `witten2001' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `witten2001' on page 5 undefined on input line 475.
 
 
-Package natbib Warning: Citation `Davies1998' on page 4 undefined on input line 454.
+Package natbib Warning: Citation `Davies1998' on page 5 undefined on input line 475.
 
-[4]
-Underfull \hbox (badness 1221) in paragraph at lines 478--489
+[5]
+Underfull \hbox (badness 1221) in paragraph at lines 499--510
 []\OT1/cmr/m/n/10 com-mands (in-clud-ing ex-tra markup in-for-ma-tion via
  []
 
-LaTeX Font Info:    Trying to load font information for U+euf on input line 512.
+LaTeX Font Info:    Trying to load font information for U+euf on input line 533.
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
-Underfull \hbox (badness 4819) in paragraph at lines 560--563
+Underfull \hbox (badness 4819) in paragraph at lines 581--584
 []\OT1/cmr/m/n/10 Multiline equa-tions are ob-tained by us-ing the
  []
 
-[5]
-Underfull \hbox (badness 1152) in paragraph at lines 607--618
+[6]
+Underfull \hbox (badness 1152) in paragraph at lines 628--639
  \OT1/cmr/m/it/10 a. A few notes on \OT1/cmtt/m/it/10 tag\OT1/cmr/m/it/10 s[] [][]\OT1/cmtt/m/n/10 \tag{#1} []\OT1/cmr/m/n/10 re-quires the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 619--628
+Underfull \hbox (badness 10000) in paragraph at lines 640--649
 []\OT1/cmr/m/n/10 Enclosing dis-play math within
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 619--628
+Underfull \hbox (badness 10000) in paragraph at lines 640--649
 [][]\OT1/cmtt/m/n/10 \begin{subequations} []\OT1/cmr/m/n/10 and [][]\OT1/cmtt/m/n/10 \end{subequations}
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 639--645
+Underfull \hbox (badness 2626) in paragraph at lines 660--666
 \OT1/cmr/m/n/10 Giving a [][]\OT1/cmtt/m/n/10 \label{#1} []\OT1/cmr/m/n/10 com-mand di-rectly af-ter the
  []
 
 Package epstopdf Info: Source file: <fig_1.eps>
-(epstopdf)                    date: 2026-01-21 12:12:44
-(epstopdf)                    size: 192 bytes
+(epstopdf)                    date: 2026-01-14 17:28:01
+(epstopdf)                    size: 187 bytes
 (epstopdf)             Output file: <fig_1-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-01-21 12:12:44
+(epstopdf)                    date: 2026-01-14 17:38:23
 (epstopdf)                    size: 4985 bytes
 (epstopdf)             Command: <repstopdf --outfile=fig_1-eps-converted-to.pdf fig_1.eps>
-(epstopdf)             \includegraphics on input line 711.
+(epstopdf)             \includegraphics on input line 732.
 Package epstopdf Info: Output file is already uptodate.
-<fig_1-eps-converted-to.pdf, id=42, 100.375pt x 100.375pt>
+<fig_1-eps-converted-to.pdf, id=45, 100.375pt x 100.375pt>
 File: fig_1-eps-converted-to.pdf Graphic file (type pdf)
 <use fig_1-eps-converted-to.pdf>
-Package pdftex.def Info: fig_1-eps-converted-to.pdf  used on input line 711.
+Package pdftex.def Info: fig_1-eps-converted-to.pdf  used on input line 732.
 (pdftex.def)             Requested size: 100.37474pt x 100.37474pt.
 Package epstopdf Info: Source file: <fig_2.eps>
-(epstopdf)                    date: 2026-01-21 12:12:44
-(epstopdf)                    size: 195 bytes
+(epstopdf)                    date: 2026-01-14 17:28:18
+(epstopdf)                    size: 190 bytes
 (epstopdf)             Output file: <fig_2-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-01-21 12:12:44
+(epstopdf)                    date: 2026-01-14 17:38:24
 (epstopdf)                    size: 5272 bytes
 (epstopdf)             Command: <repstopdf --outfile=fig_2-eps-converted-to.pdf fig_2.eps>
-(epstopdf)             \includegraphics on input line 727.
+(epstopdf)             \includegraphics on input line 748.
 Package epstopdf Info: Output file is already uptodate.
-<fig_2-eps-converted-to.pdf, id=43, 501.875pt x 80.3pt>
+<fig_2-eps-converted-to.pdf, id=46, 501.875pt x 80.3pt>
 File: fig_2-eps-converted-to.pdf Graphic file (type pdf)
 <use fig_2-eps-converted-to.pdf>
-Package pdftex.def Info: fig_2-eps-converted-to.pdf  used on input line 727.
+Package pdftex.def Info: fig_2-eps-converted-to.pdf  used on input line 748.
 (pdftex.def)             Requested size: 501.87376pt x 80.29979pt.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 736.
-[6]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 757.
+[7]
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 752.
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 773.
 
 
-Package natbib Warning: Citation `feyn54' on page 7 undefined on input line 846.
+Package natbib Warning: Citation `feyn54' on page 8 undefined on input line 867.
 
-[7 <./fig_1-eps-converted-to.pdf>] [8 <./fig_2-eps-converted-to.pdf>] (out/report.bbl)
+[8 <./fig_1-eps-converted-to.pdf>] [9 <./fig_2-eps-converted-to.pdf>] (out/report.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-[9] (out/report.aux)
+[10] (out/report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5042 strings out of 467538
- 70744 string characters out of 5423725
- 510937 words of memory out of 5000000
- 33879 multiletter control sequences out of 15000+600000
+ 5043 strings out of 468662
+ 70684 string characters out of 5444563
+ 507958 words of memory out of 5000000
+ 33705 multiletter control sequences out of 15000+600000
  644667 words of font info for 104 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 71i,16n,79p,602b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 430 hyphenation exceptions out of 8191
+ 71i,16n,79p,580b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/report.pdf (9 pages, 395871 bytes).
+Output written on out/report.pdf (10 pages, 400105 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
+ 212 PDF objects out of 1000 (max. 8388607)
+ 128 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
