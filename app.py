@@ -52,7 +52,7 @@ def pd_example(
 
     initial_dist = np.array([0.8, 0.2])
 
-    iterations = pop_size * 35
+    iterations = pop_size * 35 # 35 time steps normalized by population size
 
     _, _, m_results,_ = simulation.moran_batch_sim(
         pop_size=pop_size,
@@ -585,20 +585,25 @@ def trajectories_to_anim(trajectories):
     return df
 
 
-def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=100000, w=0.45, num_points=300 , file_output_path=None, interaction_process="Local"):
+def point_cloud_animation(matrix=Games.AUGMENTED_RPS, 
+                          pop_size=800, 
+                          iterations=100000, 
+                          w=0.45, num_points=300 , 
+                          file_output_path=None, 
+                          interaction_process="Moran",
+                          save_file="a"):
     
-    """ _, _, _, all_traj = simulation.fermi_batch_sim(
-        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
-    )"""
-
-    """_, _, _, all_traj = simulation.local_batch_sim(
-        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
-    )"""
-
-    _, _, _, all_traj = simulation.moran_batch_sim(
-        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix
-    )
-
+    if interaction_process == "Local":
+      _, _, _, all_traj = simulation.local_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix)
+    elif interaction_process == "Moran":
+      _, _, _, all_traj = simulation.moran_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix)
+    elif interaction_process == "Fermi":
+      _, _, _, all_traj = simulation.fermi_batch_sim(
+        pop_size, iterations, w, num_points, point_cloud=True, matrix=matrix)
+    else:
+      raise Exception("Invalid interaction process selected, point_cloud_animation")
 
     df = trajectories_to_anim(all_traj)
 
@@ -606,7 +611,7 @@ def point_cloud_animation(matrix=Games.AUGMENTED_RPS, pop_size=800, iterations=1
         df.to_csv(file_output_path, index=False)
         print(f"Animation data saved to {file_output_path}")
 
-    simulation.point_cloud([df])
+    simulation.point_cloud([df], save_file=save_file)
 
 
 def point_cloud_parser_handler(args):
@@ -716,46 +721,20 @@ if __name__ == "__main__":
             point_cloud_parser_handler(args)
             
 
-    # delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(20000, 1000000, 0.45, 1, Games.AUGMENTED_RPS, np.array([0.5,0.2,0.2,0.1]), traj=True)
-
-    # df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
-
-    # simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
 
     """
-  basic_rps = np.array([[0,   -0.6,   1,       0.5],
-                    [1,    0,   -0.6,       0.5],
-                    [-0.6,   1,   0,        0.5],
-                    [0.25, 0.25, 0.25, 0]])
-  """
-
+    basic_rps = np.array([[0,   -0.6,   1,       0.5],
+                      [1,    0,   -0.6,       0.5],
+                      [-0.6,   1,   0,        0.5],
+                      [0.25, 0.25, 0.25, 0]])
     """
-  
-  Cant see the second case where they end along the vertical axis for low pop,
-  issue is that rps tends to sprial outwards
 
-  Either we get fixation at central point, or RPS drifts outwards and SD fixes
-  or both drift and we end in the bottom corners.
-  dont see the case where rps fixes at center and sd doesnt drift as SD has lower crit N for drift to occur than rps.
-  (in the games tested.)
-
-
-  potentially an example of microbes
-  RPS in e coli
-  invader cheaters taking advantage of public good microbes
-  producers make resources that otherss can benefit from,
-  but proudcers have to pay a cost to make these.
-  rps, 0.1,
-  0.1, 0 cheaters get nothign against themselvs
-  """
-
-    # Double reversal??????
+    # Double reversal
     # _,_,_, all_traj = simulation.moran_batch_sim(10000, 3000000, 0.45, 300, point_cloud=True)
 
     # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
 
-   
-    
+  
     basic_rps = np.array(
     [[0, -0.8, 1,     0.02], 
      [1, 0, -0.8,     0.02], 
@@ -764,13 +743,14 @@ if __name__ == "__main__":
     )
 
 
-    basic_rps = np.array(
+    """basic_rps = np.array(
     [[0, -1, 1,     0.2], 
      [1, 0, -1,     0.2], 
      [-1, 1, 0,     0.2], 
      [0.1, 0.1, 0.1, 0]]
-    )
+    )"""
 
+    """
     critical_pop_size_ensemble("./results/critical_N_w_2_0.8.csv", option="W_TEST")
 
 
@@ -785,196 +765,26 @@ if __name__ == "__main__":
 
     simulation.drift_plot_H(["./results/test_vs_numerical.csv"], labels=["SD", "RPS"])
     exit(0)
+    """
 
     point_cloud_animation(pop_size=1000, iterations=200000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
     df2 = pd.read_csv("point_cloud_test.csv", comment="#")
     simulation.point_cloud([df2])
  
-    # 5000, 300, 100
-    # RPS and SD different critical sizes where the drift occurs.
-    # Large population  lots of iterations converges, interior
-    # Small pop - SD drifts first end up with the rod
-    # 90,000, 10,000,000
-    # 1000, 100,000
-
-    
-    """run_population_ensemble(range(10,100,5), 
-                        file_output_path="./results/rod_example_delta.csv", 
-                        plot_delta=True,
-                        process="LOCAL",
-                        simulations=20000000,
-                        w=0.45,
-                        matrix=basic_rps
-                        )"""
-                          
-  
-
-    
-    """_, _, _, all_traj = simulation.moran_batch_sim(
-        50000, 20000000, 0.45, 200, point_cloud=True, matrix=basic_rps
-    )"""
-
-    """
-    _, _, _, all_traj = simulation.moran_batch_sim(
-        1000, 50000, 0.45, 10000, point_cloud=True, matrix=basic_rps
-    )"""
-
-    """_, _, _, all_traj = simulation.moran_batch_sim(
-        1000, 200000, 0.45, 3000, point_cloud=True, matrix=basic_rps
-    )"""
-
-    #point_cloud_animation(pop_size=20000, iterations=15000000, w=0.45, num_points=300, matrix=basic_rps, file_output_path="point_cloud_test.csv")
-
 
     point_cloud_animation(pop_size=400, iterations=60000, w=0.45, num_points=500, matrix=basic_rps, file_output_path="point_cloud_test.csv")
     df2 = pd.read_csv("point_cloud_test.csv", comment="#")
     simulation.point_cloud([df2])
 
-    """
-    all_traj = np.zeros((300, 4, 500))
-    for i in range(300):
 
-        initial = np.random.exponential(1,4)
-        initial /= np.sum(initial)
-     
-        a, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45, initial_dist=initial[:3], matrix=basic_rps)
-        a = a.to_numpy().T
-        all_traj[i, :, :] = a[:, ::10]
+    # Can use trajectories to anim to convert a normal trajectory to a animation format
+    # This is useful for converting numerical trajecotry in trajectory format to animation format for point_cloud_animation.
 
-    df = trajectories_to_anim(all_traj)
-
-    df2 = pd.read_csv("point_cloud_test.csv", comment="#")
-
-    simulation.point_cloud([df2,df])"""
 
     # Below is testig code - remove at some point
     basic_rps = np.array(
         [[0, -0.8, 1, 0.2], [1, 0, -0.8, 0.2], [-0.8, 1, 0, 0.2], [0.1, 0.1, 0.1, 0]]
     )
-
-
-    # Add function to solve for fixed points of given matrix, - pass into moran_batch to bias initial distribution
-
-
-
-    # basic_rps = Games.AUGMENTED_RPS
-  
-    """delta_moran, deltaRps, m_results,_ = simulation.moran_batch_sim(40000, 6000000, 0.45, 1, basic_rps, np.array([0.5,0.2,0.2,0.1]), traj=True, initial_rand=False)
-    
-    df_RPS_MO = pd.DataFrame({"c1": m_results[0][::1], "c2": m_results[1][::1], "c3": m_results[2][::1], "c4": m_results[3][::1]})
-    
-    print("DELTA RPS ", deltaRps)
-    print("DELTA MORAN ", delta_moran)
-
-    write_trajectory(df_RPS_MO, "./results/moranTest.csv")
-
-    test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45, matrix=basic_rps)
-    write_trajectory(test, "./results/moranNumerical.csv")
-
-
-    #file_paths = ["./results/moran100000_15000000.csv", "./results/moranNumerical.csv"]
-    file_paths = ["./results/moranTest.csv", "./results/moranNumerical.csv"]
-    norms = [True, False]
-
-    #simulation.quaternary_plot([df_RPS_MO], numPerRow=1, labels=["Moran"])
-
-    simulation.high_dim_2d_plot(file_paths, [40000, None], norm=norms, t_eval=t_eval, data_res=1)
-    """
-  
-    """
-  run_population_ensemble(range(50,400,10), 
-                        file_output_path="./results/population_ensemble_MORAN_new_matrix.csv", 
-                        plot_delta=True,
-                        process="MORAN",
-                        matrix=basic_rps,
-                        simulations=1000000,
-                        w=0.45
-                        )
-                        
-  
-  simulation.drift_plot_H(["./results/population_ensemble_MORAN_new_matrix.csv"], labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"])
-  """
-
-    """run_population_ensemble(range(50,400,10), 
-                        file_output_path="./results/population_ensemble_MORAN.csv", 
-                        plot_delta=True,
-                        process="MORAN"
-                        )
-  
-
-  run_population_ensemble(range(50,400,10), 
-                        file_output_path="./results/population_ensemble_LOCAL.csv", 
-                        plot_delta=True,
-                        process="LOCAL"
-                        )"""
-
-    simulation.drift_plot_H(
-        ["./results/population_ensemble_MORAN.csv"],
-        labels=[r"$\Delta H_{SD}$", r"$\Delta H_{rps}$"],
-    )
-
-    simulation.drift_plot_H(
-        [
-            "./results/population_ensemble_LOCAL.csv",
-            "./results/population_ensemble_MORAN.csv",
-        ],
-        labels=["Local", "Moran"],
-        column=0,
-    )
-
-    # maybe these functions should return file name - and autogerenrate one if one isnt given.
-    # critical_pop_size_ensemble("./results/critical_N_w_2.csv")
-    simulation.w_ensemble_plot("./results/critical_N_w_2.csv", log=True)
-
-    """betas = np.linspace(0.1, 1, 10)
-  matrices = get_four_player_matrices(betas=betas, gamma=0.5)
-  critical_pop_size_ensemble("./results/critical_N_matrix_betas.csv", option="MATRIX_TEST",
-                          defaultW=0.45, matrices=matrices)"""
-
-    simulation.w_ensemble_plot(
-        "./results/critical_N_matrix_betas.csv", log=True, x_label=r"$\beta$"
-    )
-
-    """gammas = np.linspace(0, 0.6, 6)
-  matrices = get_four_player_matrices(gammas=gammas, beta=0.2)
-  critical_pop_size_ensemble("./results/critical_N_matrix_gammas.csv", option="MATRIX_TEST_G",
-                          defaultW=0.45, matrices=matrices)"""
-
-    simulation.w_ensemble_plot(
-        "./results/critical_N_matrix_gammas.csv", log=True, x_label=r"$\gamma$"
-    )
-    """
-    matrix_param_ensemble("./results/parameterTest_200.csv", np.linspace(0, 1, 20),pop_size=200,w=0.45, plot_delta=True)
-
-    matrix_param_ensemble("./results/parameterTest_400.csv", np.linspace(0, 1, 20),pop_size=400,w=0.45, plot_delta=True)
-
-    matrix_param_ensemble("./results/parameterTest_600.csv", np.linspace(0, 1, 20),pop_size=600,w=0.45, plot_delta=True)
-
-
-    matrix_param_ensemble("./results/parameterTest_0.2.csv", np.linspace(0, 1, 20),gamma=0.2,pop_size=200,w=0.45, plot_delta=True)
-
-    matrix_param_ensemble("./results/parameterTest_0.6.csv", np.linspace(0, 1, 20), gamma=0.6,pop_size=200,w=0.45, plot_delta=True)
-
-    matrix_param_ensemble("./results/parameterTest_1.csv", np.linspace(0, 1, 20), gamma=1,pop_size=200,w=0.45, plot_delta=True)
-
-  """
-
-    simulation.drift_plot_H(
-        [
-            "./results/parameterTest_0.2.csv",
-            "./results/parameterTest_0.6.csv",
-            "./results/parameterTest_1.csv",
-        ],
-        xlabel="beta",
-        labels=["0.2", "0.6", "1"],
-        column=0,
-    )
-
-    """
-  delta_local, deltaRps, l_results = simulation.local_batch_sim(20000, 3000000, 0.45, 1, Games.AUGMENTED_RPS, traj=True, initial_dist=np.array([0.5,0.2,0.2,0.1]))
-  df_RPS_LO = pd.DataFrame({"c1": l_results[0], "c2": l_results[1], "c3": l_results[2], "c4": l_results[3]})
-  write_trajectory(df_RPS_LO, "./results/localTest.csv")
-  """
 
     test, t_eval = replicator.numericalTrajectory(interactionProcess="Local", w=0.45)
     write_trajectory(test, "./results/localNumerical.csv")

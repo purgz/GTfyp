@@ -11,6 +11,8 @@ import scienceplots
 import ternary
 
 from matplotlib.animation import FuncAnimation
+from matplotlib.animation import writers
+import matplotlib.animation as animation
 
 """
 SciencePlots library - ref in paper
@@ -236,7 +238,7 @@ def matrix_to_latex(matrix):
     return r"$\begin{bmatrix} " + result + r" \end{bmatrix}$"
 
 
-def point_cloud(dfs, matrix=None):
+def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
 
     fig = plt.figure()
 
@@ -299,11 +301,18 @@ def point_cloud(dfs, matrix=None):
         return [s[2] for s in all_trajectories]
 
     ani = FuncAnimation(
-        fig, update, frames=total_frames, interval=0.5, blit=False, repeat=True
+        fig, update, frames=total_frames, interval=0.5, blit=False, repeat=repeat
     )
 
-    # Todo - create a proper file writer instead of gif for better quality. - gives the balls transparency - alpha parameter for visbility with multiple overlaps.
-    #ani.save("./results/animations/ani.gif")
+    if save_file is not None:
+      if writers.is_available("ffmpeg"):
+        writer = animation.FFMpegWriter(fps=60)
+        save_file = "./results/animations/ani_2.mp4" # Temp
+        ani.save(save_file, writer=writer)
+        print("Animation video saved to ", save_file)
+      else:
+        print("aborting video save, ffmpeg not found")
+      
     plt.show()
 
 
