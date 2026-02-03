@@ -743,12 +743,16 @@ if __name__ == "__main__":
     )
 
 
-    """basic_rps = np.array(
-    [[0, -1, 1,     0.2], 
-     [1, 0, -1,     0.2], 
-     [-1, 1, 0,     0.2], 
-     [0.1, 0.1, 0.1, 0]]
-    )"""
+    basic_rps = np.array(
+    [[0, -0.8, 1,     0.2], 
+     [1, 0, -0.8,     0.2], 
+     [-0.8, 1, 0,     0.2], 
+     [0.2, 0.2, 0.2, 0]]
+    )
+
+    _,_,avg_traj, all_traj = simulation.moran_batch_sim(10000, 500000, 0.45, 100, point_cloud=False, traj=True, matrix=basic_rps, initial_rand=False)
+    df = pd.DataFrame({"R": avg_traj[0], "P": avg_traj[1], "S": avg_traj[2], "L": avg_traj[3]})
+    simulation.quaternary_plot([df], labels=["Average Trajectory"])
 
     """
     critical_pop_size_ensemble("./results/critical_N_w_2_0.8.csv", option="W_TEST")
