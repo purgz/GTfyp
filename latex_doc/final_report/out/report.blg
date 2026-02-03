@@ -13,13 +13,6 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: reportNotes.bib
 Database file #2: report.bib
-Warning--I didn't find a database entry for "witten2001"
-Warning--I didn't find a database entry for "feyn54"
-Warning--I didn't find a database entry for "epr"
-Warning--I didn't find a database entry for "Beutler1994"
-Warning--I didn't find a database entry for "Bire82"
-Warning--I didn't find a database entry for "Berman1983"
-Warning--I didn't find a database entry for "Davies1998"
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
@@ -30,45 +23,44 @@ Control: production of article title (-1) disabled
 Control: page (0) single
 Control: year (1) truncated
 Control: production of eprint (0) enabled
-You've used 2 entries,
+You've used 1 entry,
             6079 wiz_defined-function locations,
-            1655 strings with 15457 characters,
-and the built_in function-call counts, 1626 in all, are:
-= -- 113
+            1641 strings with 15250 characters,
+and the built_in function-call counts, 1362 in all, are:
+= -- 81
 > -- 29
 < -- 10
-+ -- 12
++ -- 10
 - -- 6
-* -- 253
-:= -- 161
-add.period$ -- 2
-call.type$ -- 2
-change.case$ -- 9
-chr.to.int$ -- 2
-cite$ -- 2
-duplicate$ -- 128
-empty$ -- 91
+* -- 220
+:= -- 128
+add.period$ -- 1
+call.type$ -- 1
+change.case$ -- 4
+chr.to.int$ -- 1
+cite$ -- 1
+duplicate$ -- 110
+empty$ -- 75
 format.name$ -- 15
-if$ -- 294
+if$ -- 245
 int.to.chr$ -- 1
-int.to.str$ -- 10
-missing$ -- 16
-newline$ -- 58
+int.to.str$ -- 9
+missing$ -- 15
+newline$ -- 55
 num.names$ -- 3
-pop$ -- 54
+pop$ -- 44
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 5
 quote$ -- 0
-skip$ -- 69
+skip$ -- 58
 stack$ -- 0
-substring$ -- 46
-swap$ -- 127
+substring$ -- 32
+swap$ -- 114
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 8
-type$ -- 25
+type$ -- 14
 warning$ -- 0
 while$ -- 3
 width$ -- 0
-write$ -- 64
-(There were 7 warnings)
+write$ -- 60
