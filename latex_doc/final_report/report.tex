@@ -122,17 +122,16 @@ Expected payoffs for each strategy can then be defined as follows:
    \pi_S = a \left(- x - y + 1\right) + b y + c x
 \end{align}
 
-
-
 The replicator equations can be defined for $(x, y)$ using the standard formula:
+
 \begin{equation}
-    \dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
+\dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
 \end{equation}
 
 where the average payoff (or mean fitness) in the population is:
-\[
+\begin{equation}
 \langle \pi(x) \rangle = x \pi_R + y \pi_P + z \pi_S
-\]
+\end{equation}
 
 
 
@@ -192,7 +191,7 @@ for each strategy, a fokker-planck equation can be derived for each of the proce
 In the diffusion approximation, the master equation may be expanded
 to second order in $1/N$, yielding 
 a Fokker-Planck equation of the form
-\begin{eqnarray}
+\begin{equation}
 \frac{d}{dt}P^\tau(x)
 =
 \frac{1}{N}
@@ -200,12 +199,12 @@ a Fokker-Planck equation of the form
 -\frac{d}{dx}\!\left(a(x)P^\tau(x)\right)
 + \frac{1}{2}\frac{d^2}{dx^2}\!\left(b^2(x)P^\tau(x)\right)
 \right]
-\end{eqnarray}
+\end{equation}
 Here $x \in (i,j,k)$ denotes the frequency of a given strategy in the RPS subsystem, and
 \begin{equation} \nonumber
 \begin{aligned}
 a(i) &= T^{PR} + T^{SR} + T^{+R}
-       - T^{RP} - T^{RS} - T^{R+}, \\
+       - T^{RP} - T^{RS} - T^{R+} \\
 b(i) &= \sqrt{\frac{1}{N}
 \left(
 T^{PR} + T^{SR} + T^{+R}
@@ -229,9 +228,9 @@ For the local update process, this $a(x)$ is equal to the standard replicator pa
 \section{Drift Measures}
 
 To characterize finite-population effects beyond deterministic dynamics, we study the expected one--step change of suitable coexistence measures,
-\[
+\begin{equation}
 \langle \Delta H \rangle = \mathbb{E}[H(\mathbf{x}_{t+1}) - H(\mathbf{x}_t)].
-\]
+\end{equation}
 The sign of $\langle \Delta H \rangle$ determines whether stochastic drift favors interior coexistence or boundary attraction.
 $\langle \Delta H \rangle$ can be written as a sum over the simplex 
 ($1 \le i, j \le N -i, k \le N - i - j$).
@@ -245,9 +244,9 @@ for all the states $s, s^\prime \in \{R, P, S, L\}$ and transition probabilities
 
 \subsection{Rock-Paper-Scissors Drift}
 For the three-strategy subsystem, the replicator equations have the constant of motion:
-\begin{eqnarray}
+\begin{equation}
 H_{\mathrm{RPS}} = - x y z
-\end{eqnarray}
+\end{equation}
 
 Also have the summation here.
 
@@ -276,42 +275,71 @@ This expression shows that finite population drift is controlled by antisymmetri
 
 \subsection{Snowdrift Drift}
 
-The 4th strategy occurs with frequency $q = 1 - x - y - z$, we define the snowdrift coexistence measure
-\[
-H_{\mathrm{SD}} = - q (1-q).
-\]
+The 4th strategy occurs with frequency $q = 1 - x - y - z$, 
+we define the snowdrift coexistence measure
 
-The expected value of $H_{SD}$ over the entire simplex is then:
+\begin{equation} 
+H_{SD} = - q(1-q)
+\end{equation}
 
-\begin{equation} \label{eq:delta_h_sd}
+The expected value of $\Delta H_{SD}$ over the entire simplex 
+can be defined, similarly to the RPS case, and approximated by 
+a continuous integral as follows:
+
+\begin{equation}
 \begin{aligned}
 \langle \Delta H_{\mathrm{SD}} \rangle 
-&= \frac{12}{N} \int_{0}^{1} dx \int_{0}^{1-x}dy 
-\int_{0}^{1-x-y}dz \\ 
-\Big[& q \big[ 
-(T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) \\
-+& (T^{S+} - T^{+S}) \big] \Big] \\
-+& \frac{12}{N^2} \int_{0}^{1} dx \int_{0}^{1-x}dy \int_{0}^{1-x-y} dz \\
-\Big[& T^{+R} + T^{+P} + T^{+S} \Big] 
+&= \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \\
+& \Big[ \Big] 
 \end{aligned}
 \end{equation}
 
-The leading $1/N$ term governs directional drift between the RPS subspace and the loner strategy, while the $1/N^2$ term represents finite--population diffusion.
+
+\begin{align}\label{eq:delta_h_sd}
+\langle \Delta H_{\mathrm{SD}} \rangle 
+&= \frac{12}{N} \int_{0}^{1} dx \int_{0}^{1-x}dy 
+\int_{0}^{1-x-y}dz \\ \nonumber
+\Big[& q \big[ 
+(T^{R+} - T^{+R}) + (T^{P+} - T^{+P}) \\\nonumber
++& (T^{S+} - T^{+S}) \big] \Big] \\\nonumber
++& \frac{12}{N^2} \int_{0}^{1} dx \int_{0}^{1-x}dy 
+\int_{0}^{1-x-y} dz \\ \nonumber
+\Big[& T^{+R} + T^{+P} + T^{+S} \Big] 
+\end{align}
+
+
+Since transitions purely within the RPS subgame do not change the value
+of $H_{SD}$, this exact term for depends only on transitions into and out of 
+the fourth strategy ($+$). 
+
+Consider the case of 
+$(H_{SD} - H_{SD}')T^{RP}$ in the summation being zero, since transitions between 
+rock and paper do not change the frequency of the fourth strategy, and therefore
+do not change the value of $-q(1-q)$. 
+
+This results in $H_{SD} - H_{SD}' = H_{SD} - H_{SD} = 0$ for all transitions
+($R \rightarrow P, P \rightarrow S, S \rightarrow R$,
+and their reverses) within the RPS subgame. For full
+derivation see the full report.
+
 
 
 \subsection{Four-Strategy Coexistence Drift}
 
+\par
 To capture full four-strategy coexistence, the constant of motion $H_4$ is defined
-\[
-H_4 = - x y z q ,
-\]
+\begin{equation}
+H_4 = - x y z q 
+\end{equation}
 which vanishes on all faces of the simplex and is maximized in the interior.
 
 
+The expected value of $\Delta H_4$ can be defined as the sum over all the states below
+\vspace{0pt plus 1fil}
+\pagebreak
 \begin{widetext}
 \begin{equation}
-\begin{aligned}
-\label{eq:delta_h_4}
+\begin{aligned}\label{eq:delta_h_4}
 \langle \Delta H_{4} \rangle &= \frac{6}{N^7} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \Big[ijk(N-i-j-k)
 (T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
 &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) - (i-1)(j+1)k(N-i-j-k)T^{RP} \\
@@ -333,8 +361,6 @@ which vanishes on all faces of the simplex and is maximized in the interior.
 \end{aligned}
 \end{equation}
 \end{widetext}
-
-
 This expression naturally decomposes into RPS--like drift terms, snowdrift--like drift terms, and diffusion corrections.
 The sign of $\langle \Delta H_4 \rangle$ determines whether stochastic dynamics favors four--strategy coexistence or boundary attraction.
 
@@ -352,7 +378,6 @@ Other case where strong SD but drift in RPS, giving the spiral / plane in the ce
 
 While $\langle \Delta H_{\mathrm{RPS}} \rangle$ and $\langle \Delta H_{\mathrm{SD}} \rangle$ describe drift within lower--dimensional subspaces, $\langle \Delta H_4 \rangle$ captures stability of full interior coexistence.
 Sign reversals of $\langle \Delta H_4 \rangle$ generally occur at larger population sizes, reflecting the additional geometric suppression of interior states in the four--strategy simplex.
-
 
 
 
