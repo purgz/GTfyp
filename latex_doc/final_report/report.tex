@@ -96,7 +96,7 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 To understand the combined game, first must look at the single cases of rock paper scissors and Snowdrift.
 
 \subsection{Rock-Paper-Scissors Model}
-Previous work focusses on the famous cyclical rock-paper-scissors game \cite{PhysRevLett.95.238701}
+Previous work focusses on the famous cyclical rock-paper-scissors game \cite{rps_cyclic_jens}
 
 The general rock paper scissors matrix is defined as:
 \begin{align}
@@ -157,6 +157,11 @@ This leads to the following replicator equations for x and y:
 \end{equation}
 \end{widetext}
 
+These are the determinisic payoff difference replicator equations from 
+evolutionary game theory which define populations $x,y$ over time. Later I will derive these
+for specific microscopic interaction processes including the noise terms that appear
+due to the finite population size effects.
+
 The stability of this system of replicator equations can be analyzed by
 computing the eigenvalues of the Jacobian matrix of functions
 $F = \dot x, G = \dot y$.
@@ -175,7 +180,30 @@ into a single four strategy payoff matrix. Average payoffs, replicator equations
 subsequently be derived and the deterministic dynamics can be studied. The simulation tool can do all of this,
 plot trajectories both in 2d and and in the 3d pyramid simplex. 
 
-Define our combined game and explain the subgame etc. Link to previous work about RPS
+
+The combined game is defined as:
+
+\begin{align}
+\label{AugRpsMatrix}
+\begin{bmatrix}
+    a & c & b & \gamma\\
+    b & a & c & \gamma\\
+    c & b & a & \gamma\\
+    a + \beta & a + \beta & a + \beta & 0
+\end{bmatrix}
+\end{align}
+where the values $a,b,c$ represent the RPS cyclic game.
+
+When $a = 0$, standard RPS ties, this can be seen in the 2x2 snowdrift context as the following
+payoff matrix:
+\begin{align} \nonumber
+\label{CompositeGame}
+\begin{bmatrix}
+    \langle RPS \rangle & \gamma\\
+    \beta & 0 \\
+\end{bmatrix}
+\end{align}
+This is what the value $H_{SD}$ will essentially be analyzing.
 
 \section{Model and Stochastic Dynamics}
 We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
@@ -225,14 +253,31 @@ For the local update process, this $a(x)$ is equal to the standard replicator pa
 (with some scaling factor accounting for selection pressure $w$).
 
 
+\section{Trajectories}
+
+This section will contain both numerical trajectories from the fokker p equation, and
+the simulated results from simulation engine. Also the link to all three processes and their
+deterministic limit in infinite N.
+
 \section{Drift Measures}
 
-To characterize finite-population effects beyond deterministic dynamics, we study the expected one--step change of suitable coexistence measures,
+For each of the components making up the combined 4x4 game a suitable observation
+value $H$ can be defined to measure the distance from the Nash equilibrium 
+\cite{drift_reversal_paper,rps_cyclic_jens}. The sign of $\dot{H}$ can therefore
+indicate whether the system is drifts towards or away from the interior equilibrium \cite{drift_reversal_paper}.
+$\dot{H}$ is approximated in the simulated results by $\langle \Delta H \rangle$:
+
 \begin{equation}
 \langle \Delta H \rangle = \mathbb{E}[H(\mathbf{x}_{t+1}) - H(\mathbf{x}_t)].
 \end{equation}
+
+which is calculated for one single update step, and then averaged over a very large number of 
+repeated simulations. Drift reversal is defined as the change in sign of this value under
+variation of parameters of the system most notably the population size N. 
+
 The sign of $\langle \Delta H \rangle$ determines whether stochastic drift favors interior coexistence or boundary attraction.
-$\langle \Delta H \rangle$ can be written as a sum over the simplex 
+$\langle \Delta H \rangle$ can be formulated analytically \cite{rps_cyclic_jens} and
+written as a sum over the simplex, in this case:
 ($1 \le i, j \le N -i, k \le N - i - j$).
 
 \begin{equation}
@@ -241,6 +286,24 @@ $\langle \Delta H \rangle$ can be written as a sum over the simplex
 \rightarrow s^\prime}
 \end{equation}
 for all the states $s, s^\prime \in \{R, P, S, L\}$ and transition probabilities $T^{s \rightarrow s^\prime}$.
+Where transition probabilites $T^{s \rightarrow s'}$ must be defined for each of the 
+microscopic interaction processes. In the combined SD, RPS game there are 3 observation values
+for drift, $H_{SD}$ for effects within the snowdrift game, $H_{RPS}$ for the RPS subgame and 
+$H_4$ for the overall drift in the context of the internal fixed point of all 4 strategies in the 
+payoff matrix.
+
+After defining the summation in terms of discrete population counts for each of the 
+strategies, it is possible to approximate these values in the continuous limit by replacing
+the counts with their corresponding fraction of the population and the term is converted to 
+an integral over the simplex allowing for the use of numerical methods to compute these
+exact values of $\langle \Delta H \rangle$, and therefore compute numerically the 
+critical population sizes $N$ where the dynamics shift and drift reversal occurs (if it does occur).
+This allows for more efficient comparisons of the dynamics of a particular instance of the game parameters
+as it is much more efficient to compute this equation numerically than to simulate over a large number of
+realizations and average the discrete results.
+
+
+\subsection{Simulated results}
 
 \subsection{Rock-Paper-Scissors Drift}
 For the three-strategy subsystem, the replicator equations have the constant of motion:
@@ -248,7 +311,7 @@ For the three-strategy subsystem, the replicator equations have the constant of 
 H_{\mathrm{RPS}} = - x y z
 \end{equation}
 
-Also have the summation here.
+
 
 \begin{equation}
 \begin{aligned}
