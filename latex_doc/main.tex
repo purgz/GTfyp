@@ -420,36 +420,133 @@ The rest of the transitions, $T^{R \rightarrow P}, T^{P \rightarrow R}, T^{S \ri
 formed from permuations ($R, P, S, +$) and ($i, j, k, N-i-j-k$) \\
 
 
-\par
-For the local update process we compare payoffs between only 2 randomly selected individuals $a$ and $b$.
+The parameter $w$ represents the selection pressure which 
+determines how much the transition probabilities depend on 
+the fitness differences between individuals. Weak selection
+increases the impact of stochastic drift in the dynamics
+and is often the biologically relevant case.
+
+\subsubsection{Local update}
+
+For the Local update process at each time step 2 randomly
+selected individuals $a,b$ are chosen for reproduction.
+Individual $b$ takes individual $a$'s strategy proportional
+to the difference between their individual payoffs. Note that
+there is not global average payoff here, so this could be 
+a more realistic assumption in nature where individuals would 
+not have this knowledge.
+
+Individual $b$ switches to individual $b$'s strategy with the probability:
+\begin{equation}
+p = \frac{1}{2} +  \frac{w}{2} \frac{\pi_a - \pi_b}{\Delta \pi_{max}}
+\end{equation}
+Where $\Delta \pi_{max}$ is the maximum possible difference in payoff
+between two individuals.
+
+It follows that the transition probabilities for the 
+populations in the combined game can be defined as:
 
 
 \begin{equation}
   T^{R \rightarrow +} = \left (\frac{1}{2} + \frac{w}{2} \frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}} \right ) \frac{i}{N} \frac{N - i - j - k}{N}
 \end{equation}
+for the case of $R \rightarrow +$, and the rest can again be 
+written as permutations of $R,P,S,+$, and $i,j,k,N-i-j-k$.
 
 
-Can simply define these transitions as:
-\begin{equation}
-  \phi(b \rightarrow a) \frac{N_a N_b}{N^2}
-\end{equation}
-Given an appropriate $\phi$ reproductive function.
-
-
-
-
-
-\subsection{Local update}
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{images/lu_timeseries.png}
     \caption{Time series of local update with population 20000, simulation trajectory normalized, compared with the numerical solution of the replicator equations derived from FP equation \cite{PhysRevLett.95.238701}}
     \label{fig:placeholder}
 \end{figure}
 
+\subsubsection{Fermi process}
 
-\subsection{Fermi process}
+Similarly to the local update process two individuals are selected
+at each time step and individual $b$ taks individual $a$'s strategy
+with the probability:
+\begin{equation}
+p = \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}
+\end{equation}
+
+The transition probabilities:
+
+\begin{equation}
+T^{R \rightarrow +} = \left( \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}\right) \frac{i}{N} \frac{N-i-j-k}{N}
+\end{equation}
+
+
+\subsubsection{General form}
+Generally the transition probabilites for any of the 
+interaction processes ($R \rightarrow +$) can be written as:
+\begin{equation}
+  \phi(b \rightarrow a) \frac{N_a N_b}{N^2}
+\end{equation}
+Given an appropriate $\phi$ reproductive function which are defined for each process.
+
+\begin{align}
+\phi_{MO}(\pi_a, \langle \pi \rangle, w) &= \frac{1}{2} \frac{1 - w + w \pi_a}{1 - w + w \langle \pi \rangle} \\
+\phi_{LU}(\pi_a, \pi_b, w) &= \frac{1}{2} +  \frac{w}{2} \frac{\pi_a - \pi_b}{\Delta \pi_{max}} \\
+\phi_{FP}(\pi_a, \pi_b, w) &= \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}
+\end{align}
+
+\begin{verbatim}
+# Returns the transition probabilities given a repoductive function and payoffs.
+# Returns dict indexed by T_RS for example between Rock and Scissors
+# The 4th strategy is labelled as L
+def transition_probs(reproductive_func, payoffs : list):
+  # x y z, q = 1 - x - y - z
+
+  names = ["R", "P", "S", "L"]
+  freqs = [x, y, z, q]
+
+  return {
+      f"T_{a}{b}": reproductive_func(payoffs, i, j, w_sym) * freqs[i] * freqs[j]
+      for i, a in enumerate(names)
+      for j, b in enumerate(names)
+      if i != j
+  }
+\end{verbatim}
+I have implemented this method in $aug\_rps.py$, which can
+compute these transition probabilites symbolically for 
+both derivation of larger equations and also for numerical 
+method solutions later on. It takes a reproduction function $\phi$
+for a list of payoffs for each strategy.
+The repoductive functions have to be defined in a general way,
+so take the payoffs of all strategies, then the index $i,j$
+which determines the strategies of individuals $a,b$ described above
+and $w$.
+
+\begin{verbatim}
+def local_reproductive_func(payoffs, i, j, w):
+  diff = payoffs[j] - payoffs[i]
+  return (1/2) + (w / 2) * (diff / delta_pi)
+
+def moran_reproductive_func(payoffs, i, j, w):
+  payoff = payoffs[j]
+  numerator = 1 - w + w * payoff
+  denominator = 1 - w + w * averagePayoff
+  return numerator / denominator
+
+def fermi_reproductive_func(payoffs, i, j, w):
+  diff = payoffs[j] - payoffs[i]
+  return 1 / (1 + sp.exp((-w) * (diff)))
+
+\end{verbatim}
+These are easily defined from the formal equations, so more can 
+be added with new simple methods.
+Average payoff accessible globally for use in other formulas.
+The methods in this file are used for calculating
+exact values for the derived formula to complement the 
+simulated values and also to produce exact deterministic
+trajectories in the infinite population size case very 
+efficiently as running the simulations for very large $N$ is 
+very computationally expensive.
+These transitions can be used to numerically solve the 
+adjusted replicator dynamics for each of these processes and used
+to plot deterministic trajectories (see more when plotting 
+trajectories below.)
 
 \subsection{Link to deterministic equations $\lim_{N\to\infty}$}
 Adjusted deterministic equations for the interaction processes, derived from the fokker planck expansions of the interaction processes defined (master equation).
@@ -458,6 +555,28 @@ Adjusted deterministic equations for the interaction processes, derived from the
 
 \subsubsection{Master equation}
 
+Derivation of the fokker planck equation for these dynamics 
+describing the evolution of the probability density function
+and eventually leading us to the adjusted dynamics for 
+the different processes. It will become clear that the local update
+process is equivalent to the traditionall payoff difference 
+replicator dynamics derived at the top of this paper, and we will
+also get deterministic equations for the Moran and fermi process
+plus the noise terms which depend on the value of $N$ ultimately
+leading us to the drift reversal cases.
+The value computed for $a(x)$ will be the determinitic replicator
+dynamics allowing for numerical solutions of deterministic 
+trajectories which can then be plotted as comparisons for the simulations,
+can also see that as $N$ in simulations increase, the trajectories match 
+perfectly as $N \rightarrow \infty$.
+
+Initially for the trajectories I directly computed the 
+adjusted factor for each process as in \cite{PhysRevLett.95.238701},
+however after deriving the FP equation it is possible 
+to just store a global value for $a(x)$ which includes the scaling,
+and then the dynamics can be computed and returned based
+purely on the transition probabilities which can be calculated
+numerically from the functions in the above section.
 
 \subfile{fokker_planck_derivation.tex}
 
