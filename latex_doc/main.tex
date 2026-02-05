@@ -25,6 +25,9 @@ Payoff matrices and replicator derivations, stochastic simulations and drift ana
 Extensive simulation tool for graphing and animation of the different processes and large ensemble averages for general games.
 Derivation and analytical solution for observation
 variable $H$ and exact calculation of critical population sizes under different parameters.
+
+This is the extended report containing full derivations of all formulas 
+and more detail about simulation results and software produced.
 \end{abstract}
 
 
@@ -229,7 +232,11 @@ $\lambda_{1,2} =\left\{- \frac{\sqrt{3}}{3} i, \frac{\sqrt{3}}{3} i\right\}$
 
 \par
 No real parts of any eigenvalues, and imaginary components exist therefore neutral stability in standard RPS.
+These eigenvalues are the solution at the internal fixed point of 
+the standard RPS game. They tell us that the game follows neutral oscillations
+about the internal fixed point (in the deterministic dynamics) as they contain no real parts (poincare diagram).
 
+Diagram here of the deterministic trajectory for RPS.
 
 
 
@@ -262,7 +269,7 @@ Where the strategies are labelled as R,P,S (as before) and L (the loner strategy
 From this the Jacobian matrix can be derived with dimensions $3 \times 3$ after using the trick to remove one replicator equation. (q = 1 - x - y - z)
 
 \subsection{Payoffs}
-Payoffs for the augmented game:
+Firstly the payoffs are defined for the augmented game:
 \begin{align}
     \pi_R &= a x + b z + c y + \gamma (- x - y - z + 1)\\
     \pi_P &= a y + b x + c z + \gamma (- x - y - z +1) \\
@@ -271,6 +278,10 @@ Payoffs for the augmented game:
 \end{align}
 
 \subsection{Replicator equations}
+
+From these payoffs, the standard payoff difference replicator equations can be defined, 
+note again we need only 3 for the 4 strategy game as the fourth strategy can be 
+elimated using the same trick as RPS, reducing the complexity slightly.
 
 \begin{align} 
     \dot x &= x (a x + b z + c y + \gamma (- x - y - z + 1) - x (a x + b z + c y + \gamma (- x - y - z + 1)) \nonumber \\
@@ -308,6 +319,10 @@ J =
 \]
 
 
+Once again the eigenvalues of this Jacobian matrix can be determined and tell us about the 
+stability of the system of replicator equations derived for the combined game.
+I have computed these valuse numerically for a particular instance of the game below.
+
 
 \subsection{Stability}
 
@@ -335,11 +350,44 @@ See figure \ref{fig:3d} for the 4 simplex plot of these dynamics for the local u
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{images/3d.png}
-    \caption{N=1000, iterations=1,000,000}\label{fig:3d}
+    \caption{
+    Simulated trajectories for this instance of the game
+    under Local update and Moran process and the deterministic 
+    solution from the standard replicator equations.
+    N=1000, iterations=1,000,000
+    }\label{fig:3d}
 \end{figure}
 
 \section{Interaction processes \ simulations}
-\subsection{Moran}
+
+To analyze the effects of games in finite populations it is necessary to define
+microscopic update processes for how the agents in the populations interact 
+and also compute the probabilities for an agent of one strategy to switch to another when
+they come into contact in the simulation. 
+
+In order to achieve this I focus on 3 different interaction processes previously studied, 
+inspired from biology namely the Moran process, the Local update process and the Fermi process.
+
+
+
+\subsection{Transition probabilities}
+
+For the dynamics in a finite population, let $i$, $j$, $k$, and $N-i-j-k$, be the 
+be the discrete counts of members of each strategy respectively.
+
+
+\subsubsection{Moran}
+
+In the Moran process at each time step an individual is chosen for reproduction
+proportional to their fitness within the population. Interestingly 
+this process requires that each agent has access to some global average population fitness
+$\langle \pi \rangle$ since they are selected proportional to the average population fitness 
+and not individual interactions with a single agent. An agent is also chosen uniformly at random 
+to be killed and replaced by the agent selected for reproduction.
+
+It has been shown that in the battle of sexes / matching pennies game, that this choice of process
+leads to a drift reversal effect in finite populations where the local update process does not due to 
+extra term of $N$ in the stochastic dynamics from a fokker planck equation. \cite{PhysRevLett.95.238701}
 
 \begin{figure}[h]
     \centering
@@ -348,29 +396,8 @@ See figure \ref{fig:3d} for the 4 simplex plot of these dynamics for the local u
     \label{fig:placeholder}
 \end{figure}
 
-
-\subsection{Local update}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\linewidth]{images/lu_timeseries.png}
-    \caption{Time series of local update with population 20000, simulation trajectory normalized, compared with the numerical solution of the replicator equations derived from FP equation \cite{PhysRevLett.95.238701}}
-    \label{fig:placeholder}
-\end{figure}
-
-
-\subsection{Fermi process}
-
-\subsection{Link to deterministic equations $\lim_{N\to\infty}$}
-Adjusted deterministic equations for the interaction processes, derived from the fokker planck expansions of the interaction processes defined (master equation).
-
-
-
-\subsection{Transition probabilities}
-
-Finite population, $i$ rock players, $j$ paper players, $k$ scissors players, and $N - i - j - k$ $+$ players. In the Moran process an individual is chosen proportionally to their fitness in the population, therefore we need the global average fitness $\langle \pi \rangle$, the average payoff is $\langle \pi \rangle = \frac{i}{N} \pi_R + \frac{j}{N} \pi_P + \frac{k}{N} \pi_S + \frac{N - i - j -k}{N} \pi_+$
-
-For the Moran process the transition probabilities are as follows:
+For the Moran process, for a single
+transition ($R \rightarrow +$) the transition probabilities are as follows:
 \begin{equation}
     T^{R \rightarrow +} = \frac{1}{2} \frac{1 - w + w \pi_+}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{N - i - j - k}{N}
 \end{equation}  
@@ -392,6 +419,7 @@ Also transitions within RPS
 The rest of the transitions, $T^{R \rightarrow P}, T^{P \rightarrow R}, T^{S \rightarrow P}, T^{P \rightarrow S}, T^{P \rightarrow +}, T^{+ \rightarrow P}, T^{ S \rightarrow +}, T^{+ \rightarrow S}$
 formed from permuations ($R, P, S, +$) and ($i, j, k, N-i-j-k$) \\
 
+
 \par
 For the local update process we compare payoffs between only 2 randomly selected individuals $a$ and $b$.
 
@@ -406,6 +434,26 @@ Can simply define these transitions as:
   \phi(b \rightarrow a) \frac{N_a N_b}{N^2}
 \end{equation}
 Given an appropriate $\phi$ reproductive function.
+
+
+
+
+
+\subsection{Local update}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/lu_timeseries.png}
+    \caption{Time series of local update with population 20000, simulation trajectory normalized, compared with the numerical solution of the replicator equations derived from FP equation \cite{PhysRevLett.95.238701}}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\subsection{Fermi process}
+
+\subsection{Link to deterministic equations $\lim_{N\to\infty}$}
+Adjusted deterministic equations for the interaction processes, derived from the fokker planck expansions of the interaction processes defined (master equation).
+
 
 
 \subsubsection{Master equation}
