@@ -53,6 +53,20 @@ averagePayoff = payoffR * x + payoffP * y + payoffS * z + payoffL * q
 y_dot = (y * x) * (payoffP - payoffR) + (y * z) * (payoffP - payoffS) + (y * q) * (payoffP - payoffL)
 z_dot = (z * x) * (payoffS - payoffR) + (z * y) * (payoffS - payoffP) + (z * q) * (payoffS - payoffL)
 """
+
+
+"""
+TODO - make the deterministic trajectories work
+
+by returning the values for a(x), since I have proven that 
+these are equivalent.
+
+then its easy to get trajectories for any arbitrary process
+
+defined and much more consistent thatn this monster equatioon
+
+"""
+
 def replicators(matrix, interactionProcess="Moran", w=0.2, local_delta_pi = 2):
   
   # Standard payoffs
@@ -225,6 +239,9 @@ def findEigenvalues(replicators, config, vars, substitution):
   for result in results:
     print(latex(result.as_real_imag()))
 
+def fermi_reproductive_func(payoffs, i, j, w):
+  diff = payoffs[j] - payoffs[i]
+  return 1 / (1 + sp.exp((-w) * (diff)))
 
 def local_reproductive_func(payoffs, i, j, w):
   diff = payoffs[j] - payoffs[i]
@@ -240,7 +257,7 @@ def moran_reproductive_func(payoffs, i, j, w):
 # Returns the transition probabilities given a repoductive function and payoffs.
 # Returns dict indexed by T_RS for example between Rocker and Scissors
 # The 4th strategy is labelled as L
-def transition_probs_moran(reproductive_func, payoffs : list):
+def transition_probs(reproductive_func, payoffs : list):
   # x y z, q = 1 - x - y - z
 
   names = ["R", "P", "S", "L"]
@@ -519,7 +536,7 @@ def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
   delta_pi = matrix.max() - matrix.min()
   matrix = sp.Matrix(matrix)
   
-  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = transition_probs(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
   transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
 
   a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
@@ -586,7 +603,7 @@ if __name__ == "__main__":
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
 
-  transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = transition_probs(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
   transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
 
   #print(latex(sp.simplify(transitions["T_RP"])))

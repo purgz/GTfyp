@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex out/main"] 1770298996.98018 "out/main.aux" "out/main.bbl" "out/main" 1770299001.16936 0
+["bibtex out/main"] 1770309598.20242 "out/main.aux" "out/main.bbl" "out/main" 1770309602.57366 0
   "./ref.bib" 1765187589 1570 c12c87d69ca73e84f213554c9a96d7fe ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762765177 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "out/main.aux" 1770299000 11690 d20a9ff3ece8ecfa1becf0c0cd5cc8cc "pdflatex"
+  "out/main.aux" 1770309601 11843 e104910178c5bb8bf8012c48f86e9a8f "pdflatex"
   (generated)
   "out/main.bbl"
   "out/main.blg"
   (rewritten before read)
-["pdflatex"] 1770298997.15668 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1770299001.17033 0
-  "c:/GTfyp/latex_doc/main.tex" 1770298992 25531 cf9f118fb38ffa59d8ebc860d68e169e ""
+["pdflatex"] 1770309598.38043 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1770309602.57465 0
+  "c:/GTfyp/latex_doc/main.tex" 1770309593 30987 9725f0693ca3932b3366ff78b62ba59f ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1762765275 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1762765462 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -39,6 +39,7 @@
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1762765266 1120 8b7d695260f3cff42e636090a8002094 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm" 1762765266 1116 25a7bf822c58caf309a702ef79f4afbb ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1762765266 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1762765266 768 1321e9409b4137d6fb428ac9dc956269 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1762765043 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1762765043 32080 340ef9bf63678554ee606688e7b5339d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1762765043 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
@@ -60,6 +61,7 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1762765043 32716 08e384dc442464e7285e891af9f45947 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1762765043 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1762765043 37944 359e864bd06cde3b1cf57bb20757fb06 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1762765043 31099 342ef5a582aacbd3346f3cf4579679fa ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb" 1762765276 138258 6525c253f16cededa14c7fd0da7f67b2 ""
   "c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1762766079 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "c:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty" 1762765700 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
@@ -116,9 +118,9 @@
   "images/rps_sd_delta_H.png" 1764955910 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
   "images/sd_rps_double_drift.png" 1764956433 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
   "images/w_test.eps" 1762764854 35340 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.tex" 1770298992 25531 cf9f118fb38ffa59d8ebc860d68e169e ""
-  "out/main.aux" 1770299000 11690 d20a9ff3ece8ecfa1becf0c0cd5cc8cc "pdflatex"
-  "out/main.bbl" 1770298997 830 d21cefe1c5cdabc6aeb67cf515bbacf2 "bibtex out/main"
+  "main.tex" 1770309593 30987 9725f0693ca3932b3366ff78b62ba59f ""
+  "out/main.aux" 1770309601 11843 e104910178c5bb8bf8012c48f86e9a8f "pdflatex"
+  "out/main.bbl" 1770309598 830 d21cefe1c5cdabc6aeb67cf515bbacf2 "bibtex out/main"
   "parameter_tests/beta_test.eps" 1764930483 45316 787c4a23d5aaef788a61a13f67b99f92 ""
   "parameter_tests/crit_n_beta.eps" 1762764855 32193 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762764855 33585 c81090af7ea62cbabd93c306588ccc5b ""

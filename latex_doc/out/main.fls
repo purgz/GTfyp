@@ -133,6 +133,7 @@ INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./fokker_planck_derivation.tex
 INPUT fokker_planck_derivation.tex
 INPUT ./fokker_planck_derivation.tex
@@ -324,4 +325,5 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb
