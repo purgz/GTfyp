@@ -750,6 +750,40 @@ if __name__ == "__main__":
      [0.2, 0.2, 0.2, 0]]
     )
 
+    numerical_moran, t_eval = replicator.numerical_trajectory_from_fokker_planck(
+        matrix = basic_rps, 
+        interaction_process="Moran",
+        w=0.5,
+    )
+
+    numerical_local, t_eval = replicator.numerical_trajectory_from_fokker_planck(
+        matrix = basic_rps, 
+        interaction_process="Local",
+        w=0.5,
+    )
+
+    numerical_fermi, t_eval = replicator.numerical_trajectory_from_fokker_planck(
+        matrix = basic_rps, 
+        w=0.5,
+        interaction_process="Fermi",
+    )
+
+    write_trajectory(numerical_moran, "./results/moran_numeric")
+    write_trajectory(numerical_local, "./results/local_numeric")
+    write_trajectory(numerical_fermi, "./results/fermi_numeric")
+
+    simulation.high_dim_2d_plot(
+        ["./results/moran_numeric", "./results/local_numeric", "./results/fermi_numeric"],
+        norm=[False,False,False], t_eval=t_eval, Ns = None
+    )
+
+    
+
+    simulation.quaternary_plot_same_axis([numerical_moran, numerical_local, numerical_fermi], 
+                               labels=["Moran", "Local", "Fermi"],
+    )
+    
+
     _,_,avg_traj, all_traj = simulation.moran_batch_sim(10000, 500000, 0.45, 100, point_cloud=False, traj=True, matrix=basic_rps, initial_rand=False)
     df = pd.DataFrame({"R": avg_traj[0], "P": avg_traj[1], "S": avg_traj[2], "L": avg_traj[3]})
     simulation.quaternary_plot([df], labels=["Average Trajectory"])

@@ -166,7 +166,54 @@ def add_grid_lines(ax, numEdgeLabels=10):  # Add ternary-style grid lines to ABC
 
 
 # Utility functions
+# Method for plotting multile experiments results
+def quaternary_plot_same_axis(
+    dfs, labels=["Local update", "Moran Process"], colors=["b", "g"], show=True
+):
 
+    numPlots = len(dfs)
+
+    # Add random colors to colors if too few are provided
+    if len(colors) < numPlots:
+        np.random.seed(42)  # For reproducibility
+        colors += [
+            np.random.rand(
+                3,
+            )
+            for _ in range(numPlots - len(colors))
+        ]
+
+    while len(labels) < numPlots:
+        labels.append("No label")
+
+    fig = plt.figure()
+    ax = fig.add_subplot(projection="3d")
+
+    
+    plot_ax(ax)
+    
+    label_points(ax)
+    add_edge_labels(ax)
+    add_grid_lines(ax)
+
+    for i, df in enumerate(dfs):
+
+        plot_3d_ternary(df, ax, colour=colors[i])
+        
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_zticks([])
+    ax.set_box_aspect([1, 1, 1])
+    ax.set_title(labels[i], pad=20)
+    ax.plot([], [], color=colors[i], label="Trajectory")
+    ax.legend(loc="upper right", fontsize=10)
+
+
+    if show:
+      plt.show()
+    
+    return fig
 
 # Method for plotting multile experiments results
 def quaternary_plot(
@@ -376,8 +423,10 @@ def high_dim_2d_plot(
 ):
 
     fig = plt.figure()
-
+    colors = ["r", "g", "b"]
     for i in range(len(file_paths)):
+
+        color = colors[i]
 
         data = pd.read_csv(file_paths[i], comment="#")
 
@@ -392,7 +441,7 @@ def high_dim_2d_plot(
                 time_norm = (np.arange(len(data)) * data_res) / Ns[i]
                 plt.plot(time_norm, data.iloc[:, j])
             else:
-                plt.plot(t_eval, data.iloc[:, j])
+                plt.plot(t_eval, data.iloc[:, j], color=color)
 
     plt.xlabel("T")
     plt.ylabel("R,P,S,A")
