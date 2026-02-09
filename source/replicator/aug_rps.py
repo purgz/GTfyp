@@ -167,6 +167,61 @@ def numericalIntegration(equations, numPoints = 5000, timeSpan = 150, initial_di
   return df, t_eval
 
 
+"""
+Produces the numerical trajectory of a 4x4 game from the 
+formula derived from the fokker planck equation for the deterministic 
+replicator dynamics (Infinite population N).
+Generalised version of other numerical trajectory so that an arbitrary reproductive 
+function can be used.
+"""
+def numerical_trajectory_from_fokker_planck(matrix, interaction_process="Moran", w=0.2, 
+                                            initial_dist=[0.5,0.2,0.2]):
+  # Matrix : np.matrix
+
+  a_val = matrix[0, 0]
+  b_val = matrix[1, 0]
+  c_val = matrix[0, 1]
+  gamma_val = matrix[0, 3]
+  beta_val = matrix[3, 0]
+
+  # Construct config from matrix.
+  config = {a : a_val, b : b_val, c : c_val, gamma : gamma_val, beta : beta_val}
+
+  delta_pi_numeric = matrix.max() - matrix.min()
+  matrix = sp.Matrix(matrix)
+
+  reproductive_func = moran_reproductive_func
+
+  match interaction_process:
+    case "Local":
+      reproductive_func = local_reproductive_func
+    case "Fermi":
+      reproductive_func = fermi_reproductive_func
+  
+  transitions = transition_probs(reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  transitions = {key: val.subs(delta_pi, delta_pi_numeric) for key, val in transitions.items()} 
+
+  a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
+         - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
+
+  a_y = (transitions["T_RP"] + transitions["T_SP"] + transitions["T_LP"]
+         - transitions["T_PR"] - transitions["T_PS"] - transitions["T_PL"])
+  
+
+  a_z = (transitions["T_RS"] + transitions["T_PS"] + transitions["T_LS"]
+         - transitions["T_SR"] - transitions["T_SP"] - transitions["T_SL"])
+  
+  a_x = a_x.subs(w_sym, w)
+  a_y = a_y.subs(w_sym, w)
+  a_z = a_z.subs(w_sym, w)
+
+  substitutions = substituteHyperParams([a_x, a_y, a_z], config, (x,y,z))
+
+  df = numericalIntegration(substitutions, initial_dist=initial_dist)
+
+  return df
+
+
 def numericalTrajectory(interactionProcess="Moran", w=0.2, initial_dist=[0.5,0.2,0.2], matrix=None):
   # Runge kutta order 5
   # External module method.
@@ -281,18 +336,42 @@ def non_uniform_weight(x,y,z, alpha=20):
 """
 <Delta H_RPS>
 """
+def delta_H_RPS(transitions):
+
+  N = sp.symbols("N")
+
+  d_h_RPS = ((2/N) * (z * (y-x) * (transitions["T_RP"] - transitions["T_PR"])
+          + y * (z - x)*(transitions["T_RS"] - transitions["T_SR"])
+          + x * (y - z)*(transitions["T_SP"] - transitions["T_PS"]) +
+          x * z * (transitions["T_PL"] - transitions["T_LP"]) + 
+          y * z * (transitions["T_RL"] - transitions["T_LR"]) +
+          x * y * (transitions["T_SL"] - transitions["T_LS"]))
+          + (2 / (N*N)) * (z * (transitions["T_RP"] + transitions["T_PR"]) + 
+                            y * (transitions["T_RS"] + transitions["T_SR"]) + 
+                            x * (transitions["T_SP"] + transitions["T_PS"]))
+                  )
+  
+  return d_h_RPS
 
 """
 <Delta H_SD>
 """
+def delta_H_SD(transitions):
+  N = sp.symbols("N")
+
+  d_h_SD  = ((12/N) * (1 - x - y - z) * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] 
+                              + transitions["T_SL"] - transitions["T_LS"]) 
+                + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
+                )
+  
+
+  return d_h_SD
 
 """
 <Delta H_4> from derived equation in final report / paper.
 """
 def delta_H_4(transitions):
   N = sp.symbols('N')
-
-  "Double check this"
 
   d_h_4 = ((6 / N) * ((z * q * (y - x) * (transitions["T_RP"] - transitions["T_PR"]))
                     + (y * q * (z - x) * (transitions["T_RS"] - transitions["T_SR"]))
@@ -315,56 +394,12 @@ def delta_H_4(transitions):
 
 def numerical_H_value(transitions, N = 100):
   
-  """expression = (6 / (N * N * N * N * N)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
-                    +transitions["T_SL"] + transitions["T_LR"]
-                    +transitions["T_LP"] + transitions["T_LS"])
-              - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
-              - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
-  
- 
-  """
 
-  
-  # New corrected normalized expression.
-  expression = ((12/N) * (1 - x - y - z) * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] 
-                              + transitions["T_SL"] - transitions["T_LS"]) 
-                + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
-                )
-  
+  expression = delta_H_SD(transitions)  
 
   expression_h_4 = delta_H_4(transitions)
 
-  
-
-  """expression_rps = (12 / (N*N*N*N*N)) * ((x * y * z) * (transitions["T_RP"]  
-    + transitions["T_RS"] + transitions["T_RL"]
-    + transitions["T_PR"] + transitions["T_PS"] 
-    + transitions["T_PL"] + transitions["T_SR"] 
-    + transitions["T_SP"] + transitions["T_SL"]
-    + transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])
-    - z*(x - (1/N))*(y + (1/N)) * transitions["T_RP"]
-    - (x - (1/N)) * y * (z + (1/N)) * transitions["T_RS"]
-    - y * z * (x - (1/N)) * transitions["T_RL"]
-    - z * (x + (1/N)) * (y - (1/N)) * transitions["T_PR"] 
-    - x * (y - (1/N)) * (z + (1/N)) * transitions["T_PS"]
-    - x * z * (y - (1/N)) * transitions["T_PL"] 
-    - (x + (1/N)) * y * (z - (1/N)) * transitions["T_SR"]
-    - x * (y + (1/N)) * (z - (1/N)) * transitions["T_SP"]
-    - x * y * (z - (1/N)) * transitions["T_SL"]
-    - y * z * (x + (1/N)) * transitions["T_LR"]
-    - x * z * (y + (1/N)) * transitions["T_LP"]
-    - x * y * (z + (1/N)) * transitions["T_LS"])"""
-  
-  expression_rps = ((2/N) * (z * (y-x) * (transitions["T_RP"] - transitions["T_PR"])
-          + y * (z - x)*(transitions["T_RS"] - transitions["T_SR"])
-          + x * (y - z)*(transitions["T_SP"] - transitions["T_PS"]) +
-          x * z * (transitions["T_PL"] - transitions["T_LP"]) + 
-          y * z * (transitions["T_RL"] - transitions["T_LR"]) +
-          x * y * (transitions["T_SL"] - transitions["T_LS"]))
-          + (2 / (N*N)) * (z * (transitions["T_RP"] + transitions["T_PR"]) + 
-                            y * (transitions["T_RS"] + transitions["T_SR"]) + 
-                            x * (transitions["T_SP"] + transitions["T_PS"]))
-                  )
+  expression_rps = delta_H_RPS(transitions)
   
   """
     config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 } - config where CritN_rps is lower than critN_SD
@@ -380,9 +415,11 @@ def numerical_H_value(transitions, N = 100):
 
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
+  expression = expression.subs(sp.symbols("N"), N)
 
   expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
+  expression_rps = expression_rps.subs(sp.symbols("N"), N)
 
 
   expression_h_4 = expression_h_4.subs(w_sym, 0.45)
@@ -447,13 +484,6 @@ def find_critical_N_fixed_w(config, w, transitions):
 
   N = sp.symbols('N')
 
-  """expression = (1 / (N ** 2)) * (q * (1-q) * (transitions["T_RL"] + transitions["T_PL"]
-                    +transitions["T_SL"] + transitions["T_LR"]
-                    +transitions["T_LP"] + transitions["T_LS"])
-              - (q + (1 / N)) * (1 - q - (1 / N)) * (transitions["T_RL"] + transitions["T_PL"] + transitions["T_SL"])  
-              - (q - (1 / N)) * (1 - q + (1 / N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"]))
-  """
-
   expression = ((12/N) * q * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] + transitions["T_SL"] - transitions["T_LS"]) 
                 + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
                 )
@@ -479,7 +509,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(400, 1000, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(100, 400, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -489,9 +519,9 @@ def numerical_delta_H_range(n_range = np.linspace(400, 1000, 50), config : dict 
 
   for n in n_range:
     res_sd, res_rps, res_4 = numerical_H_value(transitions, n)
-    delta_H_SD.append(res_sd)
-    delta_H_RPS.append(res_rps)
-    delta_H_4.append(res_4)
+    delta_H_SD.append(res_sd * n * n)
+    delta_H_RPS.append(res_rps * n * n)
+    delta_H_4.append(res_4 * n * n)
 
   if plot:
     plt.xlabel("$N$")
@@ -683,8 +713,24 @@ if __name__ == "__main__":
   #print(latex(formatted))
 
   #print("With w = 0")
-  #print(latex(formatted.subs(w_sym, 0)))
+  #print(latex(formatted.subs(w_sym, 0)))#
 
+  matrix = np.array([[0,   -1,   1,       0.2],
+                                [1,    0,   -1,       0.2],
+                                [-1,   1,   0,        0.2],
+                                [0.1, 0.1, 0.1, 0]])
+  
+  df_fokker_p, t_eval = numerical_trajectory_from_fokker_planck(
+    matrix=matrix, 
+    w=0.2,
+    interaction_process="Local"
+  )
+
+  df_old, t_eval = numericalTrajectory("Local", w=0.2, matrix=matrix)
+
+
+  print(df_fokker_p.tail())
+  print(df_old.tail())
 
   numerical_delta_H_range()
 
