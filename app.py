@@ -744,16 +744,30 @@ if __name__ == "__main__":
 
 
     basic_rps = np.array(
-    [[0, -0.8, 1,     0.2], 
-     [1, 0, -0.8,     0.2], 
-     [-0.8, 1, 0,     0.2], 
-     [0.2, 0.2, 0.2, 0]]
+    [[0, -1, 1,     0.2], 
+     [1, 0, -1,     0.2], 
+     [-1, 1, 0,     0.2], 
+     [0.1, 0.1, 0.1, 0]]
     )
+
+    _,_,avg_traj, all_traj = simulation.moran_batch_sim(pop_size=5000,
+                                                        iterations = 150 * 5000, 
+                                                        w=0.5, 
+                                                        initial_dist=np.array([0.25,0.25,0.25,0.25]),
+                                                        initial_rand=False,
+                                                        traj=True,
+                                                        matrix=basic_rps, simulations=1000)
+
+    df = pd.DataFrame({"R": avg_traj[0], "P" : avg_traj[1], "S": avg_traj[2], "L": avg_traj[3]})
 
     numerical_moran, t_eval = replicator.numerical_trajectory_from_fokker_planck(
         matrix = basic_rps, 
         interaction_process="Moran",
         w=0.5,
+    )
+
+    simulation.quaternary_plot_same_axis([numerical_moran, df], 
+                               labels=["Sim", "Deterministic"],
     )
 
     numerical_local, t_eval = replicator.numerical_trajectory_from_fokker_planck(
