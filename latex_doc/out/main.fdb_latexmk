@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex out/main"] 1770309598.20242 "out/main.aux" "out/main.bbl" "out/main" 1770309602.57366 0
+["bibtex out/main"] 1770819976.7336 "out/main.aux" "out/main.bbl" "out/main" 1770819979.03069 0
   "./ref.bib" 1765187589 1570 c12c87d69ca73e84f213554c9a96d7fe ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/base/plain.bst" 1762765177 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "out/main.aux" 1770309601 11843 e104910178c5bb8bf8012c48f86e9a8f "pdflatex"
+  "out/main.aux" 1770819978 11844 1445fa301dbbf886d295fb00365b4d20 "pdflatex"
   (generated)
   "out/main.bbl"
   "out/main.blg"
   (rewritten before read)
-["pdflatex"] 1770309598.38043 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1770309602.57465 0
-  "c:/GTfyp/latex_doc/main.tex" 1770309593 30987 9725f0693ca3932b3366ff78b62ba59f ""
+["pdflatex"] 1770819976.83257 "c:/GTfyp/latex_doc/main.tex" "out/main.pdf" "main" 1770819979.03135 0
+  "c:/GTfyp/latex_doc/main.tex" 1770819974 30764 701b1f0feb0e692f958f7a32b55d8d93 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1762765275 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1762765583 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1762765462 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -97,8 +97,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762766710 371233 0f6aca6addd6800b190706172e78fdc2 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1762766854 3436873 855fc45e18b815dc01b5849f949988f3 ""
   "c:/texlive/2025/texmf.cnf" 1762766701 713 e69b156964470283e0530f5060668171 ""
-  "delta_H_derivation.tex" 1770033594 13042 d1037f4ca1ea548cea27c2a8c6662b54 ""
-  "fokker_planck_derivation.tex" 1764170760 6521 e6798cedb47bbef8299335767c822640 ""
+  "delta_H_derivation.tex" 1770728216 13050 9b2860a8a98345dd4ed2d486a62b4211 ""
+  "fokker_planck_derivation.tex" 1770819964 5952 226d2223086f7cb6ca406e4eef73eb4a ""
   "images/3d.png" 1762764854 83632 96d66c9205c435faa5221d449d3043b1 ""
   "images/50000POP.png" 1762873317 49339 9adf0bb4d105dc2ff08f0c82c112b9d3 ""
   "images/850POP.png" 1762873317 136671 5d619426bf6a0efc66379352a53e832d ""
@@ -118,9 +118,9 @@
   "images/rps_sd_delta_H.png" 1764955910 20809 0995f1e0365b5a8e47e3370c2b85d6e8 ""
   "images/sd_rps_double_drift.png" 1764956433 15192 6b16ea58e22758ce41760a4cbc07c0e9 ""
   "images/w_test.eps" 1762764854 35340 5bb9be854a210a1f2cf4229eda1bbd06 ""
-  "main.tex" 1770309593 30987 9725f0693ca3932b3366ff78b62ba59f ""
-  "out/main.aux" 1770309601 11843 e104910178c5bb8bf8012c48f86e9a8f "pdflatex"
-  "out/main.bbl" 1770309598 830 d21cefe1c5cdabc6aeb67cf515bbacf2 "bibtex out/main"
+  "main.tex" 1770819974 30764 701b1f0feb0e692f958f7a32b55d8d93 ""
+  "out/main.aux" 1770819978 11844 1445fa301dbbf886d295fb00365b4d20 "pdflatex"
+  "out/main.bbl" 1770819976 830 d21cefe1c5cdabc6aeb67cf515bbacf2 "bibtex out/main"
   "parameter_tests/beta_test.eps" 1764930483 45316 787c4a23d5aaef788a61a13f67b99f92 ""
   "parameter_tests/crit_n_beta.eps" 1762764855 32193 b8deb542ab7727cd4fd75bf6abe6f093 ""
   "parameter_tests/crit_n_gamma.eps" 1762764855 33585 c81090af7ea62cbabd93c306588ccc5b ""
