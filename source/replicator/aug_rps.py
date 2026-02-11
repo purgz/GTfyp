@@ -633,6 +633,31 @@ if __name__ == "__main__":
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
 
+
+
+  print("Working for the local update derivation")
+
+  transitions_local = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
+  a_x = (transitions_local["T_PR"] + transitions_local["T_SR"] + transitions_local["T_LR"]
+        - transitions_local["T_RP"] - transitions_local["T_RS"] - transitions_local["T_RL"])
+
+
+  target = (w_sym/delta_pi) * x * (payoffR - averagePayoff)
+
+  diff = sp.simplify(sp.together(a_x - target))
+  diff = sp.factor(diff)
+  print(diff) # Prints 0 therefore equivlent
+
+  pref = sp.simplify(sp.together(a_x / ((w_sym/delta_pi) * x)))
+  pref = sp.factor(pref)
+
+  # Now pref should equal (payoffR - averagePayoff)
+  print("prefactor part =", sp.latex(pref))
+  print("check:", sp.simplify(pref - (payoffR - averagePayoff)))
+
+  exit()
+
+
   transitions = transition_probs(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
   transitions = {key: val.subs(delta_pi, 2) for key, val in transitions.items()} # Numeric transitions
 
