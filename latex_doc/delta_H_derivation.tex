@@ -111,9 +111,6 @@ This can then be solved numerically and the critical population values
 can be found where $\langle \Delta H_{SD} \rangle = 0$.
 
 
-\hfill
-
-
 
 \hfill
 \par
@@ -123,13 +120,130 @@ The specific expression for Moran process is very long. Computed numerically and
 Maybe can plot the simulated critical population sizes against the analyical on the same graph.
 
 
+\subsubsection{Simplified expression for the Local update process}
+
+Considering the local update process, an exact analytical solution can be found for 
+$\langle \Delta H_{SD} \rangle$.
+
+Evaluating the terms of the type $T^{R+} - T^{+R}$ for the local update process:
+
+\begin{align}
+T^{R+} - T^{+R} &= \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right) - \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \nonumber \\
+&= \frac{1}{2}\frac{i}{N}\frac{N-i-j-k}{N}w\left(\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}} 
+- \frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right)\nonumber \\
+ &= w\frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right)\nonumber
+\end{align}
+
+substituting the population frequencies:
+
+\begin{equation}
+T^{R+} - T^{+R} = wx(1-x-y-z)\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}
+\end{equation}
+
+the difference for the other two strategies can simply be derived by swapping the corresponding
+payoffs in the above expression.
+
+Now considering the second integral with terms $T^{+R} + T^{+P} + T^{+S}$:
+
+\begin{align}
+T^{+R} + T^{+P} + T^{+S} &= \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} 
++ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
+&+ \frac{j}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2}
+ + \frac{w}{2}\frac{\pi_P - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
+ &+ \frac{k}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2}
+ + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right)
+\end{align}
+
+Again replacing with the frequencies:
+\begin{align}
+T^{+R} + T^{+P} + T^{+S} &= (1-x-y-z) \Bigg[ x\left(\frac{1}{2} 
++ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
+&+ y\left(\frac{1}{2}
+ + \frac{w}{2}\frac{\pi_P - \pi_+}{\Delta \pi_{\text{max}}}\right) 
+ + z\left(\frac{1}{2}
+ + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right) \Bigg] \\
+&= \frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}}
+\Big[x(\pi_R - \pi_+) + y(\pi_P - \pi_+) + z(\pi_S - \pi_+)\Big]
+\Bigg]
+\end{align}
+
+Substituting in the expanded expressions for payoff differences e.g. $\pi_R - \pi_+$:
+
+\begin{align}
+T^{+R} + T^{+P} + T^{+S} &= 
+\frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}} \\
+&\Big[x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \\
+&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z)) \\
+&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Big]
+\Bigg]
+\end{align}
+
+
+Finally substituting everything back into $\langle \Delta H_{SD} \rangle$:
+
+
+\begin{align}
+\langle \Delta H_{SD} \rangle &= \frac{12}{N} \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y}dz 
+(1-x-y-z)\Bigg[ \\
+&\frac{w}{\Delta \pi_{\text{max}}} x(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -z -cy\right)\\
+&\frac{w}{\Delta \pi_{\text{max}}} y(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -x -cz\right)\\
+&\frac{w}{\Delta \pi_{\text{max}}} z(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -y -cx\right)\Bigg] \\
+&+ \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y}dz(1-x-y-z)\Bigg[ \\ 
+&x + y + z + \frac{w}{\Delta \pi_{\text{max}}} 
+\Bigg(x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \\
+&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z)) \\
+&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Bigg)
+\Bigg]
+\end{align}
+
+
+Solving the integrals leads to the exact analytical expression for local update process
+$\langle \Delta H_{SD} \rangle$:
+
+\begin{equation}
+\langle \Delta H_{SD} \rangle_{LU} = 
+\frac{42 \Delta \pi_{\text{max}} + 2w \gamma (7 - 6N) + (-1+4\beta - c)(-7 + 4N)w}{280N^2\Delta \pi_{\text{max}}}
+\end{equation}
+which is nicely expressed by the actual values in the payoff matrix for the game, 
+here I have fixed the values of $a=0, b=1$ so that the expected drift can be written as 
+an expression of $c, \beta, \gamma, N$ and $w$. $\Delta \pi_{\text{max}}$
+is the maximum payoff difference which will depend on the choice of parameters, 
+however it is a constant and usually defined as $b - c$ or $1-c$ when $b$ is fixed to 1
+in this case as mostly we consider $0 < \gamma, \beta < 1$ so the maximal difference is
+between the winning and losing case of the rock paper scissors sub game.
+
+Since the critical population size is defined as a change in sign in 
+$\langle \Delta H_{SD} \rangle$, the critical population size, $N_c$ can also be derived by setting
+the above equation to 0 and solvign for $N$.
+
+
+This leads to:
+\begin{align}
+N_c &= \frac{-42 \Delta \pi_{\text{max}} + w(28\beta - 7c  - 14 \gamma - 7)}{w(16 \beta - 4c -12\gamma - 4)}\\
+&= \frac{-42 \Delta \pi_{\text{max}}}{w(16 \beta - 4c -12\gamma - 4)}
++ \frac{28 \beta - 7c - 14\gamma - 7}{16 \beta - 4c -12\gamma - 4}
+\end{align}
+
+I have compared this value to the numerically solved solutions of the triple integral 
+and the results match perfectly. For both the values of the integral
+and also the critical population size which was previously calculated using brentq root 
+finding method.
+Due to increasing complexity in the Moran process, I have used numerical methods to 
+compute the value of the integral and critical population size instead of a closed form 
+solution.
+
+See if its possible to also derive closed from solution for RPS and 4 strategy 
+observation variables but this was a very long process for SD case so 
+may be worth solving with numerical method.
+Definitely not for the Moran process.
+
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{./images/critical_n_analytical.png}
     \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
     to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.}
 \end{figure}
-
 
 \subsubsection{$\langle \Delta H_{RPS} \rangle$ Derivation}
 
