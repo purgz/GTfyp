@@ -655,7 +655,8 @@ def matrix_input_handler(s: str) -> np.ndarray:
 
 # Need this because of multiprocessing
 if __name__ == "__main__":
-    
+
+
     """
     TODO - add interaction process as argument for point cloud and sample rate - or automatically calculate sample rate based on the number of iterations for a good animation.
     # calculate number of frames we want for smooth animation
@@ -736,11 +737,14 @@ if __name__ == "__main__":
 
   
     basic_rps = np.array(
-    [[0, -0.8, 1,     0.02], 
-     [1, 0, -0.8,     0.02], 
-     [-0.8, 1, 0,     0.02], 
-     [0.05, 0.05, 0.05, 0]]
+    [[0, -0.2, 1,     0.1], 
+     [1, 0, -0.2,     0.1], 
+     [-0.2, 1, 0,     0.1], 
+     [0.25, 0.25, 0.25, 0]]
     )
+
+    point_cloud_animation(pop_size=750, iterations=100000, w=0.45, num_points=2000, matrix=basic_rps, interaction_process="Local")
+    
 
 
     basic_rps = np.array(
@@ -749,6 +753,8 @@ if __name__ == "__main__":
      [-1, 1, 0,     0.2], 
      [0.1, 0.1, 0.1, 0]]
     )
+
+    
 
     _,_,avg_traj, all_traj = simulation.moran_batch_sim(pop_size=5000,
                                                         iterations = 150 * 5000, 
