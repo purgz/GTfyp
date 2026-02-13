@@ -416,7 +416,7 @@ def numerical_H_value(transitions, N = 100):
   """
     config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 } - config where CritN_rps is lower than critN_SD
   """
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 }
+  config = {a: 0, b: 1, c:-1, gamma: 0.06, beta:0.02 }
 
   #RPS not reversing
   #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
@@ -428,18 +428,18 @@ def numerical_H_value(transitions, N = 100):
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
   expression = expression.subs(sp.symbols("N"), N)
-  expression = expression.subs(delta_pi, 1.8)
+  expression = expression.subs(delta_pi, 2)
 
   expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
   expression_rps = expression_rps.subs(sp.symbols("N"), N)
-  expression_rps = expression_rps.subs(delta_pi, 1.8)
+  expression_rps = expression_rps.subs(delta_pi, 2)
 
 
   expression_h_4 = expression_h_4.subs(w_sym, 0.45)
   expression_h_4 = expression_h_4.subs(config)
   expression_h_4 = expression_h_4.subs(sp.symbols("N"), N)
-  expression_h_4 = expression_h_4.subs(delta_pi, 1.8)
+  expression_h_4 = expression_h_4.subs(delta_pi, 2)
 
   """
   Test the analytical solution for local update
@@ -535,7 +535,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(100, 1500, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(100, 1500, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.3, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
