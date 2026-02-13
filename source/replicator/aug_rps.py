@@ -392,6 +392,18 @@ def delta_H_4(transitions):
 
 
 
+def delta_h_sd_LOCAL_ANALYTICAL():
+  N = sp.symbols('N')
+  expression = (42 * delta_pi + 2 * gamma * (7 - 6 * N) * w_sym + (-1 + 4 * beta - c) * (-7 + 4 * N) * w_sym) / (280 * N * N * delta_pi)
+  return expression 
+
+
+def delta_h_SD_LOCAL_CRIT_N():
+  critical_n = (-42 * delta_pi + w_sym * (28 * beta - 7 * c - 14 * gamma - 7)) / (w_sym * (16 * beta - 4 * c - 12 * gamma -4))
+
+  return critical_n
+
+
 def numerical_H_value(transitions, N = 100):
   
 
@@ -407,25 +419,34 @@ def numerical_H_value(transitions, N = 100):
   config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 }
 
   #RPS not reversing
-  config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
+  #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
 
 
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.01, beta: 0.01 }
+  #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta: 0.1 }
 
 
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
   expression = expression.subs(sp.symbols("N"), N)
+  expression = expression.subs(delta_pi, 1.8)
 
   expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
   expression_rps = expression_rps.subs(sp.symbols("N"), N)
+  expression_rps = expression_rps.subs(delta_pi, 1.8)
 
 
   expression_h_4 = expression_h_4.subs(w_sym, 0.45)
   expression_h_4 = expression_h_4.subs(config)
   expression_h_4 = expression_h_4.subs(sp.symbols("N"), N)
+  expression_h_4 = expression_h_4.subs(delta_pi, 1.8)
 
+  """
+  Test the analytical solution for local update
+  """
+
+  analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, 2).subs(w_sym, 0.45)
+  
   f = lambdify((x,y,z), expression, "numpy")
 
   f_rps = lambdify((x,y,z), expression_rps, "numpy")
@@ -474,6 +495,8 @@ def numerical_H_value(transitions, N = 100):
   
   print("N", N, "SD:", res, "RPS:", res_rps, "+:", res_4)
 
+  print("Analytical local update SD:", analytical_local, "Numerical local update SD:", res)
+
   return res, res_rps, res_4
 
 
@@ -482,11 +505,14 @@ def find_critical_N_fixed_w(config, w, transitions):
 
   transitions = {key: val.subs(config).subs(w_sym, w) for key, val in transitions.items()} # Numeric transitions
 
+
   N = sp.symbols('N')
 
   expression = ((12/N) * q * (transitions["T_RL"] - transitions["T_LR"] + transitions["T_PL"] - transitions["T_LP"] + transitions["T_SL"] - transitions["T_LS"]) 
                 + (12 / (N*N)) * (transitions["T_LR"] + transitions["T_LP"] + transitions["T_LS"])                
                 )
+  
+  expression = expression.subs(delta_pi, 1.8)
 
   def brentq_func(N_val):
     expr_sub = expression.subs(N, N_val)
@@ -509,13 +535,15 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(100, 400, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(100, 1500, 50), config : dict = {a: 0, b: 1, c: -1, gamma: 0.2, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
   delta_H_RPS = []
 
   delta_H_4 = []
+
+  transitions = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
 
   for n in n_range:
     res_sd, res_rps, res_4 = numerical_H_value(transitions, n)
@@ -637,7 +665,7 @@ if __name__ == "__main__":
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
 
-
+  numerical_delta_H_range()
 
   print("Working for the local update derivation")
 
@@ -659,7 +687,7 @@ if __name__ == "__main__":
   print("prefactor part =", sp.latex(pref))
   print("check:", sp.simplify(pref - (payoffR - averagePayoff)))
 
-  exit()
+  
 
 
   transitions = transition_probs(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
@@ -744,6 +772,8 @@ if __name__ == "__main__":
   #print("With w = 0")
   #print(latex(formatted.subs(w_sym, 0)))#
 
+  
+
   matrix = np.array([[0,   -1,   1,       0.2],
                                 [1,    0,   -1,       0.2],
                                 [-1,   1,   0,        0.2],
@@ -761,24 +791,35 @@ if __name__ == "__main__":
   print(df_fokker_p.tail())
   print(df_old.tail())
 
-  numerical_delta_H_range()
+  
+  #numerical_delta_H_range()
 
-  estimated = pd.read_csv("C:/GTfyp/results/critical_N_w_2_0.8.csv", comment='#')
+  #estimated = pd.read_csv("C:/GTfyp/results/critical_N_w_2_0.8.csv", comment='#')
 
-  ws = np.linspace(0.1, 0.5, 10)
+  ws = np.linspace(0.1, 0.8, 20)
   critical_Ns = []
+  critical_ns_analytical = []
+
+  transitions = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
+  
 
   for w in ws:
     critical_N = find_critical_N_fixed_w({a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}, w, transitions)
-    print(f"Critical N at w={w} is ", critical_N)
+    
+    # Compare to analytical version for the local update
+    critical_N_analytical = delta_h_SD_LOCAL_CRIT_N().subs({a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}).subs(w_sym, w).subs(delta_pi, 1.8)
+    critical_ns_analytical.append(critical_N_analytical)
+
+    print(f"Critical N at w={w} is ", critical_N,"Analytical critical N is ", critical_N_analytical)
     critical_Ns.append(critical_N)
 
   plt.plot(ws, critical_Ns)
+  plt.plot(ws, critical_ns_analytical)
   plt.xlabel(r"$w$")
   plt.ylabel(r"$N_c$")
   #plt.yscale("log", base=10)
 
-  plt.plot(estimated["W"], estimated["critical_N"], marker='o', label='Simulated Critical N')
+  #plt.plot(estimated["W"], estimated["critical_N"], marker='o', label='Simulated Critical N')
 
   plt.show()
 
