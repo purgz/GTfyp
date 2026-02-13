@@ -241,9 +241,9 @@ if st.button("Point cloud animation"):
               simulations=num_sims,
               w=w,
               matrix=matrix,
-              point_cloud=False,
-              initial_rand=False,
-              traj=True
+              point_cloud=True,
+              initial_rand=True,
+              traj=False
           )
         elif process == "Fermi":
           delta_h, delta_rps, avg_traj, all_traj = simulation.fermi_batch_sim(
@@ -252,9 +252,9 @@ if st.button("Point cloud animation"):
               simulations=num_sims,
               w=w,
               matrix=matrix,
-              point_cloud=False,
-              initial_rand=False,
-              traj=True
+              point_cloud=True,
+              initial_rand=True,
+              traj=False
           )
 
         
