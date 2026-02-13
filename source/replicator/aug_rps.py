@@ -602,13 +602,14 @@ def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
 if __name__ == "__main__":
 
   basic_rps = np.array(
-  [[0, -0.8, 1,     0.06], 
-    [1, 0, -0.8,     0.06], 
-    [-0.8, 1, 0,     0.06], 
+  [[0, -1, 1,     0.06], 
+    [1, 0, -1,     0.06], 
+    [-1, 1, 0,     0.06], 
     [0.02, 0.02, 0.02, 0]]
   )
   
-  find_fixed_point_a_x(basic_rps)
+  print(find_fixed_point_a_x(basic_rps))
+
 
   # Derive replicator equations
   x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None, w=None)
@@ -625,9 +626,12 @@ if __name__ == "__main__":
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
   """
-  #print(latex(fixedPoints))
+  #print(latex(fixedPoints))  
+  """standardConfig = {a: 0, b: 1, c: -1, gamma: 0.06, beta: 0.03}
+  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1/4, y: 1/4, z: 1/4})
 
-  #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/9, y: 2/9, z: 2/9})
+  print(eigenvalues)
+  exit()"""
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
 
   print("**************************************************")
