@@ -120,7 +120,7 @@ matrix_df = pd.DataFrame(default_matrix,
 
 
 # Compact "matrix-like" editor
-matrix_col, metrics_col = st.columns([1, 2], vertical_alignment="top")
+matrix_col, metrics_col = st.columns([1, 2])
 
 with matrix_col:
     st.subheader("Payoff Matrix")
