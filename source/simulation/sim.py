@@ -172,6 +172,26 @@ def fermi_batch_sim(
 
     return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
 
+
+def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps):
+
+    avg_traj = 30
+    n = 4
+
+    sample_rate = 10000
+    num_frames = iterations // sample_rate
+
+    all_traj = np.zeros((num_points, n, num_frames))
+
+    for point in range(num_points):
+        initial = np.random.exponential(1,n)
+        initial /= np.sum(initial)
+
+        _,_, traj,_ = local_batch_sim(pop_size, iterations, w, avg_traj, matrix=matrix, traj=True, initial_rand=False, initial_dist=initial)
+        all_traj[point, :, :] = traj[:, ::sample_rate]
+
+    return all_traj
+
 @njit(parallel=True, cache=True)
 def local_batch_sim(
     pop_size,
@@ -212,11 +232,13 @@ def local_batch_sim(
         if initial_rand:
             initial = np.random.exponential(1,n)
             initial /= np.sum(initial)
-     
+    
         else:
             initial = initial_dist
 
         population = np.random.multinomial(pop_size, initial)
+
+       
 
         deltaPi = np.max(matrix) - np.min(matrix)
 

@@ -224,7 +224,7 @@ if st.button("Point cloud animation"):
         # Calling the function from your sim.py
         if process == "Moran":
             
-          delta_h, delta_rps, avg_traj, all_traj = simulation.moran_batch_sim(
+            delta_h, delta_rps, avg_traj, all_traj = simulation.moran_batch_sim(
               pop_size=pop_size,
               iterations=iterations,
               simulations=num_sims,
@@ -235,16 +235,18 @@ if st.button("Point cloud animation"):
               traj=False
           )
         elif process == "Local":
+            
             delta_h, delta_rps, avg_traj, all_traj = simulation.local_batch_sim(
-              pop_size=pop_size,
-              iterations=iterations,
-              simulations=num_sims,
-              w=w,
-              matrix=matrix,
-              point_cloud=True,
-              initial_rand=True,
-              traj=False
-          )
+                pop_size=pop_size,
+                iterations=iterations,
+                simulations=num_sims,
+                w=w,
+                matrix=matrix,
+                point_cloud=True,
+                initial_rand=False,
+                initial_dist=np.array([0.5/3, 0.5/3,0.5/3,0.5]),
+                traj=False
+            )
         elif process == "Fermi":
           delta_h, delta_rps, avg_traj, all_traj = simulation.fermi_batch_sim(
               pop_size=pop_size,

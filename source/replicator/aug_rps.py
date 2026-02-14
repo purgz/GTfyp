@@ -416,10 +416,12 @@ def numerical_H_value(transitions, N = 100):
   """
     config = {a: 0, b: 1, c:-0.8, gamma: 0.02, beta:0.05 } - config where CritN_rps is lower than critN_SD
   """
-  config = {a: 0, b: 1, c:-0.2, gamma: 0.05, beta: 0.3 } # "ROD" case
+  config = {a: 0, b: 1, c: -0.01, gamma: 0.137, beta: 0.35 } # "ROD" casess
   #config = {a: 0, b: 1, c:-0.2, gamma: 0.2, beta:0.1 }
+  
+  d_pi = 1.01
 
-  #config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 }
+  #config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 } # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
 
   #RPS not reversing
   #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
@@ -431,24 +433,24 @@ def numerical_H_value(transitions, N = 100):
   expression = expression.subs(w_sym, 0.45)
   expression = expression.subs(config)
   expression = expression.subs(sp.symbols("N"), N)
-  expression = expression.subs(delta_pi, 1.2)
+  expression = expression.subs(delta_pi, d_pi)
 
   expression_rps = expression_rps.subs(w_sym, 0.45)
   expression_rps = expression_rps.subs(config)
   expression_rps = expression_rps.subs(sp.symbols("N"), N)
-  expression_rps = expression_rps.subs(delta_pi, 1.2)
+  expression_rps = expression_rps.subs(delta_pi, d_pi)
 
 
   expression_h_4 = expression_h_4.subs(w_sym, 0.45)
   expression_h_4 = expression_h_4.subs(config)
   expression_h_4 = expression_h_4.subs(sp.symbols("N"), N)
-  expression_h_4 = expression_h_4.subs(delta_pi, 1.2)
+  expression_h_4 = expression_h_4.subs(delta_pi, d_pi)
 
   """
   Test the analytical solution for local update
   """
 
-  analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, 1.2).subs(w_sym, 0.45)
+  analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, d_pi).subs(w_sym, 0.45)
   
   f = lambdify((x,y,z), expression, "numpy")
 
@@ -538,7 +540,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(10, 500, 25), config : dict = {a: 0, b: 1, c: -1, gamma: 0.3, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict = {a: 0, b: 1, c: -1, gamma: 0.3, beta: 0.1}, plot=True):
 
 
   delta_H_SD = []
@@ -633,10 +635,10 @@ def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
 if __name__ == "__main__":
 
   basic_rps = np.array(
-  [[0, -0.2, 1,     0.1], 
-    [1, 0, -0.2,     0.1], 
-    [-0.2, 1, 0,     0.1], 
-    [0.3, 0.3, 0.3, 0]]
+  [[0, -0.01, 1,     0.13], 
+    [1, 0, -0.01,     0.13], 
+    [-0.01, 1, 0,     0.13], 
+    [0.35, 0.35, 0.35, 0]]
   )
   
   print(find_fixed_point_a_x(basic_rps))
