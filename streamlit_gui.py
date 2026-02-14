@@ -235,8 +235,10 @@ if st.button("Point cloud animation"):
               traj=False
           )
         elif process == "Local":
+
+            all_traj = simulation.local_point_cloud_avg(pop_size, iterations=iterations, w=w, num_points=num_sims, matrix=matrix)
             
-            delta_h, delta_rps, avg_traj, all_traj = simulation.local_batch_sim(
+            """delta_h, delta_rps, avg_traj, all_traj = simulation.local_batch_sim(
                 pop_size=pop_size,
                 iterations=iterations,
                 simulations=num_sims,
@@ -246,7 +248,7 @@ if st.button("Point cloud animation"):
                 initial_rand=False,
                 initial_dist=np.array([0.5/3, 0.5/3,0.5/3,0.5]),
                 traj=False
-            )
+            )"""
         elif process == "Fermi":
           delta_h, delta_rps, avg_traj, all_traj = simulation.fermi_batch_sim(
               pop_size=pop_size,

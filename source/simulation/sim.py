@@ -173,12 +173,39 @@ def fermi_batch_sim(
     return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
 
 
+
+"""
+Helper function for cloud to prevent trajectories spinning out to rps boundaries
+due to very low pop size < 10 when getting close to the loner corner, 
+gives a small avg trajectory for each point to show distint rod shape in the simplex
+and more accurately captrues the dynamics shown by the critical N plot for 4th strategy
+
+Need to play around and get good graphs for each of the cases
+ I think this is  the way to go for them
+
+
+ N_rps < N < N_sd - gives rod shape
+
+ N_sd < N < N_rps gives plate shape
+
+ N >> N_c gives central fixation
+
+ N = 150, and config in aug_rps works well
+
+ try some other configs to confirm results
+
+ makes sense to need an avg because numerical delta H is an average over the whole simplex
+ individual trajectories are too random to show a clear match, but
+ they do still show the same general result - this is just for clarity in final graph
+
+ Seems to work well, try with larger avg at some point
+"""
 def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps):
 
-    avg_traj = 30
+    avg_traj = 1000
     n = 4
 
-    sample_rate = 10000
+    sample_rate = iterations // 100
     num_frames = iterations // sample_rate
 
     all_traj = np.zeros((num_points, n, num_frames))
@@ -187,8 +214,10 @@ def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps)
         initial = np.random.exponential(1,n)
         initial /= np.sum(initial)
 
+        #initial = np.array([0.2, 0.2,0.2,0.4])
+
         _,_, traj,_ = local_batch_sim(pop_size, iterations, w, avg_traj, matrix=matrix, traj=True, initial_rand=False, initial_dist=initial)
-        all_traj[point, :, :] = traj[:, ::sample_rate]
+        all_traj[point, :, :] = traj[:, 1::sample_rate]
 
     return all_traj
 
@@ -204,49 +233,37 @@ def local_batch_sim(
     point_cloud=False,
     initial_rand=True
 ):
-
     n = matrix.shape[0]
     deltas = np.zeros(simulations)
     deltas_rps = np.zeros(simulations)
-    all_results = np.zeros((n, iterations))
+    all_results = np.zeros((n, iterations + 1))
 
-    # help with weird floating point errors
     initial_dist = initial_dist / np.sum(initial_dist)
 
-
-    sample_rate = 10000
+    sample_rate = iterations // 100
+    if sample_rate < 1:
+        sample_rate = 1
     num_frames = iterations // sample_rate
-
     all_traj = np.zeros((simulations, n, num_frames))
 
-  
     for s in prange(simulations):
-        # Randomize in the simplex
-        """fixed = initial_dist[3]
-        remaining = 1 - fixed
-        random_simplex = np.random.rand(n - 1)
-        random_simplex /= np.sum(random_simplex)
-        random_simplex *= remaining
-        initial = np.append(random_simplex, fixed)
-        """
         if initial_rand:
-            initial = np.random.exponential(1,n)
+            initial = np.random.exponential(1, n)
             initial /= np.sum(initial)
-    
         else:
             initial = initial_dist
 
         population = np.random.multinomial(pop_size, initial)
 
-       
-
         deltaPi = np.max(matrix) - np.min(matrix)
 
-        results = np.zeros((n, iterations))
+        results = np.zeros((n, iterations + 1))
+
+        
+        for j in range(n):
+            results[j, 0] = population[j] / pop_size
 
         individuals = np.empty(pop_size, dtype=np.int64)
-
-        # Build individuals array from population
         idx = 0
         for i in range(n):
             for _ in range(population[i]):
@@ -263,6 +280,8 @@ def local_batch_sim(
             p2 = individuals[ind2]
 
             payoffs = payoff_against_pop(population, matrix, pop_size)
+
+           
             p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
 
             if np.random.rand() < p:
@@ -270,14 +289,17 @@ def local_batch_sim(
                 population[p2] += 1
                 individuals[ind1] = p2
 
+            
             for j in range(n):
-                results[j, i] = population[j] / pop_size
+                results[j, i + 1] = population[j] / pop_size
 
         H = n - 1 if n == 4 else 0
-        if iterations >= 2:
+        if iterations >= 1:
             delta_H = (-(results[H, 1] * (1 - results[H, 1]))) - (
                 -(results[H, 0] * (1 - results[H, 0]))
             )
+        else:
+            delta_H = 0.0
 
         deltas[s] = delta_H
 
@@ -290,13 +312,13 @@ def local_batch_sim(
             all_results += results
 
         if point_cloud:
-            all_traj[s, :, :] = results[:, ::sample_rate]
+            
+            all_traj[s, :, :] = results[:, 1::sample_rate]
 
     mean_delta_H = np.mean(deltas)
     mean_delta_rps = np.mean(deltas_rps)
 
     return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
-
 
 @njit(parallel=True, cache=True)
 def moran_batch_sim(
