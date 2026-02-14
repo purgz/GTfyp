@@ -737,13 +737,13 @@ if __name__ == "__main__":
 
   
     basic_rps = np.array(
-    [[0, -0.2, 1,     0.1], 
-     [1, 0, -0.2,     0.1], 
-     [-0.2, 1, 0,     0.1], 
-     [0.25, 0.25, 0.25, 0]]
+    [[0, -0.1, 1,     0.15], 
+     [1, 0, -0.1,     0.15], 
+     [-0.1, 1, 0,     0.15], 
+     [0.3, 0.3, 0.3, 0]]
     )
 
-    point_cloud_animation(pop_size=750, iterations=100000, w=0.45, num_points=2000, matrix=basic_rps, interaction_process="Local")
+    point_cloud_animation(pop_size=550, iterations=800000, w=0.45, num_points=500, matrix=basic_rps, interaction_process="Moran")
     
 
 
