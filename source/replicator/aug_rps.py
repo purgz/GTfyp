@@ -418,9 +418,14 @@ def numerical_H_value(transitions, N = 100):
   """
   config = {a: 0, b: 1, c: -0.01, gamma: 0.137, beta: 0.35 } # "ROD" casess
   #config = {a: 0, b: 1, c:-0.2, gamma: 0.2, beta:0.1 }
-  
-  d_pi = 1.01
 
+  config = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3 } # Good case for column
+  
+  d_pi = 1.2
+
+  # Compare this one netx and get the RPs reversal
+  # Also work well for the figure, but need one with a higher fixed point for show.
+  # RPS drift but no SD drift
   #config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 } # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
 
   #RPS not reversing
@@ -639,6 +644,13 @@ if __name__ == "__main__":
     [1, 0, -0.01,     0.13], 
     [-0.01, 1, 0,     0.13], 
     [0.35, 0.35, 0.35, 0]]
+  )
+
+  basic_rps = np.array(
+  [[0, -0.2, 1,     0.18], 
+    [1, 0, -0.2,     0.18], 
+    [-0.2, 1, 0,     0.18], 
+    [0.3, 0.3, 0.3, 0]]
   )
   
   print(find_fixed_point_a_x(basic_rps))

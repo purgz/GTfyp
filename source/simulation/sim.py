@@ -202,7 +202,7 @@ Need to play around and get good graphs for each of the cases
 """
 def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps):
 
-    avg_traj = 1000
+    avg_traj = 100
     n = 4
 
     sample_rate = iterations // 100

@@ -245,7 +245,7 @@ if st.button("Point cloud animation"):
                 w=w,
                 matrix=matrix,
                 point_cloud=True,
-                initial_rand=False,
+                initial_rand=True,
                 initial_dist=np.array([0.5/3, 0.5/3,0.5/3,0.5]),
                 traj=False
             )"""
