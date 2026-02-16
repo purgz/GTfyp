@@ -120,10 +120,23 @@ The specific expression for Moran process is very long. Computed numerically and
 Maybe can plot the simulated critical population sizes against the analyical on the same graph.
 
 
-\subsubsection{Simplified expression for the Local update process}
+\subsubsection{Analytical solution for the Local update process}
 
 Considering the local update process, an exact analytical solution can be found for 
 $\langle \Delta H_{SD} \rangle$.
+
+\begin{align} \label{SimplifiedRPS}
+\begin{bmatrix}
+    0 & c & 1 & \gamma\\
+    1 & 0 & c & \gamma\\
+    c & 1 & 0 & \gamma\\
+    \beta & \beta & \beta & 0
+\end{bmatrix}
+\end{align}
+
+To simplify these derivations, I have fixed the values of $a = 0, b=1$, allowing
+still to adjust the dynamics of the RPS game via $c$ and the SD game via $\gamma, \beta$
+as used in all the results.
 
 Evaluating the terms of the type $T^{R+} - T^{+R}$ for the local update process:
 
@@ -242,7 +255,10 @@ Definitely not for the Moran process.
     \centering
     \includegraphics[width=0.7\textwidth]{./images/critical_n_analytical.png}
     \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
-    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.}
+    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.
+    Small deviations due to random nature of simulations, but close match to analytical result.
+    Drift reversal is present in the agent based simulations and exactly matching analytical prediction
+    for these paremeters.}
 \end{figure}
 
 \subsubsection{$\langle \Delta H_{RPS} \rangle$ Derivation}
@@ -297,6 +313,35 @@ terms including the difference in tranition probabilities in and out of the 4th 
   z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) + x(T^{SP} + T^{PS})\Big]
 \end{aligned}
 \end{equation}
+
+
+\subsubsection{Analytical solution for the Local update process $\langle \Delta H_{RPS} \rangle$}
+
+
+An analytical solution for $\langle \Delta H_{RPS} \rangle$ can also be 
+derived for for the local update process, this will require 
+the simplified terms of the forms $T^{RP} - T^{PR}$ and
+$T^{RP} + T^{PR}$ within the RPS game, and the terms of form 
+$T^{R+} - T^{+R}$ have already been derived in the solution for 
+$\langle \Delta H_{SD} \rangle$.
+
+
+\begin{align}
+T^{RP} - T^{PR} &= \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_P - \pi_R}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} 
+- \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_R - \pi_P}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} \nonumber \\
+&= \frac{i}{N} \frac{j}{N} \left[\frac{w}{2\Delta \pi_{max}} \left(2(\pi_P - \pi_R)\right)\right] \nonumber \\
+&= \frac{w}{\Delta \pi_{max}}xy(\pi_P - \pi_R)
+\end{align}
+where population counts e.g. $i/N, j/N$ are replaced with frequencies $x, y$ respectively. 
+Similarly the other 2 terms within the RPS game can be derived leading to:
+
+\begin{align}
+T^{RS} - T^{SR} = \nonumber \\
+T^{SP} - T^{PS} = 
+\end{align}
+
+Substituting in the expanded payoff differences from the payoff matrix:
+
 
 
 Rough figures of rps and SD delta H values.
@@ -399,6 +444,8 @@ $\langle \Delta H_{SD} \rangle, \langle \Delta_{RPS} \rangle$ with some terms mi
 observation variable $H$ used but they can all be rewritten in terms of differences of transition  probabilities
 into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ plus positive terms in a second integral scaled by $1/N^2$.
 
+
+Perhaps also derive analytical form of this equation too for LOCAl update
 \subsubsection{Graphical comparison of $H$}
 
 
