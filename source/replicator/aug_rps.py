@@ -400,8 +400,15 @@ def delta_h_sd_LOCAL_ANALYTICAL():
 
 def delta_h_SD_LOCAL_CRIT_N():
   critical_n = (-42 * delta_pi + w_sym * (28 * beta - 7 * c - 14 * gamma - 7)) / (w_sym * (16 * beta - 4 * c - 12 * gamma -4))
-
+ 
   return critical_n
+
+
+def delta_h_RPS_LOCAL_ANALYTICAL():
+  N = sp.symbols("N")
+  expression = (1 / (120 * (N * N))) - (((2 + gamma - 3 * beta + 2 * c) * w_sym) / (3360 * N * delta_pi))
+
+  return expression
 
 
 def numerical_H_value(transitions, N = 100):
@@ -456,6 +463,7 @@ def numerical_H_value(transitions, N = 100):
   """
 
   analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, d_pi).subs(w_sym, 0.45)
+  analytical_rps_local = delta_h_RPS_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N) .subs(delta_pi, d_pi).subs(w_sym, 0.45)
   
   f = lambdify((x,y,z), expression, "numpy")
 
@@ -506,6 +514,8 @@ def numerical_H_value(transitions, N = 100):
   print("N", N, "SD:", res, "RPS:", res_rps, "+:", res_4)
 
   print("Analytical local update SD:", analytical_local, "Numerical local update SD:", res)
+  print("Analytical local update RPS:", analytical_rps_local, "Numerical local update SD:", res_rps)
+
 
   return res, res_rps, res_4
 
