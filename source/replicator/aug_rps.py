@@ -403,7 +403,10 @@ def delta_h_SD_LOCAL_CRIT_N():
  
   return critical_n
 
-def delta_H_
+def delta_H_RPS_LOCAL_CRIT_N():
+  critical_n = (28 * delta_pi) / ((2 + gamma - 3 * beta + 2 * c) * w_sym)
+
+  return critical_n
 
 
 def delta_h_RPS_LOCAL_ANALYTICAL():
@@ -574,19 +577,31 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict =
     delta_H_4.append(res_4 * n * n)
 
   critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.2).subs(w_sym, 0.45)
-
-  print("CRITICAL N SD ", critical_N_SD)
+  critical_N_RPS = delta_H_RPS_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.2).subs(w_sym, 0.45)
 
   if plot:
-    plt.title(r"$\langle \Delta H \rangle N^2$ against N for local update process")
-    plt.xlabel("$N$")
-    plt.ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
-    plt.plot(n_range, delta_H_SD, label="SD")
-    plt.plot(n_range, delta_H_RPS, label="RPS")
-    plt.plot(n_range, delta_H_4, label="+") 
-    plt.annotate(r"$N^\prime_{SD}$", xy=(critical_N_SD,0), xytext=(critical_N_SD, 0.1),arrowprops=dict(arrowstyle="->"))
-    plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black") # Plot the x axis
-    plt.legend()
+    
+    fig, ax = plt.subplots()
+
+    ax.set_title(r"$\langle \Delta H \rangle N^2$ against N for local update process")
+    ax.set_xlabel("$N$")
+    ax.set_ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
+    ax.plot(n_range, delta_H_SD, label="SD")
+    ax.plot(n_range, delta_H_RPS, label="RPS")
+    ax.plot(n_range, delta_H_4, label="+") 
+    ax.annotate(rf"$N^\prime_{{SD}} = {critical_N_SD:.2f}$", xy=(critical_N_SD,0),
+                  xytext=(critical_N_SD, 0.1),
+                  horizontalalignment="center",
+                  arrowprops=dict(arrowstyle="->"))
+    ax.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
+                  xy=(critical_N_RPS,0),
+                  #horizontalalignment="center",
+                  xytext=(critical_N_RPS, 0.05),arrowprops=dict(arrowstyle="->"))
+    ax.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black") # Plot the x axis
+    ax.legend(frameon=False, loc="lower left")
+    fig.tight_layout()
+    
+    fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/column_case_delta_H.eps", format="eps")
     plt.show()
 
 

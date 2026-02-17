@@ -1,8 +1,8 @@
-PWD c:/GTfyp/latex_doc
+PWD g:/Game theory project/GTfyp/latex_doc
 INPUT c:/texlive/2025/texmf.cnf
 INPUT c:/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/GTfyp/latex_doc/delta_H_derivation.tex
+INPUT g:/Game theory project/GTfyp/latex_doc/delta_H_derivation.tex
 OUTPUT out/delta_H_derivation.log
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls
 INPUT c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.cls
@@ -107,10 +107,22 @@ INPUT ./images/sd_rps_double_drift.png
 INPUT ./images/sd_rps_double_drift.png
 INPUT ./images/sd_rps_double_drift.png
 INPUT ./images/sd_rps_double_drift.png
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H-eps-converted-to.pdf
+INPUT ./images/column_case_delta_H-eps-converted-to.pdf
+INPUT ./images/column_case_delta_H.eps
+INPUT ./images/column_case_delta_H-eps-converted-to.pdf
+INPUT ./images/column_case_delta_H-eps-converted-to.pdf
+INPUT ./images/column_case_delta_H-eps-converted-to.pdf
 INPUT out/delta_H_derivation.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
