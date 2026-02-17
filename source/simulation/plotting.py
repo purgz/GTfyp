@@ -309,7 +309,7 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
 
         ax.text2D(0.7,0.7, test, transform=ax.transAxes)
         
-    colors = ["b", "g"]
+    colors = ["g","b", "r"]
 
     total_frames = 0
 
@@ -357,8 +357,9 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
 
     if save_file is not None:
       if writers.is_available("ffmpeg"):
+        #fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/large_N_cloud.eps", format="eps")
         writer = animation.FFMpegWriter(fps=60)
-        save_file = "./results/animations/ani_2.mp4" # Temp
+        #save_file = "./results/animations/ani_2.mp4" # Temp
         ani.save(save_file, writer=writer)
         print("Animation video saved to ", save_file)
       else:
@@ -501,3 +502,26 @@ def w_ensemble_plot(filePath: str, log=True, x_label: str = "w"):
     plt.xlabel(x_label)
     plt.ylabel("Nc")
     plt.show()
+
+
+
+
+def drift_cases_plot():
+
+    fig, ax = plt.subplots()
+
+    ax.set_title("Drift reversal cases")
+
+    ax.set_xlabel(r"$N / N_{SD}$")
+    ax.set_ylabel(r"$N / N_{RPS}$")
+
+    ax.plot(0.14, 2.26, "ro") # Column case
+
+    ax.plot(2.83, 0.36, "bo")
+
+    ax.plot(4.76, 3.57, "go")
+
+    fig.tight_layout()
+
+    plt.show()
+

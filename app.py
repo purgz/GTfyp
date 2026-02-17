@@ -26,13 +26,13 @@ logger = logging.getLogger(__name__)
 #plt.style.use(['science'])
 
 
-plt.style.use(["science", "no-latex"])
+#plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-#plt.rcParams['text.usetex'] = True
-#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -737,11 +737,40 @@ if __name__ == "__main__":
 
   
     basic_rps = np.array(
-    [[0, -0.1, 1,     0.15], 
-     [1, 0, -0.1,     0.15], 
-     [-0.1, 1, 0,     0.15], 
+    [[0, -0.2, 1,     0.14], 
+     [1, 0, -0.2,     0.14], 
+     [-0.2, 1, 0,     0.14], 
      [0.3, 0.3, 0.3, 0]]
     )
+
+      
+    basic_rps = np.array(
+    [[0, -0.8, 1,     0.4], 
+     [1, 0, -0.8,     0.4], 
+     [-0.8, 1, 0,     0.4], 
+     [0.2, 0.2, 0.2, 0]]
+    )
+
+    basic_rps = np.array(
+    [[0, -0.8, 1,     0.1], 
+     [1, 0, -0.8,     0.1], 
+     [-0.8, 1, 0,     0.1], 
+     [0.1, 0.1, 0.1, 0]]
+    )
+
+
+
+    #simulation.drift_cases_plot()
+
+
+    avg_point_cloud = simulation.local_point_cloud_avg(5000, iterations=2000000, w=0.45, num_points=10, matrix=basic_rps)
+
+
+
+
+    anim = trajectories_to_anim(avg_point_cloud)
+    
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/large_N_case.mp4")
 
 
     # Get 4 cases with avg trajectory method.

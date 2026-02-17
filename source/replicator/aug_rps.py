@@ -438,7 +438,7 @@ def numerical_H_value(transitions, N = 100):
   # Compare this one netx and get the RPs reversal
   # Also work well for the figure, but need one with a higher fixed point for show.
   # RPS drift but no SD drift
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 } # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.1, beta: 0.1} # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
   d_pi = 1.8
 
   #RPS not reversing
@@ -577,10 +577,11 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
     delta_H_RPS.append(res_rps * n * n)
     delta_H_4.append(res_4 * n * n)
 
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 }
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.1, beta: 0.1 }
 
   critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
   critical_N_RPS = delta_H_RPS_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
+  print(critical_N_RPS, critical_N_SD)
 
   if plot:
     
@@ -593,18 +594,19 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
     ax.plot(n_range, delta_H_RPS, label="RPS")
     ax.plot(n_range, delta_H_4, label="+") 
     ax.annotate(rf"$N^\prime_{{SD}} = {critical_N_SD:.2f}$", xy=(critical_N_SD,0),
-                  xytext=(critical_N_SD, -1),
+                  xytext=(critical_N_SD, 0.1),
                   horizontalalignment="center",
                   arrowprops=dict(arrowstyle="->"))
-    """ax.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
+    ax.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
                   xy=(critical_N_RPS,0),
                   #horizontalalignment="center",
-                  xytext=(critical_N_RPS, 0.05),arrowprops=dict(arrowstyle="->"))"""
+                  xytext=(critical_N_RPS, 0.05),arrowprops=dict(arrowstyle="->"))
     ax.axline((n_range[0], 0), (n_range[0] + 1,0),linewidth=0.3, color="black") # Plot the x axis
     ax.legend(frameon=False, loc="lower left")
 
-    axins = inset_axes(ax, width=1.4, height=1.4,
-                       bbox_to_anchor=(0.68,0.4),
+    
+    axins = inset_axes(ax, width=1, height=1,
+                       bbox_to_anchor=(0.3,0.1),
                        bbox_transform=ax.transAxes,
                        loc="lower left",
                        borderpad=1)
@@ -612,18 +614,18 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
     axins.plot(n_range, delta_H_RPS)
     axins.plot(n_range, delta_H_4)
     axins.axhline(0, lw=0.6, color="black")
-    axins.set_xlim(500, 650)      
+    axins.set_xlim(380, 600)      
     axins.set_ylim(-0.005, 0.005)  
-    axins.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
+    """axins.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
                   xy=(critical_N_RPS,0),
                   horizontalalignment="center",
-                  xytext=(critical_N_RPS, 0.002),arrowprops=dict(arrowstyle="->"))
+                  xytext=(critical_N_RPS, 0.002),arrowprops=dict(arrowstyle="->"))"""
     mark_inset(ax, axins, loc1=1, loc2=2)
 
    
 
     fig.tight_layout()
-    fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/disk_case_delta_H.eps", format="eps")
+    fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/large_N_delta_H.eps", format="eps")
     plt.show()
 
 
@@ -702,10 +704,10 @@ if __name__ == "__main__":
   )
 
   basic_rps = np.array(
-  [[0, -0.2, 1,     0.14], 
-    [1, 0, -0.2,     0.14], 
-    [-0.2, 1, 0,     0.14], 
-    [0.3, 0.3, 0.3, 0]]
+  [[0, -0.8, 1,     0.1], 
+    [1, 0, -0.8,     0.1], 
+    [-0.8, 1, 0,     0.1], 
+    [0.1, 0.1, 0.1, 0]]
   )
   
   print(find_fixed_point_a_x(basic_rps))
