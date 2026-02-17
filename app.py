@@ -743,6 +743,11 @@ if __name__ == "__main__":
      [0.3, 0.3, 0.3, 0]]
     )
 
+
+    # Get 4 cases with avg trajectory method.
+    # call method directly and have matrix in figure.
+    # Get <H> graph for each case too.
+
     point_cloud_animation(pop_size=550, iterations=800000, w=0.45, num_points=500, matrix=basic_rps, interaction_process="Moran")
     
 
