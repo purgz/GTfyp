@@ -210,15 +210,16 @@ def point_cloud_avg(pop_size, iterations, w, num_points, sim_func, matrix=basic_
 
 def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps):
 
-    avg_traj = 100
+    avg_traj = 1000
     n = 4
 
-    sample_rate = iterations // 100
+    sample_rate = iterations // 200
     num_frames = iterations // sample_rate
 
     all_traj = np.zeros((num_points, n, num_frames))
 
     for point in range(num_points):
+        print("point ", point)
         initial = np.random.exponential(1,n)
         initial /= np.sum(initial)
 

@@ -374,7 +374,26 @@ Testing point cloud at N = 200
 $\frac{N}{N_{SD}} = 0.14, \frac{N}{N_{RPS}} = 2.26$,
 
 For below at N = 200
-$\frac{N}{N_{SD}} = 2.83, \frac{N}{N_{RPS}} = 0.35714285714$
+$\frac{N}{N_{SD}} = 2.83, \frac{N}{N_{RPS}} = 0.36$
+
+For final case at N = 2000
+$\frac{N}{N_{SD}} = 4.76, \frac{N}{N_{RPS}} =  3.57$
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c}
+N & $N/N_{SD}$ & $N/N_{RPS}$ \\
+\hline
+200  & 0.14  & 2.26 \\
+200  & 2.83  & 0.36 \\
+2000 & 4.76 & 3.57 \\
+\end{tabular}
+\caption{Table of N values and corresponding ratios, depending on the values of $N_{SD}, N_{RPS}$ and 
+$N$ when simulating trajectories, the drift reversal cases will be different, large $N$ used to show the 
+cases above the critical population sizes where system converges to interior nash equilibrium.}
+\end{table}
+
 
 
 \begin{figure}[H]
@@ -391,6 +410,55 @@ $\frac{N}{N_{SD}} = 2.83, \frac{N}{N_{RPS}} = 0.35714285714$
 For either of these cases, when $N$ is below the lower of the two critical population sizes, 
 this results in a double reversal so the trajectories end up being absorbed by the four
 corners of the simplex.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/large_N_delta_H.eps}
+  \caption{$\beta=0.1, \gamma=0.1, c=-0.8, N_{SD} = 420, N_{RPS} = 560$}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/column_cloud.eps}
+  \caption{SD drift case}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/disk_cloud.eps}
+  \caption{RPS drift case}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \node[anchor=south west, inner sep=0] (img) at (0,0)
+    {\includegraphics[width=1\textwidth]{./images/drift_cases.eps}};
+
+  \begin{axis}[
+    at={(img.south west)},
+    anchor=south west,
+    width=1\textwidth,
+    height=1\textwidth*1, % <-- match your plot aspect (adjust!)
+    xmin=0, xmax=3,         
+    ymin=0, ymax=3,
+    axis lines=none,          
+    clip=false                 
+  ]
+
+    % Place the EPS thumbnails at data coordinates
+    \node at (axis cs:0.9,1.6) {\includegraphics[width=4cm]{./images/column_cloud.eps}};
+    \node at (axis cs:2.45,0.8) {\includegraphics[width=4cm]{./images/disk_cloud.eps}};
+    \node at (axis cs:2.65,1.75) {\includegraphics[width=4cm]{./images/large_N_case.eps}};
+
+
+  \end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
 
 \subsubsection{$\langle \Delta H_4 \rangle$ Derivation}
 

@@ -12,3 +12,4 @@ from .plotting import w_ensemble_plot
 from .plotting import point_cloud
 from .plotting import quaternary_plot_same_axis
 from .sim import local_point_cloud_avg
+from .plotting import drift_cases_plot

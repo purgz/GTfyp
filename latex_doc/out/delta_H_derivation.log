@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  17 FEB 2026 15:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  17 FEB 2026 18:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -169,11 +169,243 @@ Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count301
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count302
-) (c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.sty
+) (c:/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks26
+\pgfutil@tempdima=\dimen176
+\pgfutil@tempdimb=\dimen177
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box57
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
+))
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (c:/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks27
+\pgfkeys@temptoks=\toks28
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks29
+))
+\pgf@x=\dimen178
+\pgf@y=\dimen179
+\pgf@xa=\dimen180
+\pgf@ya=\dimen181
+\pgf@xb=\dimen182
+\pgf@yb=\dimen183
+\pgf@xc=\dimen184
+\pgf@yc=\dimen185
+\pgf@xd=\dimen186
+\pgf@yd=\dimen187
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count303
+\c@pgf@countb=\count304
+\c@pgf@countc=\count305
+\c@pgf@countd=\count306
+\t@pgf@toka=\toks30
+\t@pgf@tokb=\toks31
+\t@pgf@tokc=\toks32
+\pgf@sys@id@count=\count307
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count308
+\pgfsyssoftpath@bigbuffer@items=\count309
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+ (c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+ (c:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen188
+\pgfmath@count=\count310
+\pgfmath@box=\box58
+\pgfmath@toks=\toks33
+\pgfmath@stack@operand=\toks34
+\pgfmath@stack@operation=\toks35
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count311
+)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen189
+\pgf@picmaxx=\dimen190
+\pgf@picminy=\dimen191
+\pgf@picmaxy=\dimen192
+\pgf@pathminx=\dimen193
+\pgf@pathmaxx=\dimen194
+\pgf@pathminy=\dimen195
+\pgf@pathmaxy=\dimen196
+\pgf@xx=\dimen197
+\pgf@xy=\dimen198
+\pgf@yx=\dimen199
+\pgf@yy=\dimen256
+\pgf@zx=\dimen257
+\pgf@zy=\dimen258
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen259
+\pgf@path@lasty=\dimen260
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen261
+\pgf@shorten@start@additional=\dimen262
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box59
+\pgf@hbox=\box60
+\pgf@layerbox@main=\box61
+\pgf@picture@serial@count=\count312
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen263
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen264
+\pgf@pt@y=\dimen265
+\pgf@pt@temp=\dimen266
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen267
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen268
+\pgf@sys@shading@range@num=\count313
+\pgf@shadingcount=\count314
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box62
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box63
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen269
+\pgf@nodesepend=\dimen270
+) (c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+)) (c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (c:/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty (c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen271
+\pgffor@skip=\dimen272
+\pgffor@stack=\toks36
+\pgffor@toks=\toks37
+)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count315
+\pgfplotmarksize=\dimen273
+)
+\tikz@lastx=\dimen274
+\tikz@lasty=\dimen275
+\tikz@lastxsaved=\dimen276
+\tikz@lastysaved=\dimen277
+\tikz@lastmovetox=\dimen278
+\tikz@lastmovetoy=\dimen279
+\tikzleveldistance=\dimen280
+\tikzsiblingdistance=\dimen281
+\tikz@figbox=\box64
+\tikz@figbox@bg=\box65
+\tikz@tempbox=\box66
+\tikz@tempbox@bg=\box67
+\tikztreelevel=\count316
+\tikznumberofchildren=\count317
+\tikznumberofcurrentchild=\count318
+\tikz@fig@count=\count319
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count320
+\pgfmatrixcurrentcolumn=\count321
+\pgf@matrix@numberofcolumns=\count322
+)
+\tikz@expandcount=\count323
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (c:/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2025/08/14 v1.18.2 Data Visualization (1.18.2)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+\t@pgfplots@toka=\toks38
+\t@pgfplots@tokb=\toks39
+\t@pgfplots@tokc=\toks40
+\pgfplots@tmpa=\dimen282
+\c@pgfplots@coordindex=\count324
+\c@pgfplots@scanlineindex=\count325
+ (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex
+\c@pgfplotsarray@tmp=\count326
+) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex
+\c@pgfplotstable@counta=\count327
+\t@pgfplotstable@a=\toks41
+) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex
+\c@pgfplotslibrarysurf@no=\count328
+ (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen283
+\pgfdecoratedremainingdistance=\dimen284
+\pgfdecoratedinputsegmentcompleteddistance=\dimen285
+\pgfdecoratedinputsegmentremainingdistance=\dimen286
+\pgf@decorate@distancetomove=\dimen287
+\pgf@decorate@repeatstate=\count329
+\pgfdecorationsegmentamplitude=\dimen288
+\pgfdecorationsegmentlength=\dimen289
+)
+\tikz@lib@dec@box=\box68
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
+\pgfplots@numplots=\count330
+\pgfplots@xmin@reg=\dimen290
+\pgfplots@xmax@reg=\dimen291
+\pgfplots@ymin@reg=\dimen292
+\pgfplots@ymax@reg=\dimen293
+\pgfplots@zmin@reg=\dimen294
+\pgfplots@zmax@reg=\dimen295
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (c:/texlive/2025/texmf-dist/tex/latex/subfiles/subfiles.sty
 Package: subfiles 2020/11/14 v2.2 Multi-file projects (package)
 ))) (c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count303
+\l__color_backend_stack_int=\count331
 ) (out/delta_H_derivation.aux
 
 LaTeX Warning: Label `delta_h_4' multiply defined.
@@ -197,17 +429,17 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
  (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count304
-\scratchdimen=\dimen176
-\scratchbox=\box57
-\nofMPsegments=\count305
-\nofMParguments=\count306
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count307
-\MPscratchDim=\dimen177
-\MPnumerator=\count308
-\makeMPintoPDFobject=\count309
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count332
+\scratchdimen=\dimen296
+\scratchbox=\box69
+\nofMPsegments=\count333
+\nofMParguments=\count334
+\everyMPshowfont=\toks42
+\MPscratchCnt=\count335
+\MPscratchDim=\dimen297
+\MPnumerator=\count336
+\makeMPintoPDFobject=\count337
+\everyMPtoPDFconversion=\toks43
 ) (c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -250,6 +482,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable tick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into your preamble.
+ on input line 3.
+
 LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -265,7 +501,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--24
 [1
 
 {c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<./images/critical_n_analytical.png, id=21, 459.96844pt x 344.78813pt>
+<./images/critical_n_analytical.png, id=24, 459.96844pt x 344.78813pt>
 File: ./images/critical_n_analytical.png Graphic file (type png)
 <use ./images/critical_n_analytical.png>
 Package pdftex.def Info: ./images/critical_n_analytical.png  used on input line 256.
@@ -275,13 +511,13 @@ Package pdftex.def Info: ./images/critical_n_analytical.png  used on input line 
 LaTeX Warning: Citation `PhysRevLett.100.058104_cyclic' on page 5 undefined on input line 291.
 
 [5 <./images/critical_n_analytical.png>]
-<./images/rps_sd_delta_H.png, id=30, 462.528pt x 346.896pt>
+<./images/rps_sd_delta_H.png, id=33, 462.528pt x 346.896pt>
 File: ./images/rps_sd_delta_H.png Graphic file (type png)
 <use ./images/rps_sd_delta_H.png>
 Package pdftex.def Info: ./images/rps_sd_delta_H.png  used on input line 350.
 (pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
  [6]
-<./images/sd_rps_double_drift.png, id=34, 462.528pt x 346.896pt>
+<./images/sd_rps_double_drift.png, id=37, 462.528pt x 346.896pt>
 File: ./images/sd_rps_double_drift.png Graphic file (type png)
 <use ./images/sd_rps_double_drift.png>
 Package pdftex.def Info: ./images/sd_rps_double_drift.png  used on input line 356.
@@ -295,27 +531,126 @@ Package epstopdf Info: Source file: <./images/column_case_delta_H.eps>
 (epstopdf)             Command: <repstopdf --outfile=./images/column_case_delta_H-eps-converted-to.pdf ./images/column_case_delta_H.eps>
 (epstopdf)             \includegraphics on input line 362.
 Package epstopdf Info: Output file is already uptodate.
-<./images/column_case_delta_H-eps-converted-to.pdf, id=35, 462.72874pt x 347.2975pt>
+<./images/column_case_delta_H-eps-converted-to.pdf, id=38, 462.72874pt x 347.2975pt>
 File: ./images/column_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_case_delta_H-eps-converted-to.pdf>
 Package pdftex.def Info: ./images/column_case_delta_H-eps-converted-to.pdf  used on input line 362.
 (pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
  [7 <./images/rps_sd_delta_H.png> <./images/sd_rps_double_drift.png>]
 Package epstopdf Info: Source file: <./images/disk_case_delta_H.eps>
-(epstopdf)                    date: 2026-02-17 15:21:06
+(epstopdf)                    date: 2026-02-17 17:09:47
 (epstopdf)                    size: 37405 bytes
 (epstopdf)             Output file: <./images/disk_case_delta_H-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-02-17 15:21:21
-(epstopdf)                    size: 18722 bytes
+(epstopdf)                    date: 2026-02-17 17:09:51
+(epstopdf)                    size: 18723 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_case_delta_H-eps-converted-to.pdf ./images/disk_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 382.
+(epstopdf)             \includegraphics on input line 401.
 Package epstopdf Info: Output file is already uptodate.
-<./images/disk_case_delta_H-eps-converted-to.pdf, id=42, 462.72874pt x 347.2975pt>
+<./images/disk_case_delta_H-eps-converted-to.pdf, id=45, 462.72874pt x 347.2975pt>
 File: ./images/disk_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_case_delta_H-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 382.
+Package pdftex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 401.
 (pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
- [8 <./images/column_case_delta_H-eps-converted-to.pdf>] [9 <./images/disk_case_delta_H-eps-converted-to.pdf>] [10] [11] (out/delta_H_derivation.aux)
+ [8 <./images/column_case_delta_H-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <./images/large_N_delta_H.eps>
+(epstopdf)                    date: 2026-02-17 17:22:51
+(epstopdf)                    size: 37433 bytes
+(epstopdf)             Output file: <./images/large_N_delta_H-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 17:24:29
+(epstopdf)                    size: 18665 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/large_N_delta_H-eps-converted-to.pdf ./images/large_N_delta_H.eps>
+(epstopdf)             \includegraphics on input line 417.
+Package epstopdf Info: Output file is already uptodate.
+<./images/large_N_delta_H-eps-converted-to.pdf, id=105, 462.72874pt x 347.2975pt>
+File: ./images/large_N_delta_H-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/large_N_delta_H-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/large_N_delta_H-eps-converted-to.pdf  used on input line 417.
+(pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
+ [9 <./images/disk_case_delta_H-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <./images/column_cloud.eps>
+(epstopdf)                    date: 2026-02-17 16:29:52
+(epstopdf)                    size: 182631 bytes
+(epstopdf)             Output file: <./images/column_cloud-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 16:30:00
+(epstopdf)                    size: 78199 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/column_cloud-eps-converted-to.pdf ./images/column_cloud.eps>
+(epstopdf)             \includegraphics on input line 424.
+Package epstopdf Info: Output file is already uptodate.
+<./images/column_cloud-eps-converted-to.pdf, id=163, 572.05719pt x 572.05719pt>
+File: ./images/column_cloud-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/column_cloud-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 424.
+(pdftex.def)             Requested size: 257.35518pt x 257.36224pt.
+Package epstopdf Info: Source file: <./images/disk_cloud.eps>
+(epstopdf)                    date: 2026-02-17 17:05:55
+(epstopdf)                    size: 182604 bytes
+(epstopdf)             Output file: <./images/disk_cloud-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 17:06:01
+(epstopdf)                    size: 79539 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/disk_cloud-eps-converted-to.pdf ./images/disk_cloud.eps>
+(epstopdf)             \includegraphics on input line 430.
+Package epstopdf Info: Output file is already uptodate.
+<./images/disk_cloud-eps-converted-to.pdf, id=164, 745.67586pt x 745.67586pt>
+File: ./images/disk_cloud-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/disk_cloud-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 430.
+(pdftex.def)             Requested size: 257.35518pt x 257.36086pt.
+ [10 <./images/large_N_delta_H-eps-converted-to.pdf> <./images/column_cloud-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <./images/drift_cases.eps>
+(epstopdf)                    date: 2026-02-17 17:39:34
+(epstopdf)                    size: 123601 bytes
+(epstopdf)             Output file: <./images/drift_cases-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 17:39:39
+(epstopdf)                    size: 12328 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/drift_cases-eps-converted-to.pdf ./images/drift_cases.eps>
+(epstopdf)             \includegraphics on input line 438.
+Package epstopdf Info: Output file is already uptodate.
+<./images/drift_cases-eps-converted-to.pdf, id=248, 238.49101pt x 175.01385pt>
+File: ./images/drift_cases-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/drift_cases-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/drift_cases-eps-converted-to.pdf  used on input line 438.
+(pdftex.def)             Requested size: 514.71037pt x 377.79727pt.
+Package epstopdf Info: Source file: <./images/column_cloud.eps>
+(epstopdf)                    date: 2026-02-17 16:29:52
+(epstopdf)                    size: 182631 bytes
+(epstopdf)             Output file: <./images/column_cloud-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 16:30:00
+(epstopdf)                    size: 78199 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/column_cloud-eps-converted-to.pdf ./images/column_cloud.eps>
+(epstopdf)             \includegraphics on input line 457.
+Package epstopdf Info: Output file is already uptodate.
+File: ./images/column_cloud-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/column_cloud-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 457.
+(pdftex.def)             Requested size: 113.81102pt x 113.80711pt.
+Package epstopdf Info: Source file: <./images/disk_cloud.eps>
+(epstopdf)                    date: 2026-02-17 17:05:55
+(epstopdf)                    size: 182604 bytes
+(epstopdf)             Output file: <./images/disk_cloud-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 17:06:01
+(epstopdf)                    size: 79539 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/disk_cloud-eps-converted-to.pdf ./images/disk_cloud.eps>
+(epstopdf)             \includegraphics on input line 457.
+Package epstopdf Info: Output file is already uptodate.
+File: ./images/disk_cloud-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/disk_cloud-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 457.
+(pdftex.def)             Requested size: 113.81102pt x 113.80357pt.
+Package epstopdf Info: Source file: <./images/large_N_case.eps>
+(epstopdf)                    date: 2026-02-17 18:34:33
+(epstopdf)                    size: 131797 bytes
+(epstopdf)             Output file: <./images/large_N_case-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 18:34:55
+(epstopdf)                    size: 13330 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/large_N_case-eps-converted-to.pdf ./images/large_N_case.eps>
+(epstopdf)             \includegraphics on input line 457.
+Package epstopdf Info: Output file is already uptodate.
+<./images/large_N_case-eps-converted-to.pdf, id=249, 390.27808pt x 386.19281pt>
+File: ./images/large_N_case-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/large_N_case-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/large_N_case-eps-converted-to.pdf  used on input line 457.
+(pdftex.def)             Requested size: 113.81102pt x 112.61768pt.
+ [11 <./images/disk_cloud-eps-converted-to.pdf>] [12 <./images/drift_cases-eps-converted-to.pdf> <./images/large_N_case-eps-converted-to.pdf>] [13] [14] (out/delta_H_derivation.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -329,18 +664,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4760 strings out of 467538
- 77573 string characters out of 5423725
- 500231 words of memory out of 5000000
- 33636 multiletter control sequences out of 15000+600000
+ 25516 strings out of 467538
+ 651451 string characters out of 5423725
+ 1197750 words of memory out of 5000000
+ 54044 multiletter control sequences out of 15000+600000
  629728 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,14n,94p,723b,342s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on out/delta_H_derivation.pdf (11 pages, 232757 bytes).
+ 104i,14n,121p,815b,1846s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on out/delta_H_derivation.pdf (14 pages, 412394 bytes).
 PDF statistics:
- 213 PDF objects out of 1000 (max. 8388607)
- 76 compressed objects within 1 object stream
+ 358 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
