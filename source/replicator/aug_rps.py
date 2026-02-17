@@ -403,6 +403,8 @@ def delta_h_SD_LOCAL_CRIT_N():
 
   return critical_n
 
+def delta_H_
+
 
 def numerical_H_value(transitions, N = 100):
   
@@ -419,7 +421,7 @@ def numerical_H_value(transitions, N = 100):
   config = {a: 0, b: 1, c: -0.01, gamma: 0.137, beta: 0.35 } # "ROD" casess
   #config = {a: 0, b: 1, c:-0.2, gamma: 0.2, beta:0.1 }
 
-  config = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3 } # Good case for column
+  config = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3 } # Good case for columns
   
   d_pi = 1.2
 
@@ -545,7 +547,7 @@ def find_critical_N_fixed_w(config, w, transitions):
 
 
 
-def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict = {a: 0, b: 1, c: -1, gamma: 0.3, beta: 0.1}, plot=True):
+def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3}, plot=True):
 
 
   delta_H_SD = []
@@ -561,12 +563,18 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
     delta_H_RPS.append(res_rps * n * n)
     delta_H_4.append(res_4 * n * n)
 
+  critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.2).subs(w_sym, 0.45)
+
+  print("CRITICAL N SD ", critical_N_SD)
+
   if plot:
+    plt.title(r"$\langle \Delta H \rangle N^2$ against N for local update process")
     plt.xlabel("$N$")
     plt.ylabel(r"$\langle \Delta H \rangle N^2$", rotation=0)
     plt.plot(n_range, delta_H_SD, label="SD")
     plt.plot(n_range, delta_H_RPS, label="RPS")
     plt.plot(n_range, delta_H_4, label="+") 
+    plt.annotate(r"$N^\prime_{SD}$", xy=(critical_N_SD,0), xytext=(critical_N_SD, 0.1),arrowprops=dict(arrowstyle="->"))
     plt.axline((n_range[0], 0), (n_range[0] + 1,0), linewidth=0.3, color="black") # Plot the x axis
     plt.legend()
     plt.show()
@@ -647,9 +655,9 @@ if __name__ == "__main__":
   )
 
   basic_rps = np.array(
-  [[0, -0.2, 1,     0.18], 
-    [1, 0, -0.2,     0.18], 
-    [-0.2, 1, 0,     0.18], 
+  [[0, -0.2, 1,     0.14], 
+    [1, 0, -0.2,     0.14], 
+    [-0.2, 1, 0,     0.14], 
     [0.3, 0.3, 0.3, 0]]
   )
   
