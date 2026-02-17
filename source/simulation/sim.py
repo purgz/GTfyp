@@ -200,6 +200,14 @@ Need to play around and get good graphs for each of the cases
 
  Seems to work well, try with larger avg at some point
 """
+
+# Function for below but for all processsee
+# Tried to prevent boundary sinking at the top of the simpelx point to emphasize different unique game cases.
+# N_SD < N < N_RPS and N_RPS < N < N_SD
+def point_cloud_avg(pop_size, iterations, w, num_points, sim_func, matrix=basic_rps):
+    res = local_batch_sim
+
+
 def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps):
 
     avg_traj = 100
@@ -319,6 +327,8 @@ def local_batch_sim(
     mean_delta_rps = np.mean(deltas_rps)
 
     return mean_delta_H, mean_delta_rps, all_results / simulations, all_traj
+
+
 
 @njit(parallel=True, cache=True)
 def moran_batch_sim(
