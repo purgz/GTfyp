@@ -118,6 +118,17 @@ INPUT ./images/column_case_delta_H.eps
 INPUT ./images/column_case_delta_H-eps-converted-to.pdf
 INPUT ./images/column_case_delta_H-eps-converted-to.pdf
 INPUT ./images/column_case_delta_H-eps-converted-to.pdf
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H-eps-converted-to.pdf
+INPUT ./images/disk_case_delta_H-eps-converted-to.pdf
+INPUT ./images/disk_case_delta_H.eps
+INPUT ./images/disk_case_delta_H-eps-converted-to.pdf
+INPUT ./images/disk_case_delta_H-eps-converted-to.pdf
+INPUT ./images/disk_case_delta_H-eps-converted-to.pdf
 INPUT out/delta_H_derivation.aux
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

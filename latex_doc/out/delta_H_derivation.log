@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  17 FEB 2026 14:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  17 FEB 2026 15:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -287,10 +287,10 @@ File: ./images/sd_rps_double_drift.png Graphic file (type png)
 Package pdftex.def Info: ./images/sd_rps_double_drift.png  used on input line 356.
 (pdftex.def)             Requested size: 360.29568pt x 270.23372pt.
 Package epstopdf Info: Source file: <./images/column_case_delta_H.eps>
-(epstopdf)                    date: 2026-02-17 14:31:46
+(epstopdf)                    date: 2026-02-17 14:46:32
 (epstopdf)                    size: 34215 bytes
 (epstopdf)             Output file: <./images/column_case_delta_H-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-02-17 14:31:50
+(epstopdf)                    date: 2026-02-17 14:46:36
 (epstopdf)                    size: 19047 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/column_case_delta_H-eps-converted-to.pdf ./images/column_case_delta_H.eps>
 (epstopdf)             \includegraphics on input line 362.
@@ -300,7 +300,22 @@ File: ./images/column_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_case_delta_H-eps-converted-to.pdf>
 Package pdftex.def Info: ./images/column_case_delta_H-eps-converted-to.pdf  used on input line 362.
 (pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
- [7 <./images/rps_sd_delta_H.png> <./images/sd_rps_double_drift.png>] [8 <./images/column_case_delta_H-eps-converted-to.pdf>] [9] [10] (out/delta_H_derivation.aux)
+ [7 <./images/rps_sd_delta_H.png> <./images/sd_rps_double_drift.png>]
+Package epstopdf Info: Source file: <./images/disk_case_delta_H.eps>
+(epstopdf)                    date: 2026-02-17 15:21:06
+(epstopdf)                    size: 37405 bytes
+(epstopdf)             Output file: <./images/disk_case_delta_H-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-17 15:21:21
+(epstopdf)                    size: 18722 bytes
+(epstopdf)             Command: <repstopdf --outfile=./images/disk_case_delta_H-eps-converted-to.pdf ./images/disk_case_delta_H.eps>
+(epstopdf)             \includegraphics on input line 382.
+Package epstopdf Info: Output file is already uptodate.
+<./images/disk_case_delta_H-eps-converted-to.pdf, id=42, 462.72874pt x 347.2975pt>
+File: ./images/disk_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
+<use ./images/disk_case_delta_H-eps-converted-to.pdf>
+Package pdftex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 382.
+(pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
+ [8 <./images/column_case_delta_H-eps-converted-to.pdf>] [9 <./images/disk_case_delta_H-eps-converted-to.pdf>] [10] [11] (out/delta_H_derivation.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -314,18 +329,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4753 strings out of 467538
- 77223 string characters out of 5423725
- 500228 words of memory out of 5000000
- 33629 multiletter control sequences out of 15000+600000
+ 4760 strings out of 467538
+ 77573 string characters out of 5423725
+ 500231 words of memory out of 5000000
+ 33636 multiletter control sequences out of 15000+600000
  629728 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  87i,14n,94p,723b,342s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on out/delta_H_derivation.pdf (10 pages, 215172 bytes).
+Output written on out/delta_H_derivation.pdf (11 pages, 232757 bytes).
 PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
+ 213 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

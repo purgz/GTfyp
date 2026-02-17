@@ -370,8 +370,27 @@ Rough figures of rps and SD delta H values.
     away from the fixed point ($N_{RPS} < N < N_{SD}$)}
 \end{figure}
 
-Testing fixed point at N = 200
-$\frac{N}{N_{SD}} = 0.14, \frac{N}{N_{RPS}} = 2.26$
+Testing point cloud at N = 200
+$\frac{N}{N_{SD}} = 0.14, \frac{N}{N_{RPS}} = 2.26$,
+
+For below at N = 200
+$\frac{N}{N_{SD}} = 2.83, \frac{N}{N_{RPS}} = 0.35714285714$
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/disk_case_delta_H.eps}
+  \caption{Comparison of drift measures for local update process, where
+  $\beta = 0.4, \gamma = 0.2, c = -0.8$. Still an interior attracting RPS in 
+  large population case, however this time RPS drifts at a higher population size marked by 
+  $N^\prime_{RPS}$ so drifts to RPS boundaries whilst SD does not reverse and stays at the 
+  fixed point for SD part of the game. Results in disk shape around the central fixed point
+  as RPS goes to boundary while SD is stable in the interior.}
+\end{figure}
+
+For either of these cases, when $N$ is below the lower of the two critical population sizes, 
+this results in a double reversal so the trajectories end up being absorbed by the four
+corners of the simplex.
 
 \subsubsection{$\langle \Delta H_4 \rangle$ Derivation}
 
