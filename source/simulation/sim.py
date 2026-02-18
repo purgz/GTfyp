@@ -230,6 +230,86 @@ def local_point_cloud_avg(pop_size, iterations, w, num_points, matrix=basic_rps)
 
     return all_traj
 
+
+# Very rough version of above function but parallel for num points. should be somewhat faster
+@njit(parallel=True, cache=True)
+def local_batch_cloud(
+    pop_size,
+    iterations,
+    w,
+    simulations,
+    num_points,
+    matrix=basic_rps,
+    traj=False,
+    point_cloud=True,
+):
+    n = matrix.shape[0]
+
+    sample_rate = iterations // 100
+    if sample_rate < 1:
+        sample_rate = 1
+    num_frames = iterations // sample_rate
+    all_traj = np.zeros((num_points, n, num_frames))
+
+    for s in prange(num_points):
+
+        this_traj = np.zeros((n, num_frames))
+        initial = np.random.exponential(1, n)
+        initial /= np.sum(initial)
+
+        
+        for sim in range(simulations):
+
+
+            population = np.random.multinomial(pop_size, initial)
+
+            deltaPi = np.max(matrix) - np.min(matrix)
+
+            results = np.zeros((n, iterations + 1))
+
+            
+            for j in range(n):
+                results[j, 0] = population[j] / pop_size
+
+            individuals = np.empty(pop_size, dtype=np.int64)
+            idx = 0
+            for i in range(n):
+                for _ in range(population[i]):
+                    individuals[idx] = i
+                    idx += 1
+
+            for i in range(iterations):
+                ind1 = np.random.randint(pop_size)
+                ind2 = ind1
+                while ind2 == ind1:
+                    ind2 = np.random.randint(pop_size)
+
+                p1 = individuals[ind1]
+                p2 = individuals[ind2]
+
+                payoffs = payoff_against_pop(population, matrix, pop_size)
+
+            
+                p = 0.5 + 0.5 * w * ((payoffs[p2] - payoffs[p1]) / deltaPi)
+
+                if np.random.rand() < p:
+                    population[p1] -= 1
+                    population[p2] += 1
+                    individuals[ind1] = p2
+
+                
+                for j in range(n):
+                    results[j, i + 1] = population[j] / pop_size
+
+            
+            if point_cloud:
+                
+                this_traj += results[:, 1::sample_rate]
+            
+            all_traj[s] = this_traj / simulations
+
+    return all_traj
+
 @njit(parallel=True, cache=True)
 def local_batch_sim(
     pop_size,

@@ -438,8 +438,11 @@ def numerical_H_value(transitions, N = 100):
   # Compare this one netx and get the RPs reversal
   # Also work well for the figure, but need one with a higher fixed point for show.
   # RPS drift but no SD drift
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.1, beta: 0.1} # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2} # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
   d_pi = 1.8
+
+  """config = {a: 0, b: 1, c:-0.23, gamma: 0.02, beta: 0.08} 
+  d_pi = 1.23"""
 
   #RPS not reversing
   #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta:0.1 }
@@ -577,7 +580,7 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
     delta_H_RPS.append(res_rps * n * n)
     delta_H_4.append(res_4 * n * n)
 
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.1, beta: 0.1 }
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.24 }
 
   critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
   critical_N_RPS = delta_H_RPS_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
@@ -625,7 +628,7 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1000, 25), config : dict =
    
 
     fig.tight_layout()
-    fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/large_N_delta_H.eps", format="eps")
+    #fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/large_N_delta_H.eps", format="eps")
     plt.show()
 
 

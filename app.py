@@ -748,8 +748,18 @@ if __name__ == "__main__":
     [[0, -0.8, 1,     0.4], 
      [1, 0, -0.8,     0.4], 
      [-0.8, 1, 0,     0.4], 
-     [0.2, 0.2, 0.2, 0]]
+     [0.24, 0.24, 0.24, 0]]
     )
+
+
+    avg_point_cloud = simulation.local_batch_cloud(300, iterations=500000, num_points=1000, w=0.45, simulations=10, matrix=basic_rps)
+    #avg_point_cloud = simulation.local_point_cloud_avg(400, iterations=300000, w=0.45, num_points=1000, matrix=basic_rps)
+
+
+    anim = trajectories_to_anim(avg_point_cloud)
+    
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/disk_case.mp4")
+
 
     basic_rps = np.array(
     [[0, -0.8, 1,     0.1], 
@@ -758,20 +768,28 @@ if __name__ == "__main__":
      [0.1, 0.1, 0.1, 0]]
     )
 
-
-
+    """# Equal NSD and NRPS case approx 58
+    basic_rps = np.array(
+    [[0, -0.23, 1,     0.02], 
+     [1, 0, -0.23,     0.02], 
+     [-0.23, 1, 0,     0.02], 
+     [0.08, 0.08, 0.08, 0]]
+    )
+    """
     #simulation.drift_cases_plot()
 
+    """
+    Try and find a pair with lower critical N so that the graph doesnt take so long to run for the large N case
+    """
+    #avg_point_cloud = simulation.local_point_cloud_avg(5000, iterations=2000000, w=0.45, num_points=10, matrix=basic_rps)
 
-    avg_point_cloud = simulation.local_point_cloud_avg(5000, iterations=2000000, w=0.45, num_points=10, matrix=basic_rps)
-
-
+    # Dont need averaging for verty large pop as trajectory is quite smooth
+    avg_point_cloud = simulation.local_batch_cloud(460, iterations=100000, num_points=500, w=0.45, simulations=50, matrix=basic_rps)
 
 
     anim = trajectories_to_anim(avg_point_cloud)
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/large_N_case.mp4")
-
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/central_blob_case.mp4")
 
     # Get 4 cases with avg trajectory method.
     # call method directly and have matrix in figure.

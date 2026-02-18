@@ -13,3 +13,4 @@ from .plotting import point_cloud
 from .plotting import quaternary_plot_same_axis
 from .sim import local_point_cloud_avg
 from .plotting import drift_cases_plot
+from .sim import local_batch_cloud
