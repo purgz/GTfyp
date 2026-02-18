@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  17 FEB 2026 18:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.9)  18 FEB 2026 12:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -544,27 +544,31 @@ Package epstopdf Info: Source file: <./images/disk_case_delta_H.eps>
 (epstopdf)                    date: 2026-02-17 17:09:51
 (epstopdf)                    size: 18723 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_case_delta_H-eps-converted-to.pdf ./images/disk_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 401.
+(epstopdf)             \includegraphics on input line 404.
 Package epstopdf Info: Output file is already uptodate.
 <./images/disk_case_delta_H-eps-converted-to.pdf, id=45, 462.72874pt x 347.2975pt>
 File: ./images/disk_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_case_delta_H-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 401.
+Package pdftex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 404.
 (pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
  [8 <./images/column_case_delta_H-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./images/large_N_delta_H.eps>
-(epstopdf)                    date: 2026-02-17 17:22:51
+(epstopdf)                    date: 2026-02-18 12:56:53
 (epstopdf)                    size: 37433 bytes
 (epstopdf)             Output file: <./images/large_N_delta_H-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-02-17 17:24:29
-(epstopdf)                    size: 18665 bytes
+(epstopdf)                    date: 2026-02-18 12:56:34
+(epstopdf)                    size: 18403 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/large_N_delta_H-eps-converted-to.pdf ./images/large_N_delta_H.eps>
-(epstopdf)             \includegraphics on input line 417.
-Package epstopdf Info: Output file is already uptodate.
+(epstopdf)             \includegraphics on input line 420.
+runsystem(repstopdf --outfile=./images/large_N_delta_H-eps-converted-to.pdf ./images/large_N_delta_H.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <./images/large_N_delta_H-eps-converted-to.pdf>
+(epstopdf)                    date: 2026-02-18 12:56:57
+(epstopdf)                    size: 18664 bytes.
 <./images/large_N_delta_H-eps-converted-to.pdf, id=105, 462.72874pt x 347.2975pt>
 File: ./images/large_N_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/large_N_delta_H-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/large_N_delta_H-eps-converted-to.pdf  used on input line 417.
+Package pdftex.def Info: ./images/large_N_delta_H-eps-converted-to.pdf  used on input line 420.
 (pdftex.def)             Requested size: 360.29568pt x 270.41931pt.
  [9 <./images/disk_case_delta_H-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./images/column_cloud.eps>
@@ -574,12 +578,12 @@ Package epstopdf Info: Source file: <./images/column_cloud.eps>
 (epstopdf)                    date: 2026-02-17 16:30:00
 (epstopdf)                    size: 78199 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/column_cloud-eps-converted-to.pdf ./images/column_cloud.eps>
-(epstopdf)             \includegraphics on input line 424.
+(epstopdf)             \includegraphics on input line 427.
 Package epstopdf Info: Output file is already uptodate.
 <./images/column_cloud-eps-converted-to.pdf, id=163, 572.05719pt x 572.05719pt>
 File: ./images/column_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_cloud-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 424.
+Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 427.
 (pdftex.def)             Requested size: 257.35518pt x 257.36224pt.
 Package epstopdf Info: Source file: <./images/disk_cloud.eps>
 (epstopdf)                    date: 2026-02-17 17:05:55
@@ -588,12 +592,12 @@ Package epstopdf Info: Source file: <./images/disk_cloud.eps>
 (epstopdf)                    date: 2026-02-17 17:06:01
 (epstopdf)                    size: 79539 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_cloud-eps-converted-to.pdf ./images/disk_cloud.eps>
-(epstopdf)             \includegraphics on input line 430.
+(epstopdf)             \includegraphics on input line 433.
 Package epstopdf Info: Output file is already uptodate.
 <./images/disk_cloud-eps-converted-to.pdf, id=164, 745.67586pt x 745.67586pt>
 File: ./images/disk_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_cloud-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 430.
+Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 433.
 (pdftex.def)             Requested size: 257.35518pt x 257.36086pt.
  [10 <./images/large_N_delta_H-eps-converted-to.pdf> <./images/column_cloud-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./images/drift_cases.eps>
@@ -603,12 +607,12 @@ Package epstopdf Info: Source file: <./images/drift_cases.eps>
 (epstopdf)                    date: 2026-02-17 17:39:39
 (epstopdf)                    size: 12328 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/drift_cases-eps-converted-to.pdf ./images/drift_cases.eps>
-(epstopdf)             \includegraphics on input line 438.
+(epstopdf)             \includegraphics on input line 441.
 Package epstopdf Info: Output file is already uptodate.
 <./images/drift_cases-eps-converted-to.pdf, id=248, 238.49101pt x 175.01385pt>
 File: ./images/drift_cases-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/drift_cases-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/drift_cases-eps-converted-to.pdf  used on input line 438.
+Package pdftex.def Info: ./images/drift_cases-eps-converted-to.pdf  used on input line 441.
 (pdftex.def)             Requested size: 514.71037pt x 377.79727pt.
 Package epstopdf Info: Source file: <./images/column_cloud.eps>
 (epstopdf)                    date: 2026-02-17 16:29:52
@@ -617,11 +621,11 @@ Package epstopdf Info: Source file: <./images/column_cloud.eps>
 (epstopdf)                    date: 2026-02-17 16:30:00
 (epstopdf)                    size: 78199 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/column_cloud-eps-converted-to.pdf ./images/column_cloud.eps>
-(epstopdf)             \includegraphics on input line 457.
+(epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 File: ./images/column_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_cloud-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 457.
+Package pdftex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 460.
 (pdftex.def)             Requested size: 113.81102pt x 113.80711pt.
 Package epstopdf Info: Source file: <./images/disk_cloud.eps>
 (epstopdf)                    date: 2026-02-17 17:05:55
@@ -630,11 +634,11 @@ Package epstopdf Info: Source file: <./images/disk_cloud.eps>
 (epstopdf)                    date: 2026-02-17 17:06:01
 (epstopdf)                    size: 79539 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_cloud-eps-converted-to.pdf ./images/disk_cloud.eps>
-(epstopdf)             \includegraphics on input line 457.
+(epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 File: ./images/disk_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_cloud-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 457.
+Package pdftex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 460.
 (pdftex.def)             Requested size: 113.81102pt x 113.80357pt.
 Package epstopdf Info: Source file: <./images/large_N_case.eps>
 (epstopdf)                    date: 2026-02-17 18:34:33
@@ -643,12 +647,12 @@ Package epstopdf Info: Source file: <./images/large_N_case.eps>
 (epstopdf)                    date: 2026-02-17 18:34:55
 (epstopdf)                    size: 13330 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/large_N_case-eps-converted-to.pdf ./images/large_N_case.eps>
-(epstopdf)             \includegraphics on input line 457.
+(epstopdf)             \includegraphics on input line 460.
 Package epstopdf Info: Output file is already uptodate.
 <./images/large_N_case-eps-converted-to.pdf, id=249, 390.27808pt x 386.19281pt>
 File: ./images/large_N_case-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/large_N_case-eps-converted-to.pdf>
-Package pdftex.def Info: ./images/large_N_case-eps-converted-to.pdf  used on input line 457.
+Package pdftex.def Info: ./images/large_N_case-eps-converted-to.pdf  used on input line 460.
 (pdftex.def)             Requested size: 113.81102pt x 112.61768pt.
  [11 <./images/disk_cloud-eps-converted-to.pdf>] [12 <./images/drift_cases-eps-converted-to.pdf> <./images/large_N_case-eps-converted-to.pdf>] [13] [14] (out/delta_H_derivation.aux)
  ***********
@@ -672,7 +676,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  104i,14n,121p,815b,1846s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on out/delta_H_derivation.pdf (14 pages, 412394 bytes).
+Output written on out/delta_H_derivation.pdf (14 pages, 412565 bytes).
 PDF statistics:
  358 PDF objects out of 1000 (max. 8388607)
  147 compressed objects within 2 object streams

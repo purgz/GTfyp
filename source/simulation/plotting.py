@@ -515,12 +515,18 @@ def drift_cases_plot():
     ax.set_xlabel(r"$N / N_{SD}$")
     ax.set_ylabel(r"$N / N_{RPS}$")
 
-    ax.plot(0.14, 2.26, "ro") # Column case
+    ax.plot(0.14, 2.26, "bo") # Column case
 
-    ax.plot(2.83, 0.36, "bo")
+    ax.plot(4.25, 0.54, "ro") # disk
 
-    ax.plot(4.76, 3.57, "go")
+    #ax.plot(4.76, 3.57, "go")
 
+    ax.plot(4.76, 3.57, "go") # Blob
+
+    ax.plot(71.43, 53.57, "go") # 30000 pop case
+
+    ax.set_xscale("log")
+    ax.set_yscale("log")
     fig.tight_layout()
 
     plt.show()
