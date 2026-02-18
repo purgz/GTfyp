@@ -26,13 +26,13 @@ logger = logging.getLogger(__name__)
 #plt.style.use(['science'])
 
 
-#plt.style.use(["science", "no-latex"])
+plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
 def pd_example(
@@ -751,15 +751,18 @@ if __name__ == "__main__":
      [0.24, 0.24, 0.24, 0]]
     )
 
-
-    avg_point_cloud = simulation.local_batch_cloud(300, iterations=500000, num_points=1000, w=0.45, simulations=10, matrix=basic_rps)
+    """
+    # New payoff matrix where NRPS >> NSD for clearer disk shape.
+    # This parameters seem to work well
+    # Run for long time with larger simulations.
+    avg_point_cloud = simulation.local_batch_cloud(600, iterations=500000, num_points=1000, w=0.45, simulations=10, matrix=basic_rps)
     #avg_point_cloud = simulation.local_point_cloud_avg(400, iterations=300000, w=0.45, num_points=1000, matrix=basic_rps)
 
 
     anim = trajectories_to_anim(avg_point_cloud)
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/disk_case.mp4")
-
+    simulation.point_cloud([anim], matrix=None, save_file="./results/animations/disk_case.mp4")
+    """
 
     basic_rps = np.array(
     [[0, -0.8, 1,     0.1], 
@@ -783,13 +786,24 @@ if __name__ == "__main__":
     """
     #avg_point_cloud = simulation.local_point_cloud_avg(5000, iterations=2000000, w=0.45, num_points=10, matrix=basic_rps)
 
+    # Try and find some parameters with NC = NRPS = 500 or higher
+
+    """
+    Graph has all cases, then
+    rod, 
+    disk,
+    blob in the center for nrps = nsd, high pop central
+    low pop random space
+    """
+
+
     # Dont need averaging for verty large pop as trajectory is quite smooth
-    avg_point_cloud = simulation.local_batch_cloud(460, iterations=100000, num_points=500, w=0.45, simulations=50, matrix=basic_rps)
+    avg_point_cloud = simulation.local_batch_cloud(500, iterations=500000, num_points=500, w=0.45, simulations=20, matrix=basic_rps)
 
 
     anim = trajectories_to_anim(avg_point_cloud)
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animation/central_blob_case.mp4")
+    simulation.point_cloud([anim], matrix=None, save_file="./results/animations/central_blob_case.mp4")
 
     # Get 4 cases with avg trajectory method.
     # call method directly and have matrix in figure.

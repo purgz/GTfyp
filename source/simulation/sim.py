@@ -257,6 +257,7 @@ def local_batch_cloud(
         initial = np.random.exponential(1, n)
         initial /= np.sum(initial)
 
+
         
         for sim in range(simulations):
 
