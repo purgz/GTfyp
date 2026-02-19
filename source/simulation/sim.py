@@ -257,6 +257,15 @@ def local_batch_cloud(
         initial = np.random.exponential(1, n)
         initial /= np.sum(initial)
 
+        # x = a + (b-a) * r, a = 0.1, b = 0.9
+        # Randomize in the simplex
+        fixed = 0.1 + (0.8 * random.random()) # random between range, prevent extinctions.
+        remaining = 1 - fixed
+        random_simplex = np.random.rand(n - 1)
+        random_simplex /= np.sum(random_simplex)
+        random_simplex *= remaining
+        initial = np.append(random_simplex, fixed)
+        
 
         
         for sim in range(simulations):
