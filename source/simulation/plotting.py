@@ -307,7 +307,7 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
     if matrix is not None:
         test = matrix_to_latex(matrix)
 
-        ax.text2D(0.7,0.7, test, transform=ax.transAxes)
+        ax.text2D(0.6,0.6, test, transform=ax.transAxes, fontsize = 18)
         
     colors = ["g","b", "r"]
 
@@ -606,30 +606,33 @@ def drift_cases_plot_diagonal(savepath=None):
     cases: list of tuples (label, x, y, marker)
            where x = N/N_SD, y = N/N_RPS
     """
-    fig, ax = plt.subplots(figsize=(7, 7), dpi=200)
+    fig, ax = plt.subplots(figsize=(8, 8), dpi=200)
 
-    ax.set_title("Drift reversal cases", pad=10)
+    #ax.set_title("Drift reversal cases", pad=10)
     ax.set_xlabel(r"$N/N_{SD}$")
     ax.set_ylabel(r"$N/N_{RPS}$")
 
     ax.set_xscale("log")
     ax.set_yscale("log")
 
+    ax.axvline(1, lw=1.5, ls="-", alpha=0.8)
+    ax.axhline(1, lw=1.5, ls="-", alpha=0.8)
+
     # bounds (adjust once your cases are final)
     ax.set_xlim(0.08, 150)
     ax.set_ylim(0.08, 150)
 
-    # Diagonal y = x
+    """# Diagonal y = x
     xx = np.logspace(np.log10(ax.get_xlim()[0]), np.log10(ax.get_xlim()[1]), 200)
-    ax.plot(xx, xx, linestyle="--", linewidth=1.2)
+    ax.plot(xx, xx, linestyle="--", linewidth=1.2)"""
 
-    # Light shading above/below diagonal (works on log scales if done in data coords)
+    """# Light shading above/below diagonal (works on log scales if done in data coords)
     ax.fill_between(xx, xx, ax.get_ylim()[1], alpha=0.08)   # above y=x
-    ax.fill_between(xx, ax.get_ylim()[0], xx, alpha=0.05)   # below y=x
+    ax.fill_between(xx, ax.get_ylim()[0], xx, alpha=0.05)   # below y=x"""
 
-    ax.text(0.12, 40, r"$N_{RPS}<N_{SD}$",
+    ax.text(0.12, 90, r"$N_{RPS}<N_{SD}$",
             fontsize=10)
-    ax.text(12, 0.12, r"$N_{SD}<N_{RPS}$",
+    ax.text(75, 0.12, r"$N_{SD}<N_{RPS}$",
             fontsize=10)
     
     cases = [
@@ -662,6 +665,6 @@ def drift_cases_plot_diagonal(savepath=None):
 
     fig.tight_layout()
     if savepath:
-        fig.savefig(savepath, bbox_inches="tight")
+        fig.savefig(savepath, bbox_inches="tight", format="pdf")
     else:
         plt.show()

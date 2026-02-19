@@ -34,6 +34,14 @@ logger = logging.getLogger(__name__)
 plt.rcParams['text.usetex'] = True
 plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
+plt.rcParams.update({
+"font.size": 18,
+    "axes.labelsize": 20,
+    "axes.titlesize": 20,
+    "xtick.labelsize": 16,
+    "ytick.labelsize": 16,
+    "legend.fontsize": 16,
+})
 
 def pd_example(
     pop_size: int = 1000,
@@ -750,17 +758,18 @@ if __name__ == "__main__":
      [0.1, 0.1, 0.1, 0]]
     )
 
-    """avg_point_cloud = simulation.local_batch_cloud(50, iterations=10000, num_points=1000, w=0.45, simulations=100, matrix=basic_rps)
+    """avg_point_cloud = simulation.local_batch_cloud(50, iterations=10000, num_points=1000, w=0.45, simulations=1, matrix=basic_rps)
       
 
     anim = trajectories_to_anim(avg_point_cloud)
+    simulation.point_cloud([anim], matrix=basic_rps)
+    """
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/low_N_case.mp4")"""
-
+    #simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/low_N_case.mp4")
 
     
 
-    simulation.drift_cases_plot_diagonal()
+    simulation.drift_cases_plot_diagonal(savepath="./latex_doc/images/drift_shaded.pdf")
     simulation.drift_cases_plot_pub()
 
     avg_point_cloud = simulation.local_batch_cloud(300, iterations=2000000, num_points=1000, w=0.45, simulations=20, matrix=basic_rps)
