@@ -13,7 +13,7 @@ import ternary
 from matplotlib.animation import FuncAnimation
 from matplotlib.animation import writers
 import matplotlib.animation as animation
-
+import matplotlib.ticker as mticker
 """
 SciencePlots library - ref in paper
 """
@@ -515,15 +515,15 @@ def drift_cases_plot():
     ax.set_xlabel(r"$N / N_{SD}$")
     ax.set_ylabel(r"$N / N_{RPS}$")
 
-    ax.plot(0.14, 2.26, "bo") # Column case
+    ax.plot(0.14, 2.26, "o") # Column case
 
-    ax.plot(4.25, 0.54, "ro") # disk
+    ax.plot(6.28, 0.42, "o") # Clean disk
 
     #ax.plot(4.76, 3.57, "go")
 
-    ax.plot(4.76, 3.57, "go") # Blob
+    #ax.plot(4.76, 3.57, "0") # Blob
 
-    ax.plot(71.43, 53.57, "go") # 30000 pop case
+    ax.plot(71.43, 53.57, "o") # 30000 pop case
 
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -531,3 +531,137 @@ def drift_cases_plot():
 
     plt.show()
 
+
+def drift_cases_plot_pub(savepath=None):
+    # Journal-ish: ~3.5in wide for single-column, or 7.2in for double-column
+    fig, ax = plt.subplots(figsize=(6.8, 4.8), dpi=200)
+
+    ax.set_title("Drift reversal cases", pad=10)
+    ax.set_xlabel(r"$N/N_{SD}$")
+    ax.set_ylabel(r"$N/N_{RPS}$")
+
+    # --- Reference lines at 1 (the critical boundaries) ---
+    ax.axvline(1, lw=1.2)
+    ax.axhline(1, lw=1.2)
+
+    # --- Points (use distinct marker styles) ---
+    cases = [
+        ("Rod (SD out, RPS in)", 0.21, 3.4, "o"),
+        #("Rod (SD out, RPS in)", 0.14, 2.26, "o"),
+        ("Disk (SD in, RPS out)", 6.28, 0.42, "s"),
+        ("Large $N$", 71.43, 53.57, "^"),
+    ]
+
+    for label, x, y, m in cases:
+        ax.plot(x, y, marker=m, markersize=8, linestyle="None")
+        ax.annotate(
+            label,
+            (x, y),
+            textcoords="offset points",
+            xytext=(8, 6),
+            ha="left",
+            va="bottom",
+            fontsize=10,
+        )
+
+    # --- Log scales ---
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+
+    # Choose sensible bounds so the plot isn't dominated by the 30000 case
+    # Adjust as needed once you finalize which cases you include.
+    ax.set_xlim(0.08, 150)
+    ax.set_ylim(0.2, 120)
+
+    # --- Ticks that look like a paper figure ---
+    ax.xaxis.set_major_locator(mticker.LogLocator(base=10))
+    ax.yaxis.set_major_locator(mticker.LogLocator(base=10))
+    ax.xaxis.set_minor_locator(mticker.LogLocator(base=10, subs=(2, 3, 5)))
+    ax.yaxis.set_minor_locator(mticker.LogLocator(base=10, subs=(2, 3, 5)))
+    ax.xaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+
+    ax.tick_params(which="both", direction="in", top=True, right=True)
+    ax.tick_params(which="major", length=6)
+    ax.tick_params(which="minor", length=3)
+
+    # --- Region labels (optional, but very helpful) ---
+    ax.text(0.12, 0.25, "Both outward", fontsize=10)
+    ax.text(0.12, 3.5, "Rod:\nSD out,\nRPS in", fontsize=10)
+    ax.text(3.5, 0.25, "Disk:\nSD in,\nRPS out", fontsize=10)
+    ax.text(3.5, 3.5, "Both inward\n(interior fixation)", fontsize=10)
+
+    fig.tight_layout()
+
+    if savepath:
+        fig.savefig(savepath, bbox_inches="tight")  # use .pdf for vector
+    else:
+        plt.show()
+
+
+
+
+def drift_cases_plot_diagonal(savepath=None):
+    """
+    cases: list of tuples (label, x, y, marker)
+           where x = N/N_SD, y = N/N_RPS
+    """
+    fig, ax = plt.subplots(figsize=(7, 7), dpi=200)
+
+    ax.set_title("Drift reversal cases", pad=10)
+    ax.set_xlabel(r"$N/N_{SD}$")
+    ax.set_ylabel(r"$N/N_{RPS}$")
+
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+
+    # bounds (adjust once your cases are final)
+    ax.set_xlim(0.08, 150)
+    ax.set_ylim(0.08, 150)
+
+    # Diagonal y = x
+    xx = np.logspace(np.log10(ax.get_xlim()[0]), np.log10(ax.get_xlim()[1]), 200)
+    ax.plot(xx, xx, linestyle="--", linewidth=1.2)
+
+    # Light shading above/below diagonal (works on log scales if done in data coords)
+    ax.fill_between(xx, xx, ax.get_ylim()[1], alpha=0.08)   # above y=x
+    ax.fill_between(xx, ax.get_ylim()[0], xx, alpha=0.05)   # below y=x
+
+    ax.text(0.12, 40, r"$N_{RPS}<N_{SD}$",
+            fontsize=10)
+    ax.text(12, 0.12, r"$N_{SD}<N_{RPS}$",
+            fontsize=10)
+    
+    cases = [
+        ("SD reversal", 0.21, 3.41, "o"),
+        #("Rod (SD out, RPS in)", 0.14, 2.26, "o"),
+        ("RPS reversal", 6.28, 0.42, "s"),
+        ("Large $N$", 71.43, 53.57, "^"),
+        ("Low $N$", 0.12, 0.09, "^"),
+    ]
+    # Plot cases
+    for label, x, y, m in cases:
+        ax.plot(x, y, marker=m, ms=8, linestyle="None")
+        if label == "RPS reversal":
+            ax.annotate(label, (x, y), textcoords="offset points", xytext=(-70, 0),
+            ha="left", va="bottom", fontsize=10)
+        else:
+            ax.annotate(label, (x, y), textcoords="offset points", xytext=(10, 0),
+                        ha="left", va="bottom", fontsize=10)
+
+    # nice ticks
+    ax.xaxis.set_major_locator(mticker.LogLocator(base=10))
+    ax.yaxis.set_major_locator(mticker.LogLocator(base=10))
+    ax.xaxis.set_minor_locator(mticker.LogLocator(base=10, subs=(2, 3, 5)))
+    ax.yaxis.set_minor_locator(mticker.LogLocator(base=10, subs=(2, 3, 5)))
+    ax.xaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+    ax.tick_params(which="both", direction="in", top=True, right=True)
+    ax.tick_params(which="major", length=6)
+    ax.tick_params(which="minor", length=3)
+
+    fig.tight_layout()
+    if savepath:
+        fig.savefig(savepath, bbox_inches="tight")
+    else:
+        plt.show()
