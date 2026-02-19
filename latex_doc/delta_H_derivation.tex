@@ -336,13 +336,74 @@ where population counts e.g. $i/N, j/N$ are replaced with frequencies $x, y$ res
 Similarly the other 2 terms within the RPS game can be derived leading to:
 
 \begin{align}
-T^{RS} - T^{SR} = \nonumber \\
-T^{SP} - T^{PS} = 
+T^{RS} - T^{SR} = \frac{w}{\Delta \pi_{max}}xz(\pi_S - \pi_R)\nonumber \\
+T^{SP} - T^{PS} = \frac{w}{\Delta \pi_{max}}zy(\pi_P - \pi_S)
 \end{align}
 
 Substituting in the expanded payoff differences from the payoff matrix:
+\begin{align}
+T^{RP} - T^{PR} = \frac{w}{\Delta \pi_{max}}xy(x - z + c(z-y))\nonumber \\
+T^{RS} - T^{SR} = \frac{w}{\Delta \pi_{max}}xz(y - z + c(x-y))\nonumber \\
+T^{SP} - T^{PS} = \frac{w}{\Delta \pi_{max}}zy(x - y + c(z-x)) \nonumber
+\end{align}
+
+The terms of form $T^{R+} - T^{+R}$ have already been derived in section for $\langle \Delta H_{SD} \rangle$.
+
+Finally for the terms of order $1/N^2$:
+
+\begin{align}
+T^{RP} + T^{PR} &= \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_P - \pi_R}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} 
++ \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_R - \pi_P}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} \nonumber \\
+&= \frac{w}{2\Delta \pi_{max}}xy\left(\pi_P - \pi_R + \pi_R - \pi_p \right) + xy \nonumber\\
+&= xy \nonumber
+\end{align}
+The terms containing $w$ and payoffs for each strategy cancel out for these terms within RPS, leaving just:
+
+\begin{align}
+T^{RP} + T^{PR} &= xy \nonumber \\
+T^{RS} + T^{SR} &= xz \nonumber \\
+T^{RS} + T^{SR} &= zy \nonumber \\\nonumber
+\end{align} 
 
 
+\begin{align}
+\langle \Delta H_{RPS} \rangle_{LU} &= \frac{2}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+\Big[z(y-x)(\frac{w}{\Delta \pi_{max}}xy(x - z + c(z-y)))  \nonumber\\
+&+ y(z-x)(\frac{w}{\Delta \pi_{max}}xz(y - z + c(x-y))) + x(y-z)(\frac{w}{\Delta \pi_{max}}zy(x - y + c(z-x)))  \nonumber\\
+&+ xz(\frac{w}{\Delta \pi_{\text{max}}} y(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -x -cz\right))  \nonumber\\
+&+ yz(\frac{w}{\Delta \pi_{\text{max}}} x(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -z -cy\right)) \nonumber \\
+& + xy(\frac{w}{\Delta \pi_{\text{max}}} z(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -y -cx\right))
+\Big] \nonumber \\
+&+ \frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left(
+3xyz\right) \nonumber
+\end{align}
+
+The second integral equals:
+\begin{align}
+\frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left(
+3xyz\right) &= \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left(
+xyz\right) \\
+&= \frac{6}{N^2} \frac{1}{720} = \frac{1}{120N^2}
+\end{align}
+
+
+\begin{align}
+\langle \Delta H_{RPS} \rangle_{LU} &= \frac{w}{\Delta \pi_{max}} \frac{2}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
+xyz \Big[(y-x)(x - z + c(z-y))  \nonumber\\
+&+ (z-x)(y - z + c(x-y)) + (y-z)(x - y + c(z-x)) \nonumber\\
+&+ (1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -x -cz\right) \nonumber\\
+&+ (1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -z -cy\right) \nonumber \\
+& + (1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -y -cx\right)
+\Big] \nonumber \\
+&+ \frac{1}{120N^2} \nonumber \\
+&= \frac{1}{120N^2} - \frac{w(2 + \gamma - 3 \beta  + 2c)}{3360 N \Delta \pi_{max}}
+\end{align}
+
+By setting this expression equal to zero, a critical population size for RPS can be found:
+
+\begin{equation}
+N_{RPS} = \frac{28 \Delta \pi_{max}}{w(2 + \gamma - 3 \beta + 2c)}
+\end{equation}
 
 Rough figures of rps and SD delta H values.
 \begin{figure}[H]
@@ -350,6 +411,9 @@ Rough figures of rps and SD delta H values.
     \includegraphics[width=0.7\textwidth]{./images/rps_sd_delta_H.png}
     \caption{Blue - SD}
 \end{figure}
+So like SD, the critical size N can be expressed in terms of the selection strength $w$, and the payoff matrix
+parameters. The combination of these two critical sizes can tell us about which state the system will end in on the 
+drift reversal cases graph in the next section.
 
 \begin{figure}[H]
     \centering
