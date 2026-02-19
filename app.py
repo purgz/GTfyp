@@ -743,14 +743,41 @@ if __name__ == "__main__":
      [0.3, 0.3, 0.3, 0]]
     )
 
+    basic_rps = np.array(
+    [[0, -0.8, 1,     0.1], 
+     [1, 0, -0.8,     0.1], 
+     [-0.8, 1, 0,     0.1], 
+     [0.1, 0.1, 0.1, 0]]
+    )
+
+    """avg_point_cloud = simulation.local_batch_cloud(50, iterations=10000, num_points=1000, w=0.45, simulations=100, matrix=basic_rps)
       
+
+    anim = trajectories_to_anim(avg_point_cloud)
+    
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/low_N_case.mp4")"""
+
+
+    
+
+    simulation.drift_cases_plot_diagonal()
+    simulation.drift_cases_plot_pub()
+
+    avg_point_cloud = simulation.local_batch_cloud(300, iterations=2000000, num_points=1000, w=0.45, simulations=20, matrix=basic_rps)
+      
+
+    anim = trajectories_to_anim(avg_point_cloud)
+    
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/higher_pop_rod_case_2.mp4")
+    
+
     basic_rps = np.array(
     [[0, -0.8, 1,     0.4], 
      [1, 0, -0.8,     0.4], 
      [-0.8, 1, 0,     0.4], 
      [0.24, 0.24, 0.24, 0]]
     )
-
+    simulation.drift_cases_plot()
     
     # New payoff matrix where NRPS >> NSD for clearer disk shape.
     # This parameters seem to work well
@@ -758,18 +785,12 @@ if __name__ == "__main__":
     avg_point_cloud = simulation.local_batch_cloud(600, iterations=400000, num_points=5000, w=0.45, simulations=20, matrix=basic_rps)
     #avg_point_cloud = simulation.local_point_cloud_avg(400, iterations=300000, w=0.45, num_points=1000, matrix=basic_rps)
 
-
     anim = trajectories_to_anim(avg_point_cloud)
     
     simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/disk_case.mp4")
     
 
-    basic_rps = np.array(
-    [[0, -0.8, 1,     0.1], 
-     [1, 0, -0.8,     0.1], 
-     [-0.8, 1, 0,     0.1], 
-     [0.1, 0.1, 0.1, 0]]
-    )
+ 
 
     """# Equal NSD and NRPS case approx 58
     basic_rps = np.array(
@@ -779,7 +800,7 @@ if __name__ == "__main__":
      [0.08, 0.08, 0.08, 0]]
     )
     """
-    #simulation.drift_cases_plot()
+    
 
     """
     Try and find a pair with lower critical N so that the graph doesnt take so long to run for the large N case

@@ -443,22 +443,29 @@ $\frac{N}{N_{SD}} = 4.25, \frac{N}{N_{RPS}} = 0.54$
 For final case at N = 2000
 $\frac{N}{N_{SD}} = 4.76, \frac{N}{N_{RPS}} =  3.57$
 
+
+For clean disk case N = 600, $\gamma = 0.4, \beta = 0.24, N_{SD} = 95.61, N_{RPS} = 1400$
+
 Blob case N = 1000 $\frac{N}{N_{SD}} = 2.38, \frac{N}{N_{RPS}} =  1.79$
 Final case at N = 30000, $\frac{N}{N_{SD}} = 71.43, \frac{N}{N_{RPS}} =  53.57$
 
 
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c}
-N & $N/N_{SD}$ & $N/N_{RPS}$ \\
+\begin{tabular}{c|c|c|c|c|c}
+$\alpha$ & $\beta$ & $c$ & N & $N/N_{SD}$ & $N/N_{RPS}$ \\
 \hline
-200  & 0.14  & 2.26 \\
-200  & 2.83  & 0.36 \\
-2000 & 4.76 & 3.57 \\
+0.1 & 0.1 & -0.8 & 50  & 0.12  & 0.09* \\
+0.14 & 0.3 & -0.2 & 200  & 0.14  & 2.26 \\
+0.14 & 0.3 & -0.2 & 300  & 0.21  & 3.41* \\
+0.4 & 0.2 & -0.8 & 200  & 2.83  & 0.36 \\
+0.4 & 0.24 & -0.8 & 600 & 6.28 & 0.42* \\
+0.1 & 0.1 & -0.8 & 2000 & 4.76 & 3.57 \\
+0.1 & 0.1 & -0.8 & 30000 & 71.43 & 53.57* \\
 \end{tabular}
 \caption{Table of N values and corresponding ratios, depending on the values of $N_{SD}, N_{RPS}$ and 
 $N$ when simulating trajectories, the drift reversal cases will be different, large $N$ used to show the 
-cases above the critical population sizes where system converges to interior nash equilibrium.}
+cases above the critical population sizes where system converges to interior nash equilibrium. Rows marked with * are the ones in the drift cases plot.}
 \end{table}
 
 
@@ -485,6 +492,18 @@ corners of the simplex.
   \caption{$\beta=0.1, \gamma=0.1, c=-0.8, N_{SD} = 420, N_{RPS} = 560$}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/disk_clean_deltaH.eps}
+  \caption{$\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
+  This parameter settings give a better  plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/large_N_cloud.eps}
+  \caption{Large N 30000}
+\end{figure}
 
 \begin{figure}[H]
   \centering
@@ -499,26 +518,48 @@ corners of the simplex.
 \end{figure}
 
 \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/disk_cloud_clean.eps}
+  \caption{Cleaner drift case N = 600}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/rod_case_n_300.eps}
+  \caption{N = 300, rod}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/low_n_case.eps}
+  \caption{N = 50, same parameters as the Large N case}
+\end{figure}
+
+
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}
   \node[anchor=south west, inner sep=0] (img) at (0,0)
-    {\includegraphics[width=1\textwidth]{./images/drift_cases.eps}};
+    {\includegraphics[width=1\textwidth]{./images/drift_shaded.pdf}};
 
   \begin{axis}[
     at={(img.south west)},
     anchor=south west,
     width=1\textwidth,
-    height=1\textwidth*1, % <-- match your plot aspect (adjust!)
-    xmin=0, xmax=3,         
-    ymin=0, ymax=3,
+    height=1\textwidth*1, 
+    xmin=0, xmax=10,         
+    ymin=0, ymax=10,
     axis lines=none,          
     clip=false                 
   ]
 
     % Place the EPS thumbnails at data coordinates
-    \node at (axis cs:0.9,1.6) {\includegraphics[width=4cm]{./images/column_cloud.eps}};
-    \node at (axis cs:2.45,0.8) {\includegraphics[width=4cm]{./images/disk_cloud.eps}};
-    \node at (axis cs:2.65,1.75) {\includegraphics[width=4cm]{./images/large_N_case.eps}};
+    \node at (axis cs:3.1,5.6) {\includegraphics[width=4cm]{./images/rod_300_trans.png}};
+    \node at (axis cs:7.75,2.5) {\includegraphics[width=4cm]{./images/disk_600_trans.png}};
+    \node at (axis cs:8.7,6.5) {\includegraphics[width=4cm]{./images/large_n_trans.png}};
+    \node at (axis cs:2,2) {\includegraphics[width=4cm]{./images/low_n_trans.png}};
 
 
   \end{axis}
@@ -616,23 +657,12 @@ into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ 
 
 
 Perhaps also derive analytical form of this equation too for LOCAl update
-\subsubsection{Graphical comparison of $H$}
 
 
-Discuss how the H4 is a composition of the drift 
-and diffusion terms of the other two expected delta
-H.
+\subsubsection{Comparison of $H$}
 
-Point cloud - look at how H-RPS shows the attraction or 
-repulsion of the fixed rps center, 
-SD - attraction to the top point or the bottom RPS pure plane, 
 
-Then H4 - combination where it sign change would indicate whether or 
-not the system is attracted to the central internal fixed point
-in the pyramid - where a sign change would suggest it 
-pushed to one of the faces e.g. the rps plane where q = 0, 
-step towards the boundary means larger H4 - so delta H addition of 
-larger value so sign flip... 
+
 
 Change in sign in SD - up or down
 Change in sign in RPS - into out out of center or RPS plane
