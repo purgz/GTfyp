@@ -175,7 +175,7 @@ Generalised version of other numerical trajectory so that an arbitrary reproduct
 function can be used.
 """
 def numerical_trajectory_from_fokker_planck(matrix, interaction_process="Moran", w=0.2, 
-                                            initial_dist=[0.5,0.2,0.2]):
+                                            initial_dist=[0.5,0.2,0.2], time_span=150):
   # Matrix : np.matrix
 
   a_val = matrix[0, 0]
@@ -217,7 +217,7 @@ def numerical_trajectory_from_fokker_planck(matrix, interaction_process="Moran",
 
   substitutions = substituteHyperParams([a_x, a_y, a_z], config, (x,y,z))
 
-  df = numericalIntegration(substitutions, initial_dist=initial_dist)
+  df = numericalIntegration(substitutions, initial_dist=initial_dist, timeSpan=time_span)
 
   return df
 

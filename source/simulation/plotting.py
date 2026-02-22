@@ -374,14 +374,16 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
 
 
 # 2d ternary plot
-def ternary_plot(traj):
+def ternary_plot(dfs):
 
     fig, axes = plt.subplots(1, 1, figsize=(12, 6))
 
     tax = ternary.TernaryAxesSubplot(ax=axes, scale=1.0)
     tax.boundary()
     tax.gridlines(color="gray", multiple=0.1)
-    tax.plot(traj.to_numpy(), linewidth=1, label="3x3 game trajectory")
+
+    for df in dfs:
+        tax.plot(df.to_numpy(), linewidth=1)
     tax.right_corner_label("A", fontsize=12)
     tax.top_corner_label("B", fontsize=12)
     tax.left_corner_label("C", fontsize=12)
