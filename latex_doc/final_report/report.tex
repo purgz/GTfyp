@@ -42,6 +42,9 @@
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
@@ -484,7 +487,10 @@ altered to adjust the dynamics of the RPS component of the game, if $c > -1$
 then the game will spiral inwards towards a central fixed point and if $c > - 1$
 the RPS trajectories will sprial outwards as shown in the introductory section.
 The values of $\beta$ and $\gamma$ determine the dynamics of the snowdrift component of the 
-game and 4 main cases will be discussed.
+game with the main cases being fixation at either the top (pure 4th strategy), base (pure RPS) or a central equilibrium.
+This depends on the relative payoff difference between the SD and RPS game.
+
+Quick derivation and explanation of the $H_{SD}$ analytical result.
 
 
 
@@ -507,6 +513,40 @@ $N^\prime_{RPS} < N < N^\prime_{SD}$ column shape
 $N^\prime_{SD} < N < N^\prime_{RPS}$ disk shape
 
 $N < N^\prime_{SD}, N^\prime_{RPS}$ random cloud / absorbed by all boundaries
+
+
+
+\begin{figure*}
+\centering
+\begin{tikzpicture}
+  \node[anchor=south west, inner sep=0] (img) at (0,0)
+    {\includegraphics[width=1\textwidth]{./Figures/drift_cases/drift_shaded.pdf}};
+
+  \begin{axis}[
+    at={(img.south west)},
+    anchor=south west,
+    width=1\textwidth,
+    height=1\textwidth*1, 
+    xmin=0, xmax=4,         
+    ymin=0, ymax=4,
+    axis lines=none,          
+    clip=false                 
+  ]
+
+    % Place the EPS thumbnails at data coordinates
+    \node at (axis cs:1.2,3) {\includegraphics[width=5cm]{./Figures/drift_cases/rod_larger_inset.png}};
+    \node at (axis cs:3.3,1) {\includegraphics[width=5cm]{./Figures/drift_cases/disk_larger_inset.png}};
+    \node at (axis cs:3.3,3.3) {\includegraphics[width=5cm]{./Figures/drift_cases/large_N_inset.png}};
+    \node at (axis cs:1.1,1.1) {\includegraphics[width=5cm]{./Figures/drift_cases/low_pop_case_trans.png}};
+
+
+  \end{axis}
+\end{tikzpicture}
+\caption{Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and 
+large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (drift in all directions) where $N << N_{RPS}, N << N_{SD}$}
+\end{figure*}
+
+
 
 \section{Interpretation}
 
