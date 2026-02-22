@@ -744,12 +744,8 @@ if __name__ == "__main__":
     # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
 
   
-    basic_rps = np.array(
-    [[0, -0.2, 1,     0.14], 
-     [1, 0, -0.2,     0.14], 
-     [-0.2, 1, 0,     0.14], 
-     [0.3, 0.3, 0.3, 0]]
-    )
+    simulation.drift_cases_plot_diagonal(savepath="./latex_doc/images/drift_shaded.pdf")
+    simulation.drift_cases_plot_pub()
 
     basic_rps = np.array(
     [[0, -0.8, 1,     0.1], 
@@ -758,26 +754,43 @@ if __name__ == "__main__":
      [0.1, 0.1, 0.1, 0]]
     )
 
-    """avg_point_cloud = simulation.local_batch_cloud(50, iterations=10000, num_points=1000, w=0.45, simulations=1, matrix=basic_rps)
+    """avg_point_cloud = simulation.local_batch_cloud(50, iterations=10000, num_points=1000, w=0.45, simulations=50, matrix=basic_rps)
       
 
     anim = trajectories_to_anim(avg_point_cloud)
-    simulation.point_cloud([anim], matrix=basic_rps)
+    anim.to_csv("./results/low_pop_case.csv", index=False)"""
+    """anim = pd.read_csv("./results/low_pop_case.csv")
+    simulation.point_cloud([anim], matrix=basic_rps,save_file="./results/animations/low_pop_case.mp4")
     """
-    
-    #simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/low_N_case.mp4")
 
     
+    """avg_point_cloud = simulation.local_batch_cloud(30000, iterations=50000000, num_points=500, w=0.45, simulations=1, matrix=basic_rps)
+  
 
-    simulation.drift_cases_plot_diagonal(savepath="./latex_doc/images/drift_shaded.pdf")
-    simulation.drift_cases_plot_pub()
+    anim = trajectories_to_anim(avg_point_cloud)
+    anim.to_csv("./results/high_pop_case.csv", index=False)"""
+    anim = pd.read_csv("./results/high_pop_case.csv")
+    simulation.point_cloud([anim], matrix=basic_rps,save_file="./results/animations/high_pop_case.mp4")
+    
+    
 
-    avg_point_cloud = simulation.local_batch_cloud(300, iterations=2000000, num_points=1000, w=0.45, simulations=20, matrix=basic_rps)
+    
+    basic_rps = np.array(
+    [[0, -0.2, 1,     0.14], 
+     [1, 0, -0.2,     0.14], 
+     [-0.2, 1, 0,     0.14], 
+     [0.3, 0.3, 0.3, 0]]
+    )
+  
+
+    """avg_point_cloud = simulation.local_batch_cloud(300, iterations=2000000, num_points=1000, w=0.45, simulations=20, matrix=basic_rps)
       
 
     anim = trajectories_to_anim(avg_point_cloud)
+    anim.to_csv("./results/rod_case_save.csv", index=False)"""
+    """anim = pd.read_csv("./results/rod_case_save.csv")
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/higher_pop_rod_case_3.mp4")"""
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/higher_pop_rod_case_2.mp4")
     
 
     basic_rps = np.array(
@@ -786,18 +799,23 @@ if __name__ == "__main__":
      [-0.8, 1, 0,     0.4], 
      [0.24, 0.24, 0.24, 0]]
     )
-    simulation.drift_cases_plot()
+    
     
     # New payoff matrix where NRPS >> NSD for clearer disk shape.
     # This parameters seem to work well
     # Run for long time with larger simulations.
-    avg_point_cloud = simulation.local_batch_cloud(600, iterations=400000, num_points=5000, w=0.45, simulations=20, matrix=basic_rps)
+    """avg_point_cloud = simulation.local_batch_cloud(600, iterations=400000, num_points=5000, w=0.45, simulations=20, matrix=basic_rps)
     #avg_point_cloud = simulation.local_point_cloud_avg(400, iterations=300000, w=0.45, num_points=1000, matrix=basic_rps)
 
     anim = trajectories_to_anim(avg_point_cloud)
     
-    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/disk_case.mp4")
-    
+    anim.to_csv("./results/disk_case_save.csv", index=False)"""
+
+    """ 
+    anim = pd.read_csv("./results/disk_case_save.csv")
+
+    simulation.point_cloud([anim], matrix=basic_rps, save_file="./results/animations/disk_case_larger_inset.mp4")
+    """
 
  
 
