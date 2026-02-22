@@ -41,6 +41,7 @@
 \usepackage{graphicx}% Include figure files
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
+\usepackage{float}
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
@@ -167,9 +168,27 @@ computing the eigenvalues of the Jacobian matrix of functions
 $F = \dot x, G = \dot y$.
 
 
-Should include a figure for RPS cyclic dynamics.
 
-Add in the fixed points and stability for RPS.
+In this report I will focus on the case where $a = 0, b = 1$ and $c$ is left as a free parameter which 
+governs the dynamics of the game. In the standard case where $c=1$, the system is neutrally stable and the 
+trajectories oscillate at a fixed distance from the Nash equilibrium $(1/3, 1/3, 1/3)$. 
+When $c < -1$ the system spirals outwards from the equilibrium and will be absorbed by the boundaries and
+finally when $c > -1$ the system will sprial inwards, where cooperation between the 3 strategies is
+preferred. It has previously been shown that a drift reversal effect occurs when $c > -1$ where a critical 
+population size can reverse the drift from the internal stable point towards to boundaries \cite{rps_cyclic_jens}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{Figures/rps_example_in_spiral.pdf}
+\caption{Trajectory for the RPS game where $c = -0.8$. The blue line corresponds to a numerical
+solution of the adjusted replicator dynamics for the Moran process, and the green line is a Moran process
+agent based simulation with a population size of 500. Strength of selection $w = 0.3$}
+\end{figure}
+With a population size of 500, the agent based simulation follows the deterministic trajectory rather well,
+with added noise due to the stochastic noise element arising from a finite population size (fokker planck equation).
+
+Compute the eigenvalues for this instance of the game and decide if its a stable point it should have real components and imaginary
+so it is stable equilibrium that spirals inwards.
 
 \subsection{Snowdrift game}
 
@@ -450,6 +469,25 @@ Value of these integrals as $w \rightarrow 0$
 For the Local update process, an exact solution for the values 
 $\langle \Delta H_{SD} \rangle$ and $\langle \Delta H_{RPS} \rangle$
 can be found.
+
+Considering the payoff matrix:
+\begin{align} \label{SimplifiedRPS}
+\begin{bmatrix}
+    0 & c & 1 & \gamma\\
+    1 & 0 & c & \gamma\\
+    c & 1 & 0 & \gamma\\
+    \beta & \beta & \beta & 0
+\end{bmatrix}
+\end{align}
+In this case the values of $a,b$ have been set to 0 and 1. The value of $c$ can be
+altered to adjust the dynamics of the RPS component of the game, if $c > -1$
+then the game will spiral inwards towards a central fixed point and if $c > - 1$
+the RPS trajectories will sprial outwards as shown in the introductory section.
+The values of $\beta$ and $\gamma$ determine the dynamics of the snowdrift component of the 
+game and 4 main cases will be discussed.
+
+
+
 
 \subsection{Comparison of drift measures}
 

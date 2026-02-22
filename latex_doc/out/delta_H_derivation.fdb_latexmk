@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1771768180 "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1771768182
+["pdflatex"] 1771770224 "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1771770227
   "/etc/texmf/web2c/texmf.cnf" 1761782458 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" 1771768180 27890 db2557ab609c2836ffd4203a146551c9 ""
+  "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" 1771770224 27890 db2557ab609c2836ffd4203a146551c9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -166,7 +166,7 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1762335063 4234243 4a42437c56f0785ccfd4e39da48c38dc ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1771502694 1405648 993d079b88e184c0aaac7483339023dc ""
-  "delta_H_derivation.tex" 1771768180 27890 db2557ab609c2836ffd4203a146551c9 ""
+  "delta_H_derivation.tex" 1771770224 27890 db2557ab609c2836ffd4203a146551c9 ""
   "images/column_case_delta_H.eps" 1771496907 32318 b4f0146c563ec2d2bb9fb1a4e7950fff ""
   "images/column_cloud.eps" 1771496907 178071 09fa50337b78a00b27c8fbd23152b388 ""
   "images/critical_n_analytical.png" 1769729695 20447 2a0892c8eb0958657bc47a3ead631e85 ""
@@ -185,8 +185,8 @@
   "images/rod_larger_inset.png" 1771767233 342115 19d3f3a1891672e33da320fb288f0b1d ""
   "images/rps_sd_delta_H.png" 1769729695 20809 455e1718f1bbbe483737215a48673e2e ""
   "images/sd_rps_double_drift.png" 1769729695 15192 91da730607e8e5ea7f9dd4eb94f0bf3a ""
-  "main.tex" 1771496907 30004 aba444bea5cebee462433236d5bbca90 ""
-  "out/delta_H_derivation.aux" 1771768182 4988 c9ba9a71eea96131ee5dded6b2c9e77b "pdflatex"
+  "main.tex" 1771769076 30004 aba444bea5cebee462433236d5bbca90 ""
+  "out/delta_H_derivation.aux" 1771770227 4988 c9ba9a71eea96131ee5dded6b2c9e77b "pdflatex"
   (generated)
   "out/delta_H_derivation.aux"
   "out/delta_H_derivation.log"

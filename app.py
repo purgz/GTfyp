@@ -106,31 +106,42 @@ def pd_example(
     )
 
 
-def rps_example(N: int = 10000, iterations: int = 1000000) -> None:
+def rps_example(N: int = 500, iterations: int = 50000) -> None:
 
-    w = 0.5
+    w = 0.3
 
     # rps_array = np.array([[0, -1.2 , 1], [1, 0, -1.2], [-1.2, 1, 0]])
 
-    rps_array = np.array([[0, -1, 1], [1, 0, -1], [-1, 1, 0]])
+    rps_array = np.array([[0, -0.8, 1], [1, 0, -0.8], [-0.8, 1, 0]])
+
 
     _, _, m_results, _ = simulation.moran_batch_sim(
         pop_size=N,
-        iterations=iterations,
+        #iterations=iterations,
+        iterations = N * 100,
         w=w,
         matrix=rps_array,
         simulations=1,
-        initial_dist=np.array([0.5, 0.25, 0.25]),
+        initial_dist=np.array([0.6, 0.2, 0.2]),
         traj=True,
         initial_rand=False
     )
+
+    rps_array = np.array([[0, -0.8, 1,0], [1, 0, -0.8,0], [-0.8, 1, 0,0],[0,0,0,0]])
+
+    numerical,_ = replicator.numerical_trajectory_from_fokker_planck(rps_array, w = 0.3, initial_dist=[0.6,0.2,0.2], time_span=100)
+
+    numerical = numerical[["c1", "c2", "c3"]]
+
+
+    rps_array = np.array([[0, -1.2, 1], [1, 0, -1.2], [-1.2, 1, 0]])
     _, _, l_results,_ = simulation.local_batch_sim(
         pop_size=N,
         iterations=iterations,
         w=w,
         matrix=rps_array,
         simulations=1,
-        initial_dist=np.array([0.5, 0.25, 0.25]),
+        initial_dist=np.array([0.7, 0.2, 0.1]),
         traj=True,
         initial_rand=False
     )
@@ -145,8 +156,12 @@ def rps_example(N: int = 10000, iterations: int = 1000000) -> None:
     # fig.show()
     # fig2.show()
 
-    simulation.ternary_plot(df_RPS_MO)
-    simulation.ternary_plot(df_RPS_LO)
+    simulation.ternary_plot([numerical, df_RPS_MO])
+
+
+    #simulation.ternary_plot(df_RPS_MO)
+    #simulation.ternary_plot(df_RPS_LO)
+    exit(0)
 
 
 """
