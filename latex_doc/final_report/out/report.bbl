@@ -30,8 +30,7 @@
 \providecommand \href [0]{\begingroup \@sanitize@url \@href}%
 \providecommand \@href[1]{\@@startlink{#1}\@@href}%
 \providecommand \@@href[1]{\endgroup#1\@@endlink}%
-\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode
-  `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
 \providecommand \@@startlink[1]{}%
 \providecommand \@@endlink[0]{}%
 \providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
@@ -50,24 +49,10 @@
 \providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
 \let\auto@bib@innerbib\@empty
 %</preamble>
-\bibitem [{\citenamefont {Claussen}\ and\ \citenamefont
-  {Traulsen}(2008)}]{rps_cyclic_jens}%
+\bibitem [{\citenamefont {Claussen}\ and\ \citenamefont {Traulsen}(2008)}]{rps_cyclic_jens}%
   \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont
-  {Claussen}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
-  {Traulsen}},\ }\href {https://doi.org/10.1103/PhysRevLett.100.058104}
-  {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf
-  {\bibinfo {volume} {100}},\ \bibinfo {pages} {058104} (\bibinfo {year}
-  {2008})}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2005)\citenamefont
-  {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont
-  {Hauert}}]{drift_reversal_paper}%
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}},\ }\href {https://doi.org/10.1103/PhysRevLett.100.058104} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {100}},\ \bibinfo {pages} {058104} (\bibinfo {year} {2008})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2005)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{drift_reversal_paper}%
   \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
-  {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont
-  {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
-  {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevLett.95.238701} {\bibfield
-   {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo
-  {volume} {95}},\ \bibinfo {pages} {238701} (\bibinfo {year}
-  {2005})}\BibitemShut {NoStop}%
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevLett.95.238701} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo {pages} {238701} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
 \end{thebibliography}%
