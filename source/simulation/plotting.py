@@ -291,12 +291,12 @@ def matrix_to_latex(matrix):
 
 def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(6,6))
 
     ax = fig.add_subplot(projection="3d")
     plot_ax(ax)
     label_points(ax)
-    add_edge_labels(ax)
+    #add_edge_labels(ax)
     add_grid_lines(ax)
     ax.grid(False)
     ax.set_xticks([])
@@ -307,8 +307,13 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
     if matrix is not None:
         test = matrix_to_latex(matrix)
 
-        ax.text2D(0.6,0.6, test, transform=ax.transAxes, fontsize = 18)
-        
+        ax.text2D(
+            0.55, 0.7, test,
+            transform=ax.transAxes,
+            fontsize=10,
+            fontfamily="monospace",
+            
+        )
     colors = ["g","b", "r"]
 
     total_frames = 0
@@ -360,7 +365,7 @@ def point_cloud(dfs, matrix=None, repeat=False, save_file=None):
         #fig.savefig("G:/Game theory project/GTfyp/latex_doc/images/large_N_cloud.eps", format="eps")
         writer = animation.FFMpegWriter(fps=60)
         #save_file = "./results/animations/ani_2.mp4" # Temp
-        ani.save(save_file, writer=writer)
+        ani.save(save_file, writer=writer, dpi=300)
         print("Animation video saved to ", save_file)
       else:
         print("aborting video save, ffmpeg not found")
@@ -622,9 +627,9 @@ def drift_cases_plot_diagonal(savepath=None):
     ax.set_xlim(0.08, 150)
     ax.set_ylim(0.08, 150)
 
-    """# Diagonal y = x
+    # Diagonal y = x
     xx = np.logspace(np.log10(ax.get_xlim()[0]), np.log10(ax.get_xlim()[1]), 200)
-    ax.plot(xx, xx, linestyle="--", linewidth=1.2)"""
+    ax.plot(xx, xx, linestyle="--", linewidth=1.2)
 
     """# Light shading above/below diagonal (works on log scales if done in data coords)
     ax.fill_between(xx, xx, ax.get_ylim()[1], alpha=0.08)   # above y=x
@@ -632,7 +637,7 @@ def drift_cases_plot_diagonal(savepath=None):
 
     ax.text(0.12, 90, r"$N_{RPS}<N_{SD}$",
             fontsize=10)
-    ax.text(75, 0.12, r"$N_{SD}<N_{RPS}$",
+    ax.text(55, 0.12, r"$N_{SD}<N_{RPS}$",
             fontsize=10)
     
     cases = [
