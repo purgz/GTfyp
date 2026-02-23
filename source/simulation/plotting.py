@@ -417,6 +417,7 @@ def game_2d_plot(
 
     plt.legend()
 
+    plt.ylim(0,1)
     plt.show()
 
 
