@@ -116,6 +116,11 @@ processes \cite{rps_cyclic_jens}.
 
 
 The standard rock paper scissors matrix is defined as:
+The combined game analysed mainly as part of this report is a composition of the rock-paper-scissors (RPS) game and the snowdrift (SD) game. 
+
+\subsection{Rock-Paper-Scissors Model}
+
+The general rock paper scissors payoff matrix is defined as:
 \begin{align}
 \begin{bmatrix}
     a & c & b\\
@@ -130,16 +135,22 @@ fixed point of $\left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)$.
 
 \subsubsection{\label{sec:rps_replicator} Replicator dynamics}
 
+To analyze the time evolution of a population under the RPS game, 
+the standard imitation based replicator equations can be derived for the system.
 Let $x$, $y$ and $z$ represent the fraction of players using rock, paper, and scissors
-respectively. $z$ can be defined as $z = 1 - x - y$, reducing the dimension of the replicator equations.
+respectively. The fraction of scissors players $z$ can be defined as $z = 1 - x - y$, 
+reducing the dimension of the replicator equations.
 Expected payoffs for each strategy can then be defined as follows:
 \begin{align}
    \pi_R = a x + b \left(- x - y + 1\right) + c y \\
    \pi_P = a y + b x + c \left(- x - y + 1\right) \\
-   \pi_S = a \left(- x - y + 1\right) + b y + c x
+   \pi_S = a \left(1-x-y\right) + b y + c x
 \end{align}
 
-The replicator equations can be defined for $(x, y)$ using the standard formula:
+Using the standard replicator model for the evolution of population fractions over time, where
+the payoff of an individual is compared to the average payoff in the population, the 
+following well known equation can be used to define a series of differential equations for 
+each of the population fractions:
 
 \begin{equation}
 \dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
@@ -151,9 +162,8 @@ where the average payoff (or mean fitness) in the population is:
 \end{equation}
 
 
-
-This leads to the following replicator equations for x and y:
-
+This leads to the two differential equations for the evolution of the population fractions $x$ and $y$ 
+over time:
 
 \begin{widetext}
 \begin{equation}
@@ -611,12 +621,11 @@ population size, occurs at the point where the value of $\langle H \rangle$ chan
 Depending on the initial parameters, this effect is observed in the RPS and SD subgames, and in some cases
 in both.
 
-Diagram of the main cases - large population attraction to center - one case where drift in SD but strong RPS giving the rod shape.
-Other case where strong SD but drift in RPS, giving the spiral / plane in the center of the simplex.
 
-Main cases:
 
-$N^\prime_{RPS} < N < N^\prime_{SD}$ column shape
+In the case where $N^\prime_{RPS} < N < N^\prime_{SD}$ the point cloud of trajectories from 
+randomly initialized simulations will be attracted to the equilibrium of the RPS game, but will
+exhibit a drift reversal in the SD game, seen in the SD reversal case in Fig.~\ref{drift_cases_fig}.
 
 $N^\prime_{SD} < N < N^\prime_{RPS}$ disk shape
 
@@ -624,7 +633,7 @@ $N < N^\prime_{SD}, N^\prime_{RPS}$ random cloud / absorbed by all boundaries
 
 
 
-\begin{figure*}
+\begin{figure*} 
 \centering
 \begin{tikzpicture}
   \node[anchor=south west, inner sep=0] (img) at (0,0)
@@ -650,7 +659,7 @@ $N < N^\prime_{SD}, N^\prime_{RPS}$ random cloud / absorbed by all boundaries
 
   \end{axis}
 \end{tikzpicture}
-\caption{Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and 
+\caption{\label{drift_cases_fig} Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and 
 large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (drift in all directions) where $N << N_{RPS}, N << N_{SD}$}
 \end{figure*}
 
