@@ -97,12 +97,25 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 
 \section{\label{sec:level1}Introduction:\protect\\ RPS dynamics}
 
+
+\subsection{Evolutionary game theory}
+
+Introduction to evolutionary game theory \cite{evolution_maynard,evolution_pop_dynamics}
+
 To understand the combined game, first must look at the single cases of rock paper scissors and Snowdrift.
 
 \subsection{Rock-Paper-Scissors Model}
-Previous work focusses on the famous cyclical rock-paper-scissors game \cite{rps_cyclic_jens}
+Examples cyclic RPS dynamics appear in biology most notably, cyclic dominance in lizards
+\cite{rps_lizard}, strains of e-coli \cite{rps_ecoli}.
+RPS has been analyzed in the context of evolutionary game theory 
+extensively \cite{evolution_pop_dynamics}.
+Previous work focusses on the rock-paper-scissors game in finite 
+populations and has shown that a drift reversal due to finite populations can 
+arise under certain parameter conditions and microscopic interaction
+processes \cite{rps_cyclic_jens}.
 
-The general rock paper scissors matrix is defined as:
+
+The standard rock paper scissors matrix is defined as:
 \begin{align}
 \begin{bmatrix}
     a & c & b\\
@@ -195,6 +208,44 @@ so it is stable equilibrium that spirals inwards.
 
 \subsection{Snowdrift game}
 
+The snowdrift/hawk-dove game has also been intensely 
+studied \cite{evolution_maynard} 
+and is an example of a anti-coordination game where unlike the famous prisoners dilemma, 
+mutual cooperation is prefered over mutual defection. It describes situations where
+individuals compete over limited resources and the benefits and costs associated with them. 
+
+\begin{align}
+\begin{bmatrix}
+    (\frac{b}{2}-\frac{c}{2}, \frac{b}{2}-\frac{c}{2}) & (\frac{b}{2}-c,\frac{b}{2}) \\ \\
+    (\frac{b}{2}, \frac{b}{2} - c) & (0,0)
+\end{bmatrix}
+\end{align}
+
+The snowdrift game describes a scenario of two drivers trapped in a snowdrift.
+They have the options to shovel the snow an clear a path (cooperate) or stay in their car (defect).
+If both cooperate then they pay a shared cost $\frac{c}{2}$ but share the full benefit and can 
+both drive. However the best outcome for one player is to remain in their car and let the other do
+all the work in turn leaving the full cost $c$ to the other player but if both players
+remain in their car then both remain stranded and receive a payoff of 0. This scenario 
+is often arises in biology and social/economic settings where mutual cooperation would be 
+beneficial and both parties refusing to yield results in the worst outcome. For example in 
+negotiation scenarios/research investing for competing companies/animals and microbes sharing resources
+in yeast cells \cite{yeast_snowdrift} where some cooperating cells produce a necessary enzyme
+meanwhile "cheater" cells do not yet still receive the benefit they provide, other examples of cheating
+microbes \cite{cheating_microbes}. 
+
+Both the snowdrift and the hawk-dove game model a scenario where two players are competing over
+some resource but in a social/economic scenario and a biological competition however in both
+the cost of cooperation is high, and the cost of mutual defection is devastating. The resulting
+Nash equilibrium are two pure strategy equilbrium where players select opposite strategies
+(one gets the whole reward and no cost, whilst the other takes a smaller reward but incurs a heavy cost), 
+and the mixed strategy $(\frac{1}{2}, \frac{1}{2})$ between cooperate and defect, where players
+randomize their selection as defecting all the time results in a payoff of 0.
+
+The mixed strategy case is typically stable [show plot and calculate eigenvalues 
+for a typical example of the snowdrift game.]
+
+
 \section{Combined game definition}
 
 This work focusses on the composite game with the idea of combing snowdrift (SD) and rock-paper-scissors (RPS)
@@ -227,6 +278,34 @@ payoff matrix:
 \end{align}
 This is what the value $H_{SD}$ will essentially be analyzing.
 
+The population can be visualized as a 3d project of a 4-simplex with RPS at the base
+and the fourth (SD) strategy at the top. Cooperation in this game essentially 
+collapses into playing RPS, whilst defection/cooperation pairs lead to typical snowdrift
+dynamics. 
+
+
+\subsection{Replicator dynamics}
+
+Replicator analysis in the infinite population case using typical replicator dyanmics
+\cite{evolution_pop_dynamics}.
+
+\subsection{Stability analysis}
+Stability of the system, an example with interior coexistence with a stable mixed
+strategy SD game and cyclical RPS with a diagram. Show eigenvalues.
+
+
+\section{Interaction processes}
+
+To study the dynamics in finite populations, an interaction process is required for 
+comparison between selected agents at each time step.
+
+A generalized form of the Moran process in terms of transition probabilites between states in the 
+game simplex has been discussed in Ref.\cite{general_moran_process} and I have implemented in the
+simulation code for this project for any number of strategies (in this work focussing on 4
+strategy model). Later these transition probabilities can be used to derive a master equation \cite{alma9933506044604871} which 
+can be expanded in a Taylor series to derive an equation in the form of a Fokker-Planck equation
+describing the time evolution of the probability densities of the population states.
+
 \section{Model and Stochastic Dynamics}
 We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
 The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
@@ -235,7 +314,7 @@ In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker
 
 \section{Fokker-Planck Equation}
 
-Master equation can be derived and using the 2nd order taylor expansion of the transition probabilities
+Master equation \cite{alma9933506044604871} can be derived and using the 2nd order taylor expansion of the transition probabilities
 for each strategy, a fokker-planck equation can be derived for each of the processes.
 
 In the diffusion approximation, the master equation may be expanded
@@ -275,6 +354,16 @@ For the local update process, this $a(x)$ is equal to the standard replicator pa
 (with some scaling factor accounting for selection pressure $w$).
 
 
+The standard replicator dynamics \cite{evolution_pop_dynamics} correspond to the 
+local update process, and matches the replicator equation derived from FP expansion, 
+whereas the Moran process corresponds to the dynamics proposed by John Maynard 
+Smith \cite{evolution_maynard}, 
+where there is an additional normalization by the average payoff of the population.
+Maynard discussed whether the standard dynamics were too restrictive for cases
+where fitness is frequency dependent (in a finite population), and therefor proposed the 
+adjusted dynamics where you can imagine an individual playing against the population as a whole
+via the average payoff term.
+
 \section{Trajectories}
 
 This section will contain both numerical trajectories from the fokker p equation, and
@@ -296,6 +385,23 @@ Note that drift is agreeing with replicator dynamics as $N_c < 2000$}
 
 
 \section{Drift Measures}
+
+A measure of the drift from the internal fixed point of this system can be defined by
+an observation function $H$ \cite{Claussen2007-zo,drift_reversal_paper,rps_cyclic_jens}, and 
+approximating the value of $\dot{H}$ with a discrete sum over the population.
+Previous work in Ref. \cite{Claussen2007-zo,drift_reversal_paper,rps_cyclic_jens} has
+examined this both the 2 and 3 strategy case where only one observable $H$ is used, however
+to analyze the combined game an observable will be defined for each of the sub games to 
+properly describe the dynamics and drift. These will be $H_{SD}, H_{RPS}$, and $H_4$ 
+as approximation of the distance from the SD equilibrium , the RPS equilibrium and then the 
+overall central equilibrium as a whole respectively.
+
+An approximation for $\dot{H}$, $\langle \Delta H \rangle$ can be computed directly from the 
+agent based simulation, however for all the interaction processes the terms can be 
+formulated as an integral and solved numerically on in some cases e.g. Local update, can be 
+solved analytically. This is preferred over simulated approximate values as it is much 
+simpler to compute particularly in the local update case where an exact result can be found 
+for $\langle \Delta H \rangle$. [Put the graph here of critical N for simulated vs exact critical N.]
 
 For each of the components making up the combined 4x4 game a suitable observation
 value $H$ can be defined to measure the distance from the Nash equilibrium 
@@ -326,7 +432,7 @@ Where transition probabilites $T^{s \rightarrow s'}$ must be defined for each of
 microscopic interaction processes. In the combined SD, RPS game there are 3 observation values
 for drift, $H_{SD}$ for effects within the snowdrift game, $H_{RPS}$ for the RPS subgame and 
 $H_4$ for the overall drift in the context of the internal fixed point of all 4 strategies in the 
-payoff matrix.
+payoff matrix. 
 
 After defining the summation in terms of discrete population counts for each of the 
 strategies, it is possible to approximate these values in the continuous limit by replacing
@@ -469,6 +575,7 @@ Value of these integrals as $w \rightarrow 0$
 
 \subsection{Local update analytical solutions}
 
+
 For the Local update process, an exact solution for the values 
 $\langle \Delta H_{SD} \rangle$ and $\langle \Delta H_{RPS} \rangle$
 can be found.
@@ -496,6 +603,7 @@ Quick derivation and explanation of the $H_{SD}$ analytical result.
 
 
 \subsection{Comparison of drift measures}
+
 
 
 Drift reversal, the loss of stability of an attracting fixed point (something about hopf bifurcation) below a critical
@@ -553,8 +661,8 @@ large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (dr
 While $\langle \Delta H_{\mathrm{RPS}} \rangle$ and $\langle \Delta H_{\mathrm{SD}} \rangle$ describe drift within lower--dimensional subspaces, $\langle \Delta H_4 \rangle$ captures stability of full interior coexistence.
 Sign reversals of $\langle \Delta H_4 \rangle$ generally occur at larger population sizes, reflecting the additional geometric suppression of interior states in the four--strategy simplex.
 
-
-
+\clearpage
+\nocite{*}
 \bibliographystyle{apsrev4-2}
 \bibliography{report}
 
