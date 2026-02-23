@@ -57,8 +57,9 @@ def pd_example(
 
     pd_array = Games.PRISONERS_DILEMMA
     pd_array = Games.HAWK_DOVE
+    sd_array = Games.SNOWDRIFT
 
-    initial_dist = np.array([0.8, 0.2])
+    initial_dist = np.array([0.01, 0.99])
 
     iterations = pop_size * 35 # 35 time steps normalized by population size
 
