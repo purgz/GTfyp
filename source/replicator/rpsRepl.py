@@ -30,8 +30,8 @@ y_dot = (y * z) * (payoffP - payoffS) + (y * x) * (payoffP - payoffR)
 
 
 # Fixed points
-x_dot_sub = x_dot.subs({a: 0, b: 1, c: -1})
-y_dot_sub = y_dot.subs({a: 0, b: 1, c: -1})
+x_dot_sub = x_dot.subs({a: 0, b: 1, c: -0.8})
+y_dot_sub = y_dot.subs({a: 0, b: 1, c: -0.8})
 fixed_points = sp.solve([x_dot_sub, y_dot_sub], (x,y), dict=True)
 
 print("RPS REPLICATORS")
@@ -48,7 +48,7 @@ J = sp.Matrix([[F_x, F_y], [G_x, G_y]])
 
 eigenvalues = J.eigenvals()
 
-eigenvalues_sub = {eig.subs({a: 0, b: 1, c: -1}) for eig in eigenvalues}
+eigenvalues_sub = {eig.subs({a: 0, b: 1, c: -0.8}) for eig in eigenvalues}
 
 
 # Evaluate at the fixed point (1/3, 1/3, 1/3)
@@ -72,5 +72,5 @@ print(latex(G_y))
 
 #print(latex(J))
 
-#print(latex(eigenvalues_sub))
+print(latex(eigenvalues_sub))
 print(latex(results))
