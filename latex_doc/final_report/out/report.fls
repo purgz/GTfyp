@@ -313,8 +313,6 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 OUTPUT out/reportNotes.bib
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc
-INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-bold.luc
-INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-regular.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
@@ -360,6 +358,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-italic.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman6-regular.luc
+INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-bold.luc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
