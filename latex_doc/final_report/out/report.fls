@@ -397,6 +397,12 @@ INPUT ./Figures/rps_example_in_spiral.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
+INPUT ./Figures/arps_standard_simplex.pdf
+INPUT ./Figures/arps_standard_simplex.pdf
+INPUT ./Figures/arps_standard_simplex.pdf
+INPUT ./Figures/arps_time_series_standard.pdf
+INPUT ./Figures/arps_time_series_standard.pdf
+INPUT ./Figures/arps_time_series_standard.pdf
 INPUT ./Figures/pop_200_correct_drift.png
 INPUT ./Figures/pop_200_correct_drift.png
 INPUT ./Figures/pop_200_correct_drift.png
