@@ -762,22 +762,36 @@ if __name__ == "__main__":
             
 
 
-    """
-    basic_rps = np.array([[0,   -0.6,   1,       0.5],
-                      [1,    0,   -0.6,       0.5],
-                      [-0.6,   1,   0,        0.5],
-                      [0.25, 0.25, 0.25, 0]])
-    """
+    
+    basic_rps = np.array([[0,   -1,   1,       0.2],
+                      [1,    0,   -1,       0.2],
+                      [-1,   1,   0,        0.2],
+                      [0.1, 0.1, 0.1, 0]])
+    
+    # Time steps 150
+    numerical_moran, t_eval = replicator.numerical_trajectory_from_fokker_planck(basic_rps, interaction_process="Moran",
+                                                                        w=0.45)
 
-    # Double reversal
-    # _,_,_, all_traj = simulation.moran_batch_sim(10000, 3000000, 0.45, 300, point_cloud=True)
+    N = 100000
+    _,_, moran_traj, _ = simulation.moran_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 1, 
+                                                    point_cloud=False, traj=True, initial_rand=False,
+                                                    initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+    
+    print(numerical_moran)
 
-    # _,_,_, all_traj = simulation.moran_batch_sim(200, 3000000, 0.45, 300, point_cloud=True)
+    df = pd.DataFrame({"c1": moran_traj[0], "c2": moran_traj[1], "c3": moran_traj[2], "c4": moran_traj[3]})
+
+    
+    simulation.high_dim_2d_plot(None, Ns = [None,N], labels=["Adjusted", "Moran"], norm=[False, True], data_res =1,
+                                dfs=[numerical_moran, df], t_eval=t_eval)
+    
+    simulation.quaternary_plot_same_axis([numerical_moran, df], labels=["Numerical", "Moran"], show=True)
+
 
   
-    simulation.drift_cases_plot_diagonal(savepath="./latex_doc/images/drift_shaded.pdf")
+    """simulation.drift_cases_plot_diagonal(savepath="./latex_doc/images/drift_shaded.pdf")
     simulation.drift_cases_plot_pub()
-
+    """
     basic_rps = np.array(
     [[0, -0.8, 1,     0.1], 
      [1, 0, -0.8,     0.1], 

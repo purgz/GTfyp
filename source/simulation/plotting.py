@@ -435,31 +435,48 @@ def high_dim_2d_plot(
     norm=[True],
     t_eval=None,
     data_res=50,
+    dfs = None
 ):
 
     fig = plt.figure()
     colors = ["r", "g", "b"]
-    for i in range(len(file_paths)):
+    if dfs is not None:
+        for i, df in enumerate(dfs):
+            color = colors[i]
+            r = df.iloc[:, 0]
+            p = df.iloc[:, 1]
+            s = df.iloc[:, 2]
+            a = df.iloc[:, 3]
 
-        color = colors[i]
+            for j in range(len(df.columns)):
+                if norm[i]:
+                    # Need to remultiply by data res to fix scaling
+                    time_norm = (np.arange(len(df)) * data_res) / Ns[i]
+                    plt.plot(time_norm, df.iloc[:, j])
+                else:
+                   
+                    plt.plot(t_eval, df.iloc[:, j], color=color, linestyle="dashed")
+    else:
+        for i in range(len(file_paths)):
 
-        data = pd.read_csv(file_paths[i], comment="#")
 
-        r = data.iloc[:, 0]
-        p = data.iloc[:, 1]
-        s = data.iloc[:, 2]
-        a = data.iloc[:, 3]
+            data = pd.read_csv(file_paths[i], comment="#")
 
-        for j in range(len(data.columns)):
-            if norm[i]:
-                # Need to remultiply by data res to fix scaling
-                time_norm = (np.arange(len(data)) * data_res) / Ns[i]
-                plt.plot(time_norm, data.iloc[:, j])
-            else:
-                plt.plot(t_eval, data.iloc[:, j], color=color)
+            r = data.iloc[:, 0]
+            p = data.iloc[:, 1]
+            s = data.iloc[:, 2]
+            a = data.iloc[:, 3]
+
+            for j in range(len(data.columns)):
+                if norm[i]:
+                    # Need to remultiply by data res to fix scaling
+                    time_norm = (np.arange(len(data)) * data_res) / Ns[i]
+                    plt.plot(time_norm, data.iloc[:, j])
+                else:
+                    plt.plot(t_eval, data.iloc[:, j], color=color)
 
     plt.xlabel("T")
-    plt.ylabel("R,P,S,A")
+    plt.ylabel("R,P,S,+")
     plt.show()
 
 
