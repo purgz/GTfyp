@@ -150,7 +150,7 @@ the payoff of an individual is compared to the average payoff in the population,
 following well known equation can be used to define a series of differential equations for 
 each of the population fractions:
 
-\begin{equation}
+\begin{equation} \label{eq:standard_replicator_dynamics}
 \dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
 \end{equation}
 
@@ -219,9 +219,19 @@ evaluates to
 \end{align}
 Since $\operatorname{Re}(\lambda_{1,2}) = 0$ and the eigenvalues are purely imaginary,
 the interior fixed point is a (nonlinear) center and the trajectories form closed periodic 
-orbits at a fixed distance determined by the initial population fractions.
+orbits at a fixed distance determined by the initial population fractions as seen in 
+Fig.~\ref{fig:rps_standard}.
 
-Diagram here.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{Figures/rps_standard.pdf}
+\caption{\label{fig:rps_standard} Standard zero sum RPS game. $w = 0.3$, analytical trajectory (blue), 
+large $N$ (500000) in green and small $N$ (2000) in orange for comparison. Large $N$ closely follows
+the replicator dynamics as expected, small $N$ is heavily influenced by noise
+and doesnt precisely follow dynamics. Agrees with stability analysis, periodic 
+orbits at a fixed distance determined by the initial population.}
+\end{figure}
 
 \hfill
 
@@ -245,7 +255,8 @@ with added noise due to the stochastic noise element arising from a finite popul
 
 The eigenvalues of the game in Fig.~\ref{fig:rps_sink} are:
 \begin{equation}
-\lambda_{1,2} =-\frac{1}{30} \pm \frac{3 \sqrt{3}}{10}i
+\lambda_{1}, \lambda_2 = \left\{-\frac{1}{30} + \frac{3 \sqrt{3}}{10}i,
+-\frac{1}{30} - \frac{3 \sqrt{3}}{10}i\right\}
 \end{equation}
 Since the real part of the eigenvaleus are negative, 
 $\operatorname{Re}(\lambda_{1,2}) = -\frac{1}{30} < 0$ the fixed point $\frac{1}{3}, \frac{1}{3}$
@@ -308,7 +319,7 @@ fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
 
 \section{Combined game definition}
 
-This work focusses on the composite game with the idea of combing snowdrift (SD) and rock-paper-scissors (RPS)
+This work focusses on the composite game with the idea of combining snowdrift (SD) and rock-paper-scissors (RPS)
 into a single four strategy payoff matrix. Average payoffs, replicator equations and fixed points can 
 subsequently be derived and the deterministic dynamics can be studied. The simulation tool can do all of this,
 plot trajectories both in 2d and and in the 3d pyramid simplex. 
@@ -336,7 +347,10 @@ payoff matrix:
     \beta & 0 \\
 \end{bmatrix}
 \end{align}
-This is what the value $H_{SD}$ will essentially be analyzing.
+Where $\langle RPS \rangle$ is the expected value of the RPS game.
+The observation function $H_{SD}$ equation \ref{eq:delta_h_sd} will measure the distance
+from the fixed point of this game purely in the SD context (the vertical column in the 
+4-simplex).
 
 The population can be visualized as a 3d project of a 4-simplex with RPS at the base
 and the fourth (SD) strategy at the top. Cooperation in this game essentially 
@@ -346,13 +360,80 @@ dynamics.
 
 \subsection{Replicator dynamics}
 
-Replicator analysis in the infinite population case using typical replicator dyanmics
-\cite{evolution_pop_dynamics}.
+The payoffs for this game are:
+
+\begin{align}
+    \pi_R &= a x + b z + c y + \gamma (1 - x - y - z) \nonumber \\
+    \pi_P &= a y + b x + c z + \gamma (1 - x - y - z) \nonumber \\
+    \pi_S &= a z + b y + c x + \gamma (1- x - y - z)\nonumber  \\
+    \pi_+ &= x (a + \beta) + y (a + \beta) + z (a + \beta)\nonumber 
+\end{align}
+Using $+$ to denote the 4th strategy.
+
+The standard replicator dynamics \cite{evolution_pop_dynamics} Equation \ref{eq:standard_replicator_dynamics} 
+considering the case where $N$ is infinitely large:
+
+\begin{widetext}
+\begin{align} 
+\dot x &= x (a x + b z + c y + \gamma (1- x - y - z) - x (a x + b z + c y 
++ \gamma (1- x - y - z ))  - y (a y + b x + c z + \gamma (1- x - y - z))  \nonumber\\ 
+&- z (a z + b y + c x 
++ \gamma (1- x - y - z))  - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1- x - y - z)) \nonumber
+\end{align}
+\begin{align}
+\dot{y} &= y \big(a y + b x + c z + \gamma (1-x - y - z)
+- x (a x + b z + c y + \gamma (1-x - y - z ))  - y (a y + b x + c z + \gamma (1-x - y - z)) \nonumber\\
+&- z (a z + b y + c x + \gamma (1-x - y - z))  - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1-x - y - z) \big) \nonumber
+\end{align}
+\begin{align}
+\dot{z} &= z \big(a z + b y + c x + \gamma (1-x - y - z)
+- x (a x + b z + c y + \gamma (1-x - y - z)) - y (a y + b x + c z + \gamma (1-x - y - z )) \nonumber\\
+&- z (a z + b y + c x + \gamma (1-x - y - z)) - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1-x - y - z) \big) \nonumber
+\end{align}
+\end{widetext}
+
+
 
 \subsection{Stability analysis}
-Stability of the system, an example with interior coexistence with a stable mixed
-strategy SD game and cyclical RPS with a diagram. Show eigenvalues.
+Defining $F = \dot{x}, G = \dot{y}, P = \dot{z}$ the Jacobian for this system is:
 
+\begin{equation}
+J = 
+\begin{bmatrix}
+\frac{\partial F}{\partial x} & \frac{\partial F}{\partial y} &\frac{\partial F}{\partial z} \\[6pt]
+\frac{\partial G}{\partial x} & \frac{\partial G}{\partial y} &\frac{\partial G}{\partial z} \\[6pt]
+\frac{\partial P}{\partial x} & \frac{\partial P}{\partial y} & \frac{\partial P}{\partial z}
+\end{bmatrix}
+\end{equation}
+
+
+Considering one particular instance of this game where
+$a = 0, b=1, c= -1$ (standard rock paper scissors) and $\gamma = 0.2, \beta = 0.1$, 
+there is an internal fixed point at $\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$.
+The eigenvalues of this system are:
+
+\begin{align}
+\lambda_1, \lambda_2, \lambda_3 = \left\{-\frac{1}{15}, 
+\frac{2\sqrt{3}}{9}i, -\frac{2\sqrt{3}}{9}i
+\right\} \nonumber\\
+\end{align}
+
+The negative real eigenvalue here $-\frac{1}{15}$ indicates the 
+stable plane where the trajectories will converge to (the snowdrift direction), and 
+the pair of purely imaginary eigenvalues indicate the nonlinear center as 
+before for stanrd rock paper scissors seen in Fig.~\ref{fig:rps_standard}.
+This means the system will converge to the fixed points RPS plane, and then 
+oscillate at a fixed distance from the center point $\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$.
+
+[Add diagram here for c = -1]
+
+As for RPS, setting parameter $c = -0.8$ or any $c > -1$, the RPS system becomes
+attracting and the system would converge to the fixed points RPS plane,
+whilst also being attracted inwards to the fixed point indicating a stable 
+coexistence of all four strategies.
+The eigenvalues in this case ($c=-0.8$) are:
+
+[Add diagram and eigenvalues here for C = -0.8]
 
 \section{Interaction processes}
 
@@ -543,7 +624,7 @@ This expression shows that finite population drift is controlled by antisymmetri
 The 4th strategy occurs with frequency $q = 1 - x - y - z$, 
 we define the snowdrift coexistence measure
 
-\begin{equation} 
+\begin{equation} \label{eq:H_SD}
 H_{SD} = - q(1-q)
 \end{equation}
 

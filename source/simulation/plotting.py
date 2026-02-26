@@ -382,8 +382,14 @@ def ternary_plot(dfs):
     tax.boundary()
     tax.gridlines(color="gray", multiple=0.1)
 
+    flag = True
     for df in dfs:
-        tax.plot(df.to_numpy(), linewidth=1)
+        
+        if flag:
+            tax.plot(df.to_numpy(), linewidth=1, zorder=3)
+            flag = False
+        else:
+            tax.plot(df.to_numpy(), linewidth=1)
     tax.right_corner_label("A", fontsize=12)
     tax.top_corner_label("B", fontsize=12)
     tax.left_corner_label("C", fontsize=12)

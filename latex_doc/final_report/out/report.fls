@@ -379,9 +379,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
 OUTPUT out/report.pdf
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
-INPUT ./Figures/rps_example_in_spiral.pdf
-INPUT ./Figures/rps_example_in_spiral.pdf
-INPUT ./Figures/rps_example_in_spiral.pdf
+INPUT ./Figures/rps_standard.pdf
+INPUT ./Figures/rps_standard.pdf
+INPUT ./Figures/rps_standard.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm
@@ -391,6 +391,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib9.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy9.tfm
+INPUT ./Figures/rps_example_in_spiral.pdf
+INPUT ./Figures/rps_example_in_spiral.pdf
+INPUT ./Figures/rps_example_in_spiral.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
