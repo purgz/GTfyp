@@ -323,6 +323,13 @@ This work focusses on the composite game with the idea of combining snowdrift (S
 into a single four strategy payoff matrix. Average payoffs, replicator equations and fixed points can 
 subsequently be derived and the deterministic dynamics can be studied. The simulation tool can do all of this,
 plot trajectories both in 2d and and in the 3d pyramid simplex. 
+These dynamics have been considered before \cite{evolution_pop_dynamics}, 
+however not in extensive detail nor in finite populations. 
+In this report I show that there 
+is a drift reversal and that this occurs at different population sizes, 
+and can be tuned to provide different distinct cases, 
+altering the dynamics from the infinite N case depending on the 
+relative critical population sizes. 
 
 
 The combined game is defined as:
@@ -471,6 +478,26 @@ simulation code for this project for any number of strategies (in this work focu
 strategy model). Later these transition probabilities can be used to derive a master equation \cite{alma9933506044604871} which 
 can be expanded in a Taylor series to derive an equation in the form of a Fokker-Planck equation
 describing the time evolution of the probability densities of the population states.
+
+The Moran process models evolution as a birth death process where at each update step
+one individual is chosen proportional to their fitness in the population for 
+reproduction, and one individual is chosen to be killed and replaced by the
+strategy of the chosen individual. For the selection process individuals need to have
+access to a global average population fitness as individuals are chosen 
+relative to their fitness in the whole population. 
+
+In the context of the combined game the probability of switching from one strategy
+to another in the Moran process (specifically $R \rightarrow +$) is defined as:
+\begin{equation}
+T^{R \rightarrow +} = \text{transition here} 
+\end{equation}
+where $R,+$ denote rock and the 4th strategy and there is $i$ rock players, 
+and $N-i-j-k$ $(+)$ players.
+
+The transitions between the other strategies are just permutations of the above
+with the corresponding payoffs and populations. $T^{R \rightarrow +}$ will be 
+simply written as $T^{R+}$, and similarly for other transitions from here.
+
 
 \section{Model and Stochastic Dynamics}
 We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
@@ -787,6 +814,8 @@ $N^\prime_{SD} < N < N^\prime_{RPS}$ disk shape
 $N < N^\prime_{SD}, N^\prime_{RPS}$ random cloud / absorbed by all boundaries
 
 
+Table here of the exact values from the appendix.
+
 
 \begin{figure*} 
 \centering
@@ -826,6 +855,14 @@ large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (dr
 
 While $\langle \Delta H_{\mathrm{RPS}} \rangle$ and $\langle \Delta H_{\mathrm{SD}} \rangle$ describe drift within lower--dimensional subspaces, $\langle \Delta H_4 \rangle$ captures stability of full interior coexistence.
 Sign reversals of $\langle \Delta H_4 \rangle$ generally occur at larger population sizes, reflecting the additional geometric suppression of interior states in the four--strategy simplex.
+
+
+Eigenvalues for each of the games are:
+
+table here with 3 eigenvalues for each of the payoff matrices for the large diagram.
+
+briefly discuss stability and reference the drift reversal in each case SD, RPS
+e.g attracting fixed point becomes repelling in RPS, but not SD
 
 \clearpage
 \nocite{*}
