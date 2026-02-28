@@ -467,6 +467,16 @@ The eigenvalues in this case ($c=-0.8$) are:
 
 [Add diagram and eigenvalues here for C = -0.8]
 
+
+
+\section{Model and Stochastic Dynamics}
+We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
+The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
+At each update step, individuals interact according to a payoff matrix $\mathbf{A}$ and reproduce according to a specified microscopic update rule.
+In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker--Planck equation governing the probability density $P(\mathbf{x},t)$.
+
+
+
 \section{Interaction processes}
 
 To study the dynamics in finite populations, an interaction process is required for 
@@ -488,27 +498,120 @@ relative to their fitness in the whole population.
 
 In the context of the combined game the probability of switching from one strategy
 to another in the Moran process (specifically $R \rightarrow +$) is defined as:
+
 \begin{equation}
-T^{R \rightarrow +} = \text{transition here} 
+    T^{R \rightarrow +} = \frac{1}{2} \frac{1 - w + w \pi_+}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{N - i - j - k}{N}
 \end{equation}
+
 where $R,+$ denote rock and the 4th strategy and there is $i$ rock players, 
 and $N-i-j-k$ $(+)$ players.
+
+And transitions within the RPS game will are of the form:
+
+\begin{equation}
+    T^{R \rightarrow S} = \frac{1}{2} \frac{1 - w + w \pi_S}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{k}{N}
+\end{equation}  
+where $w$ is the strength of selection, how much the fitness of an individual 
+plays a role in reproduction vs random selection. In weak selection 
+limit where $w \rightarrow 0$, this transition probability just becomes 
+$\frac{1}{2}\frac{N_i N_j}{N^2}$, and selection is purely random.
 
 The transitions between the other strategies are just permutations of the above
 with the corresponding payoffs and populations. $T^{R \rightarrow +}$ will be 
 simply written as $T^{R+}$, and similarly for other transitions from here.
 
 
-\section{Model and Stochastic Dynamics}
-We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
-The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
-At each update step, individuals interact according to a payoff matrix $\mathbf{A}$ and reproduce according to a specified microscopic update rule.
-In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker--Planck equation governing the probability density $P(\mathbf{x},t)$.
+Another model is the Local update process which considers two 
+randomly selected individuals $a,b$ in the population, and individual
+$b$ transitions to individual $a$ with a probability proportional to 
+their difference in payoff. Unlike the Moran process this does not require
+every individual to know the global average payoff as reproduction 
+is decided purely based on local interactions.
+
+
+Individual $b$ switches to $a$'s strategy with probability:
+\begin{equation}
+p = \frac{1}{2} + \frac{w}{2} \frac{\pi_a - \pi_b}{\Delta \pi_{max}}
+\end{equation}
+
+The transition probability of switching strategy is then:
+
+\begin{equation}
+  T^{R \rightarrow +} = \left (\frac{1}{2} + \frac{w}{2} \frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}} \right ) \frac{i}{N} \frac{N - i - j - k}{N}
+\end{equation}
+
+Where $\Delta \pi_{max}$ is the maximum difference in payoff for the payoff matrix.
+In the standard RPS case where $\gamma, \beta < 1$, this is two as the maximum difference
+is the difference between an RPS win and loss.
+
+
+The final model considered (and available in simulation library) is a local
+fermi process, similar to the local update process where only 
+payoffs between two individuals are compared.
+
+Probability of individual $b$ taking $a$'s strategy is:
+
+\begin{equation}
+p = \frac{1}{1 + e^{-w(\pi_a- \pi_b)}}
+\end{equation}
+
+And 
+
+
+\begin{equation}
+T^{R \rightarrow +} = \left( \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}\right) \frac{i}{N} \frac{N-i-j-k}{N}
+\end{equation}
+
+
+\subsection{General form}
+
+A general form for the transition probability between any two 
+strategies can be given by:
+
+\begin{equation}
+  \phi(b \rightarrow a) \frac{N_a N_b}{N^2}
+\end{equation}
+
+Where a reproductive function $\phi$ is defined for each process.
+This is how it is implemented in augrps file, with functions
+to create a transition probs dict given a suitable reproduction 
+function that meets the interface. (see appendix, and augrps for 
+more detail in the symbolic implementation of this in python
+with sympy (reference sympy maybe?))
+
+
+\begin{align}
+\phi_{MO}(\pi_a, \langle \pi \rangle, w) &= \frac{1}{2} \frac{1 - w + w \pi_a}{1 - w + w \langle \pi \rangle} \\
+\phi_{LU}(\pi_a, \pi_b, w) &= \frac{1}{2} +  \frac{w}{2} \frac{\pi_a - \pi_b}{\Delta \pi_{max}} \\
+\phi_{FP}(\pi_a, \pi_b, w) &= \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}
+\end{align}
+
 
 \section{Fokker-Planck Equation}
 
 Master equation \cite{alma9933506044604871} can be derived and using the 2nd order taylor expansion of the transition probabilities
 for each strategy, a fokker-planck equation can be derived for each of the processes.
+
+Used to describe particle motion (brownian motion) but can be applied
+to finite population with the defined hopping probabilities.
+
+The master equation defines the time evolution of a probability density, 
+and using the kramers-moyal expansion processes a FPE can be formed, 
+a differential equation consisting of drift and noise, and in this case
+determinitic replicator dynamics, and stochastic noise from
+ finite $N$.
+
+The master equation is defined as:
+
+\begin{equation}
+P = \text{master eq here}
+\end{equation}
+
+Expanding the probabilities and the transition probabilites to the 
+second order taylor expansion, the master equation can be 
+expanded 
+
+For full derivation of the FPE for this system, see appendix.
 
 In the diffusion approximation, the master equation may be expanded
 to second order in $1/N$, yielding 
@@ -557,13 +660,53 @@ where fitness is frequency dependent (in a finite population), and therefor prop
 adjusted dynamics where you can imagine an individual playing against the population as a whole
 via the average payoff term.
 
+A langevin equation describing the trajectory of a single individual in the
+game, essentially a stochastic replicator equation follows from this:
+
+\begin{equation}
+\dot{x} = a(x) + b(x) \xi
+\end{equation}
+
+When plotting a time series of a particular interaction process simulation,
+the determinisic dynamics (infinite N) comparison can be made by 
+ignoring the noise term $b(x)$ as it contains a factor $1/N$, and 
+solving numerically $a(x)$ which corresponds to the deterministic 
+replicator dynamics for that interaction process.
+
+\subsection{Deterministic dynamics}
+
+Considering $a(x)$ for the different processes shows
+that for the Moran process, it corresponds to the adjusted 
+replicator dynamics considered in Ref.\cite{evolution_maynard} as shown in 
+Ref.\cite{drift_reversal_paper}.
+
+\begin{equation}
+\dot{x}_{MO} = ...
+\end{equation}
+
+The local update process corresponds to the standard replicator 
+dynamics \cite{evolution_pop_dynamics} used in section
+(reference rps introduction) to define the deterministic dynamics
+for RPS and SD but with an additional scaling by the
+constant selection pressure
+$w$ which was not considerd in infinite $N$ scenarios.
+
+\begin{equation}
+\dot{x}_{LU} = ...
+\end{equation}
+
+\begin{equation}
+\dot{x}_{FE} = ...
+\end{equation}
+
+
 \section{Trajectories}
 
 This section will contain both numerical trajectories from the fokker p equation, and
 the simulated results from simulation engine. Also the link to all three processes and their
 deterministic limit in infinite N.
 
-
+Maybe remove this section.
 
 \begin{figure}[h]
 \includegraphics[scale=0.8]{Figures/pop_200_correct_drift.png}
