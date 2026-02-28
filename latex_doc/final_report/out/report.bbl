@@ -76,12 +76,12 @@
 \bibitem [{\citenamefont {Kampen}(2007)}]{alma9933506044604871}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~G.~v.}\ \bibnamefont {Kampen}},\ }\href {https://ebookcentral.proquest.com/lib/bham/detail.action?docID=291692} {\emph {\bibinfo {title} {Stochastic processes in physics and chemistry}}},\ \bibinfo {edition} {3rd}\ ed.,\ North-Holland personal library\ (\bibinfo  {publisher} {Elsevier},\ \bibinfo {address} {Amsterdam},\ \bibinfo {year} {2007})\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Claussen}(2007)}]{Claussen2007-zo}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Eur. Phys. J. B}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo {pages} {391} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2005)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{drift_reversal_paper}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevLett.95.238701} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo {pages} {238701} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Claussen}(2007)}]{Claussen2007-zo}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Eur. Phys. J. B}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo {pages} {391} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Lam}\ \emph {et~al.}(2015)\citenamefont {Lam}, \citenamefont {Pitrou},\ and\ \citenamefont {Seibert}}]{lam2015numba}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.~K.}\ \bibnamefont {Lam}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Pitrou}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Seibert}},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC}}}\ (\bibinfo {year} {2015})\ pp.\ \bibinfo {pages} {1--6}\BibitemShut {NoStop}%
