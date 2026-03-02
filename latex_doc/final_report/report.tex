@@ -788,7 +788,11 @@ For the three-strategy subsystem, the replicator equations have the constant of 
 H_{\mathrm{RPS}} = - x y z
 \end{equation}
 
+$\langle \Delta H_{RPS} \rangle$ is approximated by a sum:
 
+\begin{equation}
+\langle \Delta H_{RPS} \rangle = ...
+\end{equation}
 
 \begin{equation}
 \begin{aligned}
@@ -824,15 +828,20 @@ H_{SD} = - q(1-q)
 
 The expected value of $\Delta H_{SD}$ over the entire simplex 
 can be defined, similarly to the RPS case, and approximated by 
-a continuous integral as follows:
+a sum as follows:
 
+
+\begin{widetext}
 \begin{equation}
 \begin{aligned}
 \langle \Delta H_{\mathrm{SD}} \rangle 
-&= \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j} \\
-& \Big[ \Big] 
+&= \frac{6}{N^5} \sum_{i=1}^{N} \sum_{j=1}^{N-i}  \sum_{k=1}^{N-i-j}  \Big[(N-i-j-k)(1-N+i+j+k)(T^{R+} + T^{P+} + T^{S+}+ T^{+R}+ T^{+P} +T^{+S}) \\
+&- (N-i-j-k + 1)(-N+i+j+k)T^{R+} - (N-i-j-k + 1)(-N + i + j + k)T^{P+} \\
+&- (N-i-j-k - 1)(2 - N + i + j + k)T^{+R} - (N - i - j - k - 1)(2 - N + i + j + k)T^{+P} \\
+&- (N - i - j - k - 1)(2 - N + i + j + k)T^{+S}\Big]
 \end{aligned}
 \end{equation}
+\end{widetext}
 
 
 \begin{align}\label{eq:delta_h_sd}
