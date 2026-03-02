@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  28 FEB 2026 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  2 MAR 2026 11:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -545,31 +545,37 @@ File: Figures/pop_200_correct_drift.png Graphic file (type png)
 <use Figures/pop_200_correct_drift.png>
 Package pdftex.def Info: Figures/pop_200_correct_drift.png  used on input line 712.
 (pdftex.def)             Requested size: 238.08981pt x 244.11232pt.
- [7 <./Figures/pop_200_correct_drift.png>] [8] [9]
+ [7 <./Figures/pop_200_correct_drift.png>] [8]
+Overfull \vbox (4.15776pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (4.15776pt too high) has occurred while \output is active []
+
+ [9]
 <./Figures/drift_cases/drift_shaded.pdf, id=114, 544.45515pt x 546.3612pt>
 File: ./Figures/drift_cases/drift_shaded.pdf Graphic file (type pdf)
 <use ./Figures/drift_cases/drift_shaded.pdf>
-Package pdftex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 967.
+Package pdftex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 976.
 (pdftex.def)             Requested size: 510.0pt x 511.79553pt.
 <./Figures/drift_cases/rod_larger_inset.png, id=115, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/rod_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/rod_larger_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 987.
+Package pdftex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 996.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
 <./Figures/drift_cases/disk_larger_inset.png, id=116, 2843.62375pt x 2843.62375pt>
 File: ./Figures/drift_cases/disk_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/disk_larger_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 987.
+Package pdftex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 996.
 (pdftex.def)             Requested size: 142.26378pt x 142.23291pt.
 <./Figures/drift_cases/large_N_inset.png, id=117, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/large_N_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/large_N_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 987.
+Package pdftex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 996.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
 <./Figures/drift_cases/low_pop_case_trans.png, id=118, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/low_pop_case_trans.png Graphic file (type png)
 <use ./Figures/drift_cases/low_pop_case_trans.png>
-Package pdftex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 987.
+Package pdftex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 996.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
  (out/report.bbl [10] [11 <./Figures/drift_cases/drift_shaded.pdf> <./Figures/drift_cases/rod_larger_inset.png> <./Figures/drift_cases/disk_larger_inset.png> <./Figures/drift_cases/large_N_inset.png> <./Figures/drift_cases/low_pop_case_trans.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 63--64
@@ -593,15 +599,15 @@ L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 25769 strings out of 468662
- 645137 string characters out of 5444563
- 1204032 words of memory out of 5000000
- 54092 multiletter control sequences out of 15000+600000
+ 25770 strings out of 468662
+ 645147 string characters out of 5444563
+ 1213032 words of memory out of 5000000
+ 54093 multiletter control sequences out of 15000+600000
  642402 words of font info for 94 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  84i,16n,104p,948b,1873s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/report.pdf (12 pages, 3616425 bytes).
+Output written on out/report.pdf (12 pages, 3616679 bytes).
 PDF statistics:
  252 PDF objects out of 1000 (max. 8388607)
  171 compressed objects within 2 object streams
