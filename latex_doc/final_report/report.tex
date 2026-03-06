@@ -790,9 +790,20 @@ H_{\mathrm{RPS}} = - x y z
 
 $\langle \Delta H_{RPS} \rangle$ is approximated by a sum:
 
-\begin{equation}
-\langle \Delta H_{RPS} \rangle = ...
-\end{equation}
+
+\begin{align}
+  \langle \Delta H_{RPS} \rangle &=
+  \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[
+  ijk(T^{RP} + T^{RS} + T^{R+} \nonumber \\
+  & + T^{PR} + T^{PS} + T^{P+} + T^{SR} + T^{SP} + T^{S+} \nonumber \\
+  & + T^{+R} + T^{+P} + T^{+S}) - k(i-1)(j+1)T^{RP} \nonumber \\
+  &- (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \nonumber\\
+  &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} \nonumber \\
+  & - ik(j-1)T^{P+} - (i+1)j(k-1)T^{SR} \nonumber \\
+  & - i(j+1)(k-1)T^{SP} - ij(k-1)T^{S+} \nonumber \\
+  &- jk(i+1)T^{+R} - ik(j+1)T^{+P} \nonumber \\
+  &- ij(k+1)T^{+S}\Big]
+\end{align}
 
 \begin{equation}
 \begin{aligned}
@@ -815,7 +826,12 @@ $\langle \Delta H_{RPS} \rangle$ is approximated by a sum:
 \Big]
 \end{aligned}
 \end{equation}
-This expression shows that finite population drift is controlled by antisymmetric differences of transition probabilities between competing strategies.
+
+The RPS drift is therefore controlled by differences of 
+transition probabilites between the RPS states as in 
+\cite{rps_cyclic_jens} with additional terms in and out of the 
+RPS game itself to the 4th strategy.
+
 
 \subsection{Snowdrift Drift}
 
@@ -941,7 +957,24 @@ The values of $\beta$ and $\gamma$ determine the dynamics of the snowdrift compo
 game with the main cases being fixation at either the top (pure 4th strategy), base (pure RPS) or a central equilibrium.
 This depends on the relative payoff difference between the SD and RPS game.
 
-Quick derivation and explanation of the $H_{SD}$ analytical result.
+
+For the full derivation of these exact solutions, see 
+appendix section (analyical solution for the local update
+process)
+
+
+\begin{equation}
+\langle \Delta H_{RPS} \rangle_{LU} = \frac{1}{120N^2} 
+- \frac{w(2 + \gamma - 3\beta = 2c)}{3360N\Delta \pi_{max}}
+\end{equation}
+Setting this to 0, an exact solution for the local update critical 
+population size is:
+\begin{equation}
+N^\prime_{RPS} = \frac{28\Delta \pi_{max}}{w(2 + \gamma -3\beta + 2c)}
+\end{equation}
+
+Similarly for the SD observable:
+
 
 
 
@@ -973,6 +1006,7 @@ are the cases:
 
 
 \begin{enumerate}
+  \centering
   \item $N^\prime_{SD} < N < N^\prime_{RPS}$
   \item $N^\prime_{RPS} < N < N^\prime_{SD}$
   \item $N^\prime_{RPS} \approx N \approx N^\prime_{SD}$
