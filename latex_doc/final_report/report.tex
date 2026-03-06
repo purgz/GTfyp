@@ -917,7 +917,7 @@ The sign of $\langle \Delta H_4 \rangle$ determines whether stochastic dynamics 
 \subsection{Weak selection limit}
 Value of these integrals as $w \rightarrow 0$
 
-\subsection{Local update analytical solutions}
+\subsection{\label{section:local_analytical}Local update analytical solutions}
 
 
 For the Local update process, an exact solution for the values 
@@ -950,23 +950,67 @@ Quick derivation and explanation of the $H_{SD}$ analytical result.
 
 
 
-Drift reversal, the loss of stability of an attracting fixed point (something about hopf bifurcation) below a critical
-population size, occurs at the point where the value of $\langle H \rangle$ changes sign.
-Depending on the initial parameters, this effect is observed in the RPS and SD subgames, and in some cases
-in both.
+Drift reversal, below a critical
+population size, occurs at the point where the 
+value of $\langle H \rangle$ changes sign.
+Depending on the initial parameters, 
+this effect is observed in the RPS and SD subgames, and in some cases
+in both in the agent based simulations and also from the 
+exact solutions for $\langle \Delta H \rangle$ for the different 
+interaction processes and in the case of the local update process, 
+exact expressions for the critical population size for a special case 
+of the game are derived in section ~\ref{section:local_analytical}.
 
 
+In either cases this leads to a few notable cases resulting in very 
+different dynamics in the multiple game system summarized by
+Fig.~\ref{drift_cases_fig}
+
+Assuming a set of parameters where both a critical population size exists
+for both the SD and RPS part of the game where $N^\prime_{SD}, N^\prime_{RPS}, N$,
+are the critical sizes and the actual population size respectively there
+are the cases:
+
+
+\begin{enumerate}
+  \item $N^\prime_{SD} < N < N^\prime_{RPS}$
+  \item $N^\prime_{RPS} < N < N^\prime_{SD}$
+  \item $N^\prime_{RPS} \approx N \approx N^\prime_{SD}$
+  \item $N < N^\prime_{RPS}, N^\prime_{SD}$
+\end{enumerate}
+
+In case 1, population size is below the critical size for 
+drift reversal in the RPS component, and therefore 
+(for an attracting RPS game where $c > -1$) the trajectories would 
+gradually move away from the internal fixed point in the RPS plane 
+on average where in the large $N$ case they would fixate there.
+Since $N$ is larger than the critical size for the SD component there 
+would be no reversal in the SD game and the trajectories would follow the 
+drift expected from the replicator determinstic dynamics, e.g. the 
+center of the vertical column in the 3d 4-simplex projection (for the
+setting where there is stable mixed strategy nash equilibrium in SD).
+This corresponds to the case in the bottom right of Fig.~\ref{drift_cases_fig}, 
+where RPS trajectories fill out the plane and eventually in time are absorbed by 
+the RPS boundaries.
 
 In the case where $N^\prime_{RPS} < N < N^\prime_{SD}$ the point cloud of trajectories from 
 randomly initialized simulations will be attracted to the equilibrium of the RPS game, but will
 exhibit a drift reversal in the SD game, seen in the SD reversal case in Fig.~\ref{drift_cases_fig}.
 
-$N^\prime_{SD} < N < N^\prime_{RPS}$ disk shape
-
-$N < N^\prime_{SD}, N^\prime_{RPS}$ random cloud / absorbed by all boundaries
 
 
-Table here of the exact values from the appendix.
+Case 2 is the exact opposite of this where a reversal takes place in 
+the SD component and not the RPS component resulting in the 
+cloud of randomly initialised trajectories to 
+fill out a vertical column in the 3d projection as they diverge
+from the expected central fixed point for the given payoff matrix (see inset).
+Here since $N > N^\prime_{RPS}$ there is no reversal in the RPS component
+and since this RPS game is attracting and mutual coexistence is optimal, the 
+trajectories remain in the center of the RPS plane meanwhile the SD components
+dynamics reverse.
+
+
+[Table here of the exact values from the appendix.]
 
 
 \begin{figure*} 
@@ -1003,7 +1047,13 @@ large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (dr
 
 
 
-\section{Interpretation}
+\section{Conclusion}
+
+
+Discussion of the cases,
+
+idea of a central blob like case where 
+the Ns are all equal and a lower N than the large N case.
 
 While $\langle \Delta H_{\mathrm{RPS}} \rangle$ and $\langle \Delta H_{\mathrm{SD}} \rangle$ describe drift within lower--dimensional subspaces, $\langle \Delta H_4 \rangle$ captures stability of full interior coexistence.
 Sign reversals of $\langle \Delta H_4 \rangle$ generally occur at larger population sizes, reflecting the additional geometric suppression of interior states in the four--strategy simplex.
@@ -1015,6 +1065,8 @@ table here with 3 eigenvalues for each of the payoff matrices for the large diag
 
 briefly discuss stability and reference the drift reversal in each case SD, RPS
 e.g attracting fixed point becomes repelling in RPS, but not SD
+
+
 
 \clearpage
 \nocite{*}
