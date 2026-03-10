@@ -93,16 +93,47 @@ visualization tools.
 
 \subsection{Evolutionary game theory}
 
-Introduction to evolutionary game theory \cite{evolution_maynard,evolution_pop_dynamics}
+Evolutionary game theory has been used to analyse dynamics and 
+evolution of many different systems ranging from biology in modelling
+interactions of animal species and even bacteria and microbes 
+all the way to social systems discussing human behaviour. Examples 
+of cyclical systems even emerge, famously in the population frequencies 
+of the side blotched lizard which have been shown to follow 
+a Rock-Paper-Scissors like competition system.
 
-To understand the combined game, first must look at the single cases of rock paper scissors and Snowdrift.
+In this project I explore the evolutionary dynamics of a 
+game composed of 2 and 
+3 strategy games to form a combined game and discuss the effects 
+of various parameters in both infinite and finite populations.
 
+The focus of this project has been analysing a particular 4x4 game
+(equation \ref{AugRpsMatrix}) 
+composed of the famous Rock-Paper-Scissors game and Snowdrift game, 
+in both the classic evolutionary game theory context and
+in finite populations by utilizing particular stochastic update processes.
+ 
+I construct of a payoff structure for this 
+game composed of 
+2 and 3 strategy sub games and analyse
+the resulting replicator dynamics 
+\cite{evolution_pop_dynamics,evolution_maynard} and
+stability of the system in infinite populations, then explore
+the effects of different stochastic processes as models for 
+agent based interaction in finite populations. This builds on 
+previous work \cite{drift_reversal_paper,general_moran_process,rps_cyclic_jens,Claussen2007-zo}
+and demonstrates the concept of drift reversal in the combined game, 
+a loss of stability in the dynamics depending on
+interaction process and initial parameters below a critical
+population size. 
 
-Report focusses mostly on math, derivations and results, 
-for more information about the simulation code and visualisation tools, see project readme, 
-and readme in /source/simulation for an example of how to use the library to run 
-custom game simulations. Also how to use the gui to interact and run some animations
-and plots.
+I demonstrate the effects of different stochastic processes, 
+selection intensity, payoff matrix parameters and population size on 
+the evolutionary dynamics of the proposed composite game
+through both large ensemble simulations and also through 
+extensive derivations of a drift observable, in some cases
+leading to a closed form solution for the critical population size 
+of a particular system.
+
 
 \subsection{Rock-Paper-Scissors Model}
 Examples cyclic RPS dynamics appear in biology most notably, cyclic dominance in lizards
@@ -268,7 +299,7 @@ coexistence. For this particular case of RPS a drift reversal can occur in finit
 
 \subsection{Snowdrift game}
 
-The snowdrift/hawk-dove game has also been intensely 
+The snowdrift game has also been intensely 
 studied \cite{evolution_maynard} 
 and is an example of a anti-coordination game where unlike the famous prisoners dilemma, 
 mutual cooperation is prefered over mutual defection. It describes situations where
@@ -319,23 +350,27 @@ fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
 
 \section{Combined game definition}
 
-This work focusses on the composite game with the idea of combining snowdrift (SD) and rock-paper-scissors (RPS)
-into a single four strategy payoff matrix. Average payoffs, replicator equations and fixed points can 
-subsequently be derived and the deterministic dynamics can be studied. The simulation tool can do all of this,
+The focus of this work is a composite game composing
+the snowdrift (SD) and rock-paper-scissors (RPS) games
+into a single four strategy payoff matrix. Average payoffs, 
+replicator equations and fixed points can 
+subsequently be derived and the deterministic dynamics can be studied.
+The simulation tool I have created can do all of this (see project README instructions),
 plot trajectories both in 2d and and in the 3d pyramid simplex. 
 These dynamics have been considered before \cite{evolution_pop_dynamics}, 
 however not in extensive detail nor in finite populations. 
-In this report I show that there 
+In the rest of this report I show that there 
 is a drift reversal and that this occurs at different population sizes, 
 and can be tuned to provide different distinct cases, 
-altering the dynamics from the infinite N case depending on the 
-relative critical population sizes. 
+resulting in qualitatively different dynamics from the infinite/large 
+population case depending on the relative critical population sizes of the sub games. 
 
 
 The combined game is defined as:
 
 \begin{align}
 \label{AugRpsMatrix}
+\mathbf{A} =
 \begin{bmatrix}
     a & c & b & \gamma\\
     b & a & c & \gamma\\
@@ -471,9 +506,33 @@ The eigenvalues in this case ($c=-0.8$) are:
 
 \section{Model and Stochastic Dynamics}
 We consider a finite population of size $N$ evolving under stochastic evolutionary dynamics with $S$ strategies.
-The population state is described by the vector $\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ and the final strategy is fixed by normalization.
-At each update step, individuals interact according to a payoff matrix $\mathbf{A}$ and reproduce according to a specified microscopic update rule.
-In the large--$N$ limit, the stochastic dynamics can be approximated by a Fokker--Planck equation governing the probability density $P(\mathbf{x},t)$.
+The population state is described by the vector 
+$\mathbf{x} = (x_1,\dots,x_{S-1})$, where $x_i = n_i/N$ 
+and the final strategy is fixed by normalization.
+At each update step, individuals interact according to a 
+payoff matrix $\mathbf{A}$ and reproduce according to a 
+specified microscopic update rule.
+In the large--$N$ limit, the stochastic dynamics can be
+ approximated by a Fokker--Planck equation governing the 
+ probability density $P(\mathbf{x},t)$. 
+I will focus on three different stochastic processes to 
+model the interactions between the agents, the Moran process,
+the Local update process and the Local fermi process.
+Regardless of process, at each time step one individual will 
+be selected and reproduce according the different schemes definition
+so that the population size remains constant over time.
+Mutation can also be considered where individuals have a 
+small chance of randomly hopping to another strategy, preventing 
+total extinction and the corresponding dynamics 
+can be derived for example in Ref.~\cite{general_moran_process} 
+a general Moran process
+including mutation has been derived.
+For simplicity I have not included mutation in the models 
+and the effects of finite populations and the phenomenon of 
+drift reversal is still clear. Due to the 
+ensemble averaging of trajectories often the extinction cases
+dissapear when multiple simulated runs are combined, however adding
+mutation may be a relevant extension to the model.
 
 
 
@@ -601,21 +660,62 @@ a differential equation consisting of drift and noise, and in this case
 determinitic replicator dynamics, and stochastic noise from
  finite $N$.
 
-The master equation is defined as:
+The master equation \cite{alma9933506044604871} for Rock (R) is defined as:
 
-\begin{equation}
-P = \text{master eq here}
-\end{equation}
+\begin{align}
+P^{\tau + 1}(i) - P^\tau(i) &= P^\tau(i-1)T^{PR}(i-1) \nonumber\\
+& - P^\tau(i)T^{PR}(i) + P^\tau(i-1)T^{SR}(i-1) \nonumber\\
+& - P^\tau(i)T^{SR}(i) + P^\tau(i-1)T^{+R}(i-1) \nonumber\\
+& - P^\tau(i)T^{+R}(i) + P^\tau(i+1)T^{RP}(i+1) \nonumber\\
+&- P^\tau(i)T^{RP}(i) + P^\tau(i+1)T^{RS} \nonumber \\
+&- P^\tau(i)T^{RS}(i) + P^\tau(i+1)T^{R+} \nonumber\\
+&- P^\tau(i)T^{R+}(i)
+\end{align}
+Where $i$ is the number of rock players.
+This is composed of transition probabilites into and out of the 
+strategy R and describes the time evolution of the system 
+jumping between discrete states (the count of $i$ rock individuals).
+
+
 
 Expanding the probabilities and the transition probabilites to the 
-second order taylor expansion, the master equation can be 
-expanded 
+second order using a Taylor expansion, a Fokker-Planck equation 
+can be obtained.
 
-For full derivation of the FPE for this system, see appendix.
+For full derivation of the Fokker-Planck equation for this system,
+see the appendix detailing the full derivation steps.
 
-In the diffusion approximation, the master equation may be expanded
-to second order in $1/N$, yielding 
-a Fokker-Planck equation of the form
+
+Expanding about the rock population fraction $x \pm 1/N$, 
+plus or minus 1 individual ($1/N$):
+\begin{equation}
+  T(x\pm\frac{1}{N}) = T(x) \pm \frac{1}{N}T'(x) + \frac{1}{2N^2}T''(x)\dots \nonumber
+\end{equation}
+\begin{equation}
+  P(x\pm\frac{1}{N}) = P(x) \pm \frac{1}{N}P'(x) + \frac{1}{2N^2}P''(x)\dots \nonumber
+\end{equation}
+Higher order terms are ignored.
+
+The 2nd order expansions are then subtituted into the Master equation
+for the corresponding $\pm$ individual states leading to the 
+simplified equation:
+
+\begin{align}
+&P^{\tau+1}(x)-P^\tau(x) = \frac{1}{N}\Big[
+    -\big(P^\tau(x)\big(
+          T^{PR} + T^{SR} + T^{+R} \nonumber \\
+        &- T^{RP} - T^{RS} - T^{R+}
+      \big)\big)'
+\nonumber \\[6pt]
+ &+ \frac{1}{2}\big(
+      P^\tau(x)\big(\frac{T^{PR}+T^{SR}+T^{+R}
+       + T^{RP} +T^{RS}+T^{R+}}{N}\big)
+    \big)'' \Big]
+\end{align}
+
+
+This is a Fokker-planck equation of the form:
+
 \begin{equation}
 \frac{d}{dt}P^\tau(x)
 =
@@ -625,23 +725,36 @@ a Fokker-Planck equation of the form
 + \frac{1}{2}\frac{d^2}{dx^2}\!\left(b^2(x)P^\tau(x)\right)
 \right]
 \end{equation}
-Here $x \in (i,j,k)$ denotes the frequency of a given strategy in the RPS subsystem, and
+Here $x$ is the fraction of rock players in the population, however, 
+the formula is the same for scissors and paper with 
+their corresponding $a(y), b(y)$ for paper,
+$a(z), b(z)$ for scissors and $a(q), b(q)$ for $+$.
+
+For rock:
 \begin{equation} \nonumber
 \begin{aligned}
-a(i) &= T^{PR} + T^{SR} + T^{+R}
+a(x) &= T^{PR} + T^{SR} + T^{+R}
        - T^{RP} - T^{RS} - T^{R+} \\
-b(i) &= \sqrt{\frac{1}{N}
+b(x) &= \sqrt{\frac{1}{N}
 \left(
 T^{PR} + T^{SR} + T^{+R}
 + T^{RP} + T^{RS} + T^{R+}
 \right)}
 \end{aligned}
 \end{equation}
-for strategy $i$, rock and similarly $a(j), b(j)$ for paper and $a(k), b(k)$ 
-for scissors can be defined in the same way with the pairs of transition probabilities into
-and out of the respective states and must be derived for each microscopic update process and set of payoff matrices. Full derivation of Fokker-Planck equation
-and expressions for $a(x), b(x)$ can be found in full report detailing 2nd order 
-expansion of the master equation for the 4x4 game.
+
+The term
+$a$ is a difference of ingoing and outgoing 
+transition probabilities into the particular state and 
+$b$ is a noise term consisting of the summation of 
+all ingoing plus outgoing transition probabilities. 
+
+Values of $a,b$ for each strategy not included as they are just 
+permutations of the above with the respective ingoing/outgoing
+transition probabilites for the different strategies. To see 
+these in full and the full derivation of the Fokker-Planck
+equation refer to the appendix.
+
 
 For each strategy, $a(x)$ corresponds to the deterministic replicator equation ($N \rightarrow \infty$),
 and $b(x)$ is the diffusion term corresponding to the stochastic drift. Code is capable of computing
@@ -933,6 +1046,8 @@ The sign of $\langle \Delta H_4 \rangle$ determines whether stochastic dynamics 
 \subsection{Weak selection limit}
 Value of these integrals as $w \rightarrow 0$
 
+Biological relevance of the weak selection limit
+
 \subsection{\label{section:local_analytical}Local update analytical solutions}
 
 
@@ -974,6 +1089,9 @@ N^\prime_{RPS} = \frac{28\Delta \pi_{max}}{w(2 + \gamma -3\beta + 2c)}
 \end{equation}
 
 Similarly for the SD observable:
+
+
+[Include some of the derivation steps here in the report]
 
 
 
@@ -1044,7 +1162,53 @@ trajectories remain in the center of the RPS plane meanwhile the SD components
 dynamics reverse.
 
 
-[Table here of the exact values from the appendix.]
+\begin{table}[H]
+\caption{\label{tab:table1}%
+Table of values used for the drift cases graph
+Rows marked with * are the cases illustrated in Fig.~\ref{drift_cases_fig}
+}
+\begin{ruledtabular}
+\begin{tabular}{c|c|c|c|c|c}
+\textrm{$\alpha$}&
+\textrm{$\beta$}&
+\textrm{$c$}&
+\textrm{$N$}&
+\textrm{$N/N_{SD}$}&
+\textrm{$N/N_{RPS}$}\\
+\colrule
+0.1 & 0.1 & -0.8 & 50  & 0.12  & 0.09* \\
+0.14 & 0.3 & -0.2 & 200  & 0.14  & 2.26 \\
+0.14 & 0.3 & -0.2 & 300  & 0.21  & 3.41* \\
+0.4 & 0.2 & -0.8 & 200  & 2.83  & 0.36 \\
+0.4 & 0.24 & -0.8 & 600 & 6.28 & 0.42* \\
+0.1 & 0.1 & -0.8 & 2000 & 4.76 & 3.57 \\
+0.1 & 0.1 & -0.8 & 30000 & 71.43 & 53.57* \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+
+The axis $N/N_{RPS}$ and $N/N_{SD}$ are used to 
+illustrate the relationship between the 3 population values, 
+where both the critical sizes change and also the 
+value of $N$ varies since they all impact the dynamics.
+
+Points (sub figures) along a particular line (ray from 
+the origin) share a slope of $N_{SD} / N_{RPS}$ which is useful in 
+demonstrating how the ratio of the two critical population sizes come into effect.
+The dashed line with a slope of 1 contains all the points where
+the critical sizes are equal, and drift reversal occurs at the same time.
+Point below this line are therefore cases where $N_{SD} / N_{RPS} < 1$, i.e. 
+the critical population size for RPS is greater than for SD and the critical size 
+for RPS reverses first. The opposite is true for points above the dashed line. 
+This plot therefore concisely summarizes all of the interesting cases. (*where
+critical sizes exist for both sub games).
+
+
+[Graphs for the delta H for the different casses from the appendix document]
+
+
+[Graph of simulated critical N vary with W for numerical vs simulation]
 
 
 \begin{figure*} 
@@ -1084,7 +1248,6 @@ large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (dr
 \section{Conclusion}
 
 
-Discussion of the cases,
 
 idea of a central blob like case where 
 the Ns are all equal and a lower N than the large N case.

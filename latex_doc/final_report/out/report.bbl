@@ -49,39 +49,39 @@
 \providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
 \let\auto@bib@innerbib\@empty
 %</preamble>
-\bibitem [{\citenamefont {Maynard~Smith}(1982)}]{evolution_maynard}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Maynard~Smith}},\ }\href {https://doi.org/10.1017/CBO9780511806292} {\bibinfo {title} {Evolution and the theory of games / john maynard smith}} (\bibinfo {year} {1982})\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Hofbauer}\ and\ \citenamefont {Sigmund}(1998)}]{evolution_pop_dynamics}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Hofbauer}}\ and\ \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Sigmund}},\ }\href@noop {} {\bibinfo {title} {Evolutionary games and population dynamics}} (\bibinfo {year} {1998})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Maynard~Smith}(1982)}]{evolution_maynard}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Maynard~Smith}},\ }\href {https://doi.org/10.1017/CBO9780511806292} {\bibinfo {title} {Evolution and the theory of games / john maynard smith}} (\bibinfo {year} {1982})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2005)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{drift_reversal_paper}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevLett.95.238701} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo {pages} {238701} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2006)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{general_moran_process}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevE.74.011901} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. E}\ }\textbf {\bibinfo {volume} {74}},\ \bibinfo {pages} {011901} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Claussen}\ and\ \citenamefont {Traulsen}(2008)}]{rps_cyclic_jens}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}},\ }\href {https://doi.org/10.1103/PhysRevLett.100.058104} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {100}},\ \bibinfo {pages} {058104} (\bibinfo {year} {2008})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Claussen}(2007)}]{Claussen2007-zo}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Eur. Phys. J. B}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo {pages} {391} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Sinervo}\ and\ \citenamefont {Lively}(1996)}]{rps_lizard}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Sinervo}}\ and\ \bibinfo {author} {\bibfnamefont {C.~M.}\ \bibnamefont {Lively}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Nature}\ }\textbf {\bibinfo {volume} {380}},\ \bibinfo {pages} {240} (\bibinfo {year} {1996})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Liao}\ \emph {et~al.}(2019)\citenamefont {Liao}, \citenamefont {Din}, \citenamefont {Tsimring},\ and\ \citenamefont {Hasty}}]{rps_ecoli}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.~J.}\ \bibnamefont {Liao}}, \bibinfo {author} {\bibfnamefont {M.~O.}\ \bibnamefont {Din}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Tsimring}},\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Hasty}},\ }\href {https://doi.org/10.1126/science.aaw0542} {\bibfield  {journal} {\bibinfo  {journal} {Science}\ }\textbf {\bibinfo {volume} {365}},\ \bibinfo {pages} {1045} (\bibinfo {year} {2019})},\ \Eprint {https://arxiv.org/abs/https://www.science.org/doi/pdf/10.1126/science.aaw0542} {https://www.science.org/doi/pdf/10.1126/science.aaw0542} \BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Claussen}\ and\ \citenamefont {Traulsen}(2008)}]{rps_cyclic_jens}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}},\ }\href {https://doi.org/10.1103/PhysRevLett.100.058104} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {100}},\ \bibinfo {pages} {058104} (\bibinfo {year} {2008})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Gore}\ \emph {et~al.}(2009)\citenamefont {Gore}, \citenamefont {Youk},\ and\ \citenamefont {van Oudenaarden}}]{yeast_snowdrift}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Gore}}, \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Youk}},\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {van Oudenaarden}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Nature}\ }\textbf {\bibinfo {volume} {459}},\ \bibinfo {pages} {253} (\bibinfo {year} {2009})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Smith}\ and\ \citenamefont {Schuster}(2019)}]{cheating_microbes}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Smith}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Schuster}},\ }\href {https://doi.org/10.1016/j.cub.2019.03.001} {\bibfield  {journal} {\bibinfo  {journal} {Current Biology}\ }\textbf {\bibinfo {volume} {29}},\ \bibinfo {pages} {R442} (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2006)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{general_moran_process}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevE.74.011901} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. E}\ }\textbf {\bibinfo {volume} {74}},\ \bibinfo {pages} {011901} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Kampen}(2007)}]{alma9933506044604871}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~G.~v.}\ \bibnamefont {Kampen}},\ }\href {https://ebookcentral.proquest.com/lib/bham/detail.action?docID=291692} {\emph {\bibinfo {title} {Stochastic processes in physics and chemistry}}},\ \bibinfo {edition} {3rd}\ ed.,\ North-Holland personal library\ (\bibinfo  {publisher} {Elsevier},\ \bibinfo {address} {Amsterdam},\ \bibinfo {year} {2007})\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2005)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{drift_reversal_paper}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevLett.95.238701} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. Lett.}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo {pages} {238701} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
-\bibitem [{\citenamefont {Claussen}(2007)}]{Claussen2007-zo}%
-  \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Eur. Phys. J. B}\ }\textbf {\bibinfo {volume} {60}},\ \bibinfo {pages} {391} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Lam}\ \emph {et~al.}(2015)\citenamefont {Lam}, \citenamefont {Pitrou},\ and\ \citenamefont {Seibert}}]{lam2015numba}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.~K.}\ \bibnamefont {Lam}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Pitrou}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Seibert}},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC}}}\ (\bibinfo {year} {2015})\ pp.\ \bibinfo {pages} {1--6}\BibitemShut {NoStop}%
