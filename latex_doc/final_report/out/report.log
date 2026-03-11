@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  10 MAR 2026 16:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  11 MAR 2026 15:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -507,6 +507,128 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-!pdfTeX error: pdflatex.exe (file c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map): fflush() failed (Invalid argument)
- ==> Fatal error occurred, no output PDF file produced!
+) [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<Figures/rps_standard.pdf, id=22, 720.71577pt x 358.88412pt>
+File: Figures/rps_standard.pdf Graphic file (type pdf)
+<use Figures/rps_standard.pdf>
+Package pdftex.def Info: Figures/rps_standard.pdf  used on input line 259.
+(pdftex.def)             Requested size: 216.2164pt x 107.66606pt.
+<Figures/rps_example_in_spiral.pdf, id=23, 720.71577pt x 358.88412pt>
+File: Figures/rps_example_in_spiral.pdf Graphic file (type pdf)
+<use Figures/rps_example_in_spiral.pdf>
+Package pdftex.def Info: Figures/rps_example_in_spiral.pdf  used on input line 279.
+(pdftex.def)             Requested size: 216.2164pt x 107.66606pt.
+ [2 <./Figures/rps_standard.pdf>]
+
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 299.
+
+<Figures/snowdrift_sim.pdf, id=39, 544.36327pt x 416.71431pt>
+File: Figures/snowdrift_sim.pdf Graphic file (type pdf)
+<use Figures/snowdrift_sim.pdf>
+Package pdftex.def Info: Figures/snowdrift_sim.pdf  used on input line 342.
+(pdftex.def)             Requested size: 217.74144pt x 166.68275pt.
+[3 <./Figures/rps_example_in_spiral.pdf> <./Figures/snowdrift_sim.pdf>] [4]
+<Figures/arps_standard_simplex.pdf, id=63, 562.03659pt x 596.00046pt>
+File: Figures/arps_standard_simplex.pdf Graphic file (type pdf)
+<use Figures/arps_standard_simplex.pdf>
+Package pdftex.def Info: Figures/arps_standard_simplex.pdf  used on input line 479.
+(pdftex.def)             Requested size: 241.67102pt x 256.27519pt.
+<Figures/arps_time_series_standard.pdf, id=64, 1135.76334pt x 601.56593pt>
+File: Figures/arps_time_series_standard.pdf Graphic file (type pdf)
+<use Figures/arps_time_series_standard.pdf>
+Package pdftex.def Info: Figures/arps_time_series_standard.pdf  used on input line 491.
+(pdftex.def)             Requested size: 454.29729pt x 240.6221pt.
+<Figures/spiral_in_4d.pdf, id=65, 393.9799pt x 427.98193pt>
+File: Figures/spiral_in_4d.pdf Graphic file (type pdf)
+<use Figures/spiral_in_4d.pdf>
+Package pdftex.def Info: Figures/spiral_in_4d.pdf  used on input line 505.
+(pdftex.def)             Requested size: 236.38976pt x 256.79114pt.
+<Figures/spiral_in_time_series.pdf, id=66, 778.83409pt x 433.59666pt>
+File: Figures/spiral_in_time_series.pdf Graphic file (type pdf)
+<use Figures/spiral_in_time_series.pdf>
+Package pdftex.def Info: Figures/spiral_in_time_series.pdf  used on input line 517.
+(pdftex.def)             Requested size: 467.30406pt x 260.16pt.
+ [5 <./Figures/arps_standard_simplex.pdf>] [6 <./Figures/arps_time_series_standard.pdf> <./Figures/spiral_in_4d.pdf>] [7 <./Figures/spiral_in_time_series.pdf>]
+Overfull \hbox (9.55446pt too wide) detected at line 734
+[]
+ []
+
+<Figures/pop_200_correct_drift.png, id=144, 297.61188pt x 305.14pt>
+File: Figures/pop_200_correct_drift.png Graphic file (type png)
+<use Figures/pop_200_correct_drift.png>
+Package pdftex.def Info: Figures/pop_200_correct_drift.png  used on input line 845.
+(pdftex.def)             Requested size: 238.08981pt x 244.11232pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8]
+
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 868.
+
+[9 <./Figures/pop_200_correct_drift.png>] [10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1208
+
+ []
+
+<./Figures/drift_cases/drift_shaded.pdf, id=162, 544.45515pt x 546.3612pt>
+File: ./Figures/drift_cases/drift_shaded.pdf Graphic file (type pdf)
+<use ./Figures/drift_cases/drift_shaded.pdf>
+Package pdftex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 1250.
+(pdftex.def)             Requested size: 510.0pt x 511.79553pt.
+<./Figures/drift_cases/rod_larger_inset.png, id=163, 2842.62pt x 2842.62pt>
+File: ./Figures/drift_cases/rod_larger_inset.png Graphic file (type png)
+<use ./Figures/drift_cases/rod_larger_inset.png>
+Package pdftex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 1270.
+(pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
+<./Figures/drift_cases/disk_larger_inset.png, id=164, 2843.62375pt x 2843.62375pt>
+File: ./Figures/drift_cases/disk_larger_inset.png Graphic file (type png)
+<use ./Figures/drift_cases/disk_larger_inset.png>
+Package pdftex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 1270.
+(pdftex.def)             Requested size: 142.26378pt x 142.23291pt.
+<./Figures/drift_cases/large_N_inset.png, id=165, 2842.62pt x 2842.62pt>
+File: ./Figures/drift_cases/large_N_inset.png Graphic file (type png)
+<use ./Figures/drift_cases/large_N_inset.png>
+Package pdftex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 1270.
+(pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
+<./Figures/drift_cases/low_pop_case_trans.png, id=166, 2842.62pt x 2842.62pt>
+File: ./Figures/drift_cases/low_pop_case_trans.png Graphic file (type png)
+<use ./Figures/drift_cases/low_pop_case_trans.png>
+Package pdftex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 1270.
+(pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
+(out/report.bbl [12] [13 <./Figures/drift_cases/drift_shaded.pdf> <./Figures/drift_cases/rod_larger_inset.png> <./Figures/drift_cases/disk_larger_inset.png> <./Figures/drift_cases/large_N_inset.png> <./Figures/drift_cases/low_pop_case_trans.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+ []\OT1/cmr/m/n/9 M. J. Liao, M. O. Din, L. Tsim-ring,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+ \OT1/cmr/m/n/9 and J. Hasty, Sci-ence \OT1/cmr/bx/n/9 365\OT1/cmr/m/n/9 , 1045 (2019),
+ []
+
+
+Overfull \hbox (12.56218pt too wide) in paragraph at lines 75--76
+ \OT1/cmr/m/n/9 https://www.science.org/doi/pdf/10.1126/science.aaw0542. 
+ []
+
+) [14] (out/report.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-10-24>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 25797 strings out of 468662
+ 646035 string characters out of 5444563
+ 1205032 words of memory out of 5000000
+ 54120 multiletter control sequences out of 15000+600000
+ 642402 words of font info for 94 fonts, out of 8000000 for 9000
+ 430 hyphenation exceptions out of 8191
+ 84i,16n,104p,948b,1873s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on out/report.pdf (14 pages, 4330853 bytes).
+PDF statistics:
+ 301 PDF objects out of 1000 (max. 8388607)
+ 186 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+
