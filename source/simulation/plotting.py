@@ -193,7 +193,7 @@ def quaternary_plot_same_axis(
     plot_ax(ax)
     
     label_points(ax)
-    add_edge_labels(ax)
+    #add_edge_labels(ax)
     add_grid_lines(ax)
 
     for i, df in enumerate(dfs):

@@ -26,13 +26,13 @@ logger = logging.getLogger(__name__)
 #plt.style.use(['science'])
 
 
-#plt.style.use(["science", "no-latex"])
+plt.style.use(["science", "no-latex"])
 
 
 # Comment out if latex is not correctly installed
 
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 plt.rcParams.update({
 "font.size": 18,
@@ -763,17 +763,17 @@ if __name__ == "__main__":
 
 
     
-    basic_rps = np.array([[0,   -1,   1,       0.2],
-                      [1,    0,   -1,       0.2],
-                      [-1,   1,   0,        0.2],
+    basic_rps = np.array([[0,   -0.8,   1,       0.2],
+                      [1,    0,   -0.8,       0.2],
+                      [-0.8,   1,   0,        0.2],
                       [0.1, 0.1, 0.1, 0]])
     
     # Time steps 150
     numerical_moran, t_eval = replicator.numerical_trajectory_from_fokker_planck(basic_rps, interaction_process="Moran",
                                                                         w=0.45)
 
-    N = 100000
-    _,_, moran_traj, _ = simulation.moran_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 1, 
+    N = 200
+    _,_, moran_traj, _ = simulation.moran_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 10000, 
                                                     point_cloud=False, traj=True, initial_rand=False,
                                                     initial_dist=np.array([0.5,0.2,0.2, 0.1]))
     
