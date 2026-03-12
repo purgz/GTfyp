@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  12 MAR 2026 15:48
+This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  12 MAR 2026 16:17
  system commands enabled.
  file:line:error style messages enabled.
 **/home/henry/gametheory/hxb265/latex_doc/final_report/report.tex
@@ -538,76 +538,78 @@ Package pgfplots Warning: running in backwards compatibility mode (unsuitable ti
 
 
 \openout3 = reportNotes.bib
-LaTeX Font Info:    Trying to load font information for U+msa on input line 88.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 106.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 88.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 106.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<Figures/rps_standard.pdf, id=23, 720.71577pt x 358.88414pt>
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+<Figures/rps_standard.pdf, id=26, 720.71577pt x 358.88414pt>
 File: Figures/rps_standard.pdf Graphic file (type pdf)
 <use Figures/rps_standard.pdf>
-Package luatex.def Info: Figures/rps_standard.pdf  used on input line 260.
+Package luatex.def Info: Figures/rps_standard.pdf  used on input line 294.
 (luatex.def)             Requested size: 216.2164pt x 107.66606pt.
-<Figures/rps_example_in_spiral.pdf, id=24, 720.71577pt x 358.88414pt>
+<Figures/rps_example_in_spiral.pdf, id=27, 720.71577pt x 358.88414pt>
 File: Figures/rps_example_in_spiral.pdf Graphic file (type pdf)
 <use Figures/rps_example_in_spiral.pdf>
-Package luatex.def Info: Figures/rps_example_in_spiral.pdf  used on input line 280.
+Package luatex.def Info: Figures/rps_example_in_spiral.pdf  used on input line 314.
 (luatex.def)             Requested size: 216.2164pt x 107.66606pt.
- [2<./Figures/rps_standard.pdf>]
-
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 300.
-
-<Figures/snowdrift_sim.pdf, id=43, 544.36325pt x 416.7143pt>
+ [3<./Figures/rps_standard.pdf><./Figures/rps_example_in_spiral.pdf>]
+<Figures/snowdrift_sim.pdf, id=60, 544.36325pt x 416.7143pt>
 File: Figures/snowdrift_sim.pdf Graphic file (type pdf)
 <use Figures/snowdrift_sim.pdf>
-Package luatex.def Info: Figures/snowdrift_sim.pdf  used on input line 343.
+Package luatex.def Info: Figures/snowdrift_sim.pdf  used on input line 377.
 (luatex.def)             Requested size: 217.74144pt x 166.68275pt.
-[3<./Figures/rps_example_in_spiral.pdf><./Figures/snowdrift_sim.pdf>] [4]
+ [4<./Figures/snowdrift_sim.pdf>]
 <Figures/arps_standard_simplex.pdf, id=79, 562.03656pt x 596.00044pt>
 File: Figures/arps_standard_simplex.pdf Graphic file (type pdf)
 <use Figures/arps_standard_simplex.pdf>
-Package luatex.def Info: Figures/arps_standard_simplex.pdf  used on input line 480.
+Package luatex.def Info: Figures/arps_standard_simplex.pdf  used on input line 514.
 (luatex.def)             Requested size: 241.671pt x 256.27519pt.
 <Figures/arps_time_series_standard.pdf, id=80, 1135.76334pt x 601.56593pt>
 File: Figures/arps_time_series_standard.pdf Graphic file (type pdf)
 <use Figures/arps_time_series_standard.pdf>
-Package luatex.def Info: Figures/arps_time_series_standard.pdf  used on input line 492.
+Package luatex.def Info: Figures/arps_time_series_standard.pdf  used on input line 526.
 (luatex.def)             Requested size: 454.29729pt x 240.6221pt.
 <Figures/spiral_in_4d.pdf, id=81, 393.9799pt x 427.98193pt>
 File: Figures/spiral_in_4d.pdf Graphic file (type pdf)
 <use Figures/spiral_in_4d.pdf>
-Package luatex.def Info: Figures/spiral_in_4d.pdf  used on input line 506.
+Package luatex.def Info: Figures/spiral_in_4d.pdf  used on input line 540.
 (luatex.def)             Requested size: 236.38976pt x 256.79114pt.
 <Figures/spiral_in_time_series.pdf, id=82, 778.83409pt x 433.59666pt>
 File: Figures/spiral_in_time_series.pdf Graphic file (type pdf)
 <use Figures/spiral_in_time_series.pdf>
-Package luatex.def Info: Figures/spiral_in_time_series.pdf  used on input line 518.
+Package luatex.def Info: Figures/spiral_in_time_series.pdf  used on input line 552.
 (luatex.def)             Requested size: 467.30406pt x 260.16pt.
  [5<./Figures/arps_standard_simplex.pdf>] [6<./Figures/arps_time_series_standard.pdf><./Figures/spiral_in_4d.pdf>] [7<./Figures/spiral_in_time_series.pdf>]
-Overfull \hbox (9.55446pt too wide) detected at line 735
+Overfull \hbox (9.55446pt too wide) detected at line 769
 []
  []
 
-<Figures/pop_200_correct_drift.png, id=178, 297.61188pt x 305.14pt>
+[8]
+<Figures/pop_200_correct_drift.png, id=181, 297.61188pt x 305.14pt>
 File: Figures/pop_200_correct_drift.png Graphic file (type png)
 <use Figures/pop_200_correct_drift.png>
-Package luatex.def Info: Figures/pop_200_correct_drift.png  used on input line 846.
+Package luatex.def Info: Figures/pop_200_correct_drift.png  used on input line 880.
 (luatex.def)             Requested size: 238.08981pt x 244.11232pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8]
+[9<./Figures/pop_200_correct_drift.png>] [10]
+Overfull \vbox (4.37332pt too high) has occurred while \output is active []
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 869.
 
-[9<./Figures/pop_200_correct_drift.png>] [10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 1275--1292
+Overfull \vbox (4.37332pt too high) has occurred while \output is active []
+
+ [11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 1309--1326
 
  []
 
+[13]
 Package epstopdf Info: Source file: <Figures/column_case_delta_H.eps>
 (epstopdf)                    date: 2026-03-12 13:44:51
 (epstopdf)                    size: 32318 bytes
@@ -615,12 +617,12 @@ Package epstopdf Info: Source file: <Figures/column_case_delta_H.eps>
 (epstopdf)                    date: 2026-03-12 13:44:56
 (epstopdf)                    size: 20379 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/column_case_delta_H-eps-converted-to.pdf Figures/column_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 1326.
+(epstopdf)             \includegraphics on input line 1360.
 Package epstopdf Info: Output file is already uptodate.
-<Figures/column_case_delta_H-eps-converted-to.pdf, id=200, 462.72874pt x 347.2975pt>
+<Figures/column_case_delta_H-eps-converted-to.pdf, id=203, 462.72874pt x 347.2975pt>
 File: Figures/column_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use Figures/column_case_delta_H-eps-converted-to.pdf>
-Package luatex.def Info: Figures/column_case_delta_H-eps-converted-to.pdf  used on input line 1326.
+Package luatex.def Info: Figures/column_case_delta_H-eps-converted-to.pdf  used on input line 1360.
 (luatex.def)             Requested size: 203.99689pt x 153.10812pt.
 Package epstopdf Info: Source file: <Figures/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-03-12 13:42:48
@@ -629,43 +631,39 @@ Package epstopdf Info: Source file: <Figures/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-03-12 13:42:55
 (epstopdf)                    size: 20737 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/disk_clean_deltaH-eps-converted-to.pdf Figures/disk_clean_deltaH.eps>
-(epstopdf)             \includegraphics on input line 1339.
+(epstopdf)             \includegraphics on input line 1373.
 Package epstopdf Info: Output file is already uptodate.
-<Figures/disk_clean_deltaH-eps-converted-to.pdf, id=201, 482.80376pt x 350.30875pt>
+<Figures/disk_clean_deltaH-eps-converted-to.pdf, id=204, 482.80376pt x 350.30875pt>
 File: Figures/disk_clean_deltaH-eps-converted-to.pdf Graphic file (type pdf)
 <use Figures/disk_clean_deltaH-eps-converted-to.pdf>
-Package luatex.def Info: Figures/disk_clean_deltaH-eps-converted-to.pdf  used on input line 1339.
+Package luatex.def Info: Figures/disk_clean_deltaH-eps-converted-to.pdf  used on input line 1373.
 (luatex.def)             Requested size: 203.99689pt x 148.01598pt.
-<./Figures/drift_cases/drift_shaded.pdf, id=202, 544.45514pt x 546.3612pt>
+<./Figures/drift_cases/drift_shaded.pdf, id=205, 544.45514pt x 546.3612pt>
 File: ./Figures/drift_cases/drift_shaded.pdf Graphic file (type pdf)
 <use ./Figures/drift_cases/drift_shaded.pdf>
-Package luatex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 1351.
+Package luatex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 1385.
 (luatex.def)             Requested size: 510.0pt x 511.79553pt.
-<./Figures/drift_cases/rod_larger_inset.png, id=203, 2842.62pt x 2842.62pt>
+<./Figures/drift_cases/rod_larger_inset.png, id=206, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/rod_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/rod_larger_inset.png>
-Package luatex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 1371.
+Package luatex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 1405.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
-<./Figures/drift_cases/disk_larger_inset.png, id=204, 2843.62375pt x 2843.62375pt>
+<./Figures/drift_cases/disk_larger_inset.png, id=207, 2843.62375pt x 2843.62375pt>
 File: ./Figures/drift_cases/disk_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/disk_larger_inset.png>
-Package luatex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 1371.
+Package luatex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 1405.
 (luatex.def)             Requested size: 142.26378pt x 142.23291pt.
-<./Figures/drift_cases/large_N_inset.png, id=205, 2842.62pt x 2842.62pt>
+<./Figures/drift_cases/large_N_inset.png, id=208, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/large_N_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/large_N_inset.png>
-Package luatex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 1371.
+Package luatex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 1405.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
-<./Figures/drift_cases/low_pop_case_trans.png, id=206, 2842.62pt x 2842.62pt>
+<./Figures/drift_cases/low_pop_case_trans.png, id=209, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/low_pop_case_trans.png Graphic file (type png)
 <use ./Figures/drift_cases/low_pop_case_trans.png>
-Package luatex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 1371.
+Package luatex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 1405.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
-[13<./Figures/column_case_delta_H-eps-converted-to.pdf>]
-
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 1390.
-
-(./out/report.bbl [14<./Figures/disk_clean_deltaH-eps-converted-to.pdf>] [15<./Figures/drift_cases/drift_shaded.pdf><./Figures/drift_cases/rod_larger_inset.png><./Figures/drift_cases/disk_larger_inset.png><./Figures/drift_cases/large_N_inset.png><./Figures/drift_cases/low_pop_case_trans.png>]
+ (./out/report.bbl [14<./Figures/column_case_delta_H-eps-converted-to.pdf><./Figures/disk_clean_deltaH-eps-converted-to.pdf>] [15<./Figures/drift_cases/drift_shaded.pdf><./Figures/drift_cases/rod_larger_inset.png><./Figures/drift_cases/disk_larger_inset.png><./Figures/drift_cases/large_N_inset.png><./Figures/drift_cases/low_pop_case_trans.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 118--127
  \TU/lmr/m/n/9 Sci-ence \TU/lmr/bx/n/9 365\TU/lmr/m/n/9 , 1045 (2019), https://www.sci-
  []
@@ -673,16 +671,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 118--127
 ) [16] (./out/report.aux))
 
 Here is how much of LuaTeX's memory you used:
- 26962 strings out of 477805
- 156270,1144653 words of node,token memory allocated
+ 26964 strings out of 477805
+ 195338,1144653 words of node,token memory allocated
  1185 words of node memory still in use:
    11 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 10 sub_mlist, 1 glyph, 157 attribute, 57 glue_spec, 157 attribute_list nodes
-   avail lists: 1:1,2:1118,3:399,4:104,5:1132,6:71,7:13775,8:77,9:1681,10:20,11:1138
- 46722 multiletter control sequences out of 65536+600000
+   avail lists: 1:1,2:887,3:402,4:104,5:1792,6:93,7:16247,8:77,9:2462,10:28,11:1229
+ 46724 multiletter control sequences out of 65536+600000
  87 fonts using 5818551 bytes
  84i,16n,85p,775b,1892s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman8-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (16 pages, 4753602 bytes).
+Output written on report.pdf (16 pages, 4755357 bytes).
 
 PDF statistics: 461 PDF objects out of 1000 (max. 8388607)
  240 compressed objects within 3 object streams

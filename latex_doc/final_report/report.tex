@@ -75,12 +75,30 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Building upon previous work in analyzing finite population size effects on evolutionary games,
-defining new game as a compositon of well known 2 and 3 strategy games and derive replicator dynamics
-for different microscopic interaction processes. Computing drift and drift reversal
-(loss of stability below a critical population size) both through 
-extensive simulations and analytical derivations for each of the agent interaction processes. Developed
-visualization tools.  
+This project investigates the evolutionary dynamics of a composite game formed by combining 
+a cyclical three strategy Rock-Paper-Scissors (RPS) game with a two strategy Snowdrift (SD) game.
+The resulting dynamics are analysed in infinite and finite populations using techniques in evolutionary game theory.
+
+A payoff structure is formed and cast into replicator equations, fixed points and stability are analysed and 
+the deterministic dynamics of the 4 strategy system are observed combining cyclical behaviour and 
+Snowdrift cooperate/defect tradeoff dynamics.
+
+Finite population effects are studied through the use of different microscoping interaction processes, 
+such as the Moran process and the local update process. Analytical calculations
+of drift observables and large ensemble agent based simulations are used to 
+measure the stability of the system under different conditions and visualize the 
+dynamics in the 4-simplex. The phenomenon of drift reversal is also examined, where
+an attracting fixed point loses stability below a critical population size in the 
+sub games and the combined game.
+
+The results demonstrate the effects of game parameters, interaction processes, 
+strength of selection and population sizes impact the dynamics of the system and 
+when a drift reversal will occur, in particular comparing different cases where the 
+critical population size differs between the sub games. A set of tools
+has been developed to calculate trajectories, run agent based simulations and 
+visualize the dynamics in the combined game (*project README for more information about 
+code tools).
+
 \end{abstract}
 
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
@@ -112,6 +130,14 @@ The focus of this project has been analysing a particular 4x4 game
 composed of the famous Rock-Paper-Scissors game and Snowdrift game, 
 in both the classic evolutionary game theory context and
 in finite populations by utilizing particular stochastic update processes.
+
+
+RPS demonstrates cyclic dominance and SD demonstrates coexistence in a population 
+based on a cooperation/defection tradeoff in the context of a shared cost.
+The resulting game contains both cyclical and coexistence stability leading
+to some interesting dynamics, invasion into the RPS game by a fourth strategy,
+particularly in finite populations where multiple 
+drift reversals can occur.
  
 I construct of a payoff structure for this 
 game composed of 
@@ -134,6 +160,14 @@ through both large ensemble simulations and also through
 extensive derivations of a drift observable, in some cases
 leading to a closed form solution for the critical population size 
 of a particular system.
+
+\begin{itemize}
+  \item Construction of composite RPS-Snowdrift payoff structure
+  \item Stability analysis in infinite populations
+  \item Derivations of drift observables
+  \item Simulation of stochastic evolutionary processes
+  \item Numerical investigation of drift reversal in the 4 strategy game
+\end{itemize}
 
 
 \subsection{Rock-Paper-Scissors Model}
@@ -214,7 +248,7 @@ over time:
 \end{equation}
 \end{widetext}
 
-These are the determinisic payoff difference replicator equations from 
+These are the deterministic payoff difference replicator equations from 
 evolutionary game theory which define populations $x,y$ over time. Later I will derive these
 for specific microscopic interaction processes including the noise terms that appear
 due to the finite population size effects.
@@ -342,7 +376,7 @@ for a typical example of the snowdrift game.]
 \centering
 \includegraphics[scale=0.4]{Figures/snowdrift_sim.pdf}
 \caption{Snowdrift game population time series for Local update (LU) and Moran process (MO), 
-alongide solution to determinisic replicator equation for each process from the 
+alongide solution to deterministic replicator equation for each process from the 
 adjusted dynamics (ref fokker planck equation). $N = 10000$, large population size trajectories 
 closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game
 fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
@@ -779,7 +813,7 @@ equation refer to the appendix.
 
 For each strategy, $a(x)$ corresponds to the deterministic replicator equation ($N \rightarrow \infty$),
 and $b(x)$ is the diffusion term corresponding to the stochastic drift. Code is capable of computing
-these values for each interaction process in order to plot the correct determinisic adjusted dynamics.
+these values for each interaction process in order to plot the correct deterministic adjusted dynamics.
 For the local update process, this $a(x)$ is equal to the standard replicator payoff difference equation
 (with some scaling factor accounting for selection pressure $w$).
 
@@ -802,7 +836,7 @@ game, essentially a stochastic replicator equation follows from this:
 \end{equation}
 
 When plotting a time series of a particular interaction process simulation,
-the determinisic dynamics (infinite N) comparison can be made by 
+the deterministic dynamics (infinite N) comparison can be made by 
 ignoring the noise term $b(x)$ as it contains a factor $1/N$, and 
 solving numerically $a(x)$ which corresponds to the deterministic 
 replicator dynamics for that interaction process.

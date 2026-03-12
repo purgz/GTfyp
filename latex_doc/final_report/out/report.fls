@@ -362,6 +362,8 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-italic.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman6-regular.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-bold.luc
+OUTPUT out/report.pdf
+INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
@@ -380,8 +382,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
-OUTPUT out/report.pdf
-INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT ./Figures/rps_standard.pdf
 INPUT ./Figures/rps_standard.pdf
 INPUT ./Figures/rps_standard.pdf
