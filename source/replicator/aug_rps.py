@@ -416,7 +416,7 @@ def delta_h_RPS_LOCAL_ANALYTICAL():
   return expression
 
 
-def numerical_H_value(transitions, N = 100):
+def numerical_H_value(transitions, N = 100,w=0.45, custom_config = None, delta_pi_custom = None):
   
 
   expression = delta_H_SD(transitions)  
@@ -450,19 +450,23 @@ def numerical_H_value(transitions, N = 100):
 
   #config = {a: 0, b: 1, c:-1, gamma: 0.2, beta: 0.1 }
 
+  if config is not None and delta_pi_custom is not None:
+    config = custom_config
+    d_pi = delta_pi_custom
 
-  expression = expression.subs(w_sym, 0.45)
+
+  expression = expression.subs(w_sym, w)
   expression = expression.subs(config)
   expression = expression.subs(sp.symbols("N"), N)
   expression = expression.subs(delta_pi, d_pi)
 
-  expression_rps = expression_rps.subs(w_sym, 0.45)
+  expression_rps = expression_rps.subs(w_sym, w)
   expression_rps = expression_rps.subs(config)
   expression_rps = expression_rps.subs(sp.symbols("N"), N)
   expression_rps = expression_rps.subs(delta_pi, d_pi)
 
 
-  expression_h_4 = expression_h_4.subs(w_sym, 0.45)
+  expression_h_4 = expression_h_4.subs(w_sym, w)
   expression_h_4 = expression_h_4.subs(config)
   expression_h_4 = expression_h_4.subs(sp.symbols("N"), N)
   expression_h_4 = expression_h_4.subs(delta_pi, d_pi)
@@ -471,8 +475,8 @@ def numerical_H_value(transitions, N = 100):
   Test the analytical solution for local update
   """
 
-  analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, d_pi).subs(w_sym, 0.45)
-  analytical_rps_local = delta_h_RPS_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N) .subs(delta_pi, d_pi).subs(w_sym, 0.45)
+  analytical_local = delta_h_sd_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N).subs(delta_pi, d_pi).subs(w_sym, w)
+  analytical_rps_local = delta_h_RPS_LOCAL_ANALYTICAL().subs(config).subs(sp.symbols("N"), N) .subs(delta_pi, d_pi).subs(w_sym, w)
   
   f = lambdify((x,y,z), expression, "numpy")
 
@@ -741,6 +745,38 @@ if __name__ == "__main__":
 
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+
+
+  ws = np.linspace(0.01, 0.4, 10)
+
+
+  transitions_local = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
+
+
+  Ns = np.linspace(800, 1700, 20)
+  config = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3 } # Good case for columns
+  
+  d_pi = 1.2
+  
+
+  for w in ws:
+
+    lu_res = []
+
+    for n in Ns:
+      res,_,_ = numerical_H_value(transitions_local,w=w, N=n, custom_config=config, delta_pi_custom=d_pi)
+
+      lu_res.append(res * n * n)
+
+    plt.plot(Ns, lu_res, label=f"w={w}")
+    
+  plt.plot(Ns, [3/(20) for n in Ns], linestyle="dashed", label="neutral")
+  
+  plt.legend()
+  plt.xlabel="N"
+  plt.show()
+
+
 
   numerical_delta_H_range()
 

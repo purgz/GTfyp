@@ -44,6 +44,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{enumitem}
 
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
@@ -938,32 +939,36 @@ $\langle \Delta H_{RPS} \rangle$ is approximated by a sum:
   &- ij(k+1)T^{+S}\Big]
 \end{align}
 
-\begin{equation}
-\begin{aligned}
+The sum can be converted into the following continuous form where
+$x = i/N, y= j/N, z=k/N$. See derivation for this transition in full 
+in the appendix.
+
+
+\begin{align}
 \langle \Delta H_{\mathrm{RPS}} \rangle
 &= \frac{2}{N} \int_{0}^{1}dx 
 \int_{0}^{1-x}dy
-\int_{0}^{1-x-y}dz\\
+\int_{0}^{1-x-y}dz \nonumber\\
 \Big[ 
-&z (y-x) (T^{RP} - T^{PR}) \\
-+& y (z-x) (T^{RS} - T^{SR}) \\
-+& x (y-z) (T^{SP} - T^{PS}) \\
-+& xz(T^{P+} - T^{+P}) + yz(T^{R+} - T^{+R}) \\
+&z (y-x) (T^{RP} - T^{PR}) \nonumber\\
++& y (z-x) (T^{RS} - T^{SR}) \nonumber\\
++& x (y-z) (T^{SP} - T^{PS}) \nonumber\\
++& xz(T^{P+} - T^{+P}) + yz(T^{R+} - T^{+R}) \nonumber\\
 +& xy(T^{S+} - T^{+S})
-\Big] \\
+\Big] \nonumber\\
 +& \frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x}dy
-\int_{0}^{1-x-y}dz \\
+\int_{0}^{1-x-y}dz \nonumber\\
 \Big[
-&z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) \\
+&z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) \nonumber\\
 +& x(T^{SP} + T^{PS})
 \Big]
-\end{aligned}
-\end{equation}
+\end{align}
 
 The RPS drift is therefore controlled by differences of 
 transition probabilites between the RPS states as in 
 \cite{rps_cyclic_jens} with additional terms in and out of the 
 RPS game itself to the 4th strategy.
+
 
 
 \subsection{Snowdrift Drift}
@@ -1066,6 +1071,34 @@ The sign of $\langle \Delta H_4 \rangle$ determines whether stochastic dynamics 
 \subsection{Weak selection limit}
 Value of these integrals as $w \rightarrow 0$
 
+Considering the weak selection limit where $w \rightarrow 0$, terms of the form 
+$T^{R+} - T^{+R}$ vanish, so for the SD drift measure only the terms under $1/N^2$ are left.
+
+The sum $T^{+R} + T^{+P} + T^{+S}$ simplifies to:
+
+\begin{align}
+T^{+R} + T^{+P} + T^{+S} &= \frac{1}{2}\frac{N-i-j-k}{N}\left(\frac{i}{N} + \frac{j}{N} + \frac{k}{N}\right) \nonumber \\
+= \frac{1}{2}q(x+y+z) &= \frac{1}{2}(1-x-y-z)(x+y+z) \nonumber 
+\end{align}
+
+Therefore $\langle \Delta H_{\mathrm{SD}} \rangle$ becomes (when $w \rightarrow 0$):
+
+\begin{align}\label{eq:delta_h_sd_weak}
+\langle \Delta H_{\mathrm{SD}} \rangle_{w \rightarrow 0} 
+&= \frac{12}{N^2} \int_{0}^{1} dx \int_{0}^{1-x}dy 
+\int_{0}^{1-x-y} dz \nonumber \\ 
+\Big[&  \frac{1}{2}(1-x-y-z)(x+y+z) \Big] \nonumber \\
+&= \frac{3}{20N^2}
+\end{align}
+
+
+[Graph here compariosn against the weak selection limit]
+
+
+
+
+Calculate the RPS weak selection limit.
+
 Biological relevance of the weak selection limit
 
 \subsection{\label{section:local_analytical}Local update analytical solutions}
@@ -1093,10 +1126,61 @@ game with the main cases being fixation at either the top (pure 4th strategy), b
 This depends on the relative payoff difference between the SD and RPS game.
 
 
-For the full derivation of these exact solutions, see 
-appendix section (analyical solution for the local update
-process)
+$\langle \Delta H_{SD} \rangle$ is composed of differences of the form 
+$T^{R+} - T^{+R}$. Expanding these differences:
 
+
+\begin{align}
+T^{R+} - T^{+R} &= \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right) \nonumber \\
+&- \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \nonumber \\
+&= w\frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right)\nonumber
+\end{align}
+
+And then using population frequencies instead of the discrete population counts:
+
+
+\begin{equation}
+T^{R+} - T^{+R} = wx(1-x-y-z)\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}
+\end{equation}
+
+The other transition probability differences are omitted here since they are symmetrical to the above with the 
+population count and payoff switched to their respective values.
+
+The second component of $\langle \Delta H_{SD} \rangle$ are the terms in order $1/N^2$, $T^{+R} + T^{+P} + T^{+S}$.
+
+This expression eventually simplfies to the following in terms of $w, \Delta \pi_{max}$ and the payoff
+matrix parameters:
+
+\begin{align}
+&T^{+R} + T^{+P} + T^{+S} = \nonumber\\ 
+&\frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}}  \nonumber\\
+&\Big[x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z))  \nonumber\\
+&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z))  \nonumber\\
+&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Big]
+\Bigg] \nonumber
+\end{align}
+
+Replacing these in the original integral (equation \ref{eq:delta_h_sd}), the integral can now be solved exactly
+leading to:
+
+\begin{widetext}
+\begin{equation}
+\langle \Delta H_{SD} \rangle_{LU} = 
+\frac{42 \Delta \pi_{\text{max}} + 2w \gamma (7 - 6N) + (-1+4\beta - c)(-7 + 4N)w}{280N^2\Delta \pi_{\text{max}}}
+\end{equation}
+\end{widetext}
+
+Which is an exact expression for the expected drift for the local update process when observing the SD
+component of the game. Since drift reversal is a change in sign in $\langle \Delta H_{SD} \rangle_{LU}$, this 
+leads to an exact term for the critical population size by setting this to 0:
+
+\begin{align}
+N^\prime_{SD} &= \frac{-42 \Delta \pi_{\text{max}} + w(28\beta - 7c  - 14 \gamma - 7)}{w(16 \beta - 4c -12\gamma - 4)} \nonumber\\
+&= \frac{-42 \Delta \pi_{\text{max}}}{w(16 \beta - 4c -12\gamma - 4)}
++ \frac{28 \beta - 7c - 14\gamma - 7}{16 \beta - 4c -12\gamma - 4}
+\end{align}
+
+A similar process can be done for the RPS drift observable leading eventually to:
 
 \begin{equation}
 \langle \Delta H_{RPS} \rangle_{LU} = \frac{1}{120N^2} 
@@ -1143,7 +1227,7 @@ are the critical sizes and the actual population size respectively there
 are the cases:
 
 
-\begin{enumerate}
+\begin{enumerate}[itemsep=0mm, parsep=2pt]
   \centering
   \item $N^\prime_{SD} < N < N^\prime_{RPS}$
   \item $N^\prime_{RPS} < N < N^\prime_{SD}$
@@ -1225,11 +1309,6 @@ This plot therefore concisely summarizes all of the interesting cases. (*where
 critical sizes exist for both sub games).
 
 
-[Graphs for the delta H for the different casses from the appendix document]
-
-
-[Graph of simulated critical N vary with W for numerical vs simulation]
-
 
 [Add trajectory comparison for LU, MO, and FERMI process to show the difference]
 
@@ -1241,6 +1320,28 @@ drift observables show that interaction process changes dynamics.]
 [Changing W over time changing critical N]
 
 [Average traejctory time series demonstrating drift reversal.]
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{Figures/column_case_delta_H.eps}
+    \caption{
+    SD reversal  Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle,
+    \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ for the 
+    local update process. $\beta = 0.3, \gamma=0.14, c=-0.2$, strong 
+    central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so 
+    SD game component reverses first, at a higher population size.
+    This results in the vertical column point cloud where RPS fixates at the 
+    central fixed point where $x \approx y \approx z$ and $q$ drifts away from the fixed point ($N_{RPS} < N < N_{SD}$)}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.4\textwidth]{Figures/disk_clean_deltaH.eps}
+  \caption{RPS reversal $\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
+  This parameter settings give a better  plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}
+\end{figure}
+
+
 
 
 \begin{figure*} 
