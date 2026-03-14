@@ -44,7 +44,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\usepackage{enumitem}
+%\usepackage{enumitem}
 
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
@@ -311,9 +311,9 @@ coexistence. For this particular case of RPS a drift reversal can occur in finit
 
 The snowdrift game has also been intensely 
 studied \cite{evolution_maynard} 
-and is an example of a anti-coordination game where unlike the famous prisoners dilemma, 
-mutual cooperation is prefered over mutual defection. It describes situations where
-individuals compete over limited resources and the benefits and costs associated with them. 
+and is an example of an anti-coordination game where unlike the famous prisoners dilemma, 
+mutual cooperation is preferred over mutual defection.
+The rows in the below payoff matrix correspond to cooperation and defection giving the payoff matrix:
 
 \begin{align}
 \begin{bmatrix}
@@ -323,35 +323,21 @@ individuals compete over limited resources and the benefits and costs associated
 \end{align}
 
 The snowdrift game describes a scenario of two drivers trapped in a snowdrift.
-They have the options to shovel the snow an clear a path (cooperate) or stay in their car (defect).
+They have the options to shovel the snow and clear a path (cooperate) or stay in their car (defect).
 If both cooperate then they pay a shared cost $\frac{c}{2}$ but share the full benefit and can 
 both drive. However the best outcome for one player is to remain in their car and let the other do
 all the work in turn leaving the full cost $c$ to the other player but if both players
 remain in their car then both remain stranded and receive a payoff of 0. This scenario 
-is often arises in biology and social/economic settings where mutual cooperation would be 
-beneficial and both parties refusing to yield results in the worst outcome. For example in 
-negotiation scenarios/research investing for competing companies/animals and microbes sharing resources
-in yeast cells \cite{yeast_snowdrift} where some cooperating cells produce a necessary enzyme
-meanwhile "cheater" cells do not yet still receive the benefit they provide, other examples of cheating
-microbes \cite{cheating_microbes}. 
+often arises in biology and social/economic settings where mutual cooperation would be 
+beneficial and both parties refusing to yield results in the worst outcome.
 
-Both the snowdrift and the hawk-dove game model a scenario where two players are competing over
-some resource but in a social/economic scenario and a biological competition however in both
-the cost of cooperation is high, and the cost of mutual defection is devastating. The resulting
-Nash equilibrium are two pure strategy equilbrium where players select opposite strategies
-(one gets the whole reward and no cost, whilst the other takes a smaller reward but incurs a heavy cost), 
-and the mixed strategy $(\frac{1}{2}, \frac{1}{2})$ between cooperate and defect, where players
-randomize their selection as defecting all the time results in a payoff of 0.
-
-The mixed strategy case is typically stable [show plot and calculate eigenvalues 
-for a typical example of the snowdrift game.]
-
+The interior Nash equilbrium occurs at the mixed strategy $q^* = \frac{b-2c}{b-c}$
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{Figures/snowdrift_sim.pdf}
 \caption{Snowdrift game population time series for Local update (LU) and Moran process (MO), 
-alongide solution to deterministic replicator equation for each process from the 
+alongside solution to deterministic replicator equation for each process from the 
 adjusted dynamics (ref fokker planck equation). $N = 10000$, large population size trajectories 
 closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game
 fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
@@ -1236,7 +1222,7 @@ are the critical sizes and the actual population size respectively there
 are the cases:
 
 
-\begin{enumerate}[itemsep=0mm, parsep=2pt]
+\begin{enumerate}%[itemsep=0mm, parsep=2pt]
   \centering
   \item $N^\prime_{SD} < N < N^\prime_{RPS}$
   \item $N^\prime_{RPS} < N < N^\prime_{SD}$
