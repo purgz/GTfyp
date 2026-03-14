@@ -75,30 +75,28 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-This project investigates the evolutionary dynamics of a composite game formed by combining 
-a cyclical three strategy Rock-Paper-Scissors (RPS) game with a two strategy Snowdrift (SD) game.
-The resulting dynamics are analysed in infinite and finite populations using techniques in evolutionary game theory.
+The evolutionary dynamics of a composite four-strategy game formed by combining the cyclic Rock-Paper-Scissors (RPS)
+game and the Snowdrift (SD) game, are investigated in infinite and finite populations. A payoff structure is
+formed and cast into replicator equations, fixed points and stability of the four-strategy system are 
+analyzed.
 
-A payoff structure is formed and cast into replicator equations, fixed points and stability are analysed and 
-the deterministic dynamics of the 4 strategy system are observed combining cyclical behaviour and 
-Snowdrift cooperate/defect tradeoff dynamics.
-
-Finite population effects are studied through the use of different microscoping interaction processes, 
-such as the Moran process and the local update process. Analytical calculations
+Finite population effects are studied under three different microscopic interaction processes:
+the Moran process, the local update process, and the local fermi process. Analytical calculations
 of drift observables and large ensemble agent based simulations are used to 
 measure the stability of the system under different conditions and visualize the 
-dynamics in the 4-simplex. The phenomenon of drift reversal is also examined, where
-an attracting fixed point loses stability below a critical population size in the 
-sub games and the combined game.
+dynamics in the four-simplex.
+Three drift observables $H_{\mathrm{SD}}$, $H_{\mathrm{RPS}}$, and $H_4$ are defined to 
+characterise the stability of each subgame and for the full four-strategy game.
 
-The results demonstrate the effects of game parameters, interaction processes, 
-strength of selection and population sizes impact the dynamics of the system and 
-when a drift reversal will occur, in particular comparing different cases where the 
-critical population size differs between the sub games. A set of tools
-has been developed to calculate trajectories, run agent based simulations and 
-visualize the dynamics in the combined game (*project README for more information about 
-code tools).
-
+The main result demonstrates the phenomenon of drift reversal, a loss of stability below a critical population size, 
+at two different critical population sizes $N^\prime_{\mathrm{RPS}}$ and 
+$N^\prime_{\mathrm{SD}}$ for each of the subgames. For the local update process a closed form expression for 
+both $N^\prime_{\mathrm{RPS}}$ and $N^\prime_{\mathrm{SD}}$ are derived.
+The ordering of $N^\prime_{\mathrm{RPS}}$ and $N^\prime_{\mathrm{SD}}$ result in qualitatively different
+dynamics and four main cases are visualized in the four-simplex of the game: 
+a disk-like cloud in the RPS plane, a column-shaped cloud in the Snowdrift axis, full interior coexistence in the large 
+population case, and a double drift reversal at very small population sizes $N << N^\prime_{\mathrm{RPS}}, 
+N << N^\prime_{\mathrm{SD}}$ where trajectories are absorbed by the boundaries. 
 \end{abstract}
 
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
@@ -107,84 +105,61 @@ code tools).
 
 %\tableofcontents
 
-\section{\label{sec:level1}Introduction:\protect\\ RPS dynamics}
+\section{\label{sec:level1}Introduction}
 
 
 \subsection{Evolutionary game theory}
 
-Evolutionary game theory has been used to analyse dynamics and 
-evolution of many different systems ranging from biology in modelling
-interactions of animal species and even bacteria and microbes 
-all the way to social systems discussing human behaviour. Examples 
-of cyclical systems even emerge, famously in the population frequencies 
-of the side blotched lizard which have been shown to follow 
-a Rock-Paper-Scissors like competition system.
 
-In this project I explore the evolutionary dynamics of a 
-game composed of 2 and 
-3 strategy games to form a combined game and discuss the effects 
-of various parameters in both infinite and finite populations.
-
-The focus of this project has been analysing a particular 4x4 game
-(equation \ref{AugRpsMatrix}) 
-composed of the famous Rock-Paper-Scissors game and Snowdrift game, 
-in both the classic evolutionary game theory context and
-in finite populations by utilizing particular stochastic update processes.
+Evolutionary game theory provides a framework for analyzing the dynamics of 
+competing strategies in biological and social systems ranging from animal behaviour \cite{rps_lizard} and
+microbial interactions \cite{cheating_microbes,yeast_snowdrift} to economics.
+Replicator equations \cite{evolution_pop_dynamics,evolution_maynard} describing the 
+time evolution of strategy frequencies in a population can be formed under frequency dependent selection 
+and the comparison of individual fitness from a payoff structure. The Rock-Paper-Scissors game (RPS)
+is used as a model for cyclic dominance with famous biological examples including the 
+dynamics of the side-blotched lizard populations \cite{rps_lizard} and competition in strains of E.coli \cite{rps_ecoli}.
+The Snowdrift game (SD) models a tradeoff between cooperation and defection when some negative cost is shared between 
+the players resulting in a mixed strategy Nash equilibrium \cite{evolution_maynard} with biological examples including 
+the production of the enzyme invertase in yeast cells \cite{yeast_snowdrift}. 
 
 
-RPS demonstrates cyclic dominance and SD demonstrates coexistence in a population 
-based on a cooperation/defection tradeoff in the context of a shared cost.
-The resulting game contains both cyclical and coexistence stability leading
-to some interesting dynamics, invasion into the RPS game by a fourth strategy,
-particularly in finite populations where multiple 
-drift reversals can occur.
- 
-I construct of a payoff structure for this 
-game composed of 
-2 and 3 strategy sub games and analyse
-the resulting replicator dynamics 
-\cite{evolution_pop_dynamics,evolution_maynard} and
-stability of the system in infinite populations, then explore
-the effects of different stochastic processes as models for 
-agent based interaction in finite populations. This builds on 
-previous work \cite{drift_reversal_paper,general_moran_process,rps_cyclic_jens,Claussen2007-zo}
-and demonstrates the concept of drift reversal in the combined game, 
-a loss of stability in the dynamics depending on
-interaction process and initial parameters below a critical
-population size. 
 
-I demonstrate the effects of different stochastic processes, 
-selection intensity, payoff matrix parameters and population size on 
-the evolutionary dynamics of the proposed composite game
-through both large ensemble simulations and also through 
-extensive derivations of a drift observable, in some cases
-leading to a closed form solution for the critical population size 
-of a particular system.
-
-\begin{itemize}
-  \item Construction of composite RPS-Snowdrift payoff structure
-  \item Stability analysis in infinite populations
-  \item Derivations of drift observables
-  \item Simulation of stochastic evolutionary processes
-  \item Numerical investigation of drift reversal in the 4 strategy game
-\end{itemize}
+In this project I explore the evolutionary dynamics of a four-strategy
+game composed of the two-strategy SD game and the three-strategy RPS game 
+to form a combined game with the payoff matrix in equation~(\ref{AugRpsMatrix}).
+The composite game combines the cyclic dominance with cooperation/defection coexistence dynamics
+with invasion into the RPS cycle by the SD strategy. A game of this form has been considered 
+in the infinite-population case \cite{evolution_pop_dynamics}, this project extends this analysis to the 
+finite populations, focusing on the phenomenon of drift reversal \cite{drift_reversal_paper}.
 
 
-\subsection{Rock-Paper-Scissors Model}
-Examples cyclic RPS dynamics appear in biology most notably, cyclic dominance in lizards
-\cite{rps_lizard}, strains of e-coli \cite{rps_ecoli}.
-RPS has been analyzed in the context of evolutionary game theory 
-extensively \cite{evolution_pop_dynamics}.
-Previous work focusses on the rock-paper-scissors game in finite 
-populations and has shown that a drift reversal due to finite populations can 
-arise under certain parameter conditions and microscopic interaction
-processes \cite{rps_cyclic_jens}.
+It has been shown that finite populations can qualitatively alter the dynamics of a game described 
+by replicator equations \cite{drift_reversal_paper,Claussen2007-zo,rps_cyclic_jens,general_moran_process}.
+Drift reversal occurs when an attracting fixed point loses stability below a critical population size, 
+and this depends on the initial parameters of the game, the strength of selection and the underlying
+microscopic update process \cite{drift_reversal_paper}. This has been analyzed for 
+two-strategy games and the three-strategy RPS game in Refs.~\cite{rps_cyclic_jens,drift_reversal_paper}.
+This project demonstrates that in the composite RPS-SD game there are two independent critical population sizes
+for a drift reversal in each of the subgames and that the relative ordering of these two population sizes 
+result in distinct dynamics categorised illustrated in Fig.~\ref{drift_cases_fig}.
+
+This report first introduces the RPS and SD game individually in sections \ref{RPS-model} and \ref{SD-model}. 
+Section \ref{sec:combined_game} introduces the payoff structure and stability analysis for the combined game 
+in the infinite population case. Section \ref{sec:interaction_processes} discusses the three microscopic 
+interaction processes and 
+defines transition probabilites for individuals hopping from one strategy to another. Section 
+\ref{sec:fokker-planck} and \ref{sec:drift_measures} derive a 
+Fokker-Planck equation and drift measures to quantify the stochastic effects of finite populations and 
+calculate the critical population sizes where drift reversal occurs. A closed form solution for the local update process
+critical population size is derived, and finally the distinct drift reversal cases are compared.
 
 
-The standard rock paper scissors matrix is defined as:
-The combined game analysed mainly as part of this report is a composition of the rock-paper-scissors (RPS) game and the snowdrift (SD) game. 
 
-The general rock paper scissors payoff matrix is defined as:
+\subsection{\label{RPS-model} Rock-Paper-Scissors model}
+
+
+The general RPS payoff matrix is defined as:
 \begin{align}
 \begin{bmatrix}
     a & c & b\\
@@ -192,28 +167,28 @@ The general rock paper scissors payoff matrix is defined as:
     c & b & a
 \end{bmatrix}
 \end{align}
-For the standard symmetric case of the RPS game, $a = 0, c = -1, b = 1$
-where rock crushes scissors, paper covers rock, and scissors cuts paper. 
-Ties are awarded the payoff of 0 resulting in cyclical dynamics about the internal
+For the standard symmetric case of the RPS game, $a = 0, c = -1, b = 1$.
+Here rock crushes scissors, paper covers rock, and scissors cuts paper. 
+Ties are awarded the payoff of 0, resulting in cyclic dynamics about the internal
 fixed point of $\left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)$.
 
 \subsubsection{\label{sec:rps_replicator} Replicator dynamics}
 
 To analyze the time evolution of a population under the RPS game, 
-the standard imitation based replicator equations can be derived for the system.
+the standard imitation-based replicator equations are derived for the system.
 Let $x$, $y$ and $z$ represent the fraction of players using rock, paper, and scissors
 respectively. The fraction of scissors players $z$ can be defined as $z = 1 - x - y$, 
 reducing the dimension of the replicator equations.
 Expected payoffs for each strategy can then be defined as follows:
 \begin{align}
-   \pi_R = a x + b \left(- x - y + 1\right) + c y \\
-   \pi_P = a y + b x + c \left(- x - y + 1\right) \\
-   \pi_S = a \left(1-x-y\right) + b y + c x
+   \pi_R &= a x + b \left(- x - y + 1\right) + c y \nonumber \\
+   \pi_P &= a y + b x + c \left(- x - y + 1\right) \nonumber\\
+   \pi_S &= a \left(1-x-y\right) + b y + c x \nonumber
 \end{align}
 
 Using the standard replicator model for the evolution of population fractions over time, where
 the payoff of an individual is compared to the average payoff in the population, the 
-following well known equation can be used to define a series of differential equations for 
+following equation \cite{evolution_pop_dynamics} can be used to define a series of differential equations for 
 each of the population fractions:
 
 \begin{equation} \label{eq:standard_replicator_dynamics}
@@ -248,13 +223,13 @@ over time:
 \end{equation}
 \end{widetext}
 
-These are the deterministic payoff difference replicator equations from 
-evolutionary game theory which define populations $x,y$ over time. Later I will derive these
+These are the deterministic replicator equations from 
+evolutionary game theory which define populations $x,y$ over time. These are extended in section \ref{sec:fokker-planck}
 for specific microscopic interaction processes including the noise terms that appear
 due to the finite population size effects.
 
 The stability of this system of replicator equations can be analyzed by
-computing the eigenvalues of Jacobian of the replicator system, following standard
+computing the eigenvalues of the Jacobian of the replicator system, following standard
 methods in evolutionary game theory \cite{evolution_pop_dynamics}:
 
 \begin{equation}
@@ -265,21 +240,20 @@ J =
 \end{bmatrix}
 \end{equation}
 where $F = \dot x, G = \dot y$.
-To see full derivation of $\frac{\partial F}{\partial x},
+Full expansions of $\frac{\partial F}{\partial x},
 \frac{\partial F}{\partial y},\frac{\partial G}{\partial x}, \frac{\partial G}{\partial y} $
- see appendix (standard RPS).
+are provided in the appendix.
 
 Fixed point stability can be determined by computing the eigenvalues of this matrix $J$ at 
 a specific point.
 
-For the standard RPS game where $a = 0, b = 1, c = -1$:
+For the standard RPS game where $a = 0, b = 1, c = -1$ the eigenvalues of the RPS game are:
 
 \begin{align}
 \lambda_1 &= -\frac{1}{2} \sqrt{16 x^{2} + 16 x y - 16 x + 16 y^{2} - 16 y + 4} \\
 \lambda_2 &= \frac{1}{2} \sqrt{16 x^{2} + 16 x y - 16 x + 16 y^{2} - 16 y + 4}
 \end{align}
-and and the internal fixed point of $\left(\frac{1}{3}, \frac{1}{3}\right)$ for RPS, this 
-evaluates to 
+and the internal fixed point of $\left(\frac{1}{3}, \frac{1}{3}\right)$ for RPS, this gives:
 \begin{align}
 \lambda_1, \lambda_2 = \left\{- \frac{\sqrt{3}}{3} i, \frac{\sqrt{3}}{3} i\right\}
 \end{align}
@@ -295,44 +269,45 @@ Fig.~\ref{fig:rps_standard}.
 \caption{\label{fig:rps_standard} Standard zero sum RPS game. $w = 0.3$, analytical trajectory (blue), 
 large $N$ (500000) in green and small $N$ (2000) in orange for comparison. Large $N$ closely follows
 the replicator dynamics as expected, small $N$ is heavily influenced by noise
-and doesnt precisely follow dynamics. Agrees with stability analysis, periodic 
+and doesn't precisely follow dynamics. Agrees with stability analysis, periodic 
 orbits at a fixed distance determined by the initial population.}
 \end{figure}
 
 \hfill
 
-In this report I will focus on the case where $a = 0, b = 1$ and $c$ is left as a free parameter which 
-governs the dynamics of the game. In the standard case where $c=1$, the system is neutrally stable and the 
+In the rest of this report I will focus on the case where $a = 0, b = 1$ and $c$ is left as a free parameter which 
+governs the dynamics of the game. In the standard zero-sum case where $c=-1$, the system is neutrally stable and the 
 trajectories oscillate at a fixed distance from the Nash equilibrium $(1/3, 1/3, 1/3)$. 
 When $c < -1$ the system spirals outwards from the equilibrium and will be absorbed by the boundaries and
-finally when $c > -1$ the system will sprial inwards, where cooperation between the 3 strategies is
+finally when $c > -1$ the system will spiral inwards, where cooperation between the three strategies is
 preferred. It has previously been shown that a drift reversal effect occurs when $c > -1$ where a critical 
-population size can reverse the drift from the internal stable point towards to boundaries \cite{rps_cyclic_jens}.
+population size can reverse the drift from the internal stable point towards the boundaries \cite{rps_cyclic_jens}.
 
 \begin{figure} 
 \centering
 \includegraphics[scale=0.3]{Figures/rps_example_in_spiral.pdf}
 \caption{\label{fig:rps_sink} Trajectory for the RPS game where $c = -0.8$. The blue line corresponds to a numerical
 solution of the adjusted replicator dynamics for the Moran process, and the green line is a Moran process
-agent based simulation with a population size of 500. Strength of selection $w = 0.3$}
-\end{figure}
+agent based simulation with a population size of 500. Strength of selection $w = 0.3$.
 With a population size of 500, the agent based simulation follows the deterministic trajectory rather well,
-with added noise due to the stochastic noise element arising from a finite population size (fokker planck equation).
+with deviations from the deterministic trajectory due to stochastic fluctuations caused by the finite population size.}
+\end{figure}
+
 
 The eigenvalues of the game in Fig.~\ref{fig:rps_sink} are:
 \begin{equation}
 \lambda_{1}, \lambda_2 = \left\{-\frac{1}{30} + \frac{3 \sqrt{3}}{10}i,
 -\frac{1}{30} - \frac{3 \sqrt{3}}{10}i\right\}
 \end{equation}
-Since the real part of the eigenvaleus are negative, 
-$\operatorname{Re}(\lambda_{1,2}) = -\frac{1}{30} < 0$ the fixed point $\frac{1}{3}, \frac{1}{3}$
-is linearly stable, so the population will converge towards the central fixed point over time.
+Since the real parts of the eigenvalues are negative, 
+$\operatorname{Re}(\lambda_{1,2}) = -\frac{1}{30} < 0$, the fixed point $\left(\frac{1}{3}, \frac{1}{3}\right)$
+is linearly stable, so the populations will converge towards the central fixed point over time.
 The imaginary component indicates the oscillatory dynamics so the population will spiral inwards 
-towards the center (spiral sink). When $c = -0.8$, the populations converges towards a stable
+towards the center (spiral sink). When $c = -0.8$, the populations converge towards a stable
 coexistence. For this particular case of RPS a drift reversal can occur in finite populations 
 \cite{rps_cyclic_jens}.
 
-\subsection{Snowdrift game}
+\subsection{\label{SD-model} Snowdrift game}
 
 The snowdrift game has also been intensely 
 studied \cite{evolution_maynard} 
@@ -383,7 +358,7 @@ fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
 \end{figure}
 
 
-\section{Combined game definition}
+\section{\label{sec:combined_game}Combined game definition}
 
 The focus of this work is a composite game composing
 the snowdrift (SD) and rock-paper-scissors (RPS) games
@@ -591,7 +566,7 @@ mutation may be a relevant extension to the model.
 
 
 
-\section{Interaction processes}
+\section{\label{sec:interaction_processes}Interaction processes}
 
 To study the dynamics in finite populations, an interaction process is required for 
 comparison between selected agents at each time step.
@@ -701,7 +676,7 @@ with sympy (reference sympy maybe?))
 \end{align}
 
 
-\section{Fokker-Planck Equation}
+\section{\label{sec:fokker-planck} Fokker-Planck Equation}
 
 Master equation \cite{alma9933506044604871} can be derived and using the 2nd order taylor expansion of the transition probabilities
 for each strategy, a fokker-planck equation can be derived for each of the processes.
@@ -889,7 +864,7 @@ this figure can probably be removed and replaced with one that shows drift rever
 \end{figure}
 
 
-\section{Drift Measures}
+\section{\label{sec:drift_measures}Drift Measures}
 
 A measure of the drift from the internal fixed point of this system can be defined by
 an observation function $H$ \cite{Claussen2007-zo,drift_reversal_paper,rps_cyclic_jens}, and 
