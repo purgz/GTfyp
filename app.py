@@ -57,7 +57,7 @@ def pd_example(
 
     pd_array = Games.PRISONERS_DILEMMA
     pd_array = Games.HAWK_DOVE
-    sd_array = Games.SNOWDRIFT
+    pd_array = Games.SNOWDRIFT
 
     initial_dist = np.array([0.01, 0.99])
 

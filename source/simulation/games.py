@@ -14,6 +14,8 @@ class Games:
 
     HAWK_DOVE = np.array([[0, 3], [1, 2]])
 
-    SNOWDRIFT = np.array([[3, 1], [1, 0]])
+
+    # With b = 3, c = 1
+    SNOWDRIFT = np.array([[1, 0.5], [1.5, 0]])
 
 
