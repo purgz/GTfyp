@@ -131,8 +131,7 @@ to form a combined game with the payoff matrix in equation~(\ref{AugRpsMatrix}).
 The composite game combines the cyclic dominance with cooperation/defection coexistence dynamics
 with invasion into the RPS cycle by the SD strategy. A game of this form has been considered 
 in the infinite-population case \cite{evolution_pop_dynamics}, this project extends this analysis to the 
-finite populations, focusing on the phenomenon of drift reversal \cite{drift_reversal_paper}.
-
+finite populations, focusing on the phenomenon of drift reversal~\cite{drift_reversal_paper}.
 
 It has been shown that finite populations can qualitatively alter the dynamics of a game described 
 by replicator equations \cite{drift_reversal_paper,Claussen2007-zo,rps_cyclic_jens,general_moran_process}.
@@ -331,12 +330,19 @@ remain in their car then both remain stranded and receive a payoff of 0. This sc
 often arises in biology and social/economic settings where mutual cooperation would be 
 beneficial and both parties refusing to yield results in the worst outcome.
 
-The interior Nash equilbrium occurs at the mixed strategy $q^* = \frac{b-2c}{b-c}$
+There are two pure strategy Nash equilbria where the players select opposite strategies, 
+this is an anti coordination game.
+The interior Nash equilbrium occurs at the mixed strategy $q^* = \frac{b-2c}{b-c}$ where 
+$q$ denotes the fraction of cooperators.
+
+In the example trajectory where $b=3, c=1$, the mixed strategy evaluates to 
+being $(\frac{1}{2},\frac{1}{2})$, and is a stable fixed point in the system as seen in 
+Fig.~\ref{snowdrift_trajectory}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{Figures/snowdrift_sim.pdf}
-\caption{Snowdrift game population time series for Local update (LU) and Moran process (MO), 
+\caption{\label{snowdrift_trajectory}Snowdrift game population time series for Local update (LU) and Moran process (MO), 
 alongside solution to deterministic replicator equation for each process from the 
 adjusted dynamics (ref fokker planck equation). $N = 10000$, large population size trajectories 
 closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game
@@ -346,16 +352,15 @@ fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
 
 \section{\label{sec:combined_game}Combined game definition}
 
-The focus of this work is a composite game composing
+The focus of this work is a composite game formed by combining
 the snowdrift (SD) and rock-paper-scissors (RPS) games
-into a single four strategy payoff matrix. Average payoffs, 
+into a single four-strategy payoff matrix. Average payoffs, 
 replicator equations and fixed points can 
 subsequently be derived and the deterministic dynamics can be studied.
-The simulation tool I have created can do all of this (see project README instructions),
-plot trajectories both in 2d and and in the 3d pyramid simplex. 
+
 These dynamics have been considered before \cite{evolution_pop_dynamics}, 
 however not in extensive detail nor in finite populations. 
-In the rest of this report I show that there 
+The remainder of this report demonstrates that there 
 is a drift reversal and that this occurs at different population sizes, 
 and can be tuned to provide different distinct cases, 
 resulting in qualitatively different dynamics from the infinite/large 
