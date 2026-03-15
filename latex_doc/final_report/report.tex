@@ -501,14 +501,16 @@ whilst also being attracted inwards to the fixed point indicating a stable
 coexistence of all four strategies.
 The eigenvalues in this case ($c=-0.8$) are:
 
+[CALCULATE EIGENVALUES AND INSERT THEM HERE]
+
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{Figures/spiral_in_4d.pdf}
 \caption{\label{fig:arps_spiral_in} Same conditions as 
-Fig.~\ref{fig:arps_standard_simplex} however with $s=-0.8$ so the 
+Fig.~\ref{fig:arps_standard_simplex} however with $c=-0.8$ so the 
 trajectories are attracted to the RPS center. Corresponds to 
 eigenvalues with both real negative part (attracting) and 
-complex part spiralling towards to sink. Both the 
+complex part spiralling towards the sink. Both the 
 numerical solution to the deterministic replicator equations, and a high population
 simulated trajectory (green). Strong match between the two.}
 \end{figure}
@@ -533,6 +535,13 @@ and the final strategy is fixed by normalization.
 At each update step, individuals interact according to a 
 payoff matrix $\mathbf{A}$ and reproduce according to a 
 specified microscopic update rule.
+
+Three microscopic update processes are considered: the Moran process,
+the local update process, and the local fermi process. Each is defined with a 
+reproductive function $\phi$ introduced in the following section and implemented in the 
+file.~\cite{aug_rps} ($aug\_rps.py$) responsible for the numerical deterministic 
+solutions for the three processes.
+
 In the large--$N$ limit, the stochastic dynamics can be
  approximated by a Fokker--Planck equation governing the 
  probability density $P(\mathbf{x},t)$. 
@@ -550,9 +559,9 @@ a general Moran process
 including mutation has been derived.
 For simplicity I have not included mutation in the models 
 and the effects of finite populations and the phenomenon of 
-drift reversal is still clear. Due to the 
+drift reversal are still clear. Due to the 
 ensemble averaging of trajectories often the extinction cases
-dissapear when multiple simulated runs are combined, however adding
+disappear when multiple simulated runs are combined, however adding
 mutation may be a relevant extension to the model.
 
 
