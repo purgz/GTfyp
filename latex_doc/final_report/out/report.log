@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  15 MAR 2026 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.11.10)  15 MAR 2026 17:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -542,18 +542,23 @@ File: Figures/arps_time_series_standard.pdf Graphic file (type pdf)
 <use Figures/arps_time_series_standard.pdf>
 Package pdftex.def Info: Figures/arps_time_series_standard.pdf  used on input line 492.
 (pdftex.def)             Requested size: 454.29729pt x 240.6221pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 504--505
+[]\OT1/cmr/m/n/10 [CALCULATE EIGEN-VAL-UES AND IN-SERT
+ []
+
 <Figures/spiral_in_4d.pdf, id=66, 393.9799pt x 427.98193pt>
 File: Figures/spiral_in_4d.pdf Graphic file (type pdf)
 <use Figures/spiral_in_4d.pdf>
-Package pdftex.def Info: Figures/spiral_in_4d.pdf  used on input line 506.
+Package pdftex.def Info: Figures/spiral_in_4d.pdf  used on input line 508.
 (pdftex.def)             Requested size: 236.38976pt x 256.79114pt.
 <Figures/spiral_in_time_series.pdf, id=67, 778.83409pt x 433.59666pt>
 File: Figures/spiral_in_time_series.pdf Graphic file (type pdf)
 <use Figures/spiral_in_time_series.pdf>
-Package pdftex.def Info: Figures/spiral_in_time_series.pdf  used on input line 518.
+Package pdftex.def Info: Figures/spiral_in_time_series.pdf  used on input line 520.
 (pdftex.def)             Requested size: 467.30406pt x 260.16pt.
- [5 <./Figures/arps_standard_simplex.pdf>] [6 <./Figures/arps_time_series_standard.pdf> <./Figures/spiral_in_4d.pdf>] [7 <./Figures/spiral_in_time_series.pdf>]
-Overfull \hbox (9.55446pt too wide) detected at line 735
+[5 <./Figures/arps_standard_simplex.pdf>] [6 <./Figures/arps_time_series_standard.pdf> <./Figures/spiral_in_4d.pdf>] [7 <./Figures/spiral_in_time_series.pdf>]
+Overfull \hbox (9.55446pt too wide) detected at line 744
 []
  []
 
@@ -561,10 +566,14 @@ Overfull \hbox (9.55446pt too wide) detected at line 735
 <Figures/pop_200_correct_drift.png, id=147, 297.61188pt x 305.14pt>
 File: Figures/pop_200_correct_drift.png Graphic file (type png)
 <use Figures/pop_200_correct_drift.png>
-Package pdftex.def Info: Figures/pop_200_correct_drift.png  used on input line 846.
+Package pdftex.def Info: Figures/pop_200_correct_drift.png  used on input line 855.
 (pdftex.def)             Requested size: 238.08981pt x 244.11232pt.
- [9 <./Figures/pop_200_correct_drift.png>] [10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 1275--1292
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9 <./Figures/pop_200_correct_drift.png>] [10] [11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 1284--1301
 
  []
 
@@ -575,12 +584,12 @@ Package epstopdf Info: Source file: <Figures/column_case_delta_H.eps>
 (epstopdf)                    date: 2026-03-14 18:09:22
 (epstopdf)                    size: 20379 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/column_case_delta_H-eps-converted-to.pdf Figures/column_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 1326.
+(epstopdf)             \includegraphics on input line 1335.
 Package epstopdf Info: Output file is already uptodate.
 <Figures/column_case_delta_H-eps-converted-to.pdf, id=165, 462.72874pt x 347.2975pt>
 File: Figures/column_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use Figures/column_case_delta_H-eps-converted-to.pdf>
-Package pdftex.def Info: Figures/column_case_delta_H-eps-converted-to.pdf  used on input line 1326.
+Package pdftex.def Info: Figures/column_case_delta_H-eps-converted-to.pdf  used on input line 1335.
 (pdftex.def)             Requested size: 203.99689pt x 153.10812pt.
 Package epstopdf Info: Source file: <Figures/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-03-14 18:09:22
@@ -589,46 +598,43 @@ Package epstopdf Info: Source file: <Figures/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-03-14 18:09:22
 (epstopdf)                    size: 20737 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/disk_clean_deltaH-eps-converted-to.pdf Figures/disk_clean_deltaH.eps>
-(epstopdf)             \includegraphics on input line 1339.
+(epstopdf)             \includegraphics on input line 1348.
 Package epstopdf Info: Output file is already uptodate.
 <Figures/disk_clean_deltaH-eps-converted-to.pdf, id=166, 482.80376pt x 350.30875pt>
 File: Figures/disk_clean_deltaH-eps-converted-to.pdf Graphic file (type pdf)
 <use Figures/disk_clean_deltaH-eps-converted-to.pdf>
-Package pdftex.def Info: Figures/disk_clean_deltaH-eps-converted-to.pdf  used on input line 1339.
+Package pdftex.def Info: Figures/disk_clean_deltaH-eps-converted-to.pdf  used on input line 1348.
 (pdftex.def)             Requested size: 203.99689pt x 148.01598pt.
 <./Figures/drift_cases/drift_shaded.pdf, id=167, 544.45515pt x 546.3612pt>
 File: ./Figures/drift_cases/drift_shaded.pdf Graphic file (type pdf)
 <use ./Figures/drift_cases/drift_shaded.pdf>
-Package pdftex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 1351.
+Package pdftex.def Info: ./Figures/drift_cases/drift_shaded.pdf  used on input line 1360.
 (pdftex.def)             Requested size: 510.0pt x 511.79553pt.
 <./Figures/drift_cases/rod_larger_inset.png, id=168, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/rod_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/rod_larger_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 1371.
+Package pdftex.def Info: ./Figures/drift_cases/rod_larger_inset.png  used on input line 1380.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
 <./Figures/drift_cases/disk_larger_inset.png, id=169, 2843.62375pt x 2843.62375pt>
 File: ./Figures/drift_cases/disk_larger_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/disk_larger_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 1371.
+Package pdftex.def Info: ./Figures/drift_cases/disk_larger_inset.png  used on input line 1380.
 (pdftex.def)             Requested size: 142.26378pt x 142.23291pt.
 <./Figures/drift_cases/large_N_inset.png, id=170, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/large_N_inset.png Graphic file (type png)
 <use ./Figures/drift_cases/large_N_inset.png>
-Package pdftex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 1371.
+Package pdftex.def Info: ./Figures/drift_cases/large_N_inset.png  used on input line 1380.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
 <./Figures/drift_cases/low_pop_case_trans.png, id=171, 2842.62pt x 2842.62pt>
 File: ./Figures/drift_cases/low_pop_case_trans.png Graphic file (type png)
 <use ./Figures/drift_cases/low_pop_case_trans.png>
-Package pdftex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 1371.
+Package pdftex.def Info: ./Figures/drift_cases/low_pop_case_trans.png  used on input line 1380.
 (pdftex.def)             Requested size: 142.26378pt x 142.22607pt.
-(out/report.bbl [13]
+[13]
 
-LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 9.
+LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix] on input line 1407.
 
-
-Class revtex4-2 Warning: Deferred float stuck during \clearpage processing.
-
-[14 <./Figures/column_case_delta_H-eps-converted-to.pdf> <./Figures/disk_clean_deltaH-eps-converted-to.pdf>] [15 <./Figures/drift_cases/drift_shaded.pdf> <./Figures/drift_cases/rod_larger_inset.png> <./Figures/drift_cases/disk_larger_inset.png> <./Figures/drift_cases/large_N_inset.png> <./Figures/drift_cases/low_pop_case_trans.png>]
+(out/report.bbl [14 <./Figures/column_case_delta_H-eps-converted-to.pdf> <./Figures/disk_clean_deltaH-eps-converted-to.pdf>] [15 <./Figures/drift_cases/drift_shaded.pdf> <./Figures/drift_cases/rod_larger_inset.png> <./Figures/drift_cases/disk_larger_inset.png> <./Figures/drift_cases/large_N_inset.png> <./Figures/drift_cases/low_pop_case_trans.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 69--70
  []\OT1/cmr/m/n/9 M. J. Liao, M. O. Din, L. Tsim-ring,
  []
@@ -650,18 +656,18 @@ L3 programming layer <2025-10-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 25820 strings out of 468662
- 646893 string characters out of 5444563
- 1208032 words of memory out of 5000000
- 54143 multiletter control sequences out of 15000+600000
- 642402 words of font info for 94 fonts, out of 8000000 for 9000
+ 25827 strings out of 468662
+ 646989 string characters out of 5444563
+ 1213032 words of memory out of 5000000
+ 54149 multiletter control sequences out of 15000+600000
+ 642569 words of font info for 95 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  84i,16n,104p,948b,1873s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/report.pdf (16 pages, 4375183 bytes).
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on out/report.pdf (16 pages, 4384680 bytes).
 PDF statistics:
- 416 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
+ 421 PDF objects out of 1000 (max. 8388607)
+ 207 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  88 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{13}%
+\begin{thebibliography}{14}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -79,6 +79,9 @@
 \bibitem [{\citenamefont {Traulsen}\ \emph {et~al.}(2006)\citenamefont {Traulsen}, \citenamefont {Claussen},\ and\ \citenamefont {Hauert}}]{general_moran_process}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Traulsen}}, \bibinfo {author} {\bibfnamefont {J.~C.}\ \bibnamefont {Claussen}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Hauert}},\ }\href {https://doi.org/10.1103/PhysRevE.74.011901} {\bibfield  {journal} {\bibinfo  {journal} {Phys. Rev. E}\ }\textbf {\bibinfo {volume} {74}},\ \bibinfo {pages} {011901} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Brooks}(2026)}]{aug_rps}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Brooks}},\ }\href@noop {} {\bibinfo {title} {\texttt{aug\_rps.py} --- augmented rps simulation library}} (\bibinfo {year} {2026}),\ \bibinfo {note} {project repository}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {Kampen}(2007)}]{alma9933506044604871}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~G.~v.}\ \bibnamefont {Kampen}},\ }\href {https://ebookcentral.proquest.com/lib/bham/detail.action?docID=291692} {\emph {\bibinfo {title} {Stochastic processes in physics and chemistry}}},\ \bibinfo {edition} {3rd}\ ed.,\ North-Holland personal library\ (\bibinfo  {publisher} {Elsevier},\ \bibinfo {address} {Amsterdam},\ \bibinfo {year} {2007})\BibitemShut {NoStop}%
