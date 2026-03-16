@@ -439,7 +439,7 @@ def high_dim_2d_plot(
 ):
 
     fig = plt.figure()
-    colors = ["r", "g", "b"]
+    colors = ["r", "r", "b", "b", "g", "g", "r", "b", "g"]
     if dfs is not None:
         for i, df in enumerate(dfs):
             color = colors[i]
@@ -449,10 +449,12 @@ def high_dim_2d_plot(
             a = df.iloc[:, 3]
 
             for j in range(len(df.columns)):
+                if j != 3:
+                    continue
                 if norm[i]:
                     # Need to remultiply by data res to fix scaling
                     time_norm = (np.arange(len(df)) * data_res) / Ns[i]
-                    plt.plot(time_norm, df.iloc[:, j])
+                    plt.plot(time_norm, df.iloc[:, j], color = color)
                 else:
                    
                     plt.plot(t_eval, df.iloc[:, j], color=color, linestyle="dashed")
@@ -476,7 +478,8 @@ def high_dim_2d_plot(
                     plt.plot(t_eval, data.iloc[:, j], color=color)
 
     plt.xlabel("T")
-    plt.ylabel("R,P,S,+")
+    #plt.ylabel("R,P,S,+")
+    plt.ylabel(r"Fraction of $+$ in the population")
     plt.show()
 
 

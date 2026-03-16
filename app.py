@@ -773,17 +773,53 @@ if __name__ == "__main__":
                                                                         w=0.45)
 
     N = 200
+
     _,_, moran_traj, _ = simulation.moran_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 10000, 
                                                     point_cloud=False, traj=True, initial_rand=False,
                                                     initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+
+    numerical_local, t_eval = replicator.numerical_trajectory_from_fokker_planck(basic_rps, interaction_process="Local",
+                                                                                 w=0.45)
     
-    print(numerical_moran)
+    _,_, local_traj,_ = simulation.local_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 10000, 
+                                                    point_cloud=False, traj=True, initial_rand=False,
+                                                    initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+    
+    numerical_fermi, t_eval = replicator.numerical_trajectory_from_fokker_planck(basic_rps, interaction_process="Fermi",
+                                                                                 w=0.45)
+    
+    _,_, fermi_traj,_ = simulation.fermi_batch_sim(matrix=basic_rps, pop_size=N, iterations = N * 150, w=0.45, simulations= 10000, 
+                                                    point_cloud=False, traj=True, initial_rand=False,
+                                                    initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+    
+    N_large = 100000
+    _,_, fermi_traj_high,_ = simulation.fermi_batch_sim(matrix=basic_rps, pop_size=N_large, iterations = N_large * 150, w=0.45, simulations= 100, 
+                                                point_cloud=False, traj=True, initial_rand=False,
+                                                initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+        
+    _,_, local_traj_high,_ = simulation.local_batch_sim(matrix=basic_rps, pop_size=N_large, iterations = N_large * 150, w=0.45, simulations= 100, 
+                                                point_cloud=False, traj=True, initial_rand=False,
+                                                initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+    _,_, moran_traj_high,_ = simulation.moran_batch_sim(matrix=basic_rps, pop_size=N_large, iterations = N_large * 150, w=0.45, simulations= 100, 
+                                            point_cloud=False, traj=True, initial_rand=False,
+                                        initial_dist=np.array([0.5,0.2,0.2, 0.1]))
+    
 
     df = pd.DataFrame({"c1": moran_traj[0], "c2": moran_traj[1], "c3": moran_traj[2], "c4": moran_traj[3]})
-
+    df_lu = pd.DataFrame({"c1": local_traj[0], "c2": local_traj[1], "c3": local_traj[2], "c4": local_traj[3]})
+    df_fermi = pd.DataFrame({"c1": fermi_traj[0], "c2": fermi_traj[1], "c3": fermi_traj[2], "c4": fermi_traj[3]})
     
-    simulation.high_dim_2d_plot(None, Ns = [None,N], labels=["Adjusted", "Moran"], norm=[False, True], data_res =1,
-                                dfs=[numerical_moran, df], t_eval=t_eval)
+
+    df_2 = pd.DataFrame({"c1": moran_traj_high[0], "c2": moran_traj_high[1], "c3": moran_traj_high[2], "c4": moran_traj_high[3]})
+    df_lu_2 = pd.DataFrame({"c1": local_traj_high[0], "c2": local_traj_high[1], "c3": local_traj_high[2], "c4": local_traj_high[3]})
+    df_fermi_2 = pd.DataFrame({"c1": fermi_traj_high[0], "c2": fermi_traj_high[1], "c3": fermi_traj_high[2], "c4": fermi_traj_high[3]})
+    
+
+    simulation.high_dim_2d_plot(None, Ns = [None,N, None, N, None, N, N_large, N_large, N_large], labels=["Adjusted", "Moran","Local analytical", "local", "fermi", "fermi", "n", "n", "n"], 
+                                norm=[False, True,False, True,False, True, True, True, True], data_res =1,
+                                dfs=[numerical_moran, df, numerical_local, df_lu, numerical_fermi, df_fermi
+                                , df_2, df_lu_2, df_fermi_2], 
+                                t_eval=t_eval)
     
     simulation.quaternary_plot_same_axis([numerical_moran, df], labels=["Numerical", "Moran"], show=True)
 

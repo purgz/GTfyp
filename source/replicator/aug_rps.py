@@ -18,9 +18,17 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 a, c, b, gamma, beta = sp.symbols('a c b gamma beta')
 
+plt.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
-
-    
+plt.rcParams.update({
+"font.size": 18,
+    "axes.labelsize": 20,
+    "axes.titlesize": 20,
+    "xtick.labelsize": 16,
+    "ytick.labelsize": 16,
+    "legend.fontsize": 16,
+})
 
 
 
@@ -101,6 +109,11 @@ def replicators(matrix, interactionProcess="Moran", w=0.2, local_delta_pi = 2):
       x_dot = x * (payoffR - averagePayoff) * k
       y_dot = y * (payoffP - averagePayoff) * k
       z_dot = z * (payoffS - averagePayoff) * k
+    case "Fermi":
+      k = w / (local_delta_pi)
+      x_dot = x * sp.tanh(payoffR - averagePayoff) * k
+      y_dot = y * sp.tanh(payoffP - averagePayoff) * k
+      z_dot = z * sp.tanh(payoffS - averagePayoff) * k
     case _:
       x_dot = x * (payoffR - averagePayoff) 
       y_dot = y * (payoffP - averagePayoff) 
@@ -711,10 +724,10 @@ if __name__ == "__main__":
   )
 
   basic_rps = np.array(
-  [[0, -0.8, 1,     0.4], 
-    [1, 0, -0.8,     0.4], 
-    [-0.8, 1, 0,     0.4], 
-    [0.24, 0.24, 0.24, 0]]
+  [[0, -0.8, 1,     0.2], 
+    [1, 0, -0.8,     0.2], 
+    [-0.8, 1, 0,     0.2], 
+    [0.1, 0.1, 0.1, 0]]
   )
   
   print(find_fixed_point_a_x(basic_rps))
@@ -729,25 +742,26 @@ if __name__ == "__main__":
   print("*************************")
   print(latex(z_dot))
   """
-  """standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
+  #standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
 
+  """standardConfig = {a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}
   substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 
   fixedPoints = getFixedPoints(substitutions, (x, y, z))
-  """
-  #print(latex(fixedPoints))  
-  """standardConfig = {a: 0, b: 1, c: -1, gamma: 0.06, beta: 0.03}
-  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1/4, y: 1/4, z: 1/4})
+  
+  print(latex(fixedPoints))  
+  
+  eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/7, y: 2/7, z: 2/7})
 
   print(eigenvalues)
-  exit()"""
+  exit()
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
 
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
+  """
 
-
-  ws = np.linspace(0.01, 0.4, 10)
+  ws = np.linspace(0.01, 0.4, 5)
 
 
   transitions_local = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
@@ -771,25 +785,45 @@ if __name__ == "__main__":
     plt.plot(Ns, lu_res, label=f"w={w}")
     
   plt.plot(Ns, [3/(20) for n in Ns], linestyle="dashed", label="neutral")
-  
+
+  plt.axhline(0, lw=0.6, color="black", linestyle="dashed")
   plt.legend()
-  plt.xlabel="N"
+  plt.ylabel(r"$\langle \Delta H_{SD} \rangle_{LU} N^2$")
+  plt.xlabel("$N$")
+  
   plt.show()
 
 
 
-  numerical_delta_H_range()
+  #numerical_delta_H_range()
 
   print("Working for the local update derivation")
 
-  transitions_local = transition_probs(local_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
+  transitions_local = transition_probs(fermi_reproductive_func, [payoffR, payoffP, payoffS, payoffL])
   a_x = (transitions_local["T_PR"] + transitions_local["T_SR"] + transitions_local["T_LR"]
         - transitions_local["T_RP"] - transitions_local["T_RS"] - transitions_local["T_RL"])
 
 
   target = (w_sym/delta_pi) * x * (payoffR - averagePayoff)
+  
+
+  target = x * sp.tanh((w_sym / 2) * (payoffR - averagePayoff))
+
+  target = x * (
+    y * sp.tanh(w_sym*(payoffR - payoffP)/2) +
+    z * sp.tanh(w_sym*(payoffR - payoffS)/2) +
+    q * sp.tanh(w_sym*(payoffR - payoffL)/2)
+  )
+
+  diff = sp.together(a_x - target)
+  diff = diff.rewrite(sp.tanh)
+  diff = sp.simplify(diff)
+  print("DIFF " ,diff)
+
+
 
   diff = sp.simplify(sp.together(a_x - target))
+  
   diff = sp.factor(diff)
   print(diff) # Prints 0 therefore equivlent
 
@@ -811,6 +845,7 @@ if __name__ == "__main__":
   #print(latex(sp.simplify(transitions["T_RL"])))
 
   N = sp.symbols('N')
+
 
   a_x = (transitions["T_PR"] + transitions["T_SR"] + transitions["T_LR"]
          - transitions["T_RP"] - transitions["T_RS"] - transitions["T_RL"])
@@ -854,15 +889,12 @@ if __name__ == "__main__":
   #print("a(x) langevin:")
   #print(latex(a_x))
 
-  #diff = sp.simplify(a_x - x_dot)
-  #print("DIFF")
-  #print(latex(diff))
+  """diff = sp.simplify(a_x - x_dot)
+  print("DIFF")
+  print(latex(diff))
 
-  #ratio = sp.simplify(a_x / x_dot)
-  #print("ratio a_x / x_dot =")
-  #print(latex(ratio))
 
-  #print(a_x.equals(x_dot))
+  print(a_x.equals(x_dot))"""
 
   # a_x = x_dot * scaling factor moran... therefores factored should just give us R
   #factor = sp.cancel(a_x / x_dot) # Calculated the scaling factor for moran
