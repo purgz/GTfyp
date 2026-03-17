@@ -397,6 +397,7 @@ INPUT ./Figures/rps_example_in_spiral.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
 INPUT ./Figures/snowdrift_sim.pdf
+INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc
 INPUT ./Figures/arps_standard_simplex.pdf
 INPUT ./Figures/arps_standard_simplex.pdf
 INPUT ./Figures/arps_standard_simplex.pdf
@@ -414,6 +415,9 @@ INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman5
 INPUT ./Figures/weak_selection_comparison.pdf
 INPUT ./Figures/weak_selection_comparison.pdf
 INPUT ./Figures/weak_selection_comparison.pdf
+INPUT ./Figures/critical_n_analytical.png
+INPUT ./Figures/critical_n_analytical.png
+INPUT ./Figures/critical_n_analytical.png
 INPUT ./Figures/proces_drift_time_series.pdf
 INPUT ./Figures/proces_drift_time_series.pdf
 INPUT ./Figures/proces_drift_time_series.pdf
