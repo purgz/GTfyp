@@ -411,9 +411,6 @@ INPUT ./Figures/spiral_in_time_series.pdf
 INPUT ./Figures/spiral_in_time_series.pdf
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman7-regular.luc
 INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc
-INPUT ./Figures/pop_200_correct_drift.png
-INPUT ./Figures/pop_200_correct_drift.png
-INPUT ./Figures/pop_200_correct_drift.png
 INPUT ./Figures/weak_selection_comparison.pdf
 INPUT ./Figures/weak_selection_comparison.pdf
 INPUT ./Figures/weak_selection_comparison.pdf

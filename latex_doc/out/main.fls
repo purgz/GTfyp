@@ -356,6 +356,8 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 OUTPUT out/main.pdf
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
+INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman7-regular.luc
+INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc
 INPUT ./images/3d.png
 INPUT ./images/3d.png
 INPUT ./images/3d.png
@@ -363,8 +365,6 @@ INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman1
 INPUT ./images/moran_time_series.png
 INPUT ./images/moran_time_series.png
 INPUT ./images/moran_time_series.png
-INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman7-regular.luc
-INPUT /home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
 INPUT ./images/lu_timeseries.png
@@ -376,12 +376,6 @@ INPUT ./delta_H_derivation.tex
 INPUT ./images/critical_n_analytical.png
 INPUT ./images/critical_n_analytical.png
 INPUT ./images/critical_n_analytical.png
-INPUT ./images/rps_sd_delta_H.png
-INPUT ./images/rps_sd_delta_H.png
-INPUT ./images/rps_sd_delta_H.png
-INPUT ./images/sd_rps_double_drift.png
-INPUT ./images/sd_rps_double_drift.png
-INPUT ./images/sd_rps_double_drift.png
 INPUT ./images/column_case_delta_H.eps
 INPUT ./images/column_case_delta_H-eps-converted-to.pdf
 INPUT ./images/column_case_delta_H-eps-converted-to.pdf
@@ -499,7 +493,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
@@ -509,3 +502,4 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb

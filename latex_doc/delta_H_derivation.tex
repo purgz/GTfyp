@@ -405,21 +405,8 @@ By setting this expression equal to zero, a critical population size for RPS can
 N_{RPS} = \frac{28 \Delta \pi_{max}}{w(2 + \gamma - 3 \beta + 2c)}
 \end{equation}
 
-Rough figures of rps and SD delta H values.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./images/rps_sd_delta_H.png}
-    \caption{Blue - SD}
-\end{figure}
-So like SD, the critical size N can be expressed in terms of the selection strength $w$, and the payoff matrix
-parameters. The combination of these two critical sizes can tell us about which state the system will end in on the 
-drift reversal cases graph in the next section.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./images/sd_rps_double_drift.png}
-    \caption{Double reversal case. Blue - SD}
-\end{figure}
+
 
 \begin{figure}[H]
     \centering
@@ -486,85 +473,51 @@ this results in a double reversal so the trajectories end up being absorbed by t
 corners of the simplex.
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./images/large_N_delta_H.eps}
-  \caption{$\beta=0.1, \gamma=0.1, c=-0.8, N_{SD} = 420, N_{RPS} = 560$}
-\end{figure}
+\subsubsection{Weak selection limit for the local update process for $H_{SD}, H_{RPS}$}
+Considering the weak selection limit where $w \rightarrow 0$, terms of the form 
+$T^{R+} - T^{+R}$ vanish, so for the SD drift measure only the terms under $1/N^2$ are left.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./images/disk_clean_deltaH.eps}
-  \caption{$\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
-  This parameter settings give a better  plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}
-\end{figure}
+The sum $T^{+R} + T^{+P} + T^{+S}$ simplifies to:
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./images/large_n_large_inset.pdf}
-  \caption{Large N 30000}
-\end{figure}
+\begin{align}
+T^{+R} + T^{+P} + T^{+S} &= \frac{1}{2}\frac{N-i-j-k}{N}\left(\frac{i}{N} + \frac{j}{N} + \frac{k}{N}\right) \nonumber \\
+= \frac{1}{2}q(x+y+z) &= \frac{1}{2}(1-x-y-z)(x+y+z) \nonumber 
+\end{align}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/column_cloud.eps}
-  \caption{SD drift case N = 200}
-\end{figure}
+Therefore $\langle \Delta H_{\mathrm{SD}} \rangle$ becomes (when $w \rightarrow 0$):
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/disk_cloud.eps}
-  \caption{RPS drift case N = 300}
-\end{figure}
+\begin{align}\label{eq:delta_h_sd_weak}
+\langle \Delta H_{\mathrm{SD}} \rangle_{w \rightarrow 0} 
+&= \frac{12}{N^2} \int_{0}^{1} dx \int_{0}^{1-x}dy 
+\int_{0}^{1-x-y} dz \nonumber \\ 
+\Big[&  \frac{1}{2}(1-x-y-z)(x+y+z) \Big] \nonumber \\
+&= \frac{3}{20N^2}
+\end{align}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/disk_larger_inset.eps}
-  \caption{Cleaner drift case N = 600}
-\end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/rod_larger_inset.pdf}
-  \caption{N = 300, rod}
-\end{figure}
+As $w \rightarrow 0$ the three values of $\langle \Delta H_{SD} \rangle$ as
+population size varies will approach this limit and a drift reversal will no longer occur as the critical population size is undefined since
+$\frac{3}{20N^2} \ne 0$ at any point since $N \in \mathbb{N}$. However in the linear in $w$ case even for weak selection 
+where $w << 1/2$ a drift reversal is possible for each of the processes.
 
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\textwidth]{./images/low_pop_case_larger_inset.pdf}
-  \caption{N = 50, same parameters as the Large N case}
-\end{figure}
+For $\langle \Delta H_{RPS} \rangle$, the terms of the form $T^{RP} - T^{PR}$ vanish, and the 
+integral scaled by $2/N^2$ reduces to:
+
+\begin{align} \label{eq:weak_selection_rps}
+\frac{2}{N^2} \int_{0}^{1}dx\int_{0}^{1-x}dy\int_{0}^{1-x-y}dz\left(3xyz\right) \nonumber\\
+= \frac{1}{120N^2}
+\end{align}
+like the SD observable, in the weak selection limit there is also no drift reversal as $\langle \Delta H_{RPS} \rangle$
+does not change sign, however for $w > 0$, it is possible depending on the parameters of the system.
 
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-  \node[anchor=south west, inner sep=0] (img) at (0,0)
-    {\includegraphics[width=1\textwidth]{./images/drift_shaded.pdf}};
+In the weak selection limit the difference in payoff between the strategies has little effect on 
+reproduction relative to the random drift. This corresponds to the theory of neutral evolution which is popular in 
+molecular evolution and states that the majority of evolution at the molecular level is governed by random drift as opposed
+to the differences in payoffs, or fitness of the individuals in the population.
 
-  \begin{axis}[
-    at={(img.south west)},
-    anchor=south west,
-    width=1\textwidth,
-    height=1\textwidth*1, 
-    xmin=0, xmax=4,         
-    ymin=0, ymax=4,
-    axis lines=none,          
-    clip=false                 
-  ]
-
-    % Place the EPS thumbnails at data coordinates
-    \node at (axis cs:1.2,3) {\includegraphics[width=5cm]{./images/rod_larger_inset.png}};
-    \node at (axis cs:3.3,1) {\includegraphics[width=5cm]{./images/disk_larger_inset.png}};
-    \node at (axis cs:3.3,3.3) {\includegraphics[width=5cm]{./images/large_N_inset.png}};
-    \node at (axis cs:1.1,1.1) {\includegraphics[width=5cm]{./images/low_pop_case_trans.png}};
-
-
-  \end{axis}
-\end{tikzpicture}
-\end{figure}
 
 
 
@@ -655,25 +608,87 @@ $\langle \Delta H_{SD} \rangle, \langle \Delta_{RPS} \rangle$ with some terms mi
 observation variable $H$ used but they can all be rewritten in terms of differences of transition  probabilities
 into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ plus positive terms in a second integral scaled by $1/N^2$.
 
+\subsection{Figures for drift metric}
 
-Perhaps also derive analytical form of this equation too for LOCAl update
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/large_N_delta_H.eps}
+  \caption{$\beta=0.1, \gamma=0.1, c=-0.8, N_{SD} = 420, N_{RPS} = 560$}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/disk_clean_deltaH.eps}
+  \caption{$\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
+  This parameter settings give a better  plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/large_n_large_inset.pdf}
+  \caption{Large N 30000}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/column_cloud.eps}
+  \caption{SD drift case N = 200}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/disk_cloud.eps}
+  \caption{RPS drift case N = 300}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/disk_larger_inset.eps}
+  \caption{Cleaner drift case N = 600}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/rod_larger_inset.pdf}
+  \caption{N = 300, rod}
+\end{figure}
 
 
-\subsubsection{Comparison of $H$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./images/low_pop_case_larger_inset.pdf}
+  \caption{N = 50, same parameters as the Large N case}
+\end{figure}
 
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \node[anchor=south west, inner sep=0] (img) at (0,0)
+    {\includegraphics[width=1\textwidth]{./images/drift_shaded.pdf}};
+
+  \begin{axis}[
+    at={(img.south west)},
+    anchor=south west,
+    width=1\textwidth,
+    height=1\textwidth*1, 
+    xmin=0, xmax=4,         
+    ymin=0, ymax=4,
+    axis lines=none,          
+    clip=false                 
+  ]
+
+    % Place the EPS thumbnails at data coordinates
+    \node at (axis cs:1.2,3) {\includegraphics[width=5cm]{./images/rod_larger_inset.png}};
+    \node at (axis cs:3.3,1) {\includegraphics[width=5cm]{./images/disk_larger_inset.png}};
+    \node at (axis cs:3.3,3.3) {\includegraphics[width=5cm]{./images/large_N_inset.png}};
+    \node at (axis cs:1.1,1.1) {\includegraphics[width=5cm]{./images/low_pop_case_trans.png}};
 
 
-Change in sign in SD - up or down
-Change in sign in RPS - into out out of center or RPS plane
-Change in sign in H4 - away from internal fixed point 
-in any direction
-
-Compare the 3 together on same plot for some of the interesting cases.
-
-$\langle \Delta H_4 \rangle$ seems to have a sign change when either the RPS or SD game does or both, 
-double check the code copy of the formula, and see if theres a pattern as one does not seem obvious at the moment.
-
+  \end{axis}
+\end{tikzpicture}
+\end{figure}
 
 
 
