@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  17 MAR 2026 13:35
+This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  17 MAR 2026 15:38
  system commands enabled.
  file:line:error style messages enabled.
 **/home/henry/gametheory/hxb265/latex_doc/main.tex
@@ -549,56 +549,41 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-<images/3d.png, id=29, 824.07875pt x 324.21124pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+<images/3d.png, id=26, 824.07875pt x 324.21124pt>
 File: images/3d.png Graphic file (type png)
 <use images/3d.png>
-Package luatex.def Info: images/3d.png  used on input line 280.
+Package luatex.def Info: images/3d.png  used on input line 264.
 (luatex.def)             Requested size: 514.71037pt x 202.49796pt.
-<images/moran_time_series.png, id=30, 1435.2822pt x 772.5663pt>
+ [4<./images/3d.png>]
+<images/moran_time_series.png, id=31, 1435.2822pt x 772.5663pt>
 File: images/moran_time_series.png Graphic file (type png)
 <use images/moran_time_series.png>
-Package luatex.def Info: images/moran_time_series.png  used on input line 322.
+Package luatex.def Info: images/moran_time_series.png  used on input line 306.
 (luatex.def)             Requested size: 360.29568pt x 193.93092pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5<./images/3d.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 347--349
+Underfull \hbox (badness 10000) in paragraph at lines 331--333
 
  []
 
-[6<./images/moran_time_series.png>]
-<images/lu_timeseries.png, id=40, 2027.575pt x 1100.11pt>
+[5<./images/moran_time_series.png>]
+<images/lu_timeseries.png, id=37, 2027.575pt x 1100.11pt>
 File: images/lu_timeseries.png Graphic file (type png)
 <use images/lu_timeseries.png>
-Package luatex.def Info: images/lu_timeseries.png  used on input line 387.
+Package luatex.def Info: images/lu_timeseries.png  used on input line 371.
 (luatex.def)             Requested size: 360.29568pt x 195.47652pt.
- [7<./images/lu_timeseries.png>] [8] (./fokker_planck_derivation.tex [9] [10]) [11] (./delta_H_derivation.tex
+ [6<./images/lu_timeseries.png>] [7] (./fokker_planck_derivation.tex [8] [9]) [10] (./delta_H_derivation.tex
 Underfull \hbox (badness 10000) in paragraph at lines 20--24
 
  []
 
-[12] [13] [14]
-<./images/critical_n_analytical.png, id=74, 459.96844pt x 344.78813pt>
+[11] [12] [13]
+<./images/critical_n_analytical.png, id=71, 459.96844pt x 344.78813pt>
 File: ./images/critical_n_analytical.png Graphic file (type png)
 <use ./images/critical_n_analytical.png>
 Package luatex.def Info: ./images/critical_n_analytical.png  used on input line 256.
 (luatex.def)             Requested size: 360.29568pt x 270.09108pt.
- [15] [16<./images/critical_n_analytical.png>] [17]
-<./images/rps_sd_delta_H.png, id=85, 462.528pt x 346.896pt>
-File: ./images/rps_sd_delta_H.png Graphic file (type png)
-<use ./images/rps_sd_delta_H.png>
-Package luatex.def Info: ./images/rps_sd_delta_H.png  used on input line 411.
-(luatex.def)             Requested size: 360.29568pt x 270.23372pt.
- [18]
-<./images/sd_rps_double_drift.png, id=89, 462.528pt x 346.896pt>
-File: ./images/sd_rps_double_drift.png Graphic file (type png)
-<use ./images/sd_rps_double_drift.png>
-Package luatex.def Info: ./images/sd_rps_double_drift.png  used on input line 420.
-(luatex.def)             Requested size: 360.29568pt x 270.23372pt.
- [19<./images/rps_sd_delta_H.png>]
+ [14] [15<./images/critical_n_analytical.png>] [16]
 Package epstopdf Info: Source file: <./images/column_case_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 32318 bytes
@@ -606,14 +591,14 @@ Package epstopdf Info: Source file: <./images/column_case_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 19047 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/column_case_delta_H-eps-converted-to.pdf ./images/column_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 426.
+(epstopdf)             \includegraphics on input line 413.
 Package epstopdf Info: Output file is already uptodate.
-<./images/column_case_delta_H-eps-converted-to.pdf, id=94, 462.72874pt x 347.2975pt>
+<./images/column_case_delta_H-eps-converted-to.pdf, id=82, 462.72874pt x 347.2975pt>
 File: ./images/column_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_case_delta_H-eps-converted-to.pdf>
-Package luatex.def Info: ./images/column_case_delta_H-eps-converted-to.pdf  used on input line 426.
+Package luatex.def Info: ./images/column_case_delta_H-eps-converted-to.pdf  used on input line 413.
 (luatex.def)             Requested size: 360.29568pt x 270.41931pt.
- [20<./images/sd_rps_double_drift.png>]
+ [17]
 Package epstopdf Info: Source file: <./images/disk_case_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 35247 bytes
@@ -621,14 +606,14 @@ Package epstopdf Info: Source file: <./images/disk_case_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 18723 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_case_delta_H-eps-converted-to.pdf ./images/disk_case_delta_H.eps>
-(epstopdf)             \includegraphics on input line 475.
+(epstopdf)             \includegraphics on input line 462.
 Package epstopdf Info: Output file is already uptodate.
-<./images/disk_case_delta_H-eps-converted-to.pdf, id=99, 462.72874pt x 347.2975pt>
+<./images/disk_case_delta_H-eps-converted-to.pdf, id=86, 462.72874pt x 347.2975pt>
 File: ./images/disk_case_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_case_delta_H-eps-converted-to.pdf>
-Package luatex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 475.
+Package luatex.def Info: ./images/disk_case_delta_H-eps-converted-to.pdf  used on input line 462.
 (luatex.def)             Requested size: 360.29568pt x 270.41931pt.
- [21<./images/column_case_delta_H-eps-converted-to.pdf>]
+ [18<./images/column_case_delta_H-eps-converted-to.pdf>] [19<./images/disk_case_delta_H-eps-converted-to.pdf>] [20]
 Package epstopdf Info: Source file: <./images/large_N_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 35297 bytes
@@ -636,14 +621,14 @@ Package epstopdf Info: Source file: <./images/large_N_delta_H.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 18664 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/large_N_delta_H-eps-converted-to.pdf ./images/large_N_delta_H.eps>
-(epstopdf)             \includegraphics on input line 491.
+(epstopdf)             \includegraphics on input line 615.
 Package epstopdf Info: Output file is already uptodate.
-<./images/large_N_delta_H-eps-converted-to.pdf, id=160, 462.72874pt x 347.2975pt>
+<./images/large_N_delta_H-eps-converted-to.pdf, id=208, 462.72874pt x 347.2975pt>
 File: ./images/large_N_delta_H-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/large_N_delta_H-eps-converted-to.pdf>
-Package luatex.def Info: ./images/large_N_delta_H-eps-converted-to.pdf  used on input line 491.
+Package luatex.def Info: ./images/large_N_delta_H-eps-converted-to.pdf  used on input line 615.
 (luatex.def)             Requested size: 360.29568pt x 270.41931pt.
- [22<./images/disk_case_delta_H-eps-converted-to.pdf>]
+ [21]
 Package epstopdf Info: Source file: <./images/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-02-19 12:16:45
 (epstopdf)                    size: 36720 bytes
@@ -651,19 +636,20 @@ Package epstopdf Info: Source file: <./images/disk_clean_deltaH.eps>
 (epstopdf)                    date: 2026-02-19 12:18:01
 (epstopdf)                    size: 20737 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_clean_deltaH-eps-converted-to.pdf ./images/disk_clean_deltaH.eps>
-(epstopdf)             \includegraphics on input line 497.
+(epstopdf)             \includegraphics on input line 621.
 Package epstopdf Info: Output file is already uptodate.
-<./images/disk_clean_deltaH-eps-converted-to.pdf, id=219, 482.80376pt x 350.30875pt>
+<./images/disk_clean_deltaH-eps-converted-to.pdf, id=213, 482.80376pt x 350.30875pt>
 File: ./images/disk_clean_deltaH-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_clean_deltaH-eps-converted-to.pdf>
-Package luatex.def Info: ./images/disk_clean_deltaH-eps-converted-to.pdf  used on input line 497.
+Package luatex.def Info: ./images/disk_clean_deltaH-eps-converted-to.pdf  used on input line 621.
 (luatex.def)             Requested size: 360.29568pt x 261.42667pt.
-<./images/large_n_large_inset.pdf, id=220, 341.1144pt x 341.1144pt>
+ [22<./images/large_N_delta_H-eps-converted-to.pdf>]
+<./images/large_n_large_inset.pdf, id=271, 341.1144pt x 341.1144pt>
 File: ./images/large_n_large_inset.pdf Graphic file (type pdf)
 <use ./images/large_n_large_inset.pdf>
-Package luatex.def Info: ./images/large_n_large_inset.pdf  used on input line 504.
+Package luatex.def Info: ./images/large_n_large_inset.pdf  used on input line 628.
 (luatex.def)             Requested size: 360.29568pt x 360.3147pt.
- [23<./images/large_N_delta_H-eps-converted-to.pdf><./images/disk_clean_deltaH-eps-converted-to.pdf>]
+ [23<./images/disk_clean_deltaH-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./images/column_cloud.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 178071 bytes
@@ -671,12 +657,12 @@ Package epstopdf Info: Source file: <./images/column_cloud.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 78199 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/column_cloud-eps-converted-to.pdf ./images/column_cloud.eps>
-(epstopdf)             \includegraphics on input line 510.
+(epstopdf)             \includegraphics on input line 634.
 Package epstopdf Info: Output file is already uptodate.
-<./images/column_cloud-eps-converted-to.pdf, id=331, 572.0572pt x 572.0572pt>
+<./images/column_cloud-eps-converted-to.pdf, id=328, 572.0572pt x 572.0572pt>
 File: ./images/column_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/column_cloud-eps-converted-to.pdf>
-Package luatex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 510.
+Package luatex.def Info: ./images/column_cloud-eps-converted-to.pdf  used on input line 634.
 (luatex.def)             Requested size: 257.35518pt x 257.36226pt.
  [24<./images/large_n_large_inset.pdf>]
 Package epstopdf Info: Source file: <./images/disk_cloud.eps>
@@ -686,12 +672,12 @@ Package epstopdf Info: Source file: <./images/disk_cloud.eps>
 (epstopdf)                    date: 2026-02-19 10:28:27
 (epstopdf)                    size: 79539 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_cloud-eps-converted-to.pdf ./images/disk_cloud.eps>
-(epstopdf)             \includegraphics on input line 516.
+(epstopdf)             \includegraphics on input line 640.
 Package epstopdf Info: Output file is already uptodate.
-<./images/disk_cloud-eps-converted-to.pdf, id=362, 745.67584pt x 745.67584pt>
+<./images/disk_cloud-eps-converted-to.pdf, id=359, 745.67584pt x 745.67584pt>
 File: ./images/disk_cloud-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_cloud-eps-converted-to.pdf>
-Package luatex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 516.
+Package luatex.def Info: ./images/disk_cloud-eps-converted-to.pdf  used on input line 640.
 (luatex.def)             Requested size: 257.35518pt x 257.36084pt.
 Package epstopdf Info: Source file: <./images/disk_larger_inset.eps>
 (epstopdf)                    date: 2026-02-22 13:04:17
@@ -700,51 +686,51 @@ Package epstopdf Info: Source file: <./images/disk_larger_inset.eps>
 (epstopdf)                    date: 2026-02-22 13:04:20
 (epstopdf)                    size: 669691 bytes
 (epstopdf)             Command: <repstopdf --outfile=./images/disk_larger_inset-eps-converted-to.pdf ./images/disk_larger_inset.eps>
-(epstopdf)             \includegraphics on input line 522.
+(epstopdf)             \includegraphics on input line 646.
 Package epstopdf Info: Output file is already uptodate.
-<./images/disk_larger_inset-eps-converted-to.pdf, id=363, 341.275pt x 341.275pt>
+<./images/disk_larger_inset-eps-converted-to.pdf, id=360, 341.275pt x 341.275pt>
 File: ./images/disk_larger_inset-eps-converted-to.pdf Graphic file (type pdf)
 <use ./images/disk_larger_inset-eps-converted-to.pdf>
-Package luatex.def Info: ./images/disk_larger_inset-eps-converted-to.pdf  used on input line 522.
+Package luatex.def Info: ./images/disk_larger_inset-eps-converted-to.pdf  used on input line 646.
 (luatex.def)             Requested size: 257.35518pt x 257.37202pt.
  [25<./images/column_cloud-eps-converted-to.pdf><./images/disk_cloud-eps-converted-to.pdf>]
-<./images/rod_larger_inset.pdf, id=419, 341.1144pt x 341.1144pt>
+<./images/rod_larger_inset.pdf, id=416, 341.1144pt x 341.1144pt>
 File: ./images/rod_larger_inset.pdf Graphic file (type pdf)
 <use ./images/rod_larger_inset.pdf>
-Package luatex.def Info: ./images/rod_larger_inset.pdf  used on input line 528.
+Package luatex.def Info: ./images/rod_larger_inset.pdf  used on input line 652.
 (luatex.def)             Requested size: 257.35518pt x 257.36542pt.
-<./images/low_pop_case_larger_inset.pdf, id=420, 341.1144pt x 341.1144pt>
+<./images/low_pop_case_larger_inset.pdf, id=417, 341.1144pt x 341.1144pt>
 File: ./images/low_pop_case_larger_inset.pdf Graphic file (type pdf)
 <use ./images/low_pop_case_larger_inset.pdf>
-Package luatex.def Info: ./images/low_pop_case_larger_inset.pdf  used on input line 536.
+Package luatex.def Info: ./images/low_pop_case_larger_inset.pdf  used on input line 660.
 (luatex.def)             Requested size: 257.35518pt x 257.36542pt.
  [26<./images/disk_larger_inset-eps-converted-to.pdf><./images/rod_larger_inset.pdf>]
-<./images/drift_shaded.pdf, id=469, 544.45514pt x 546.3612pt>
+<./images/drift_shaded.pdf, id=466, 544.45514pt x 546.3612pt>
 File: ./images/drift_shaded.pdf Graphic file (type pdf)
 <use ./images/drift_shaded.pdf>
-Package luatex.def Info: ./images/drift_shaded.pdf  used on input line 545.
+Package luatex.def Info: ./images/drift_shaded.pdf  used on input line 669.
 (luatex.def)             Requested size: 514.71037pt x 516.52249pt.
-<./images/rod_larger_inset.png, id=470, 2842.62pt x 2842.62pt>
+<./images/rod_larger_inset.png, id=467, 2842.62pt x 2842.62pt>
 File: ./images/rod_larger_inset.png Graphic file (type png)
 <use ./images/rod_larger_inset.png>
-Package luatex.def Info: ./images/rod_larger_inset.png  used on input line 565.
+Package luatex.def Info: ./images/rod_larger_inset.png  used on input line 689.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
-<./images/disk_larger_inset.png, id=471, 2843.62375pt x 2843.62375pt>
+<./images/disk_larger_inset.png, id=468, 2843.62375pt x 2843.62375pt>
 File: ./images/disk_larger_inset.png Graphic file (type png)
 <use ./images/disk_larger_inset.png>
-Package luatex.def Info: ./images/disk_larger_inset.png  used on input line 565.
+Package luatex.def Info: ./images/disk_larger_inset.png  used on input line 689.
 (luatex.def)             Requested size: 142.26378pt x 142.23291pt.
-<./images/large_N_inset.png, id=472, 2842.62pt x 2842.62pt>
+<./images/large_N_inset.png, id=469, 2842.62pt x 2842.62pt>
 File: ./images/large_N_inset.png Graphic file (type png)
 <use ./images/large_N_inset.png>
-Package luatex.def Info: ./images/large_N_inset.png  used on input line 565.
+Package luatex.def Info: ./images/large_N_inset.png  used on input line 689.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
-<./images/low_pop_case_trans.png, id=473, 2842.62pt x 2842.62pt>
+<./images/low_pop_case_trans.png, id=470, 2842.62pt x 2842.62pt>
 File: ./images/low_pop_case_trans.png Graphic file (type png)
 <use ./images/low_pop_case_trans.png>
-Package luatex.def Info: ./images/low_pop_case_trans.png  used on input line 565.
+Package luatex.def Info: ./images/low_pop_case_trans.png  used on input line 689.
 (luatex.def)             Requested size: 142.26378pt x 142.22607pt.
- [27<./images/low_pop_case_larger_inset.pdf>] [28<./images/drift_shaded.pdf><./images/rod_larger_inset.png><./images/disk_larger_inset.png><./images/large_N_inset.png><./images/low_pop_case_trans.png>] [29]) [30]
+ [27<./images/low_pop_case_larger_inset.pdf>]) [28<./images/drift_shaded.pdf><./images/rod_larger_inset.png><./images/disk_larger_inset.png><./images/large_N_inset.png><./images/low_pop_case_trans.png>]
 Package epstopdf Info: Source file: <images/moran_reversal.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 51606 bytes
@@ -752,17 +738,17 @@ Package epstopdf Info: Source file: <images/moran_reversal.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 20396 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/moran_reversal-eps-converted-to.pdf images/moran_reversal.eps>
-(epstopdf)             \includegraphics on input line 539.
+(epstopdf)             \includegraphics on input line 523.
 Package epstopdf Info: Output file is already uptodate.
-<images/moran_reversal-eps-converted-to.pdf, id=546, 436.63126pt x 273.02pt>
+<images/moran_reversal-eps-converted-to.pdf, id=537, 436.63126pt x 273.02pt>
 File: images/moran_reversal-eps-converted-to.pdf Graphic file (type pdf)
 <use images/moran_reversal-eps-converted-to.pdf>
-Package luatex.def Info: images/moran_reversal-eps-converted-to.pdf  used on input line 539.
+Package luatex.def Info: images/moran_reversal-eps-converted-to.pdf  used on input line 523.
 (luatex.def)             Requested size: 308.82936pt x 193.10818pt.
-<images/drift_reversal_rps.png, id=547, 1621.05624pt x 850.17625pt>
+<images/drift_reversal_rps.png, id=538, 1621.05624pt x 850.17625pt>
 File: images/drift_reversal_rps.png Graphic file (type png)
 <use images/drift_reversal_rps.png>
-Package luatex.def Info: images/drift_reversal_rps.png  used on input line 546.
+Package luatex.def Info: images/drift_reversal_rps.png  used on input line 530.
 (luatex.def)             Requested size: 308.82936pt x 161.96326pt.
 Package epstopdf Info: Source file: <images/drift_4.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
@@ -771,12 +757,12 @@ Package epstopdf Info: Source file: <images/drift_4.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 17301 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/drift_4-eps-converted-to.pdf images/drift_4.eps>
-(epstopdf)             \includegraphics on input line 554.
+(epstopdf)             \includegraphics on input line 538.
 Package epstopdf Info: Output file is already uptodate.
-<images/drift_4-eps-converted-to.pdf, id=548, 402.50375pt x 272.01625pt>
+<images/drift_4-eps-converted-to.pdf, id=539, 402.50375pt x 272.01625pt>
 File: images/drift_4-eps-converted-to.pdf Graphic file (type pdf)
 <use images/drift_4-eps-converted-to.pdf>
-Package luatex.def Info: images/drift_4-eps-converted-to.pdf  used on input line 554.
+Package luatex.def Info: images/drift_4-eps-converted-to.pdf  used on input line 538.
 (luatex.def)             Requested size: 308.82936pt x 208.71019pt.
 Package epstopdf Info: Source file: <parameter_tests/beta_test.eps>
 (epstopdf)                    date: 2026-01-29 23:34:55
@@ -785,18 +771,18 @@ Package epstopdf Info: Source file: <parameter_tests/beta_test.eps>
 (epstopdf)                    date: 2026-01-29 23:34:55
 (epstopdf)                    size: 18454 bytes
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/beta_test-eps-converted-to.pdf parameter_tests/beta_test.eps>
-(epstopdf)             \includegraphics on input line 562.
+(epstopdf)             \includegraphics on input line 546.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/beta_test-eps-converted-to.pdf, id=549, 442.65375pt x 322.20375pt>
+<parameter_tests/beta_test-eps-converted-to.pdf, id=540, 442.65375pt x 322.20375pt>
 File: parameter_tests/beta_test-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/beta_test-eps-converted-to.pdf>
-Package luatex.def Info: parameter_tests/beta_test-eps-converted-to.pdf  used on input line 562.
+Package luatex.def Info: parameter_tests/beta_test-eps-converted-to.pdf  used on input line 546.
 (luatex.def)             Requested size: 257.35518pt x 187.33553pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[31<./images/moran_reversal-eps-converted-to.pdf><./images/drift_reversal_rps.png>]
+[29<./images/moran_reversal-eps-converted-to.pdf><./images/drift_reversal_rps.png>]
 Package epstopdf Info: Source file: <parameter_tests/fixed_n_gamma_beta.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 40695 bytes
@@ -804,12 +790,12 @@ Package epstopdf Info: Source file: <parameter_tests/fixed_n_gamma_beta.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 18719 bytes
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf parameter_tests/fixed_n_gamma_beta.eps>
-(epstopdf)             \includegraphics on input line 586.
+(epstopdf)             \includegraphics on input line 570.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf, id=586, 259.97125pt x 159.59625pt>
+<parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf, id=576, 259.97125pt x 159.59625pt>
 File: parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>
-Package luatex.def Info: parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf  used on input line 586.
+Package luatex.def Info: parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf  used on input line 570.
 (luatex.def)             Requested size: 308.82936pt x 189.59067pt.
 
 
@@ -822,22 +808,24 @@ Package epstopdf Info: Source file: <parameter_tests/fixed_gamma_parameter.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 16854 bytes
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf parameter_tests/fixed_gamma_parameter.eps>
-(epstopdf)             \includegraphics on input line 593.
+(epstopdf)             \includegraphics on input line 577.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf, id=587, 674.52pt x 539.01375pt>
+<parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf, id=577, 674.52pt x 539.01375pt>
 File: parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf>
-Package luatex.def Info: parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf  used on input line 593.
+Package luatex.def Info: parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf  used on input line 577.
 (luatex.def)             Requested size: 308.82936pt x 246.78964pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[32<./images/drift_4-eps-converted-to.pdf>] [33<./parameter_tests/beta_test-eps-converted-to.pdf><./parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>] [34<./parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf>]
-<images/critN.png, id=713, 2027.575pt x 1100.11pt>
+<images/critN.png, id=578, 2027.575pt x 1100.11pt>
 File: images/critN.png Graphic file (type png)
 <use images/critN.png>
-Package luatex.def Info: images/critN.png  used on input line 615.
+Package luatex.def Info: images/critN.png  used on input line 596.
 (luatex.def)             Requested size: 308.82936pt x 167.5609pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 Package epstopdf Info: Source file: <images/w_test.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 32251 bytes
@@ -845,13 +833,16 @@ Package epstopdf Info: Source file: <images/w_test.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 9812 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/w_test-eps-converted-to.pdf images/w_test.eps>
-(epstopdf)             \includegraphics on input line 622.
+(epstopdf)             \includegraphics on input line 603.
 Package epstopdf Info: Output file is already uptodate.
-<images/w_test-eps-converted-to.pdf, id=714, 356.33125pt x 300.12125pt>
+<images/w_test-eps-converted-to.pdf, id=579, 356.33125pt x 300.12125pt>
 File: images/w_test-eps-converted-to.pdf Graphic file (type pdf)
 <use images/w_test-eps-converted-to.pdf>
-Package luatex.def Info: images/w_test-eps-converted-to.pdf  used on input line 622.
+Package luatex.def Info: images/w_test-eps-converted-to.pdf  used on input line 603.
 (luatex.def)             Requested size: 257.35518pt x 216.7649pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 Package epstopdf Info: Source file: <parameter_tests/crit_n_beta.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 29473 bytes
@@ -859,14 +850,13 @@ Package epstopdf Info: Source file: <parameter_tests/crit_n_beta.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 10305 bytes
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/crit_n_beta-eps-converted-to.pdf parameter_tests/crit_n_beta.eps>
-(epstopdf)             \includegraphics on input line 633.
+(epstopdf)             \includegraphics on input line 614.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/crit_n_beta-eps-converted-to.pdf, id=715, 303.1325pt x 216.81pt>
+<parameter_tests/crit_n_beta-eps-converted-to.pdf, id=580, 303.1325pt x 216.81pt>
 File: parameter_tests/crit_n_beta-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/crit_n_beta-eps-converted-to.pdf>
-Package luatex.def Info: parameter_tests/crit_n_beta-eps-converted-to.pdf  used on input line 633.
+Package luatex.def Info: parameter_tests/crit_n_beta-eps-converted-to.pdf  used on input line 614.
 (luatex.def)             Requested size: 257.35518pt x 184.07101pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -877,68 +867,66 @@ Package epstopdf Info: Source file: <parameter_tests/crit_n_gamma.eps>
 (epstopdf)                    date: 2025-11-10 20:00:18
 (epstopdf)                    size: 10286 bytes
 (epstopdf)             Command: <repstopdf --outfile=parameter_tests/crit_n_gamma-eps-converted-to.pdf parameter_tests/crit_n_gamma.eps>
-(epstopdf)             \includegraphics on input line 640.
+(epstopdf)             \includegraphics on input line 621.
 Package epstopdf Info: Output file is already uptodate.
-<parameter_tests/crit_n_gamma-eps-converted-to.pdf, id=716, 358.33875pt x 241.90375pt>
+<parameter_tests/crit_n_gamma-eps-converted-to.pdf, id=581, 358.33875pt x 241.90375pt>
 File: parameter_tests/crit_n_gamma-eps-converted-to.pdf Graphic file (type pdf)
 <use parameter_tests/crit_n_gamma-eps-converted-to.pdf>
-Package luatex.def Info: parameter_tests/crit_n_gamma-eps-converted-to.pdf  used on input line 640.
+Package luatex.def Info: parameter_tests/crit_n_gamma-eps-converted-to.pdf  used on input line 621.
 (luatex.def)             Requested size: 257.35518pt x 173.74239pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[35
-
-<./images/critN.png><./images/w_test-eps-converted-to.pdf>] [36<./parameter_tests/crit_n_beta-eps-converted-to.pdf><./parameter_tests/crit_n_gamma-eps-converted-to.pdf>]
-<images/initial_cloud.png, id=776, 872.25874pt x 828.09375pt>
+[30<./images/drift_4-eps-converted-to.pdf>] [31<./parameter_tests/beta_test-eps-converted-to.pdf><./parameter_tests/fixed_n_gamma_beta-eps-converted-to.pdf>] [32<./parameter_tests/fixed_gamma_parameter-eps-converted-to.pdf><./images/critN.png>] [33<./images/w_test-eps-converted-to.pdf><./parameter_tests/crit_n_beta-eps-converted-to.pdf>] [34<./parameter_tests/crit_n_gamma-eps-converted-to.pdf>]
+<images/initial_cloud.png, id=766, 872.25874pt x 828.09375pt>
 File: images/initial_cloud.png Graphic file (type png)
 <use images/initial_cloud.png>
-Package luatex.def Info: images/initial_cloud.png  used on input line 654.
+Package luatex.def Info: images/initial_cloud.png  used on input line 635.
 (luatex.def)             Requested size: 154.41467pt x 146.58649pt.
-<images/point_cloud_2.png, id=777, 756.8275pt x 734.745pt>
+<images/point_cloud_2.png, id=767, 756.8275pt x 734.745pt>
 File: images/point_cloud_2.png Graphic file (type png)
 <use images/point_cloud_2.png>
-Package luatex.def Info: images/point_cloud_2.png  used on input line 660.
+Package luatex.def Info: images/point_cloud_2.png  used on input line 641.
 (luatex.def)             Requested size: 154.41467pt x 149.90617pt.
-<images/point_cloud_3.png, id=778, 664.4825pt x 682.55pt>
+<images/point_cloud_3.png, id=768, 664.4825pt x 682.55pt>
 File: images/point_cloud_3.png Graphic file (type png)
 <use images/point_cloud_3.png>
-Package luatex.def Info: images/point_cloud_3.png  used on input line 666.
+Package luatex.def Info: images/point_cloud_3.png  used on input line 647.
 (luatex.def)             Requested size: 154.41467pt x 158.60791pt.
-<images/point_cloud_4.png, id=779, 863.225pt x 765.86125pt>
+<images/point_cloud_4.png, id=769, 863.225pt x 765.86125pt>
 File: images/point_cloud_4.png Graphic file (type png)
 <use images/point_cloud_4.png>
-Package luatex.def Info: images/point_cloud_4.png  used on input line 676.
+Package luatex.def Info: images/point_cloud_4.png  used on input line 657.
 (luatex.def)             Requested size: 205.881pt x 182.65353pt.
-<images/point_cloud_5.png, id=780, 657.45625pt x 678.535pt>
+<images/point_cloud_5.png, id=770, 657.45625pt x 678.535pt>
 File: images/point_cloud_5.png Graphic file (type png)
 <use images/point_cloud_5.png>
-Package luatex.def Info: images/point_cloud_5.png  used on input line 682.
+Package luatex.def Info: images/point_cloud_5.png  used on input line 663.
 (luatex.def)             Requested size: 257.35518pt x 265.61118pt.
-<images/50000POP.png, id=781, 693.59125pt x 602.25pt>
+<images/50000POP.png, id=771, 693.59125pt x 602.25pt>
 File: images/50000POP.png Graphic file (type png)
 <use images/50000POP.png>
-Package luatex.def Info: images/50000POP.png  used on input line 688.
+Package luatex.def Info: images/50000POP.png  used on input line 669.
 (luatex.def)             Requested size: 257.35518pt x 223.46309pt.
 File: images/50000POP.png Graphic file (type png)
 <use images/50000POP.png>
-Package luatex.def Info: images/50000POP.png  used on input line 695.
+Package luatex.def Info: images/50000POP.png  used on input line 676.
 (luatex.def)             Requested size: 257.35518pt x 223.46309pt.
-<images/850POP.png, id=782, 725.71124pt x 766.865pt>
+<images/850POP.png, id=772, 725.71124pt x 766.865pt>
 File: images/850POP.png Graphic file (type png)
 <use images/850POP.png>
-Package luatex.def Info: images/850POP.png  used on input line 700.
+Package luatex.def Info: images/850POP.png  used on input line 681.
 (luatex.def)             Requested size: 257.35518pt x 271.9523pt.
-<images/RPS_cross_fist.png, id=783, 1660.2025pt x 846.16125pt>
+<images/RPS_cross_fist.png, id=773, 1660.2025pt x 846.16125pt>
 File: images/RPS_cross_fist.png Graphic file (type png)
 <use images/RPS_cross_fist.png>
-Package luatex.def Info: images/RPS_cross_fist.png  used on input line 710.
+Package luatex.def Info: images/RPS_cross_fist.png  used on input line 691.
 (luatex.def)             Requested size: 514.71037pt x 262.3331pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[37<./images/initial_cloud.png><./images/point_cloud_2.png><./images/point_cloud_3.png><./images/point_cloud_4.png>] [38<./images/point_cloud_5.png><./images/50000POP.png>] [39<./images/850POP.png><./images/RPS_cross_fist.png>] (./out/main.bbl) [40
+[35<./images/initial_cloud.png><./images/point_cloud_2.png><./images/point_cloud_3.png><./images/point_cloud_4.png>] [36<./images/point_cloud_5.png><./images/50000POP.png>] [37<./images/850POP.png><./images/RPS_cross_fist.png>] (./out/main.bbl) [38
 
 
 ] (./out/main.aux)
@@ -948,19 +936,19 @@ LaTeX Warning: There were multiply-defined labels.
 )
 
 Here is how much of LuaTeX's memory you used:
- 26634 strings out of 477805
+ 26610 strings out of 477805
  100000,1144653 words of node,token memory allocated
- 1480 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 12 sub_mlist, 1 glyph, 243 attribute, 52 glue_spec, 243 attribute_list, 2 write nodes
-   avail lists: 2:895,3:512,4:56,5:1226,6:68,7:7387,8:79,9:2049,10:21,11:469
- 46244 multiletter control sequences out of 65536+600000
+ 1504 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 12 sub_mlist, 1 glyph, 249 attribute, 52 glue_spec, 249 attribute_list, 2 write nodes
+   avail lists: 2:799,3:516,4:56,5:961,6:68,7:6359,8:79,9:1630,10:21,11:394
+ 46232 multiletter control sequences out of 65536+600000
  68 fonts using 4771623 bytes
- 84i,16n,85p,739b,1938s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman17-regular.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (40 pages, 4385304 bytes).
+ 84i,16n,85p,739b,1940s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman17-regular.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (38 pages, 4350038 bytes).
 
-PDF statistics: 911 PDF objects out of 1000 (max. 8388607)
- 403 compressed objects within 5 object streams
+PDF statistics: 900 PDF objects out of 1000 (max. 8388607)
+ 399 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 

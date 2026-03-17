@@ -15,7 +15,7 @@
 
 \title{Composite games evolutionary dynamics in finite populations. APPENDIX}
 \author{Henry Brooks}
-\date{June - December 2025}
+\date{\today}
 
 \begin{document}
 
@@ -23,39 +23,13 @@
 
 
 
-
-
-
-
-
-
-\section{Aims of the project}
-The aim of this project is to analyse evolutionary dynamics in finite populations 
-for a specific composite game combining an RPS subgame with a Snowdrift component, 
-focussing on the effects of stochastic drift, microscopic interaction processes, payoff parameters, and the effect of population size. This will involve the 
-development of an efficient simulation and visualisation tool for analyzing symmetric games in finite populations.
-
-
 \section{Objectives}
-\begin{itemize}
-    \item Formulate the composite RPS-SD game payoff structure and its deterministic replicator dynamics, including fixed points and stability.
-    \item Implement efficient stochastic simulations of composite game (and general symmetric games) for differerent microscopic interaction processes (Moran, Local update, Fermi).
-    \item Define an observation variable, $H$\cite{PhysRevLett.95.238701}, 
-    for the game components, $H_{SD}, H_{RPS}, H_4$, and compute the expected drift $\langle \Delta H \rangle$ 
-    both numerically from simulations and analytically.
-    \item Analyse drift and trajectory behaviour across interaction processes,
-     selection strengths, and payoff parameters.
-    \item Calculate critical population sizes associated with drift
-     reversal\cite{PhysRevLett.95.238701} under different conditions.
-    \item Develop visualisation tools (time series and simplex-based plots)
-     to compare stochastic and deterministic trajectories and analse drift.
-\end{itemize}
+This document contains the longer derivations used in the report, and also some additional graphs
+no included in the final report.
 
 
 
 
-
-\newpage
 \section{Standard RPS}
 
 
@@ -83,7 +57,7 @@ Expected payoffs for each strategy can then be defined as follows:
 \end{align}
 
 
-The replicator equations can be defined (ref Evo games and pop dynamics hofbauer) for $(x, y)$ using the standard formula:
+The replicator equations can be defined for $(x, y)$ using the standard formula:
 \begin{equation}
     \dot x_i = x_i(\pi_i(x) - \langle \pi(x) \rangle)
 \end{equation}
@@ -164,10 +138,18 @@ These eigenvalues are the solution at the internal fixed point of
 the standard RPS game. They tell us that the game follows neutral oscillations
 about the internal fixed point (in the deterministic dynamics) as they contain no real parts (poincare diagram).
 
-Diagram here of the deterministic trajectory for RPS.
 
-
-
+When $c = -0.8$
+\begin{equation}
+\lambda_{1}, \lambda_2 = \left\{-\frac{1}{30} + \frac{3 \sqrt{3}}{10}i,
+-\frac{1}{30} - \frac{3 \sqrt{3}}{10}i\right\}
+\end{equation}
+Since the real parts of the eigenvalues are negative, 
+$\operatorname{Re}(\lambda_{1,2}) = -\frac{1}{30} < 0$, the fixed point $\left(\frac{1}{3}, \frac{1}{3}\right)$
+is linearly stable, so the populations will converge towards the central fixed point over time.
+The imaginary component indicates the oscillatory dynamics so the population will spiral inwards 
+towards the center. When $c = -0.8$, the populations converge towards a stable
+coexistence. For this particular case of RPS a drift reversal can occur in finite populations.
 
 
 \section{Augmented RPS}
@@ -249,7 +231,9 @@ J =
 
 Once again the eigenvalues of this Jacobian matrix can be determined and tell us about the 
 stability of the system of replicator equations derived for the combined game.
-I have computed these valuse numerically for a particular instance of the game below.
+I have computed these values numerically for a particular instance of the game below.
+The symbolic values for the eigenvalues are very large and bulky so are omitted. They can be generated using the 
+$aug\_rps.py$ file included in the repository.
 
 
 \subsection{Stability}
@@ -518,7 +502,7 @@ numerically from the functions in the above section.
 
 
 \newpage
-\section{Drift}
+\section{Additional figures not used in report}
 
 
 
@@ -601,9 +585,6 @@ numerically from the functions in the above section.
 
 
 
-\clearpage
-\newpage
-\subsection{Critical population size $N_c$}
 
 \par
 The critical population size where drift occurs for a varying selection pressure w.
@@ -713,14 +694,6 @@ x axis label incorrect below
 
 
 \clearpage
-\section{Refs}
-Scienceplots library for simple styling ref. \cite{SciencePlots} 
-
-\noindent
-Numba jit python compiler - used for large optimisations pre compiling intensive functions to fast machine code. \cite{lam2015numba} Huge performance increase using numba in no-python mode compiling all the critical simulation methods into machine code and inlining them where appropriate to reduce function call overhead. Reached feasible simulation speed.
-
-\noindent
-Drift reversal paper \cite{PhysRevLett.95.238701}
 
 
 \bibliographystyle{plain}
