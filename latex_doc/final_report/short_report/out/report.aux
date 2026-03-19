@@ -18,89 +18,87 @@
 \newlabel{sec:level1}{{I}{1}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}}
 \citation{rps_cyclic_jens}
-\citation{rps_cyclic_jens}
 \citation{evolution_maynard}
+\citation{evolution_pop_dynamics}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  Standard zero sum RPS game. $w = 0.3$, analytical trajectory (blue), large $N$ (500000) in green and small $N$ (2000) in orange for comparison. Large $N$ closely follows the replicator dynamics as expected, small $N$ is heavily influenced by noise and doesn't precisely follow dynamics. Agrees with stability analysis, periodic orbits at a fixed distance determined by the initial population.}}{2}{}}
 \newlabel{fig:rps_standard}{{1}{2}{}{}{}}
 \newlabel{RPS-model}{{I\,A}{2}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A} Rock-Paper-Scissors}{2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Trajectory for the RPS game where $c = -0.8$. The blue line corresponds to a numerical solution of the adjusted replicator dynamics for the Moran process, and the green line is a Moran process agent based simulation with a population size of 500. Strength of selection $w = 0.3$. With a population size of 500, the agent based simulation follows the deterministic trajectory rather well, with deviations from the deterministic trajectory due to stochastic fluctuations caused by the finite population size.}}{2}{}}
-\newlabel{fig:rps_sink}{{2}{2}{}{}{}}
 \newlabel{SD-model}{{I\,B}{2}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B} Snowdrift}{2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Trajectory for the RPS game where $c = -0.8$. The blue line corresponds to a numerical solution of the adjusted replicator dynamics for the Moran process, and the green line is a Moran process agent based simulation with a population size of 500. Strength of selection $w = 0.3$. With a population size of 500, the agent based simulation follows the deterministic trajectory rather well, with deviations from the deterministic trajectory due to stochastic fluctuations caused by the finite population size.}}{2}{}}
+\newlabel{fig:rps_sink}{{2}{2}{}{}{}}
+\newlabel{sec:combined_game}{{II}{2}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Combined game definition}{2}{}}
 \citation{evolution_pop_dynamics}
-\citation{evolution_pop_dynamics}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Snowdrift game population time series for Local update (LU) and Moran process (MO), alongside solution to deterministic replicator equation for each process from the adjusted dynamics derived in section.\nobreakspace  {}V{}{}{}\hbox {}. $N = 10000$, large population size trajectories closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game fixes at the mixed strategy Nash equilibrium $(\frac  {1}{2}, \frac  {1}{2})$}}{3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Snowdrift game population time series for Local update (LU) and Moran process (MO), alongside solution to deterministic replicator equation for each process from the adjusted dynamics derived in section.~\ref {sec:fokker-planck}. $N = 10000$, large population size trajectories closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game fixes at the mixed strategy Nash equilibrium $(\frac  {1}{2}, \frac  {1}{2})$}}{3}{}}
 \newlabel{snowdrift_trajectory}{{3}{3}{}{}{}}
-\newlabel{sec:combined_game}{{II}{3}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {II}Combined game definition}{3}{}}
-\newlabel{AugRpsMatrix}{{4}{3}{}{}{}}
+\newlabel{AugRpsMatrix}{{3}{3}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Replicator dynamics}{3}{}}
 \citation{aug_rps}
 \citation{general_moran_process}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Model and Stochastic Dynamics}{4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  Simplex trajectory, numerical / sim, w = 0.45, N = 50000, 150 time steps - normalized iterations N * 150 for simulation initial population [0.5,0.2,0.2, 0.1], RPS+, Standard RPS case corresponding to eigenvalues shown before $\gamma =0.2, \beta =0.1$, shows convergence to plane then periodic orbits at fixed distance from center (2/9, 2/9,2/9,1/3)}}{4}{}}
-\newlabel{fig:arps_standard_simplex}{{4}{4}{}{}{}}
 \citation{general_moran_process}
 \citation{alma9933506044604871}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces  Time series, for the same data plotted in Fig.\nobreakspace  {}4{}{}{}\hbox {}, dashed line corresponds to the solved system of ODE's from the Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.}}{5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  Simplex trajectory, numerical / sim, w = 0.45, N = 50000, 150 time steps - normalized iterations N * 150 for simulation initial population [0.5,0.2,0.2, 0.1], RPS+, Standard RPS case corresponding to eigenvalues shown before $\gamma =0.2, \beta =0.1$, shows convergence to plane then periodic orbits at fixed distance from center (2/9, 2/9,2/9,1/3)}}{4}{}}
+\newlabel{fig:arps_standard_simplex}{{4}{4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Model and Stochastic Dynamics}{4}{}}
+\newlabel{sec:interaction_processes}{{IV}{4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Interaction processes}{4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces  Time series, for the same data plotted in Fig.~\ref {fig:arps_standard_simplex}, dashed line corresponds to the solved system of ODE's from the Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.}}{5}{}}
 \newlabel{fig:arps_standard_time_series}{{5}{5}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Same conditions as Fig.\nobreakspace  {}4{}{}{}\hbox {} however with $c=-0.8$ so the trajectories are attracted to the RPS center. Corresponds to eigenvalues with both real negative part (attracting) and complex part spiralling towards the sink. Both the numerical solution to the deterministic replicator equations, and a high population simulated trajectory (green). Strong match between the two.}}{5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Same conditions as Fig.~\ref {fig:arps_standard_simplex} however with $c=-0.8$ so the trajectories are attracted to the RPS center. Corresponds to eigenvalues with both real negative part (attracting) and complex part spiralling towards the sink. Both the numerical solution to the deterministic replicator equations, and a high population simulated trajectory (green). Strong match between the two.}}{5}{}}
 \newlabel{fig:arps_spiral_in}{{6}{5}{}{}{}}
-\newlabel{sec:interaction_processes}{{IV}{5}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Interaction processes}{5}{}}
 \citation{alma9933506044604871}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  Time series, for the same data plotted in Fig.\nobreakspace  {}6{}{}{}\hbox {}, dashed line corresponds to the solved system of ODE's from the Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation. Amplitude of RPS time series trajectory decays over time as the RPS game approaches the interior fixed point.}}{6}{}}
+\citation{alma9933506044604871}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces  Time series, for the same data plotted in Fig.~\ref {fig:arps_spiral_in}, dashed line corresponds to the solved system of ODE's from the Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation. Amplitude of RPS time series trajectory decays over time as the RPS game approaches the interior fixed point.}}{6}{}}
 \newlabel{fig:arps_spiral_in_time_series}{{7}{6}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}General form}{6}{}}
 \newlabel{sec:fokker-planck}{{V}{6}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {V} Fokker-Planck Equation}{6}{}}
-\citation{alma9933506044604871}
 \citation{evolution_pop_dynamics}
 \citation{evolution_maynard}
 \citation{evolution_maynard}
 \citation{drift_reversal_paper}
-\citation{project_appendix}
 \citation{evolution_pop_dynamics}
 \citation{aug_rps}
 \citation{Claussen2007-zo,drift_reversal_paper,rps_cyclic_jens}
 \citation{Claussen2007-zo,drift_reversal_paper,rps_cyclic_jens}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A}Deterministic dynamics}{7}{}}
 \citation{drift_reversal_paper,rps_cyclic_jens}
 \citation{drift_reversal_paper}
 \citation{rps_cyclic_jens}
-\newlabel{sec:drift_measures}{{VI}{8}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Drift Measures}{8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A}Snowdrift Drift}{8}{}}
-\newlabel{eq:H_SD}{{22}{8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Deterministic dynamics}{7}{}}
+\newlabel{sec:drift_measures}{{VI}{7}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Drift Measures}{7}{}}
 \citation{project_appendix}
-\newlabel{eq:delta_h_sd}{{24}{9}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B}Rock-Paper-Scissors Drift}{9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Snowdrift Drift}{8}{}}
+\newlabel{eq:H_SD}{{20}{8}{}{}{}}
+\newlabel{eq:delta_h_sd}{{22}{8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Rock-Paper-Scissors Drift}{8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}Four-Strategy Coexistence Drift}{9}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {D}Weak selection limit}{9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  Plot of $\langle \Delta H_{\mathrm  {SD}} \rangle _{LU}$ for varying $N$ and different values of $w$ approaching the limit $w \rightarrow 0$. A drift reversal occurs for all $w > 0$ under the initial parameters, $a = 0, b = 1, c=-0.2, \gamma = 0.14, \beta = 0.3$, as values approach and eventually intersect with dashed line $\langle \Delta H_{\mathrm  {SD}} \rangle _{LU} = 0$.}}{10}{}}
-\newlabel{fig:weak_selection_comparison}{{8}{10}{}{}{}}
-\newlabel{eq:delta_h_sd_weak}{{29}{10}{}{}{}}
-\newlabel{eq:weak_selection_rps}{{30}{10}{}{}{}}
+\newlabel{eq:delta_h_sd_weak}{{27}{9}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  Plot of $\langle \Delta H_{\mathrm  {SD}} \rangle _{LU}$ for varying $N$ and different values of $w$ approaching the limit $w \rightarrow 0$. A drift reversal occurs for all $w > 0$ under the initial parameters, $a = 0, b = 1, c=-0.2, \gamma = 0.14, \beta = 0.3$, as values approach and eventually intersect with dashed line $\langle \Delta H_{\mathrm  {SD}} \rangle _{LU} = 0$.}}{9}{}}
+\newlabel{fig:weak_selection_comparison}{{8}{9}{}{}{}}
+\newlabel{eq:weak_selection_rps}{{28}{9}{}{}{}}
+\citation{project_appendix}
 \newlabel{section:local_analytical}{{VI\,E}{10}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {E}Local update analytical solutions}{10}{}}
-\newlabel{SimplifiedRPS}{{31}{10}{}{}{}}
-\citation{project_appendix}
+\newlabel{SimplifiedRPS}{{29}{10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {F}Drift reversal and comparison of drift measures}{10}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS. Small deviations due to random nature of simulations, but close match to analytical result. Drift reversal is present in the agent based simulations and exactly matching analytical prediction for these paremeters. Each point on the simulated values averaged 100,000,000 times. Computed through simulations where the drift observable is approximated over one update step and averaged}}{11}{}}
 \newlabel{fig:n_c_against_w}{{9}{11}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {F}Drift reversal and comparison of drift measures}{11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  A time series comparison for average trajectories of the three processses, Moran (red), local update (blue) and fermi (green). Dashed line is the deterministic solution to their respective adjusted replicator equations. Large $N=100000$ simulated results with no drift reversal shown to follow the deterministic trajectory will small deviations due to noise. Low $N=200$ of the same process and parameters averaged over 1000 realizations exhibits drift reversal away from the fixed point predicted by replicator dynamics towards full RPS where the fourth strategy $+$ fraction converges to 0.}}{12}{}}
-\newlabel{fig:drift_time_series}{{10}{12}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  SD reversal Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle , \langle \Delta H_{RPS} \rangle , \text  {and} \langle \Delta H_+ \rangle $ for the local update process. $\beta = 0.3, \gamma =0.14, c=-0.2$, strong central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so SD game component reverses first, at a higher population size. This results in the vertical column point cloud where RPS fixates at the central fixed point where $x \approx y \approx z$ and $q$ drifts away from the fixed point ($N_{RPS} < N < N_{SD}$)}}{12}{}}
-\newlabel{fig:sd_reversal_case}{{11}{12}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  A time series comparison for average trajectories of the three processses, Moran (red), local update (blue) and fermi (green). Dashed line is the deterministic solution to their respective adjusted replicator equations. Large $N=100000$ simulated results with no drift reversal shown to follow the deterministic trajectory will small deviations due to noise. Low $N=200$ of the same process and parameters averaged over 1000 realizations exhibits drift reversal away from the fixed point predicted by replicator dynamics towards full RPS where the fourth strategy $+$ fraction converges to 0.}}{11}{}}
+\newlabel{fig:drift_time_series}{{10}{11}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{11}{}}
 \citation{general_moran_process}
 \citation{*}
 \bibdata{reportNotes,report}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces   RPS reversal $\beta =0.24, \gamma =0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image. This parameter settings give a better plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}}{13}{}}
-\newlabel{fig:rps_reversal_case}{{12}{13}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces  Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (drift in all directions) where $N << N_{RPS}, N << N_{SD}$. Each point corresponds to an independent trajectory which started from an initial random point in the simplex. View the table of values used for this case graph in the appendix}}{14}{}}
-\newlabel{drift_cases_fig}{{13}{14}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  SD reversal Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle , \langle \Delta H_{RPS} \rangle , \text  {and} \langle \Delta H_+ \rangle $ for the local update process. $\beta = 0.3, \gamma =0.14, c=-0.2$, strong central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so SD game component reverses first, at a higher population size. This results in the vertical column point cloud where RPS fixates at the central fixed point where $x \approx y \approx z$ and $q$ drifts away from the fixed point ($N_{RPS} < N < N_{SD}$)}}{12}{}}
+\newlabel{fig:sd_reversal_case}{{11}{12}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces   RPS reversal $\beta =0.24, \gamma =0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image. This parameter settings give a better plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}}{12}{}}
+\newlabel{fig:rps_reversal_case}{{12}{12}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces  Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (drift in all directions) where $N << N_{RPS}, N << N_{SD}$. Each point corresponds to an independent trajectory which started from an initial random point in the simplex. View the table of values used for this case graph in the appendix}}{13}{}}
+\newlabel{drift_cases_fig}{{13}{13}{}{}{}}
 \bibcite{rps_lizard}{{1}{1996}{{Sinervo\ and\ Lively}}{{}}}
 \bibcite{cheating_microbes}{{2}{2019}{{Smith\ and\ Schuster}}{{}}}
 \bibcite{yeast_snowdrift}{{3}{2009}{{Gore\ \emph  {et~al.}}}{{Gore, Youk,\ and\ van Oudenaarden}}}
@@ -117,7 +115,7 @@
 \bibcite{lam2015numba}{{14}{2015}{{Lam\ \emph  {et~al.}}}{{Lam, Pitrou,\ and\ Seibert}}}
 \bibcite{scienceplots}{{15}{2023}{{Garrett\ \emph  {et~al.}}}{{Garrett, Luis, Peng, Cera, gobinathj, Borrow, Keçeci, Splines, Iyer, Liu, cjw,\ and\ Gasanov}}}
 \bibstyle{apsrev4-2}
-\@writefile{toc}{\contentsline {section}{\numberline {}References}{15}{}}
-\newlabel{LastBibItem}{{15}{15}{}{}{}}
-\newlabel{LastPage}{{}{15}{}{}{}}
-\gdef \@abspage@last{15}
+\@writefile{toc}{\contentsline {section}{\numberline {}References}{14}{}}
+\newlabel{LastBibItem}{{15}{14}{}{}{}}
+\newlabel{LastPage}{{}{14}{}{}{}}
+\gdef \@abspage@last{14}
