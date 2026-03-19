@@ -187,11 +187,14 @@ orbits at a fixed distance determined by the initial population.}
 
 In the rest of this report I will focus on the case where $a = 0, b = 1$ and $c$ is left as a free parameter which 
 governs the dynamics of the game. In the standard zero-sum case where $c=-1$, the system is neutrally stable and the 
-trajectories oscillate at a fixed distance from the Nash equilibrium $(1/3, 1/3, 1/3)$. 
+trajectories oscillate at a fixed distance from the Nash equilibrium $(1/3, 1/3, 1/3)$ (Fig.~\ref{fig:rps_standard}). 
 When $c < -1$ the system spirals outwards from the equilibrium and will be absorbed by the boundaries and
-finally when $c > -1$ the system will spiral inwards, where cooperation between the three strategies is
-preferred. It has previously been shown that a drift reversal effect occurs when $c > -1$ where a critical 
+finally when $c > -1$ the system will spiral inwards (Fig.~\ref{fig:rps_sink}), where cooperation between the three strategies is
+preferred, as shown via stability analysis for the system of replicator 
+equations that can be formulated for RPS (see appendix RPS). 
+It has previously been shown that a drift reversal effect occurs when $c > -1$ where a critical 
 population size can reverse the drift from the internal stable point towards the boundaries \cite{rps_cyclic_jens}.
+
 
 \begin{figure} 
 \centering
@@ -203,19 +206,6 @@ With a population size of 500, the agent based simulation follows the determinis
 with deviations from the deterministic trajectory due to stochastic fluctuations caused by the finite population size.}
 \end{figure}
 
-
-The eigenvalues of the game in Fig.~\ref{fig:rps_sink} are:
-\begin{equation}
-\lambda_{1}, \lambda_2 = \left\{-\frac{1}{30} + \frac{3 \sqrt{3}}{10}i,
--\frac{1}{30} - \frac{3 \sqrt{3}}{10}i\right\}
-\end{equation}
-Since the real parts of the eigenvalues are negative, 
-$\operatorname{Re}(\lambda_{1,2}) = -\frac{1}{30} < 0$, the fixed point $\left(\frac{1}{3}, \frac{1}{3}\right)$
-is linearly stable, so the populations will converge towards the central fixed point over time.
-The imaginary component indicates the oscillatory dynamics so the population will spiral inwards 
-towards the center. When $c = -0.8$, the populations converge towards a stable
-coexistence. For this particular case of RPS a drift reversal can occur in finite populations 
-\cite{rps_cyclic_jens}.
 
 \subsection{\label{SD-model} Snowdrift}
 
@@ -325,28 +315,13 @@ The payoffs for this game are:
 \end{align}
 Using $+$ to denote the 4th strategy.
 
-The standard replicator dynamics \cite{evolution_pop_dynamics} (equation \ref{eq:standard_replicator_dynamics}) 
-considering the case where $N$ is infinitely large are:
+Let $x,y,z, q$ denote the fraction of the population playing rock, paper, scissors, and $+$ respectively, 
+$q$ can be rewritten as $q = 1-x-y-z$.
 
-\begin{widetext}
-\begin{align} 
-\dot x &= x (a x + b z + c y + \gamma (1- x - y - z) - x (a x + b z + c y 
-+ \gamma (1- x - y - z ))  - y (a y + b x + c z + \gamma (1- x - y - z))  \nonumber\\ 
-&- z (a z + b y + c x 
-+ \gamma (1- x - y - z))  - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1- x - y - z)) \nonumber
-\end{align}
-\begin{align}
-\dot{y} &= y \big(a y + b x + c z + \gamma (1-x - y - z)
-- x (a x + b z + c y + \gamma (1-x - y - z ))  - y (a y + b x + c z + \gamma (1-x - y - z)) \nonumber\\
-&- z (a z + b y + c x + \gamma (1-x - y - z))  - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1-x - y - z) \big) \nonumber
-\end{align}
-\begin{align}
-\dot{z} &= z \big(a z + b y + c x + \gamma (1-x - y - z)
-- x (a x + b z + c y + \gamma (1-x - y - z)) - y (a y + b x + c z + \gamma (1-x - y - z )) \nonumber\\
-&- z (a z + b y + c x + \gamma (1-x - y - z)) - (x (a + \beta) + y (a + \beta) + z (a + \beta)) (1-x - y - z) \big) \nonumber
-\end{align}
-\end{widetext}
-
+The standard replicator dynamics \cite{evolution_pop_dynamics} 
+considering the case where $N$ is infinitely large result in three 
+replicator equations $\dot{x}, \dot{y}, \dot{z}$ describing the time
+evolution of each strategies population over time (full equations in appendix). 
 
 
 Defining $F = \dot{x}, G = \dot{y}, P = \dot{z}$ the Jacobian for this system of replicator equations is:
@@ -361,8 +336,8 @@ J =
 \end{equation}
 
 
-Considering one particular instance of this game where
-$a = 0, b=1, c= -1$ (standard rock paper scissors) and $\gamma = 0.2, \beta = 0.1$, 
+Considering the zero sum RPS instance of this game where
+$a = 0, b=1, c= -1$, and $\gamma = 0.2, \beta = 0.1$, 
 there is an internal fixed point at $\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$.
 The eigenvalues of this system are:
 
@@ -378,12 +353,9 @@ the pair of purely imaginary eigenvalues indicate the nonlinear center as
 before for stanrd rock paper scissors seen in Fig.~\ref{fig:rps_standard}.
 This means the system will converge to the fixed points RPS plane, and then 
 oscillate at a fixed distance from the center point
- $\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$. See the solved trajectory 
- against simulated fininte population trajectory in Fig.~\ref{fig:arps_standard_simplex} and 
- Fig.~\ref{fig:arps_standard_time_series} for the normalized time series. Normalization is done for simulated 
- results where simulated iterations are divided by the population size to match the time steps for 
- the solved differential equations in this case 150 time steps which was sufficient to show the fixation at the 
- stable orbit in the plane of the fixed point.
+$\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$. See the solved trajectory 
+against simulated fininte population trajectory in Fig.~\ref{fig:arps_standard_simplex} and 
+Fig.~\ref{fig:arps_standard_time_series}.
 
 
 \begin{figure}
@@ -400,7 +372,7 @@ center (2/9, 2/9,2/9,1/3)}
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.3]{Figures/arps_time_series_standard.pdf}
+\includegraphics[scale=0.35]{Figures/arps_time_series_standard.pdf}
 \caption{\label{fig:arps_standard_time_series} Time series, for the same data plotted in 
 Fig.~\ref{fig:arps_standard_simplex}, dashed line corresponds to the solved system of ODE's from the 
 Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.}
@@ -439,7 +411,7 @@ simulated trajectory (green). Strong match between the two.}
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.5]{Figures/spiral_in_time_series.pdf}
+\includegraphics[scale=0.55]{Figures/spiral_in_time_series.pdf}
 \caption{\label{fig:arps_spiral_in_time_series} Time series, for the same data plotted in 
 Fig.~\ref{fig:arps_spiral_in}, dashed line corresponds to the solved system of ODE's from the 
 Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.
@@ -686,7 +658,8 @@ game:
 \begin{equation}
 \dot{x} = a(x) + b(x) \xi
 \end{equation}
-
+which is a combination of the deterministic dynamics ($a(x)$) and a noise term 
+$b(x)$ which dissapears as $N \rightarrow \infty$.
 
 \subsection{Deterministic dynamics}
 
@@ -698,7 +671,7 @@ Ref.\cite{drift_reversal_paper}.
 \begin{equation}
 \dot{x}_{MO} = \frac{1}{\Gamma + \langle \pi(x)\rangle} x_i(\pi_i(x) - \langle \pi(x)\rangle)
 \end{equation}
-where $\Gamma = \frac{1- w}{w}$, see full expanded form in the appendix~\cite{project_appendix}.
+where $\Gamma = \frac{1- w}{w}$.
 
 The local update process corresponds to the standard replicator 
 dynamics \cite{evolution_pop_dynamics} used in section
@@ -750,27 +723,22 @@ An approximation for $\dot{H}$, $\langle \Delta H \rangle$ can be computed direc
 agent based simulation by calculating $\langle \Delta H \rangle = \langle \Delta H(t+1) - H(t) \rangle$ 
 for a single update step and then averaging over many repeated simulations (see Fig.~\ref{fig:n_c_against_w}), 
 however for all the interaction processes the terms can be 
-formulated as an integral and solved numerically on in some cases e.g. Local update, a 
-closed form solution can be found. This is preferred over simulated approximate values as it is much 
-simpler to compute particularly in the local update case where an exact result can be found 
-for $\langle \Delta H \rangle$. 
+formulated as an integral and solved numerically and in some cases e.g. local update, a 
+closed form solution can be found.
 For each of the components making up the combined $4 \times 4$ game a suitable observation
 value $H$ can be defined to measure the distance from the Nash equilibrium 
 \cite{drift_reversal_paper,rps_cyclic_jens}. The sign of $\dot{H}$ can therefore
 indicate whether the system is drifts towards or away from the interior equilibrium \cite{drift_reversal_paper}.
-$\dot{H}$ is approximated in the simulated results by $\langle \Delta H \rangle$:
 
-\begin{equation}
-\langle \Delta H \rangle = \mathbb{E}[H(\mathbf{x}_{t+1}) - H(\mathbf{x}_t)].
-\end{equation}
 
-which is calculated for one single update step, and then averaged over a very large number of 
-repeated simulations. Drift reversal is defined as the change in sign of this value under
-variation of parameters of the system most notably the population size N. 
+
+Drift reversal is defined as the change in sign of $\dot{H}$ under
+variation of parameters below a critical population size.
 
 The sign of $\langle \Delta H \rangle$ determines whether stochastic drift favors interior coexistence or boundary attraction.
 $\langle \Delta H \rangle$ can be formulated analytically \cite{rps_cyclic_jens} and
-written as a sum over the simplex, in this case:
+written as a sum over the simplex for each of the 
+subgames observable $H_{SD}, H_{RPS}, H_4$:
 ($1 \le i, j \le N -i, k \le N - i - j$).
 
 \begin{equation}
@@ -785,17 +753,6 @@ for drift, $H_{SD}$ for effects within the snowdrift game, $H_{RPS}$ for the RPS
 $H_4$ for the overall drift in the context of the internal fixed point of all 4 strategies in the 
 payoff matrix. 
 
-After defining the summation in terms of discrete population counts for each of the 
-strategies, it is possible to approximate these values in the continuous limit by replacing
-the counts with their corresponding fraction of the population and the term is converted to 
-an integral over the simplex allowing for the use of numerical methods to compute these
-exact values of $\langle \Delta H \rangle$, and therefore compute numerically the 
-critical population sizes $N$ where the dynamics shift and drift reversal occurs (if it does occur).
-This allows for more efficient comparisons of the dynamics of a particular instance of the game parameters
-as it is much more efficient to compute this equation numerically than to simulate over a large number of
-realizations and average the discrete results.
-
-
 
 \subsection{Snowdrift Drift}
 
@@ -807,9 +764,7 @@ H_{SD} = - q(1-q)
 \end{equation}
 
 The expected value of $\Delta H_{SD}$ over the entire simplex 
-can be defined, similarly to the RPS case, by 
-a sum as follows:
-
+can be defined by a sum as follows:
 
 \begin{widetext}
 \begin{equation}
@@ -823,7 +778,7 @@ a sum as follows:
 \end{equation}
 \end{widetext}
 
-This can be approximated in the contnuous limit by the following integral where $x = i/N, y=j/N, z=k/N and q = 1-x-y-z$:
+This can be approximated in the continuous limit by the following integral where $x = i/N, y=j/N, z=k/N, q = 1-x-y-z$:
 
 \begin{align}\label{eq:delta_h_sd}
 \langle \Delta H_{\mathrm{SD}} \rangle 
@@ -838,19 +793,17 @@ This can be approximated in the contnuous limit by the following integral where 
 \end{align}
 
 
+$H_{SD} - H_{SD}' = H_{SD} - H_{SD} = 0$ for all transitions
+($R \rightarrow P, P \rightarrow S, S \rightarrow R$,
+and their reverses) within the RPS subgame. 
 Since transitions purely within the RPS subgame do not change the value
 of $H_{SD}$, this exact term for depends only on transitions into and out of 
 the fourth strategy ($+$). 
 
-Consider the case of 
-$(H_{SD} - H_{SD}')T^{RP}$ in the summation being zero, since transitions between 
-rock and paper do not change the frequency of the fourth strategy, and therefore
-do not change the value of $-q(1-q)$. 
-
-This results in $H_{SD} - H_{SD}' = H_{SD} - H_{SD} = 0$ for all transitions
-($R \rightarrow P, P \rightarrow S, S \rightarrow R$,
-and their reverses) within the RPS subgame. For full
+For full
 derivation see the appendix\cite{project_appendix}.
+
+
 
 \subsection{Rock-Paper-Scissors Drift}
 For the three-strategy subsystem, the replicator equations have the constant of motion:
@@ -986,35 +939,18 @@ Considering the payoff matrix:
 \end{bmatrix}
 \end{align}
 In this case the values of $a,b$ have been set to 0 and 1. The value of $c$ can be
-altered to adjust the dynamics of the RPS component of the game, if $c > -1$
-then the game will spiral inwards towards a central fixed point and if $c > - 1$
-the RPS trajectories will sprial outwards as shown in the introductory section.
-The values of $\beta$ and $\gamma$ determine the dynamics of the snowdrift component of the 
-game with the main cases being fixation at either the top (pure 4th strategy), base (pure RPS) or a central equilibrium.
-This depends on the relative payoff difference between the SD and RPS game.
-
-
-$\langle \Delta H_{SD} \rangle$ is composed of differences of the form 
-$T^{R+} - T^{+R}$. Expanding these differences:
-
-
-\begin{align}
-T^{R+} - T^{+R} &= \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right) \nonumber \\
-&- \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} + \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \nonumber \\
-&= w\frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}\right)\nonumber
-\end{align}
-
-And then using population frequencies instead of the discrete population counts:
+altered to adjust the dynamics of the RPS component of the game. $\langle \Delta H_{SD} \rangle$ is composed of differences of the form 
+$T^{R+}-T^{+R}$. Expanding these differences for the local update process:
 
 
 \begin{equation}
 T^{R+} - T^{+R} = wx(1-x-y-z)\frac{\pi_+ - \pi_R}{\Delta \pi_{\text{max}}}
 \end{equation}
 
-The other transition probability differences are omitted here since they are symmetrical to the above with the 
+The other transition probability differences are symmetrical to the above with the 
 population count and payoff switched to their respective values.
 
-The second component of $\langle \Delta H_{SD} \rangle$ are the terms in order $1/N^2$, $T^{+R} + T^{+P} + T^{+S}$.
+The second component of $\langle \Delta H_{SD} \rangle$ are the terms scaled by $1/N^2$, $T^{+R} + T^{+P} + T^{+S}$.
 
 This expression eventually simplfies to the following in terms of $w, \Delta \pi_{max}$ and the payoff
 matrix parameters:
@@ -1042,7 +978,7 @@ leading to:
 
 Which is an exact expression for the expected drift for the local update process when observing the SD
 component of the game. Since drift reversal is a change in sign in $\langle \Delta H_{SD} \rangle_{LU}$, this 
-leads to an exact term for the critical population size by setting this to 0:
+results in an exact term for the critical population size by setting this to 0:
 
 
 
@@ -1062,8 +998,7 @@ A similar process can be done for the RPS drift observable.
 The difference terms $T^{RP} - T^{PR}$ for the local update transition probabilites are of the form:
 
 \begin{align}
-T^{RP} - T^{PR} &= \frac{w}{\Delta \pi_{max}}xy(\pi_P - \pi_R)\nonumber \\
-&=  \frac{w}{\Delta \pi_{max}}xy(x - z + c(z - y))
+T^{RP} - T^{PR} &=  \frac{w}{\Delta \pi_{max}}xy(x - z + c(z - y))
 \end{align}
 
 The terms factored by $w$ within the expression of the form $T^{RP} + T^{PR}$ cancel out leaving the second integral to be 
@@ -1080,7 +1015,7 @@ eventually simplifies to:
 - \frac{w(2 + \gamma - 3\beta = 2c)}{3360N\Delta \pi_{max}}
 \end{equation}
 Setting this to 0, an exact solution for the local update critical 
-population size is:
+population size for RPS is:
 \begin{equation}
 N^\prime_{RPS} = \frac{28\Delta \pi_{max}}{w(2 + \gamma -3\beta + 2c)}
 \end{equation}
@@ -1111,7 +1046,7 @@ direction predicted by the replicator dynamics.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.4\textwidth]{Figures/critical_n_analytical.png}
+    \includegraphics[width=0.45\textwidth]{Figures/critical_n_analytical.png}
     \caption{\label{fig:n_c_against_w}Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
     to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.
     Small deviations due to random nature of simulations, but close match to analytical result.
@@ -1123,7 +1058,7 @@ direction predicted by the replicator dynamics.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.4\textwidth]{Figures/proces_drift_time_series.pdf}
+    \includegraphics[width=0.45\textwidth]{Figures/proces_drift_time_series.pdf}
     \caption{\label{fig:drift_time_series} A time series comparison for 
     average trajectories of the three processses, 
     Moran (red), local update (blue) and fermi (green). Dashed line is the 
@@ -1211,7 +1146,7 @@ value of $N$ varies since they all impact the dynamics.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.4\textwidth]{Figures/column_case_delta_H.eps}
+    \includegraphics[width=0.45\textwidth]{Figures/column_case_delta_H.eps}
     \caption{\label{fig:sd_reversal_case}
     SD reversal  Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle,
     \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ for the 
@@ -1224,7 +1159,7 @@ value of $N$ varies since they all impact the dynamics.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.4\textwidth]{Figures/disk_clean_deltaH.eps}
+  \includegraphics[width=0.45\textwidth]{Figures/disk_clean_deltaH.eps}
   \caption{
     \label{fig:rps_reversal_case}
   RPS reversal $\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
