@@ -575,23 +575,13 @@ T^{R \rightarrow +} = \left( \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}\right) \frac{i}
 \subsection{General form}
 
 A general form for the transition probability between any two 
-strategies can be given by:
+strategies can be formed by defining appropriate reproductive functions $\phi$ between 
+two strategies for each of the processes (see appendix).
 
 \begin{equation}
   \phi(b \rightarrow a) \frac{N_a N_b}{N^2} \nonumber
 \end{equation}
 
-Where a reproductive function $\phi$ is defined for each process.
-This is how it is implemented in augrps file, with functions
-to create a transition probabilities dictionary given a suitable reproduction 
-function that meets the interface \cite{aug_rps}. 
-
-
-\begin{align}
-\phi_{MO}(\pi_a, \langle \pi \rangle, w) &= \frac{1}{2} \frac{1 - w + w \pi_a}{1 - w + w \langle \pi \rangle} \\
-\phi_{LU}(\pi_a, \pi_b, w) &= \frac{1}{2} +  \frac{w}{2} \frac{\pi_a - \pi_b}{\Delta \pi_{max}} \\
-\phi_{FP}(\pi_a, \pi_b, w) &= \frac{1}{1 + e^{-w(\pi_a - \pi_b)}}
-\end{align}
 
 
 \section{\label{sec:fokker-planck} Fokker-Planck Equation}
@@ -627,28 +617,8 @@ strategy R and describes the time evolution of the system
 jumping between discrete states (the count of $i$ rock individuals).
 
 
-
-Expanding the probabilities and the transition probabilites to the 
-second order using a Taylor expansion, a Fokker-Planck equation 
-can be obtained.
-
-For full derivation of the Fokker-Planck equation for this system,
-see the appendix.
-
-
-Expanding about the rock population fraction $x \pm 1/N$, 
-plus or minus 1 individual ($1/N$):
-\begin{equation}
-  T(x\pm\frac{1}{N}) = T(x) \pm \frac{1}{N}T'(x) + \frac{1}{2N^2}T''(x)\dots \nonumber
-\end{equation}
-\begin{equation}
-  P(x\pm\frac{1}{N}) = P(x) \pm \frac{1}{N}P'(x) + \frac{1}{2N^2}P''(x)\dots \nonumber
-\end{equation}
-Higher order terms are ignored.
-
-The 2nd order expansions are then subtituted into the Master equation
-for the corresponding $\pm$ individual states leading to the 
-simplified equation:
+Performing a second order Taylor expansion on the probabilites and 
+transition probabilites the following expression is eventually obtained:
 
 \begin{align}
 &P^{\tau+1}(x)-P^\tau(x) = \frac{1}{N}\Big[
@@ -693,23 +663,15 @@ T^{PR} + T^{SR} + T^{+R}
 \end{aligned}
 \end{equation}
 
-The term
-$a$ is a difference of ingoing and outgoing 
-transition probabilities into the particular state and 
-$b$ is a noise term consisting of the summation of 
-all ingoing plus outgoing transition probabilities. 
-
-Values of $a,b$ for each strategy not included as they are just 
-permutations of the above with the respective ingoing/outgoing
-transition probabilites for the different strategies. To see 
-these in full and the full derivation of the Fokker-Planck
-equation refer to the appendix.
+For full derivation of the Fokker-Planck equation for this system and for 
+$a(y), b(y), a(z), b(z)$,
+see the appendix.
 
 
 For each strategy, $a(x)$ corresponds to the deterministic replicator equation ($N \rightarrow \infty$),
 and $b(x)$ is the diffusion term corresponding to the stochastic drift. 
 For the local update process, this $a(x)$ is equal to the standard replicator payoff difference equation~\cite{evolution_pop_dynamics}
-(with some scaling factor accounting for selection pressure $w$),
+scaled by a constant term containing $w$,
 whereas the Moran process corresponds to the adjusted dynamics proposed by John Maynard 
 Smith~\cite{evolution_maynard}, 
 where there is an additional normalization by the average payoff of the population.
@@ -719,17 +681,12 @@ adjusted dynamics where you can imagine an individual playing against the popula
 via the average payoff term.
 
 A langevin equation describing the trajectory of a single individual in the
-game, essentially a stochastic replicator equation follows from this:
+game:
 
 \begin{equation}
 \dot{x} = a(x) + b(x) \xi
 \end{equation}
 
-When plotting a time series of a particular interaction process simulation,
-the deterministic dynamics (infinite N) comparison can be made by 
-ignoring the noise term $b(x)$ as it contains a factor $1/N$, and 
-solving numerically $a(x)$ which corresponds to the deterministic 
-replicator dynamics for that interaction process.
 
 \subsection{Deterministic dynamics}
 
