@@ -44,7 +44,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{pgfplots}
-%\usepackage{enumitem}
+\usepackage{enumitem}
 
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
@@ -89,7 +89,7 @@ dynamics in the four-simplex.
 Three drift observables $H_{\mathrm{SD}}$, $H_{\mathrm{RPS}}$, and $H_4$ are defined to 
 characterise the stability of each subgame and for the full four-strategy game.
 
-The main result demonstrates the phenomenon of drift reversal, a loss of stability below a critical population size, 
+The main result demonstrates the phenomenon of drift reversal, a loss of stability below a critical population size
 at two different critical population sizes $N^\prime_{\mathrm{RPS}}$ and 
 $N^\prime_{\mathrm{SD}}$ for each of the subgames. For the local update process a closed form expression for 
 both $N^\prime_{\mathrm{RPS}}$ and $N^\prime_{\mathrm{SD}}$ are derived.
@@ -126,7 +126,7 @@ game composed of the two-strategy SD game and the three-strategy RPS game
 to form a combined game with the payoff matrix (equation~\ref{AugRpsMatrix}).
 The composite game combines the cyclic dominance with cooperation/defection coexistence dynamics
 with invasion into the RPS cycle by the SD strategy. A game of this form has been considered 
-in the infinite-population case \cite{evolution_pop_dynamics}, this project extends this analysis to the 
+in the infinite-population case~\cite{evolution_pop_dynamics}, this project extends this analysis to
 finite populations, focusing on the phenomenon of drift reversal~\cite{drift_reversal_paper}.
 
 In finite populations noise is introduced into the dynamics that has been shown 
@@ -138,13 +138,13 @@ microscopic update process \cite{drift_reversal_paper}. This has been analyzed f
 two-strategy games and the three-strategy RPS game in Refs.~\cite{rps_cyclic_jens,drift_reversal_paper}.
 This project demonstrates that in the composite RPS-SD game there are two independent critical population sizes
 for a drift reversal in each of the subgames and that the relative ordering of these two population sizes 
-result in distinct dynamics illustrated in section~\ref{sec:drift_measures}.
+results in distinct dynamics illustrated in section~\ref{sec:drift_measures}.
 
 This report first introduces the RPS and SD game individually in sections \ref{RPS-model} and \ref{SD-model}. 
 Section \ref{sec:combined_game} introduces the payoff structure and stability analysis for the combined game 
 in the infinite population case. Section \ref{sec:interaction_processes} discusses the three microscopic 
 interaction processes and 
-defines transition probabilites for individuals hopping from one strategy to another. Section 
+defines transition probabilities for individuals hopping from one strategy to another. Section 
 \ref{sec:fokker-planck} and \ref{sec:drift_measures} derive a 
 Fokker-Planck equation and drift measures to quantify the stochastic effects of finite populations and 
 calculate the critical population sizes where drift reversal occurs. A closed form solution for the local update process
@@ -176,11 +176,12 @@ fixed point of $\left(\frac{1}{3}, \frac{1}{3}, \frac{1}{3}\right)$.
 \begin{figure}
 \centering
 \includegraphics[scale=0.3]{Figures/rps_standard.pdf}
-\caption{\label{fig:rps_standard} Standard zero sum RPS game. $w = 0.3$, analytical trajectory (blue), 
-large $N$ (500000) in green and small $N$ (2000) in orange for comparison. Large $N$ closely follows
-the replicator dynamics as expected, small $N$ is heavily influenced by noise
-and doesn't precisely follow dynamics. Agrees with stability analysis, periodic 
-orbits at a fixed distance determined by the initial population.}
+\caption{\label{fig:rps_standard} Standard zero-sum RPS game ($a=0, b=1, c=-1$), 
+$w = 0.3$. Analytical trajectory (blue), large $N$ simulation ($N=500000$, green) 
+and small-$N$ simulation ($N=2000$, orange). The large $N$ trajectory closely follows
+the replicator dynamics (orbits at fixed distance from center). The small $N$ trajectory 
+deviates due to stochastic fluctuations but still orbiting the interior fixed point 
+$\left(\frac{1}{3},\frac{1}{3},\frac{1}{3}\right)$.}
 \end{figure}
 
 
@@ -191,7 +192,7 @@ trajectories oscillate at a fixed distance from the Nash equilibrium $(1/3, 1/3,
 When $c < -1$ the system spirals outwards from the equilibrium and will be absorbed by the boundaries and
 finally when $c > -1$ the system will spiral inwards (Fig.~\ref{fig:rps_sink}), where cooperation between the three strategies is
 preferred, as shown via stability analysis for the system of replicator 
-equations that can be formulated for RPS (see appendix RPS). 
+equations that can be formulated for RPS (full derivation in appendix). 
 It has previously been shown that a drift reversal effect occurs when $c > -1$ where a critical 
 population size can reverse the drift from the internal stable point towards the boundaries \cite{rps_cyclic_jens}.
 
@@ -199,11 +200,13 @@ population size can reverse the drift from the internal stable point towards the
 \begin{figure} 
 \centering
 \includegraphics[scale=0.3]{Figures/rps_example_in_spiral.pdf}
-\caption{\label{fig:rps_sink} Trajectory for the RPS game where $c = -0.8$. The blue line corresponds to a numerical
+\caption{\label{fig:rps_sink} RPS game with $c=-0.8$, $w=0.3$. The blue line corresponds to a numerical
 solution of the adjusted replicator dynamics for the Moran process, and the green line is a Moran process
-agent based simulation with a population size of 500. Strength of selection $w = 0.3$.
-With a population size of 500, the agent based simulation follows the deterministic trajectory rather well,
-with deviations from the deterministic trajectory due to stochastic fluctuations caused by the finite population size.}
+agent based simulation with $N = 500$. 
+Negative real part of eigenvalues (see appendix) produces a spiral sink for the replicator systems, and 
+trajectories spiral inwards to the fixed point $\left(\frac{1}{3},\frac{1}{3},\frac{1}{3}\right)$.
+At $N=500$, simulation tracks the deterministic trajectory with small deviations due to finite population size
+noise.}
 \end{figure}
 
 
@@ -211,7 +214,7 @@ with deviations from the deterministic trajectory due to stochastic fluctuations
 
 The snowdrift game has also been intensely 
 studied \cite{evolution_maynard} 
-and is an example of an anti-coordination where there are two pure strategy Nash equlibria when 
+and is an example of an anti-coordination game where there are two pure strategy Nash equilibria when 
 players select opposite strategies.
 The game is defined by the following payoff matrix with rows corresponding to 
 cooperation and defection.
@@ -232,9 +235,9 @@ remain in their car then both remain stranded and receive a payoff of 0. This sc
 often arises in biology and social/economic settings where mutual cooperation would be 
 beneficial and both parties refusing to yield results in the worst outcome.
 
-There are two pure strategy Nash equilbria where the players select opposite strategies, 
-and a mixed strategy Nash equilibrum.
-The interior mixed strategy Nash equilbrium for this payoff matrix occurs at the mixed strategy $q^* = \frac{b-2c}{b-c}$ where 
+There are two pure strategy Nash equilibria where the players select opposite strategies, 
+and a mixed strategy Nash equilibrium.
+The interior mixed strategy Nash equilibrium for this payoff matrix occurs at the mixed strategy $q^* = \frac{b-2c}{b-c}$ where 
 $q$ denotes the fraction of cooperators.
 
 In the example trajectory where $b=3, c=1$, the mixed strategy evaluates to 
@@ -244,11 +247,12 @@ Fig.~\ref{snowdrift_trajectory}.
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{Figures/snowdrift_sim.pdf}
-\caption{\label{snowdrift_trajectory}Snowdrift game population time series for Local update (LU) and Moran process (MO), 
+\caption{\label{snowdrift_trajectory} Snowdrift game population fraction time series for Local update (LU) and Moran process (MO), 
 alongside solution to deterministic replicator equation for each process from the 
-adjusted dynamics derived in section.~\ref{sec:fokker-planck}. $N = 10000$, large population size trajectories 
-closely follow deterministic path. $w=0.9$, initial population 99\% cooperators. The game
-fixes at the mixed strategy Nash equilibrium $(\frac{1}{2}, \frac{1}{2})$}
+adjusted dynamics derived in section.~\ref{sec:fokker-planck}. $N = 10000, w=0.9, c=1, b=3$,
+Simulated large $N$ trajectories closely follow corresponding adjusted replicator dynamics. 
+Initial population 99\% cooperators.
+Both processes converge to the stable mixed strategy Nash equilibrium  $q^* = \frac{1}{2}$} 
 \end{figure}
 
 
@@ -292,7 +296,7 @@ payoff matrix:
     \beta & 0 \\
 \end{bmatrix}
 \end{align}
-Where $\langle RPS \rangle$ is the expected value of the RPS game.
+where $\langle RPS \rangle$ is the expected value of the RPS game.
 The drift observable $H_{SD}$ (equation \ref{eq:delta_h_sd}) will measure the distance
 from the fixed point of this game purely in the SD context (the vertical column in the 
 four-simplex).
@@ -350,32 +354,33 @@ The eigenvalues of this system are:
 The negative real eigenvalue here $-\frac{1}{15}$ indicates the 
 stable plane where the trajectories will converge to (the snowdrift direction), and 
 the pair of purely imaginary eigenvalues indicate the nonlinear center as 
-before for stanrd rock paper scissors seen in Fig.~\ref{fig:rps_standard}.
+before for standard rock-paper-scissors seen in Fig.~\ref{fig:rps_standard}.
 This means the system will converge to the fixed points RPS plane, and then 
 oscillate at a fixed distance from the center point
-$\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$. See the solved trajectory 
-against simulated fininte population trajectory in Fig.~\ref{fig:arps_standard_simplex} and 
+$\left(\frac{2}{9},\frac{2}{9},\frac{2}{9},\frac{1}{3}\right)$. The numerical solution is compared 
+against a simulated finite population trajectory in Fig.~\ref{fig:arps_standard_simplex} and 
 Fig.~\ref{fig:arps_standard_time_series}.
 
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.43]{Figures/arps_standard_simplex.pdf}
-\caption{\label{fig:arps_standard_simplex} Simplex trajectory, numerical / sim, 
-w = 0.45, N = 50000, 150 time steps - normalized iterations N * 150 for simulation
-initial population [0.5,0.2,0.2, 0.1], RPS+, Standard RPS case
-corresponding to eigenvalues shown before $\gamma=0.2, \beta=0.1$, shows
-convergence to plane then periodic orbits at fixed distance from
-center (2/9, 2/9,2/9,1/3)}
-
+\caption{\label{fig:arps_standard_simplex} Simplex trajectory for the combined game with 
+standard RPS ($a=0, b=1, c=-1$), $\gamma=0.2$, $\beta=0.1$, $w=0.45$, $N=50000$.
+Numerical solution (blue) and Moran process simulation (green), with simulation iterations normalized by $N$ to 
+match the ODE time steps (150 steps). The trajectory converges to the RPS plane (stable in the SD axis, 
+eigenvalue $-\frac{1}{15}$), and then forms periodic orbits at a fixed distance from the interior fixed point 
+$(2/9, 2/9,2/9,1/3)$ (purely imaginary eigenvalues). Initial populations used [0.5,0.2,0.2,0.1], for 
+R,P,S,+.}
 \end{figure}
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.35]{Figures/arps_time_series_standard.pdf}
-\caption{\label{fig:arps_standard_time_series} Time series, for the same data plotted in 
-Fig.~\ref{fig:arps_standard_simplex}, dashed line corresponds to the solved system of ODE's from the 
-Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.}
+\includegraphics[scale=0.30]{Figures/arps_time_series_standard.pdf}
+\caption{\label{fig:arps_standard_time_series} Time series of strategy frequencies for the same trajectory in 
+Fig.~\ref{fig:arps_standard_simplex}. Dashed line are numerical solutions of the Moran adjusted replicator dynamics
+($a(x)$ from Fokker-Planck derivation), solid lines are simulated results. RPS oscillations and the 
+convergence of $+$ frequencies (red line) are both visible.}
 \end{figure*}
 
 As for RPS, setting parameter $c = -0.8$ or any $c > -1$, the RPS system becomes
@@ -400,23 +405,22 @@ components once again indicate the oscillatory nature of these trajectories.
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{Figures/spiral_in_4d.pdf}
-\caption{\label{fig:arps_spiral_in} Same conditions as 
-Fig.~\ref{fig:arps_standard_simplex} however with $c=-0.8$ so the 
-trajectories are attracted to the RPS center. Corresponds to 
-eigenvalues with both real negative part (attracting) and 
-complex part spiralling towards the sink. Both the 
-numerical solution to the deterministic replicator equations, and a high population
-simulated trajectory (green). Strong match between the two.}
+\caption{\label{fig:arps_spiral_in} 
+Simplex trajectory for the combined game with $c=-0.8$, $\gamma=0.2$, $\beta=0.1$, $w=0.45$, $N=50000$.
+The negative real parts of all three eigenvalues produce a stable spiral sink
+and trajectories converge to $\left( \frac{2}{7},\frac{2}{7},\frac{2}{7}, \frac{1}{7} \right)$.
+Numerical solution to replicator equation (blue) and Moran process simulation (green) with strong agreement 
+at the large population $N = 50000$.}
 \end{figure}
 
 \begin{figure*}
 \centering
-\includegraphics[scale=0.55]{Figures/spiral_in_time_series.pdf}
-\caption{\label{fig:arps_spiral_in_time_series} Time series, for the same data plotted in 
-Fig.~\ref{fig:arps_spiral_in}, dashed line corresponds to the solved system of ODE's from the 
-Moran adjusted dynamics, $a(x)$ from the Fokker-planck derivation.
-Amplitude of RPS time series trajectory decays over time as the RPS game 
-approaches the interior fixed point.}
+\includegraphics[scale=0.50]{Figures/spiral_in_time_series.pdf}
+\caption{\label{fig:arps_spiral_in_time_series}
+Time series of strategy frequencies for same data as Fig.~\ref{fig:arps_spiral_in}.
+Dashed lines correspond to Moran replicator dynamics, solid lines are Moran process simulations.
+The amplitude of RPS oscillations decays over time as the trajectories converge to the stable interior fixed point. 
+Small fluctuations due to finite population but agreement with deterministic dynamics.}
 \end{figure*}
 
 
@@ -443,7 +447,7 @@ I will focus on three different stochastic processes to
 model the interactions between the agents, the Moran process,
 the local update process and the local fermi process.
 Regardless of process, at each time step one individual will 
-be selected and reproduce according the different schemes definition
+be selected and reproduce according to the different schemes definition
 so that the population size remains constant over time.
 Mutation can also be considered where individuals have a 
 small chance of randomly hopping to another strategy, preventing 
@@ -464,7 +468,7 @@ disappear when multiple simulated runs are combined.
 To study the dynamics in finite populations, an interaction process is required for 
 comparison between selected agents at each time step.
 
-A generalized form of the Moran process in terms of transition probabilites between states in the 
+A generalized form of the Moran process in terms of transition probabilities between states in the 
 game simplex has been discussed in Ref.\cite{general_moran_process} and I have implemented in the
 simulation code for this project for any number of strategies. Later these transition probabilities can be used to derive a master equation \cite{alma9933506044604871} which 
 can be expanded using a Taylor series approximation of the transition probabilities to derive an equation in the form of a Fokker-Planck equation
@@ -487,7 +491,7 @@ to another in the Moran process (specifically $R \rightarrow +$) is defined as:
 where $R,+$ denote rock and the 4th strategy and there is $i$ rock players, 
 and $N-i-j-k$ $(+)$ players.
 
-And transitions within the RPS game will are of the form:
+Transitions within the RPS game are of the form:
 
 \begin{equation}
     T^{R \rightarrow S} = \frac{1}{2} \frac{1 - w + w \pi_S}{1 - w + w \langle \pi \rangle} \frac{i}{N} \frac{k}{N}
@@ -570,7 +574,7 @@ The master equation defines the time evolution of a probability density function
 for being in any particular state, 
 and using the Kramers-Moyal expansion a Fokker-Planck equation can be formed, 
 consisting of a drift term and a noise term, and in this case
-determinitic replicator dynamics, and stochastic noise from finite $N$.
+deterministic replicator dynamics, and stochastic noise from finite $N$.
 
 The master equation \cite{alma9933506044604871} for rock (R) is defined as:
 
@@ -584,13 +588,13 @@ P^{\tau + 1}(i) - P^\tau(i) &= P^\tau(i-1)T^{PR}(i-1) \nonumber\\
 &- P^\tau(i)T^{R+}(i)
 \end{align}
 Where $i$ is the number of rock players.
-This is composed of transition probabilites into and out of the 
+This is composed of transition probabilities into and out of the 
 strategy R and describes the time evolution of the system 
 jumping between discrete states (the count of $i$ rock individuals).
 
 
-Performing a second order Taylor expansion on the probabilites and 
-transition probabilites the following expression is eventually obtained:
+Performing a second order Taylor expansion on the probabilities and 
+transition probabilities the following expression is eventually obtained:
 
 \begin{align}
 &P^{\tau+1}(x)-P^\tau(x) = \frac{1}{N}\Big[
@@ -649,17 +653,17 @@ Smith~\cite{evolution_maynard},
 where there is an additional normalization by the average payoff of the population.
 Maynard discussed whether the standard dynamics were too restrictive for cases
 where fitness is frequency dependent (in a finite population), and therefore proposed the 
-adjusted dynamics where you can imagine an individual playing against the population as a whole
-via the average payoff term.
+adjusted dynamics in which individuals fitness is evaluated against the population average payoff as opposed to 
+local interactions for example in the local update process.
 
-A langevin equation describing the trajectory of a single individual in the
+A Langevin equation describing the trajectory of a single individual in the
 game:
 
 \begin{equation}
 \dot{x} = a(x) + b(x) \xi
 \end{equation}
 which is a combination of the deterministic dynamics ($a(x)$) and a noise term 
-$b(x)$ which dissapears as $N \rightarrow \infty$.
+$b(x)$ which disappears as $N \rightarrow \infty$.
 
 \subsection{Deterministic dynamics}
 
@@ -678,7 +682,7 @@ dynamics \cite{evolution_pop_dynamics} used in section
 \ref{RPS-model} and \ref{SD-model} to define the deterministic dynamics
 for RPS and SD but with an additional scaling by the
 constant selection pressure
-$w$ which was not considerd in infinite $N$ scenarios.
+$w$ which was not considered in infinite $N$ scenarios.
 The scaled dynamics for the local update process results in the following equation:
 
 \begin{equation}
@@ -703,7 +707,7 @@ File.~\cite{aug_rps}. These equations describe the deterministic limit of $N \ri
 dynamics
 for each microscopic interaction processes.
 The following sections will explore the effects of the stochastic diffusion term $b(x)$ by defining a set of 
-drift observables, and exporing low $N$ cases.
+drift observables, and exploring low $N$ cases.
 
 
 
@@ -720,7 +724,7 @@ as approximation of the distance from the SD equilibrium , the RPS equilibrium a
 overall central equilibrium as a whole respectively.
 
 An approximation for $\dot{H}$, $\langle \Delta H \rangle$ can be computed directly from the 
-agent based simulation by calculating $\langle \Delta H \rangle = \langle \Delta H(t+1) - H(t) \rangle$ 
+agent based simulation by calculating $\langle \Delta H \rangle = \langle H(t+1) - H(t) \rangle$ 
 for a single update step and then averaging over many repeated simulations (see Fig.~\ref{fig:n_c_against_w}), 
 however for all the interaction processes the terms can be 
 formulated as an integral and solved numerically and in some cases e.g. local update, a 
@@ -728,7 +732,7 @@ closed form solution can be found.
 For each of the components making up the combined $4 \times 4$ game a suitable observation
 value $H$ can be defined to measure the distance from the Nash equilibrium 
 \cite{drift_reversal_paper,rps_cyclic_jens}. The sign of $\dot{H}$ can therefore
-indicate whether the system is drifts towards or away from the interior equilibrium \cite{drift_reversal_paper}.
+indicate whether the system drifts towards or away from the interior equilibrium \cite{drift_reversal_paper}.
 
 
 
@@ -747,7 +751,7 @@ subgames observable $H_{SD}, H_{RPS}, H_4$:
 \rightarrow s^\prime}
 \end{equation}
 for all the states $s, s^\prime \in \{R, P, S, L\}$ and transition probabilities $T^{s \rightarrow s^\prime}$.
-Where transition probabilites $T^{s \rightarrow s'}$ must be defined for each of the 
+Where transition probabilities $T^{s \rightarrow s'}$ must be defined for each of the 
 microscopic interaction processes. In the combined SD, RPS game there are 3 observation values
 for drift, $H_{SD}$ for effects within the snowdrift game, $H_{RPS}$ for the RPS subgame and 
 $H_4$ for the overall drift in the context of the internal fixed point of all 4 strategies in the 
@@ -797,7 +801,7 @@ $H_{SD} - H_{SD}' = H_{SD} - H_{SD} = 0$ for all transitions
 ($R \rightarrow P, P \rightarrow S, S \rightarrow R$,
 and their reverses) within the RPS subgame. 
 Since transitions purely within the RPS subgame do not change the value
-of $H_{SD}$, this exact term for depends only on transitions into and out of 
+of $H_{SD}$, this exact term depends only on transitions into and out of 
 the fourth strategy ($+$). 
 
 For full
@@ -810,7 +814,7 @@ For the three-strategy subsystem, the replicator equations have the constant of 
 \begin{align}
 H_{\mathrm{RPS}} = - x y z
 \end{align}
-which is a measure of the distance of a populaton from the internal fixed point of RPS.
+which is a measure of the distance of a population from the internal fixed point of RPS.
 $\langle \Delta H_{RPS} \rangle$ is approximated by a sum and converted into the following continuous form where
 $x = i/N, y= j/N, z=k/N$. See derivation for this transition in full 
 in the appendix.
@@ -900,11 +904,13 @@ where $w << 1/2$ a drift reversal is possible for each of the processes.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.45\textwidth]{Figures/weak_selection_comparison.pdf}
-\caption{\label{fig:weak_selection_comparison} Plot of $\langle \Delta H_{\mathrm{SD}} \rangle_{LU}$ for 
-varying $N$ and different values of $w$ approaching the limit $w \rightarrow 0$.
-A drift reversal occurs for 
-all $w > 0$ under the initial parameters, $a = 0, b = 1, c=-0.2, \gamma = 0.14, \beta = 0.3$, 
-as values approach and eventually intersect with dashed line $\langle \Delta H_{\mathrm{SD}} \rangle_{LU} = 0$.}
+\caption{\label{fig:weak_selection_comparison}
+$\langle \Delta H_{\mathrm{SD}} \rangle_{LU} \cdot N^2$ as a function of $N$ for the local update process
+at five values of $w$, with $a = 0, b = 1, c=-0.2, \gamma = 0.14, \beta = 0.3$.
+A drift reversal for these parameters occurs in all the cases where $w > 0$, and as $w \rightarrow 0$, the 
+lines approach the weak selection limit (neutral evolution) of $\langle \Delta H_{\mathrm{SD}} \rangle_{LU} \cdot N^2 = \frac{3}{20}$.
+Intersections with $\langle \Delta H_{\mathrm{SD}} \rangle_{LU} \cdot N^2$ indicate a drift reversal, and the 
+$N$ value this occurs at is the critical population size.}
 \end{figure}
 For $\langle \Delta H_{RPS} \rangle$, the terms of the form $T^{RP} - T^{PR}$ vanish, and the 
 integral scaled by $2/N^2$ reduces to:
@@ -952,7 +958,7 @@ population count and payoff switched to their respective values.
 
 The second component of $\langle \Delta H_{SD} \rangle$ are the terms scaled by $1/N^2$, $T^{+R} + T^{+P} + T^{+S}$.
 
-This expression eventually simplfies to the following in terms of $w, \Delta \pi_{max}$ and the payoff
+This expression eventually simplifies to the following in terms of $w, \Delta \pi_{max}$ and the payoff
 matrix parameters:
 
 \begin{align}
@@ -995,7 +1001,7 @@ N^\prime_{SD} &= \frac{-42 \Delta \pi_{\text{max}} + w(28\beta - 7c  - 14 \gamma
 
 A similar process can be done for the RPS drift observable.
 
-The difference terms $T^{RP} - T^{PR}$ for the local update transition probabilites are of the form:
+The difference terms $T^{RP} - T^{PR}$ for the local update transition probabilities are of the form:
 
 \begin{align}
 T^{RP} - T^{PR} &=  \frac{w}{\Delta \pi_{max}}xy(x - z + c(z - y))
@@ -1007,12 +1013,12 @@ of $1/120N^2$.
 
 
 
-After subtituting in the expanded forms of the transition probability differences, $\langle \Delta H_{RPS} \rangle_{LU}$
+After substituting in the expanded forms of the transition probability differences, $\langle \Delta H_{RPS} \rangle_{LU}$
 eventually simplifies to:
 
 \begin{equation}
 \langle \Delta H_{RPS} \rangle_{LU} = \frac{1}{120N^2} 
-- \frac{w(2 + \gamma - 3\beta = 2c)}{3360N\Delta \pi_{max}}
+- \frac{w(2 + \gamma - 3\beta + 2c)}{3360N\Delta \pi_{max}}
 \end{equation}
 Setting this to 0, an exact solution for the local update critical 
 population size for RPS is:
@@ -1047,34 +1053,34 @@ direction predicted by the replicator dynamics.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.45\textwidth]{Figures/critical_n_analytical.png}
-    \caption{\label{fig:n_c_against_w}Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
-    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.
-    Small deviations due to random nature of simulations, but close match to analytical result.
-    Drift reversal is present in the agent based simulations and exactly matching analytical prediction
-    for these paremeters. Each point on the simulated values averaged 100,000,000 times.
-    Computed through simulations where the drift observable is approximated over one update step and averaged}
+    \caption{\label{fig:n_c_against_w}
+    Critical population sizes $N_c$ as a function of selection strength $w$ for the SD observable $H_{SD}$. 
+    Moran process simulations with  ($\gamma=0.2$, $\beta=0.1$, standard RPS parameters)
+    Points are simulated estimate of $N_c$ by approximating $\langle \Delta H \rangle$ over a single update step, 
+    averaged over $10^8$ realizations. Curve is analytical prediction when setting equation~\ref{eq:delta_h_sd}
+    equal to 0.
+    Close agreement, and drift reversal clear in both analytical result and simulated results.}
 \end{figure}
 
 
 \begin{figure}
     \centering
     \includegraphics[width=0.45\textwidth]{Figures/proces_drift_time_series.pdf}
-    \caption{\label{fig:drift_time_series} A time series comparison for 
-    average trajectories of the three processses, 
-    Moran (red), local update (blue) and fermi (green). Dashed line is the 
-    deterministic solution to their respective adjusted replicator equations.
-    Large $N=100000$ simulated results with no drift reversal shown to follow the 
-    deterministic trajectory will small deviations due to noise. Low $N=200$ of the 
-    same process and parameters averaged over 1000 realizations exhibits drift reversal 
-    away from the fixed point predicted by replicator dynamics towards 
-    full RPS where the fourth strategy $+$ fraction converges to 0.}
+    \caption{\label{fig:drift_time_series} 
+    Time series of the fraction of $+$ strategy for three interaction processes:
+    Moran (red), local update (blue), and local Fermi (green).
+    Dashed lines are the deterministic replicator equation solutions for each process.
+    Large $N$ ($N=100000$) simulations closely follow the 
+    deterministic trajectory with small noise deviations.
+    Low $N$ ($N=200$) simulations, 
+    averaged over 1000 realisations, exhibit drift reversal. Trajectories move away from 
+    the deterministic fixed point and the $+$ fraction converges towards zero, as the population ends up playing
+    purely RPS ($q \rightarrow 0$), opposite to the replicator prediction.}
 \end{figure}
 
 
 
-In either cases this leads to a few notable cases resulting in very 
-different dynamics in the multiple game system summarized by
-Fig.~\ref{drift_cases_fig}
+
 
 Assuming a set of parameters where both a critical population size exists
 for both the SD and RPS part of the game where $N^\prime_{SD}, N^\prime_{RPS}, N$,
@@ -1082,13 +1088,17 @@ are the critical sizes and the actual population size respectively there
 are the cases:
 
 
-\begin{enumerate}%[itemsep=0mm, parsep=2pt]
+\begin{enumerate}[itemsep=0mm, parsep=2pt]
   \centering
   \item $N^\prime_{SD} < N < N^\prime_{RPS}$
   \item $N^\prime_{RPS} < N < N^\prime_{SD}$
   \item $N >> N^\prime_{RPS}, N^\prime_{SD}$
   \item $N << N^\prime_{RPS}, N^\prime_{SD}$
 \end{enumerate}
+
+Each of these cases result in significantly 
+different dynamics in the multiple game system summarized by
+Fig.~\ref{drift_cases_fig}
 
 In case 1, population size is below the critical size for 
 drift reversal in the RPS component, and therefore 
@@ -1097,7 +1107,7 @@ gradually move away from the internal fixed point in the RPS plane
 on average where in the large $N$ case they would fixate there.
 Since $N$ is larger than the critical size for the SD component there 
 would be no reversal in the SD game and the trajectories would follow the 
-drift expected from the replicator determinstic dynamics, e.g. the 
+drift expected from the replicator deterministic dynamics, e.g. the 
 center of the vertical column in the 3d 4-simplex projection (for the
 setting where there is stable mixed strategy nash equilibrium in SD).
 This corresponds to the case in the bottom right of Fig.~\ref{drift_cases_fig}, 
@@ -1134,11 +1144,6 @@ ending in the four corners of the simplex.
 
 
 
-The axis $N/N_{RPS}$ and $N/N_{SD}$ are used to 
-illustrate the relationship between the 3 population values, 
-where both the critical sizes change and also the 
-value of $N$ varies since they all impact the dynamics.
-
 
 
 
@@ -1148,13 +1153,14 @@ value of $N$ varies since they all impact the dynamics.
     \centering
     \includegraphics[width=0.45\textwidth]{Figures/column_case_delta_H.eps}
     \caption{\label{fig:sd_reversal_case}
-    SD reversal  Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle,
-    \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ for the 
-    local update process. $\beta = 0.3, \gamma=0.14, c=-0.2$, strong 
-    central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so 
-    SD game component reverses first, at a higher population size.
-    This results in the vertical column point cloud where RPS fixates at the 
-    central fixed point where $x \approx y \approx z$ and $q$ drifts away from the fixed point ($N_{RPS} < N < N_{SD}$)}
+     $\langle \Delta H \rangle \cdot N^2$ against 
+    $N$ for the local update process showing the SD reversal case, for each drift measure
+    $\langle \Delta H_{SD} \rangle,
+    \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ with
+    $\beta=0.3$, $\gamma=0.14$, $c=-0.2$, $w=0.45$.
+    Since $N^\prime_{RPS} < N^\prime_{SD}$, the sign of the SD observable reverses first at a higher $N$.
+    Since $N > N^\prime_{RPS}$ the RPS game converges to its interior fixed point while the fourth strategy drifts away 
+    since $N <  N^\prime_{SD}$ producing the column shaped trajectory cloud in Fig.~\ref{drift_cases_fig}.}
 \end{figure}
 
 \begin{figure}
@@ -1162,8 +1168,11 @@ value of $N$ varies since they all impact the dynamics.
   \includegraphics[width=0.45\textwidth]{Figures/disk_clean_deltaH.eps}
   \caption{
     \label{fig:rps_reversal_case}
-  RPS reversal $\beta=0.24, \gamma=0.4, c=-0.8$ cleaner disk case, clamped the starting values where $q > 0.1 < 0.9$ to prevent RPS random extinctions for a clearer image.
-  This parameter settings give a better  plot becaues $N_{RPS} >> N_{SD}$ for the disk case. $N_{SD} = 95.61, N_{RPS} = 1400$}
+  $\langle \Delta H \rangle \cdot N^2$ against 
+  $N$ for the local update process showing the RPS reversal case with $\beta=0.24$, $\gamma=0.4$, $c=-0.8$, $w=0.45$.
+  The exact opposite of the SD reversal case in Fig.~\ref{fig:sd_reversal_case}, where RPS drifts at the larger population size and 
+  SD remains stable. For $N^\prime_{SD} < N < N^\prime_{RPS}$ trajectories move towards the RPS boundaries, away from the interior fixed point, 
+  but remain stable in the SD direction resulting in the disk shaped trajectory cloud in Fig.~\ref{drift_cases_fig}.}
 \end{figure}
 
 
@@ -1195,10 +1204,18 @@ value of $N$ varies since they all impact the dynamics.
 
   \end{axis}
 \end{tikzpicture}
-\caption{\label{drift_cases_fig} Comparison of the main drift reversal cases, notably the RPS and not SD reversal (disk like shape), SD and not RPS reversal (column shape), and 
-large N Nash equilibrium stable case where $N >> N_c$ and chaotic low N case (drift in all directions)
- where $N << N_{RPS}, N << N_{SD}$. Each point corresponds to an independent trajectory which started from an initial 
- random point in the simplex. View the table of values used for this case graph in the appendix}
+\caption{\label{drift_cases_fig} 
+Summary of the four drift reversal cases
+(table of parameter values and critical population sizes provided in the appendix).
+The dashed diagonal marks where $N_{SD} = N_{RPS}$, points below this line have $N_{RPS} > N_{SD}$, 
+and the reverse for points above this line. The horizontal and vertical lines at $10^0$ indicate where the ratio $N / N_{RPS} = 1$ or 
+$N / N_{SD} = 1$ categorising the cases, so below these lines (where the ratio is less than 1), the population size is less than the critical 
+population size for drift reversal.
+The lower left region indicates the low population size case where $N << N_{RPS}, N << N_{SD}$ and there is a double drift reversal.
+The upper left region indicates the case where $N_{RPS} < N < N_{SD}$ and there is a drift reversal in the SD axis but not the RPS plane.
+The lower right region indicates the case where $N_{SD} < N < N_{RPS}$ and there is a drift reversal in RPS but not SD.
+The upper right region is the large population case where the trajectories follow the deterministic replicator dynamics predictions, which is 
+convergence to the interior fixed point for each of these games ($N >> N_{RPS}, N >> N_{SD}$).}
 \end{figure*}
 
 
@@ -1233,7 +1250,7 @@ dynamics predict a stable interior coexistence.
 The microscopic update processes produce similar drift reversal behaviour in the combined game but with 
 different trajectories and critical population sizes for identical initial parameters.
 These become equivalent in the weak selection limit (neutral evolution) 
-as the strength of selection $w \rightarrow 0$. Deterministic adjusted replicator dyanmics as 
+as the strength of selection $w \rightarrow 0$. Deterministic adjusted replicator dynamics as 
 the population size $N \rightarrow \infty$ are derived for each of the processes through a 
 Kramers-Moyal expansion of the master equation resulting in a Fokker-Planck equation quantifying the effects
 of drift and noise in the time evolution of the populations. The noise term has a factor of $1/N$ 
@@ -1244,7 +1261,7 @@ Some extensions that could be considered would be the inclusion of mutation wher
 a small probability to another. This would prevent boundary extinctions perhaps 
 leading to clearer visualizations of some of the drift reversal cases at low populations, 
 as for starting points near the edges of the faces of the simplex many trajectories immediately 
-get absorbed through pure random noise. The mutation extension has and has been considered in
+get absorbed through pure random noise. The mutation extension has also been considered in
 Ref.~\cite{general_moran_process} where the Moran and local update process with mutations is explored.
 
 The analysis can also be extended to other combinations of $2 \times 2$ and 
