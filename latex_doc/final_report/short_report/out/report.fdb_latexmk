@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex out/report"] 1774028330 "out/report.aux" "out/report.bbl" "out/report" 1774028840
+["bibtex out/report"] 1774267621 "out/report.aux" "out/report.bbl" "out/report" 1774267624
   "/usr/share/texlive/texmf-dist/bibtex/bst/revtex/apsrev4-2.bst" 1601932770 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "out/report.aux" 1774028840 14096 95b307168a7ee58955935da92c0cb555 "lualatex"
-  "out/reportNotes.bib" 1774028838 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
-  "report.bib" 1774015877 13857 e89f2c674c6e96da33a06cdab87bad6e ""
+  "out/report.aux" 1774267623 14096 95b307168a7ee58955935da92c0cb555 "lualatex"
+  "out/reportNotes.bib" 1774267621 0 d41d8cd98f00b204e9800998ecf8427e "lualatex"
+  "report.bib" 1774267607 13956 4705052baf1028f88e880424996bd0d7 ""
   (generated)
   "out/report.bbl"
   "out/report.blg"
-["lualatex"] 1774028837 "/home/henry/gametheory/hxb265/latex_doc/final_report/short_report/report.tex" "out/report.pdf" "report" 1774028840
+["lualatex"] 1774267621 "/home/henry/gametheory/hxb265/latex_doc/final_report/short_report/report.tex" "out/report.pdf" "report" 1774267624
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc" 1771846301 77690 6ddaa6024a6cd1bfe9b61b63591c4502 ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1771846301 123142 a5bb91f587c7a560590d95e654431ffa ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc" 1771846301 124110 5d651ed7b24a029d9df49f8fec52c53c ""
@@ -20,7 +20,7 @@
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-italic.luc" 1771846301 131665 2214e352c4ad6dad6637302b51fedef4 ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc" 1771846301 123771 cd1c7cd2e9d8c2ef676e901ce59a5b48 ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/names/luaotfload-names.luc" 1771846301 1536504 f5db117114c74b26f9d6c66f56154cd1 ""
-  "/home/henry/gametheory/hxb265/latex_doc/final_report/short_report/report.tex" 1774028837 59223 88e3da0513b21f8023a0ae29b8d8a05d ""
+  "/home/henry/gametheory/hxb265/latex_doc/final_report/short_report/report.tex" 1774267620 59223 88e3da0513b21f8023a0ae29b8d8a05d ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1246382020 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -312,9 +312,9 @@
   "Figures/spiral_in_4d.pdf" 1773752692 72924 e08b2255d143161c5606f55175474acb ""
   "Figures/spiral_in_time_series.pdf" 1773752692 635220 2c74c0491783fce26fb59224c428ce22 ""
   "Figures/weak_selection_comparison.pdf" 1773752692 153800 4d6a5560897e702911bea08d49c65c2f ""
-  "out/report.aux" 1774028840 14096 95b307168a7ee58955935da92c0cb555 "lualatex"
-  "out/report.bbl" 1774028330 10486 752dd05ce2e5f74be56f58d54b207e90 "bibtex out/report"
-  "report.tex" 1774028837 59223 88e3da0513b21f8023a0ae29b8d8a05d ""
+  "out/report.aux" 1774267623 14096 95b307168a7ee58955935da92c0cb555 "lualatex"
+  "out/report.bbl" 1774267621 10589 c854ca59cf3959f40308ccb2b79f6e83 "bibtex out/report"
+  "report.tex" 1774267620 59223 88e3da0513b21f8023a0ae29b8d8a05d ""
   (generated)
   "out/report.aux"
   "out/report.log"

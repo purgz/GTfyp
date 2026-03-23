@@ -147,14 +147,16 @@
   {Brooks}},\ }\href@noop {} {\bibinfo {title} {Combined and composite games
   --- project repository - appendix}} (\bibinfo {year} {2026}{\natexlab{a}}),\
   \bibinfo {note} {available at
-  \url{https://git.cs.bham.ac.uk/projects-2025-26/hxb265/-/tree/main/latex_doc?ref_type=heads}}\BibitemShut
+  \url{https://git.cs.bham.ac.uk/projects-2025-26/hxb265/-/tree/main/report?ref_type=heads}}\BibitemShut
   {NoStop}%
 \bibitem [{\citenamefont {Brooks}(2026{\natexlab{b}})}]{aug_rps}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
   {Brooks}},\ }\href@noop {} {\bibinfo {title} {\texttt{aug\_rps.py} ---
   augmented rps simulation library}} (\bibinfo {year} {2026}{\natexlab{b}}),\
-  \bibinfo {note} {project repository}\BibitemShut {NoStop}%
+  \bibinfo {note} {file at:
+  \url{https://git.cs.bham.ac.uk/projects-2025-26/hxb265/-/blob/main/source/replicator/aug_rps.py?ref_type=heads}}\BibitemShut
+  {NoStop}%
 \bibitem [{\citenamefont {Kampen}(2007)}]{alma9933506044604871}%
   \BibitemOpen
   \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.~G.~v.}\

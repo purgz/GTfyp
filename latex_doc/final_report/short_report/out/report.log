@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  20 MAR 2026 17:47
+This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.19)  23 MAR 2026 12:07
  system commands enabled.
  file:line:error style messages enabled.
 **/home/henry/gametheory/hxb265/latex_doc/final_report/short_report/report.tex
@@ -692,6 +692,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--152
  \TU/lmtt/m/n/9 https://git.cs.bham.ac.uk/projects-[]2025-[]26/
  []
 
+
+Underfull \hbox (badness 4569) in paragraph at lines 155--160
+ \TU/lmr/m/n/9 li-brary (2026), file at: $\TU/lmtt/m/n/9 https://git.cs.bham.ac.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 155--160
+ \TU/lmtt/m/n/9 uk/projects-[]2025-[]26/hxb265/-[]/blob/main/source/
+ []
+
 ) [14] (./out/report.aux))
 
 Here is how much of LuaTeX's memory you used:
@@ -699,12 +709,12 @@ Here is how much of LuaTeX's memory you used:
  156260,1144653 words of node,token memory allocated
  1013 words of node memory still in use:
    11 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 2 sub_mlist, 1 glyph, 120 attribute, 57 glue_spec, 120 attribute_list nodes
-   avail lists: 1:1,2:982,3:485,4:120,5:1037,6:66,7:14665,8:86,9:1708,10:20,11:1317
+   avail lists: 1:1,2:982,3:561,4:120,5:1037,6:66,7:14665,8:105,9:1708,10:20,11:1317
  46752 multiletter control sequences out of 65536+600000
  88 fonts using 5944703 bytes
  84i,15n,85p,1348b,1891s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf/fonts/opentype/public/lm/lmmono9-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman8-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-bold.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman9-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (14 pages, 5327278 bytes).
+Output written on report.pdf (14 pages, 5327346 bytes).
 
 PDF statistics: 528 PDF objects out of 1000 (max. 8388607)
  272 compressed objects within 3 object streams
