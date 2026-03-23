@@ -12,6 +12,7 @@
 \end{equation}
 Where $i$ is the number of rock players.
 
+2nd order Taylor expansion of $T$ and $P$:
 \begin{equation}
   T(x\pm\frac{1}{N}) = T(x) \pm \frac{1}{N}T'(x) + \frac{1}{2N^2}T''(x)\dots \nonumber
 \end{equation}
@@ -20,6 +21,7 @@ Where $i$ is the number of rock players.
 \end{equation}
 
 
+Substituting back into the Master equation:
 \begin{equation}
 \begin{aligned}
 P^{\tau + 1}(i) - P^\tau(i) 
@@ -166,17 +168,6 @@ selection.
 &= \frac{w}{{\Delta \pi_\text{max}}} x_i(\pi_i(x) - \langle \pi(x)\rangle)
 \end{align}
 
-Exact term for the difference between $\pi_i$ and average payoff
-\begin{align}
-2 a x y + 2 a x z + 2 a y z - a y - a z - b x y \\
-- b x z - b y z + b z + \beta x^{2} + 2 \beta x y \\
-+ 2 \beta x z - \beta x + \beta y^{2} + 2 \beta y z \\
-- \beta y + \beta z^{2} - \beta z - c x y - c x z \\
-- c y z + c y + \gamma x^{2} + 2 \gamma x y \\
-+ 2 \gamma x z - 2 \gamma x + \gamma y^{2} \\
-+ 2 \gamma y z - 2 \gamma y + \gamma z^{2} \\
-- 2 \gamma z + \gamma
-\end{align}
 
 
 
@@ -194,5 +185,17 @@ For the Moran process, the infinite population dynamics reduce to a scaled versi
 &+ \left(x \left(a + \beta\right) + y \left(a + \beta\right) + z \left(a + \beta\right)\right) \left(- x - y - z + 1\right)
 \end{aligned}
 \end{equation}
+
+
+
+For the fermi process:
+
+\begin{align}
+\dot{x}_{FE} &= x \Big[
+    y \tanh\!\left(\frac{w(\pi_R - \pi_P)}{2}\right)
+  + z \tanh\!\left(\frac{w(\pi_R - \pi_S)}{2}\right)\nonumber \\
+  &+ q \tanh\!\left(\frac{w(\pi_R - \pi_+)}{2}\right)
+\Big]
+\end{align}
 
 \end{document}
