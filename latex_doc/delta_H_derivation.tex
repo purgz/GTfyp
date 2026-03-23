@@ -160,23 +160,23 @@ Now considering the second integral with terms $T^{+R} + T^{+P} + T^{+S}$:
 
 \begin{align}
 T^{+R} + T^{+P} + T^{+S} &= \frac{i}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2} 
-+ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
++ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \nonumber\\
 &+ \frac{j}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2}
- + \frac{w}{2}\frac{\pi_P - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
+ + \frac{w}{2}\frac{\pi_P - \pi_+}{\Delta \pi_{\text{max}}}\right)\nonumber \\
  &+ \frac{k}{N}\frac{N-i-j-k}{N}\left(\frac{1}{2}
- + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right)
+ + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right)\nonumber
 \end{align}
 
 Again replacing with the frequencies:
 \begin{align}
 T^{+R} + T^{+P} + T^{+S} &= (1-x-y-z) \Bigg[ x\left(\frac{1}{2} 
-+ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right) \\
++ \frac{w}{2}\frac{\pi_R - \pi_+}{\Delta \pi_{\text{max}}}\right)\nonumber \\
 &+ y\left(\frac{1}{2}
  + \frac{w}{2}\frac{\pi_P - \pi_+}{\Delta \pi_{\text{max}}}\right) 
  + z\left(\frac{1}{2}
- + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right) \Bigg] \\
+ + \frac{w}{2}\frac{\pi_S - \pi_+}{\Delta \pi_{\text{max}}}\right) \Bigg]\nonumber \\
 &= \frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}}
-\Big[x(\pi_R - \pi_+) + y(\pi_P - \pi_+) + z(\pi_S - \pi_+)\Big]
+\Big[x(\pi_R - \pi_+) + y(\pi_P - \pi_+) + z(\pi_S - \pi_+)\Big]\nonumber
 \Bigg]
 \end{align}
 
@@ -184,10 +184,10 @@ Substituting in the expanded expressions for payoff differences e.g. $\pi_R - \p
 
 \begin{align}
 T^{+R} + T^{+P} + T^{+S} &= 
-\frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}} \\
-&\Big[x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \\
-&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z)) \\
-&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Big]
+\frac{1}{2}(1-x-y-z)\Bigg[x + y + z + \frac{w}{\Delta \pi_{\text{max}}}\nonumber \\
+&\Big[x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \nonumber\\
+&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z)) \nonumber\\
+&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Big]\nonumber
 \Bigg]
 \end{align}
 
@@ -198,14 +198,14 @@ Finally substituting everything back into $\langle \Delta H_{SD} \rangle$:
 \begin{align}
 \langle \Delta H_{SD} \rangle &= \frac{12}{N} \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y}dz 
 (1-x-y-z)\Bigg[ \\
-&\frac{w}{\Delta \pi_{\text{max}}} x(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -z -cy\right)\\
-&\frac{w}{\Delta \pi_{\text{max}}} y(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -x -cz\right)\\
-&\frac{w}{\Delta \pi_{\text{max}}} z(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -y -cx\right)\Bigg] \\
-&+ \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y}dz(1-x-y-z)\Bigg[ \\ 
+&\frac{w}{\Delta \pi_{\text{max}}} x(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -z -cy\right)\nonumber\\
+&\frac{w}{\Delta \pi_{\text{max}}} y(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -x -cz\right)\nonumber\\
+&\frac{w}{\Delta \pi_{\text{max}}} z(1-x-y-z)\left(\beta(x+y+z) - \gamma(1-x-y-z) -y -cx\right)\Bigg] \nonumber\\
+&+ \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x}dy \int_{0}^{1-x-y}dz(1-x-y-z)\Bigg[ \nonumber\\ 
 &x + y + z + \frac{w}{\Delta \pi_{\text{max}}} 
-\Bigg(x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \\
-&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z)) \\
-&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Bigg)
+\Bigg(x(z + cy + \gamma(1 - x - y z) - \beta(x+y+z)) \nonumber\\
+&+ y(x + cz + \gamma(1 - x - y z) - \beta(x+y+z))\nonumber\\
+&+ z(y + cx + \gamma(1 - x - y z) - \beta(x+y+z))\Bigg)\nonumber
 \Bigg]
 \end{align}
 
@@ -232,9 +232,9 @@ the above equation to 0 and solvign for $N$.
 
 This leads to:
 \begin{align}
-N_c &= \frac{-42 \Delta \pi_{\text{max}} + w(28\beta - 7c  - 14 \gamma - 7)}{w(16 \beta - 4c -12\gamma - 4)}\\
+N_c &= \frac{-42 \Delta \pi_{\text{max}} + w(28\beta - 7c  - 14 \gamma - 7)}{w(16 \beta - 4c -12\gamma - 4)}\nonumber\\
 &= \frac{-42 \Delta \pi_{\text{max}}}{w(16 \beta - 4c -12\gamma - 4)}
-+ \frac{28 \beta - 7c - 14\gamma - 7}{16 \beta - 4c -12\gamma - 4}
++ \frac{28 \beta - 7c - 14\gamma - 7}{16 \beta - 4c -12\gamma - 4}\nonumber
 \end{align}
 
 I have compared this value to the numerically solved solutions of the triple integral 
@@ -251,15 +251,6 @@ may be worth solving with numerical method.
 Definitely not for the Moran process.
 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./images/critical_n_analytical.png}
-    \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
-    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.
-    Small deviations due to random nature of simulations, but close match to analytical result.
-    Drift reversal is present in the agent based simulations and exactly matching analytical prediction
-    for these paremeters.}
-\end{figure}
 
 \subsubsection{$\langle \Delta H_{RPS} \rangle$ Derivation}
 
@@ -267,12 +258,12 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 
 \begin{equation} \nonumber
 \begin{aligned}
-  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \\
-  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S}) \\
-  &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+} \\
-  &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+} \\
-  &- (i+1)j(k-1)T^{SR} - i(j+1)(k-1)T^{SP} - ij(k-1)T^{S+} \\
-  &- jk(i+1)T^{+R} - ik(j+1)T^{+P} - ij(k+1)T^{+S}\Big]
+  \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}\Big[ijk(T^{RP} + T^{RS} + T^{R+} + T^{PR} + T^{PS} + T^{P+} \nonumber\\
+  &+ T^{SR} + T^{SP} + T^{S+} + T^{+R} + T^{+P} + T^{+S})\nonumber \\
+  &- k(i-1)(j+1)T^{RP} - (i-1)j(k+1)T^{RS} - jk(i-1)T^{R+}\nonumber \\
+  &- k(i+1)(j-1)T^{PR} - i(j-1)(k+1)T^{PS} - ik(j-1)T^{P+}\nonumber \\
+  &- (i+1)j(k-1)T^{SR} - i(j+1)(k-1)T^{SP} - ij(k-1)T^{S+} \nonumber\\
+  &- jk(i+1)T^{+R} - ik(j+1)T^{+P} - ij(k+1)T^{+S}\Big]\nonumber
 \end{aligned}
 \end{equation}
 
@@ -282,35 +273,34 @@ $\langle \Delta H \rangle$ within the RPS plane $H = -xyz$.
 \begin{equation} 
 \begin{aligned}
   \langle \Delta H_{RPS} \rangle &= \frac{2}{N^6} \sum_{i=1}^{N}\sum_{j=1}^{N-i}\sum_{k=1}^{N-i-j}
-  \Big[k(j-i)(T^{RP} - T^{PR}) + j(k-i)(T^{RS} - T^{SR}) + i(j-k)(T^{SP} - T^{PS}) \\
-  &+ k(T^{RP} + T^{PR}) + j(T^{RS} + T^{SR}) + i(T^{SP} + T^{PS}) \\
-  &+ jk(T^{R+} - T^{+R}) + ik(T^{P+} - T^{+P}) + ij(T^{S+} - T^{+S})
+  \Big[k(j-i)(T^{RP} - T^{PR}) + j(k-i)(T^{RS} - T^{SR}) + i(j-k)(T^{SP} - T^{PS})\nonumber \\
+  &+ k(T^{RP} + T^{PR}) + j(T^{RS} + T^{SR}) + i(T^{SP} + T^{PS})\nonumber \\
+  &+ jk(T^{R+} - T^{+R}) + ik(T^{P+} - T^{+P}) + ij(T^{S+} - T^{+S})\nonumber
   \Big]
 \end{aligned}
 \end{equation}
-Compared to the derivation of simply the RPS case in\cite{PhysRevLett.100.058104_cyclic}, this has the additional
-terms including the difference in tranition probabilities in and out of the 4th strategy.
+
 
 
 \begin{equation} \nonumber
 \begin{aligned}
   \langle \Delta H_{RPS} \rangle &= \frac{2}{N^3} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
-  \Big[N^2z(y-x)(T^{RP} - T^{PR}) + N^2y(z-x)(T^{RS} - T^{SR}) \\
-  &+ N^2x(y-z)(T^{SP} - T^{PS}) \\
-  &+ Nz(T^{RP} + T^{PR}) + Ny(T^{RS} + T^{SR}) + Nx(T^{SP} + T^{PS}) \\
+  \Big[N^2z(y-x)(T^{RP} - T^{PR}) + N^2y(z-x)(T^{RS} - T^{SR})\nonumber \\
+  &+ N^2x(y-z)(T^{SP} - T^{PS}) \nonumber\\
+  &+ Nz(T^{RP} + T^{PR}) + Ny(T^{RS} + T^{SR}) + Nx(T^{SP} + T^{PS}) \nonumber\\
   &+ N^2xz(T^{P+} - T^{+P}) + N^2yz(T^{R+} - T^{+R}) + N^2xy(T^{S+} - T^{+S})
-  \Big]
+  \Big]\nonumber
 \end{aligned}
 \end{equation}
 
 \begin{equation}
 \begin{aligned}
   \langle \Delta H_{RPS} \rangle &= \frac{2}{N} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz 
-  \Big[z(y-x)(T^{RP} - T^{PR}) + y(z-x)(T^{RS} - T^{SR}) \\
+  \Big[z(y-x)(T^{RP} - T^{PR}) + y(z-x)(T^{RS} - T^{SR}) \nonumber\\
   &+ x(y-z)(T^{SP} - T^{PS}) + xz(T^{P+} - T^{+P})+ yz(T^{R+} - T^{+R}) + xy(T^{S+} - T^{+S})
-  \Big] \\
+  \Big] \nonumber\\
   &+ \frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\Big[
-  z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) + x(T^{SP} + T^{PS})\Big]
+  z(T^{RP} + T^{PR}) + y(T^{RS} + T^{SR}) + x(T^{SP} + T^{PS})\Big]\nonumber
 \end{aligned}
 \end{equation}
 
@@ -328,16 +318,16 @@ $\langle \Delta H_{SD} \rangle$.
 
 \begin{align}
 T^{RP} - T^{PR} &= \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_P - \pi_R}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} 
-- \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_R - \pi_P}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} \nonumber \\
-&= \frac{i}{N} \frac{j}{N} \left[\frac{w}{2\Delta \pi_{max}} \left(2(\pi_P - \pi_R)\right)\right] \nonumber \\
-&= \frac{w}{\Delta \pi_{max}}xy(\pi_P - \pi_R)
+- \left(\frac{1}{2} + \frac{w}{2}\left(\frac{\pi_R - \pi_P}{\Delta \pi_{max}}\right)\right)\frac{i}{N} \frac{j}{N} \nonumber \nonumber\\
+&= \frac{i}{N} \frac{j}{N} \left[\frac{w}{2\Delta \pi_{max}} \left(2(\pi_P - \pi_R)\right)\right] \nonumber \nonumber\\
+&= \frac{w}{\Delta \pi_{max}}xy(\pi_P - \pi_R)\nonumber
 \end{align}
 where population counts e.g. $i/N, j/N$ are replaced with frequencies $x, y$ respectively. 
 Similarly the other 2 terms within the RPS game can be derived leading to:
 
 \begin{align}
 T^{RS} - T^{SR} = \frac{w}{\Delta \pi_{max}}xz(\pi_S - \pi_R)\nonumber \\
-T^{SP} - T^{PS} = \frac{w}{\Delta \pi_{max}}zy(\pi_P - \pi_S)
+T^{SP} - T^{PS} = \frac{w}{\Delta \pi_{max}}zy(\pi_P - \pi_S)\nonumber
 \end{align}
 
 Substituting in the expanded payoff differences from the payoff matrix:
@@ -382,8 +372,8 @@ The second integral equals:
 \begin{align}
 \frac{2}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left(
 3xyz\right) &= \frac{6}{N^2} \int_{0}^{1}dx \int_{0}^{1-x} dy \int_{0}^{1-x-y}dz\left(
-xyz\right) \\
-&= \frac{6}{N^2} \frac{1}{720} = \frac{1}{120N^2}
+xyz\right) \nonumber\\
+&= \frac{6}{N^2} \frac{1}{720} = \frac{1}{120N^2}\nonumber
 \end{align}
 
 
@@ -408,69 +398,9 @@ N_{RPS} = \frac{28 \Delta \pi_{max}}{w(2 + \gamma - 3 \beta + 2c)}
 
 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{./images/column_case_delta_H.eps}
-    \caption{Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle,
-    \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ for the 
-    local update process. $\beta = 0.3, \gamma=0.14, c=-0.2$, strong 
-    central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so 
-    SD game component reverses first, at a higher population size.
-    This results in the vertical column point cloud where RPS fixates at the 
-    central fixed point where $x \approx y \approx z$ and $q$ drifts
-    away from the fixed point ($N_{RPS} < N < N_{SD}$)}
-\end{figure}
-
-Testing point cloud at N = 200
-$\frac{N}{N_{SD}} = 0.14, \frac{N}{N_{RPS}} = 2.26$, rod case
-
-For below at N = 300
-$\frac{N}{N_{SD}} = 4.25, \frac{N}{N_{RPS}} = 0.54$
-
-For final case at N = 2000
-$\frac{N}{N_{SD}} = 4.76, \frac{N}{N_{RPS}} =  3.57$
-
-
-For clean disk case N = 600, $\gamma = 0.4, \beta = 0.24, N_{SD} = 95.61, N_{RPS} = 1400$
-
-Blob case N = 1000 $\frac{N}{N_{SD}} = 2.38, \frac{N}{N_{RPS}} =  1.79$
-Final case at N = 30000, $\frac{N}{N_{SD}} = 71.43, \frac{N}{N_{RPS}} =  53.57$
-
-
-\begin{table}[H]
-\centering
-\begin{tabular}{c|c|c|c|c|c}
-$\alpha$ & $\beta$ & $c$ & N & $N/N_{SD}$ & $N/N_{RPS}$ \\
-\hline
-0.1 & 0.1 & -0.8 & 50  & 0.12  & 0.09* \\
-0.14 & 0.3 & -0.2 & 200  & 0.14  & 2.26 \\
-0.14 & 0.3 & -0.2 & 300  & 0.21  & 3.41* \\
-0.4 & 0.2 & -0.8 & 200  & 2.83  & 0.36 \\
-0.4 & 0.24 & -0.8 & 600 & 6.28 & 0.42* \\
-0.1 & 0.1 & -0.8 & 2000 & 4.76 & 3.57 \\
-0.1 & 0.1 & -0.8 & 30000 & 71.43 & 53.57* \\
-\end{tabular}
-\caption{Table of N values and corresponding ratios, depending on the values of $N_{SD}, N_{RPS}$ and 
-$N$ when simulating trajectories, the drift reversal cases will be different, large $N$ used to show the 
-cases above the critical population sizes where system converges to interior nash equilibrium. Rows marked with * are the ones in the drift cases plot.}
-\end{table}
 
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{./images/disk_case_delta_H.eps}
-  \caption{Comparison of drift measures for local update process, where
-  $\beta = 0.4, \gamma = 0.2, c = -0.8$. Still an interior attracting RPS in 
-  large population case, however this time RPS drifts at a higher population size marked by 
-  $N^\prime_{RPS}$ so drifts to RPS boundaries whilst SD does not reverse and stays at the 
-  fixed point for SD part of the game. Results in disk shape around the central fixed point
-  as RPS goes to boundary while SD is stable in the interior.}
-\end{figure}
-
-For either of these cases, when $N$ is below the lower of the two critical population sizes, 
-this results in a double reversal so the trajectories end up being absorbed by the four
-corners of the simplex.
 
 
 \subsubsection{Weak selection limit for the local update process for $H_{SD}, H_{RPS}$}
@@ -610,6 +540,33 @@ into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ 
 
 \subsection{Figures for drift metric}
 
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./images/disk_case_delta_H.eps}
+  \caption{Comparison of drift measures for local update process, where
+  $\beta = 0.4, \gamma = 0.2, c = -0.8$. Still an interior attracting RPS in 
+  large population case, however this time RPS drifts at a higher population size marked by 
+  $N^\prime_{RPS}$ so drifts to RPS boundaries whilst SD does not reverse and stays at the 
+  fixed point for SD part of the game. Results in disk shape around the central fixed point
+  as RPS goes to boundary while SD is stable in the interior.}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/column_case_delta_H.eps}
+    \caption{Comparison of the 3 drift measures $\langle \Delta H_{SD} \rangle,
+    \langle \Delta H_{RPS} \rangle, \text{and} \langle \Delta H_+ \rangle$ for the 
+    local update process. $\beta = 0.3, \gamma=0.14, c=-0.2$, strong 
+    central attracting RPS case ($c > -1$) and $N_{RPS} < N_{SD}$ so 
+    SD game component reverses first, at a higher population size.
+    This results in the vertical column point cloud where RPS fixates at the 
+    central fixed point where $x \approx y \approx z$ and $q$ drifts
+    away from the fixed point ($N_{RPS} < N < N_{SD}$)}
+\end{figure}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{./images/large_N_delta_H.eps}
@@ -660,6 +617,56 @@ into and out of state (e.g. ($T^{RP} - T^{PR}$)) in an integral scaled by $1/N$ 
   \includegraphics[width=0.5\textwidth]{./images/low_pop_case_larger_inset.pdf}
   \caption{N = 50, same parameters as the Large N case}
 \end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/critical_n_analytical.png}
+    \caption{Comparison of simulated critical population sizes against the derived expected change in H for Moran process. Small deviations due
+    to stochasticity in the simulations. $\gamma = 0.2, \beta = 0.1$ standard RPS.
+    Small deviations due to random nature of simulations, but close match to analytical result.
+    Drift reversal is present in the agent based simulations and exactly matching analytical prediction
+    for these paremeters.}
+\end{figure}
+
+
+
+\subsection{Drift reversal cases}
+
+Testing point cloud at N = 200
+$\frac{N}{N_{SD}} = 0.14, \frac{N}{N_{RPS}} = 2.26$, rod case
+
+For below at N = 300
+$\frac{N}{N_{SD}} = 4.25, \frac{N}{N_{RPS}} = 0.54$
+
+For final case at N = 2000
+$\frac{N}{N_{SD}} = 4.76, \frac{N}{N_{RPS}} =  3.57$
+
+
+For clean disk case N = 600, $\gamma = 0.4, \beta = 0.24, N_{SD} = 95.61, N_{RPS} = 1400$
+
+Blob case N = 1000 $\frac{N}{N_{SD}} = 2.38, \frac{N}{N_{RPS}} =  1.79$
+Final case at N = 30000, $\frac{N}{N_{SD}} = 71.43, \frac{N}{N_{RPS}} =  53.57$
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+$\alpha$ & $\beta$ & $c$ & N & $N/N_{SD}$ & $N/N_{RPS}$ \\
+\hline
+0.1 & 0.1 & -0.8 & 50  & 0.12  & 0.09* \\
+0.14 & 0.3 & -0.2 & 200  & 0.14  & 2.26 \\
+0.14 & 0.3 & -0.2 & 300  & 0.21  & 3.41* \\
+0.4 & 0.2 & -0.8 & 200  & 2.83  & 0.36 \\
+0.4 & 0.24 & -0.8 & 600 & 6.28 & 0.42* \\
+0.1 & 0.1 & -0.8 & 2000 & 4.76 & 3.57 \\
+0.1 & 0.1 & -0.8 & 30000 & 71.43 & 53.57* \\
+\end{tabular}
+\caption{Table of N values and corresponding ratios, depending on the values of $N_{SD}, N_{RPS}$ and 
+$N$ when simulating trajectories, the drift reversal cases will be different, large $N$ used to show the 
+cases above the critical population sizes where system converges to interior nash equilibrium. Rows marked with * are the ones in the drift cases plot.}
+\end{table}
+
 
 
 \begin{figure}[H]

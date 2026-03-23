@@ -152,10 +152,10 @@ towards the center. When $c = -0.8$, the populations converge towards a stable
 coexistence. For this particular case of RPS a drift reversal can occur in finite populations.
 
 
-\section{Augmented RPS}
+\section{Combined game derivations}
 
 
-The augmented game can be described by the following payoff matrix.
+Combined game payoff matrix:
 
 \begin{align}
 \label{AugRpsMatrix}
@@ -175,7 +175,7 @@ The augmented game can be described by the following payoff matrix.
 \end{bmatrix}
 \end{align}
 
-Where the strategies are labelled as R,P,S (as before) and L (the loner strategy).
+Where the strategies are labelled as R,P,S and +.
 From this the Jacobian matrix can be derived with dimensions $3 \times 3$ after using the trick to remove one replicator equation. (q = 1 - x - y - z)
 
 \subsection{Payoffs}
@@ -184,7 +184,7 @@ Firstly the payoffs are defined for the augmented game:
     \pi_R &= a x + b z + c y + \gamma (- x - y - z + 1)\\
     \pi_P &= a y + b x + c z + \gamma (- x - y - z +1) \\
     \pi_S &= a z + b y + c x + \gamma (- x - y - z + 1)\\
-    \pi_L &= x (a + \beta) + y (a + \beta) + z (a + \beta)
+    \pi_+ &= x (a + \beta) + y (a + \beta) + z (a + \beta)
 \end{align}
 
 \subsection{Replicator equations}
@@ -297,9 +297,6 @@ $\langle \pi \rangle$ since they are selected proportional to the average popula
 and not individual interactions with a single agent. An agent is also chosen uniformly at random 
 to be killed and replaced by the agent selected for reproduction.
 
-It has been shown that in the battle of sexes / matching pennies game, that this choice of process
-leads to a drift reversal effect in finite populations where the local update process does not due to 
-extra term of $N$ in the stochastic dynamics from a fokker planck equation. \cite{PhysRevLett.95.238701}
 
 \begin{figure}[h]
     \centering
@@ -369,7 +366,7 @@ written as permutations of $R,P,S,+$, and $i,j,k,N-i-j-k$.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{images/lu_timeseries.png}
-    \caption{Time series of local update with population 20000, simulation trajectory normalized, compared with the numerical solution of the replicator equations derived from FP equation \cite{PhysRevLett.95.238701}}
+    \caption{Time series of local update with population 20000, simulation trajectory normalized, compared with the numerical solution of the replicator equations derived from FP equation.}
     \label{fig:placeholder}
 \end{figure}
 
@@ -462,30 +459,9 @@ trajectories below.)
 
 
 
-\subsubsection{Master equation}
+\subsubsection{Master equation to Fokker-Planck}
 
-Derivation of the fokker planck equation for these dynamics 
-describing the evolution of the probability density function
-and eventually leading us to the adjusted dynamics for 
-the different processes. It will become clear that the local update
-process is equivalent to the traditionall payoff difference 
-replicator dynamics derived at the top of this paper, and we will
-also get deterministic equations for the Moran and fermi process
-plus the noise terms which depend on the value of $N$ ultimately
-leading us to the drift reversal cases.
-The value computed for $a(x)$ will be the determinitic replicator
-dynamics allowing for numerical solutions of deterministic 
-trajectories which can then be plotted as comparisons for the simulations,
-can also see that as $N$ in simulations increase, the trajectories match 
-perfectly as $N \rightarrow \infty$.
 
-Initially for the trajectories I directly computed the 
-adjusted factor for each process as in \cite{PhysRevLett.95.238701},
-however after deriving the FP equation it is possible 
-to just store a global value for $a(x)$ which includes the scaling,
-and then the dynamics can be computed and returned based
-purely on the transition probabilities which can be calculated
-numerically from the functions in the above section.
 
 \subfile{fokker_planck_derivation.tex}
 
@@ -494,7 +470,7 @@ numerically from the functions in the above section.
 
 
 \newpage
-\subsection{Constant of motion $\Delta H$ definition (drift)}
+\subsection{Drift observables}
 \subfile{delta_H_derivation.tex}
 
 
@@ -503,9 +479,6 @@ numerically from the functions in the above section.
 
 \newpage
 \section{Additional figures not used in report}
-
-
-
 
 
 \begin{align} \label{AugRpsA}
@@ -622,10 +595,6 @@ Implemented using the previous simulation code at suitably large simulation repe
     \caption{Critical population size $N_c$ for range of $\gamma$ from 0 to 1, fixed $w=0.45$, fixed $\beta=0.2$}
     \label{fig:placeholder}
 \end{figure}
-x axis label incorrect below
-
-
-\clearpage
 
 
 
@@ -693,9 +662,5 @@ x axis label incorrect below
 \end{figure}
 
 
-\clearpage
 
-
-\bibliographystyle{plain}
-\bibliography{ref}
 \end{document}

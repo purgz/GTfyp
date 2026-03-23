@@ -1,5 +1,5 @@
 # Fdb version 3
-["lualatex"] 1773761862 "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1773761864
+["lualatex"] 1774267110 "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" "out/delta_H_derivation.pdf" "delta_H_derivation" 1774267112
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1771846302 124213 a3bd0e7906af025b007d0cfb6e758f8b ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1771846301 123142 a5bb91f587c7a560590d95e654431ffa ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc" 1771846301 124110 5d651ed7b24a029d9df49f8fec52c53c ""
@@ -7,7 +7,7 @@
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman5-regular.luc" 1771933905 121774 705967d5e069bf3019d5269c24d5067c ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman7-regular.luc" 1771933905 124198 ff8ca5830d520cb212737b5824e67988 ""
   "/home/henry/.texlive2021/texmf-var/luatex-cache/generic/names/luaotfload-names.luc" 1771846301 1536504 f5db117114c74b26f9d6c66f56154cd1 ""
-  "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" 1773761859 28972 11b89acba0e41e7805ab1132bc2b025e ""
+  "/home/henry/gametheory/hxb265/latex_doc/delta_H_derivation.tex" 1774267107 28975 65a3dcd7c71de0e424c9948b7f691cc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1246382020 924 9904cf1d39e9767e7a3622f2a125a565 ""
@@ -237,10 +237,11 @@
   "/usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf" 1254938640 110792 5c4b6a3d7f194f073a529b5124a181af ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1762335063 4234243 4a42437c56f0785ccfd4e39da48c38dc ""
   "/var/lib/texmf/web2c/luahbtex/lualatex.fmt" 1771502698 4555355 df5d15f6c258535d74272351b9a32271 ""
-  "delta_H_derivation.tex" 1773761859 28972 11b89acba0e41e7805ab1132bc2b025e ""
+  "delta_H_derivation.tex" 1774267107 28975 65a3dcd7c71de0e424c9948b7f691cc8 ""
   "images/column_case_delta_H.eps" 1771496907 32318 b4f0146c563ec2d2bb9fb1a4e7950fff ""
   "images/column_cloud.eps" 1771496907 178071 09fa50337b78a00b27c8fbd23152b388 ""
   "images/critical_n_analytical.png" 1769729695 20447 2a0892c8eb0958657bc47a3ead631e85 ""
+  "images/disk_case_delta_H-eps-converted-to.pdf" 1771496907 18723 d22d9b1504e495b729af4072183c6ff1 ""
   "images/disk_case_delta_H.eps" 1771496907 35247 36dbb70226c13c940a49af2e98217e26 ""
   "images/disk_clean_deltaH.eps" 1771503405 36720 341957c7b1375b668e40fb95262d4eb1 ""
   "images/disk_cloud.eps" 1771496907 178044 9cce52a94f1b349a65966f705e8faa22 ""
@@ -254,8 +255,8 @@
   "images/low_pop_case_trans.png" 1771767523 570723 e775577f6ce06021bc464c52fa30d6fb ""
   "images/rod_larger_inset.pdf" 1771766898 175459 011ef72858820bb72d2b078e9c5e9c2e ""
   "images/rod_larger_inset.png" 1771767233 342115 19d3f3a1891672e33da320fb288f0b1d ""
-  "main.tex" 1773761707 25716 96e644b52f99c3cc2d05c4d548248f6e ""
-  "out/delta_H_derivation.aux" 1773761864 4976 5a173197309c545d49a3a0948f4d2e16 "lualatex"
+  "main.tex" 1774266705 24056 60fb07367ac6f6c94a5dbdb9ef191b65 ""
+  "out/delta_H_derivation.aux" 1774267112 5047 d55b8ed9416ac85a672e954bf3888e09 "lualatex"
   (generated)
   "out/delta_H_derivation.aux"
   "out/delta_H_derivation.log"
