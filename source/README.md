@@ -32,6 +32,157 @@ Features:
   - Animated point clouds for 4 strategy game
 - Drift observable from simulated results
 
+
+## Functions
+
+
+### Simulation (Finite Population Dynamics)
+
+Three functions moran_batch_sim, local_batch_sim, fermi_batch_sim, runs fast agent based simulations of the three
+processes, can generate trajectories, or lots of trajectories (point clouds) with initial random or fixed initial distribution.
+
+Uses numba preprocessing and simulations run in parallel for fast computation.
+
+#### `moran_batch_sim(pop_size, iterations, matrix, w, initial_dist, simulations=1, traj=False, initial_rand=True, point_cloud=False)`
+Runs batch simulations of the Moran process.
+
+**Arguments:**
+- `pop_size` *(int)* — Population size \( N \)
+- `iterations` *(int)* — Total number of update steps
+- `matrix` *(np.ndarray)* — Payoff matrix (N×N)
+- `w` *(float)* — Selection strength
+- `initial_dist` *(np.ndarray)* — Initial strategy distribution
+- `simulations` *(int)* — Number of independent runs
+- `traj` *(bool)* — Return trajectory data
+- `initial_rand` *(bool)* — Random initial distribution if True
+- `point_cloud` *(bool)* — Return full state distribution over time
+
+**Returns:**
+- `delta_H`, `delta_RPS`, trajectory data, (optional) point cloud
+
+---
+
+#### `local_batch_sim(pop_size, iterations, matrix, w, initial_dist, ...)`
+Simulates the **local update (pairwise comparison)** process.
+
+**Arguments:** Same as `moran_batch_sim`
+
+**Notes:**
+- Uses linear payoff comparison
+- Depends on payoff difference normalization
+
+---
+
+#### `fermi_batch_sim(pop_size, iterations, matrix, w, initial_dist, ...)`
+Simulates the **Fermi process** using a logistic update rule.
+
+**Arguments:** Same as `moran_batch_sim`
+
+
+
+### Plotting Utilities
+
+#### `game_2d_plot(dfs, norm, N, sameAxis=True, labels=None, t_eval=None)`
+Plots time evolution for 2-strategy systems.
+
+**Arguments:**
+- `dfs` *(list)* — List of pandas Series/DataFrames
+- `norm` *(list[bool])* — Whether to normalize time by \( N \)
+- `N` *(int or list)* — Population size(s)
+- `labels` *(list)* — Plot labels
+- `t_eval` *(array)* — Time axis (for deterministic trajectories)
+
+---
+
+#### `ternary_plot(dfs)`
+Plots trajectories on a **2D simplex** (3 strategies).
+
+**Arguments:**
+- `dfs` *(list[pd.DataFrame])* — Each DataFrame contains strategy fractions
+
+---
+
+#### `quaternary_plot(dfs, numPerRow=2, labels=None, colors=None)`
+Plots 4-strategy trajectories in a **3D simplex (tetrahedron)**.
+
+**Arguments:**
+- `dfs` *(list[pd.DataFrame])* — Trajectory data
+- `numPerRow` *(int)* — Layout control
+- `labels` *(list)* — Titles for each subplot
+- `colors` *(list)* — Line colors
+
+---
+
+#### `quaternary_plot_same_axis(dfs, labels=None, colors=None)`
+Overlays multiple trajectories on the **same 3D simplex**.
+
+---
+
+#### `high_dim_2d_plot(file_paths, Ns, labels=None, norm=None, t_eval=None, data_res=50, dfs=None)`
+Projects higher-dimensional dynamics onto a **2D time series**.
+
+**Arguments:**
+- `file_paths` *(list[str])* — CSV inputs (optional)
+- `dfs` *(list[pd.DataFrame])* — Direct data input
+- `Ns` *(list[int])* — Population sizes
+- `norm` *(list[bool])* — Normalize time axis
+- `t_eval` *(array)* — Deterministic time values
+- `data_res` *(int)* — Scaling factor for time
+
+---
+
+#### `point_cloud(dfs, matrix=None, repeat=False, save_file=None)`
+Creates an **animated point cloud** of trajectories in the 4-strategy simplex.
+
+**Arguments:**
+- `dfs` *(list[pd.DataFrame])* — Simulation data with frame indexing
+- `matrix` *(np.ndarray)* — Optional payoff matrix (displayed on plot)
+- `repeat` *(bool)* — Loop animation
+- `save_file` *(str)* — Output video file path
+
+---
+
+### Drift and Analysis Plots
+
+#### `drift_plot_H(file_paths, labels=None, xlabel="N", column=None)`
+Plots drift observable \( \langle \Delta H \rangle \).
+
+**Arguments:**
+- `file_paths` *(list[str])* — CSV data sources
+- `labels` *(list)* — Plot labels
+- `xlabel` *(str)* — X-axis label
+- `column` *(int)* — Specific column to plot
+
+---
+
+#### `w_ensemble_plot(filePath, log=True, x_label="w")`
+Plots drift or critical population size vs selection strength.
+
+---
+
+#### `drift_cases_plot()`
+Plots example drift regimes for different parameter configurations.
+
+---
+
+#### `drift_cases_plot_pub(savepath=None)`
+Publication-quality version of drift regime plot.
+
+---
+
+#### `drift_cases_plot_diagonal(savepath=None)`
+Log–log comparison of:
+- \( N/N_{SD} \)
+- \( N/N_{RPS} \)
+
+Shows regions of:
+- Boundary attraction
+- Interior coexistence
+- Mixed regimes
+
+---
+
+
 ### replicator/
 Deterministic replicator dynamics
 
@@ -46,7 +197,24 @@ The complete mathematical derivations for ΔH, replicator dynamics, and critical
 are provided in the LaTeX report:
 
 
-[latex_doc/out/main.pdf](../latex_doc/out/main.pdf)
+[report/appendix.pdf](../report/appendix.pdf)
+
+
+
+## Functions (replicator)
+
+```python
+numerical_trajectory_from_fokker_planck(
+    matrix,
+    interaction_process="Moran",
+    w=0.2,
+    initial_dist=[...],
+    time_span=150
+)
+```
+Main function for getting replicator solution trajectories.
+Takes the payoff matrix as a numpy array and returns solved trajectory in same format as simulation functions.
+
 
 ---
 

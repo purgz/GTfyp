@@ -1,22 +1,19 @@
-# GTfyp
-Final year project work - evolutionary game theory 
+# Final year project - Evolutionary game theory
 
-For full report and the final submission report see source latex in /latex_doc.
+Final report and appendix contained in [./report](./report).
 
-For full derivations of all formula - see the full uncut document.
-For supporting hand written derivations see /hand_written_derivations
+Full derivations contained in appendix.
 
 
+
+Install using pip:
 
 pip install git+https://github.com/purgz/GTfyp.git
 
-# Documentation.
 
 More documentation in simulation folder - add this, 
 
-Convert simulation to a library downloadable with pip and provide a code example. (/example_code)
-
-
+Example usage in [./example_code](./example_code), and more instructions in [./source/README.md](./source/README.md)
 
 
 ### Commands
@@ -37,7 +34,16 @@ replicators and integral solutions automatically calculated.
 ---
 
 
+#### Tools
 
+Agent based simulation code and plotting tools in: [./source/simulation](./source/simulation) 
+
+Symbolic derivations and solutions of replicator dynamics [./source/replicator](./source/replicator)
+
+To calculate replicator dynamics solutions, eigenvalues, fixed points, and analytical values for drift reversal and critical population sizes for 4x4 game see functions in [./source/replicator/aug_rps.py](./source/replicator/aug_rps.py) 
+
+
+### Example graphs
 
 
 
@@ -67,22 +73,6 @@ Simulation code contained in the source/simulation subdirectory - for offline an
 
 Now contains support for 2d games - below is prisoners dilemma plot with numerical solutions for adjusted and standard replicator dynamics.
 ![alt text](source/simulation/images/pd-dynamics.png)
-
-
-Example hawk dove simulation - note in this photo only the local update and regular numeric is corrcect - adjusted needs implementing correctly.
-![alt text](source/simulation/images/hawkdove.png)
-
-
-Also now contains 2d ternary plots for regular 3x3 matrix games.
-
-[insert photo here]
-
-
-Drift analysis:
-Include some examples here.
-
-
-Need to include detail of running both web app and python app locally with docker, setup docker pipeline for app.
 
 
 ![alt text](source/simulation/images/2d4player.png)
