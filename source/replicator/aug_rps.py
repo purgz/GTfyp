@@ -18,8 +18,8 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
 a, c, b, gamma, beta = sp.symbols('a c b gamma beta')
 
-plt.rcParams['text.usetex'] = True
-plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 plt.rcParams.update({
 "font.size": 18,
@@ -299,6 +299,9 @@ def findEigenvalues(replicators, config, vars, substitution):
 
 
   eigenvalues = J.eigenvals()
+
+  print(eigenvalues)
+  
   
   eigenvalues_sub = {eig.subs(config) for eig in eigenvalues}
 
@@ -444,15 +447,17 @@ def numerical_H_value(transitions, N = 100,w=0.45, custom_config = None, delta_p
   config = {a: 0, b: 1, c: -0.01, gamma: 0.137, beta: 0.35 } # "ROD" casess
   #config = {a: 0, b: 1, c:-0.2, gamma: 0.2, beta:0.1 }
 
-  config = {a: 0, b: 1, c: -0.2, gamma: 0.14, beta: 0.3 } # Good case for columns
-  
-  d_pi = 1.2
+
 
   # Compare this one netx and get the RPs reversal
   # Also work well for the figure, but need one with a higher fixed point for show.
   # RPS drift but no SD drift
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.24} # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2} # Good rps drift case no SD drift since N is lower, random drift comes into effect at a lower size than RPS
   d_pi = 1.8
+
+  config = {a: 0, b: 1, c: -0.2, gamma: 0.13, beta: 0.3 } # Good case for columns
+  
+  d_pi = 1.2
 
   """config = {a: 0, b: 1, c:-0.23, gamma: 0.02, beta: 0.08} 
   d_pi = 1.23"""
@@ -540,7 +545,7 @@ def numerical_H_value(transitions, N = 100,w=0.45, custom_config = None, delta_p
   print("N", N, "SD:", res, "RPS:", res_rps, "+:", res_4)
 
   print("Analytical local update SD:", analytical_local, "Numerical local update SD:", res)
-  print("Analytical local update RPS:", analytical_rps_local, "Numerical local update SD:", res_rps)
+  print("Analytical local update RPS:", analytical_rps_local, "Numerical local update RPS:", res_rps)
 
 
   return res, res_rps, res_4
@@ -597,10 +602,12 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict =
     delta_H_RPS.append(res_rps * n * n)
     delta_H_4.append(res_4 * n * n)
 
-  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.24 }
+  config = {a: 0, b: 1, c:-0.8, gamma: 0.4, beta: 0.2 }
 
-  critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
-  critical_N_RPS = delta_H_RPS_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.8).subs(w_sym, 0.45)
+  config = {a: 0, b: 1, c:-0.2, gamma: 0.1, beta: 0.3 }
+
+  critical_N_SD = delta_h_SD_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.2).subs(w_sym, 0.45)
+  critical_N_RPS = delta_H_RPS_LOCAL_CRIT_N().subs(config).subs(delta_pi, 1.2).subs(w_sym, 0.45)
   print(critical_N_RPS, critical_N_SD)
 
   if plot:
@@ -613,10 +620,10 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict =
     ax.plot(n_range, delta_H_SD, label="SD")
     ax.plot(n_range, delta_H_RPS, label="RPS")
     ax.plot(n_range, delta_H_4, label="+") 
-    ax.annotate(rf"$N^\prime_{{SD}} = {critical_N_SD:.2f}$", xy=(critical_N_SD,0),
+    """ax.annotate(rf"$N^\prime_{{SD}} = {critical_N_SD:.2f}$", xy=(critical_N_SD,0),
                   xytext=(critical_N_SD, -0.5),
                   horizontalalignment="center",
-                  arrowprops=dict(arrowstyle="->"))
+                  arrowprops=dict(arrowstyle="->"))"""
     """ax.annotate(rf"$N^\prime_{{RPS}} = {critical_N_RPS:.2f}$",
                   xy=(critical_N_RPS,0),
                   #horizontalalignment="center",
@@ -625,7 +632,7 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict =
     ax.legend(frameon=False, loc="lower left")
 
     
-    axins = inset_axes(ax, width=1.3, height=1.3,
+    """axins = inset_axes(ax, width=1.3, height=1.3,
                        bbox_to_anchor=(0.7,0.4),
                        bbox_transform=ax.transAxes,
                        loc="lower left",
@@ -640,7 +647,7 @@ def numerical_delta_H_range(n_range = np.linspace(10, 1500, 25), config : dict =
                   xy=(critical_N_RPS,0),
                   horizontalalignment="center",
                   xytext=(critical_N_RPS, 0.0005),arrowprops=dict(arrowstyle="->"))
-    mark_inset(ax, axins, loc1=1, loc2=2)
+    mark_inset(ax, axins, loc1=1, loc2=2)"""
 
    
 
@@ -716,22 +723,27 @@ def find_fixed_point_a_x(matrix, w=0.45,N_val=1):
 
 if __name__ == "__main__":
 
+
   basic_rps = np.array(
-  [[0, -0.01, 1,     0.13], 
-    [1, 0, -0.01,     0.13], 
-    [-0.01, 1, 0,     0.13], 
-    [0.35, 0.35, 0.35, 0]]
+  [[0, -0.8, 1,     0.4], 
+    [1, 0, -0.8,     0.4], 
+    [-0.8, 1, 0,     0.4], 
+    [0.2, 0.2, 0.2, 0]]
   )
 
   basic_rps = np.array(
-  [[0, -0.8, 1,     0.2], 
-    [1, 0, -0.8,     0.2], 
-    [-0.8, 1, 0,     0.2], 
-    [0.1, 0.1, 0.1, 0]]
+  [[0, -0.2, 1,     0.1], 
+    [1, 0, -0.2,     0.1], 
+    [-0.2, 1, 0,     0.1], 
+    [0.3, 0.3, 0.3, 0]]
   )
+
   
   print(find_fixed_point_a_x(basic_rps))
 
+  
+  numerical_delta_H_range()
+  exit()
 
   # Derive replicator equations
   x_dot, y_dot, z_dot = replicators(matrix=A, interactionProcess=None, w=None)
@@ -743,23 +755,23 @@ if __name__ == "__main__":
   print(latex(z_dot))
   """
   #standardConfig = {a: 0, b: 1, c: -1, gamma: sp.Rational(1,5), beta: sp.Rational(1,10)}
+  """
+  standardConfig = {a: 0, b: 1, c: -0.8, gamma: 0.1, beta: 0.1}
+  #substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
 
-  """standardConfig = {a: 0, b: 1, c: -0.8, gamma: 0.2, beta: 0.1}
-  substitutions = substituteHyperParams([x_dot, y_dot, z_dot], standardConfig, (x,y,z))
-
-  fixedPoints = getFixedPoints(substitutions, (x, y, z))
+  #fixedPoints = getFixedPoints(substitutions, (x, y, z))
   
-  print(latex(fixedPoints))  
+  #print(latex(fixedPoints))  
   
   eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 2/7, y: 2/7, z: 2/7})
 
   print(eigenvalues)
   exit()
   #eigenvalues = findEigenvalues([x_dot, y_dot, z_dot], standardConfig, (x,y,z), {x: 1, y: 0, z: 0})
-
+  """
   print("**************************************************")
   #transitions = transition_probs_moran(moran_reproductive_func,  [payoffR, payoffP, payoffS, payoffL])
-  """
+  
 
   ws = np.linspace(0.01, 0.4, 5)
 
@@ -795,7 +807,6 @@ if __name__ == "__main__":
 
 
 
-  #numerical_delta_H_range()
 
   print("Working for the local update derivation")
 
