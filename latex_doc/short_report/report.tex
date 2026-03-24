@@ -44,7 +44,9 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{pgfplots}
-%\usepacekage{enumitem}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xurl}
 
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
@@ -916,7 +918,7 @@ For $\langle \Delta H_{RPS} \rangle$, the terms of the form $T^{RP} - T^{PR}$ va
 integral scaled by $2/N^2$ reduces to:
 
 \begin{align} \label{eq:weak_selection_rps}
-$\langle \Delta H_{RPS} \rangle$_{w \rightarrow 0} &= \frac{2}{N^2} \int_{0}^{1}dx\int_{0}^{1-x}dy\int_{0}^{1-x-y}dz\left(3xyz\right) \nonumber\\
+\langle \Delta H_{RPS} \rangle_{w \rightarrow 0} &= \frac{2}{N^2} \int_{0}^{1}dx\int_{0}^{1-x}dy\int_{0}^{1-x-y}dz\left(3xyz\right) \nonumber\\
 &= \frac{1}{120N^2}
 \end{align}
 like the SD observable, in the weak selection limit there is also no drift reversal as $\langle \Delta H_{RPS} \rangle$
@@ -1088,7 +1090,7 @@ are the critical sizes and the actual population size respectively there
 are the cases:
 
 
-\begin{enumerate}%[itemsep=0mm, parsep=2pt]
+\begin{enumerate}[itemsep=0mm, parsep=2pt]
   \centering
   \item $N^\prime_{SD} < N < N^\prime_{RPS}$
   \item $N^\prime_{RPS} < N < N^\prime_{SD}$
