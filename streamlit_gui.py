@@ -200,7 +200,11 @@ if st.button("▶️ Run Simulation"):
     st.divider()
     st.subheader("Visualizations")
     
+<<<<<<< HEAD
     plot_type = st.radio("Select Plot", ["Trajectory (3D/Quaternary)"])
+=======
+    plot_type = st.radio("Select Plot", ["Trajectory (3D/Quaternary)", "Time Series"])
+>>>>>>> 50fc4940ae67dfdee4f48aeaddc1b8b817c4f135
     
     fig, ax = plt.subplots(figsize=(10, 7))
     
@@ -373,3 +377,16 @@ if all_traj is not None:
     fig = pointcloud_animation_figure(all_traj)
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
+<<<<<<< HEAD
+=======
+# --- COMPARISON WITH ANALYTICAL (Optional) ---
+with st.expander("Compare with Analytical Integration (nquad)"):
+    st.write("Click to compute the theoretical expected ΔH using the nquad method.")
+    if st.button("Calculate Theoretical"):
+        # Here you would call your nquad logic from aug_rps.py
+        st.info("Integrating over the simplex... this may take a moment.")
+        # Placeholder for your nquad call:
+        # res, err = nquad(...) 
+        # st.write(f"Theoretical result: {res}")
+        st.warning("Integration logic needs to be linked from aug_rps.py")
+>>>>>>> 50fc4940ae67dfdee4f48aeaddc1b8b817c4f135
