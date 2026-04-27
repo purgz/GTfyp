@@ -112,6 +112,20 @@ default_matrix = np.array([
     [0.2, 0.2, 0.2, 0.0]
 ])
 
+default_matrix = np.array([
+    [ 0.0, -0.2,  1.0,  0.14],
+    [ 1.0,  0.0, -0.2,  0.14],
+    [-0.2,  1.0,  0.0,  0.14],
+    [ 0.3,  0.3,  0.3,  0.0 ],
+])
+
+default_matrix = np.array([
+    [ 0.0, -0.8,  1.0,  0.4 ],
+    [ 1.0,  0.0, -0.8,  0.4 ],
+    [-0.8,  1.0,  0.0,  0.4 ],
+    [0.24, 0.24, 0.24,  0.0 ],
+])
+
 # Use data_editor for an interactive matrix UI
 matrix_df = pd.DataFrame(default_matrix, 
                          columns=["R/C", "P/D", "S/L", "Q"], 
@@ -186,7 +200,7 @@ if st.button("▶️ Run Simulation"):
     st.divider()
     st.subheader("Visualizations")
     
-    plot_type = st.radio("Select Plot", ["Trajectory (3D/Quaternary)", "Time Series"])
+    plot_type = st.radio("Select Plot", ["Trajectory (3D/Quaternary)"])
     
     fig, ax = plt.subplots(figsize=(10, 7))
     
@@ -359,13 +373,3 @@ if all_traj is not None:
     fig = pointcloud_animation_figure(all_traj)
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-# --- COMPARISON WITH ANALYTICAL (Optional) ---
-with st.expander("Compare with Analytical Integration (nquad)"):
-    st.write("Click to compute the theoretical expected ΔH using the nquad method.")
-    if st.button("Calculate Theoretical"):
-        # Here you would call your nquad logic from aug_rps.py
-        st.info("Integrating over the simplex... this may take a moment.")
-        # Placeholder for your nquad call:
-        # res, err = nquad(...) 
-        # st.write(f"Theoretical result: {res}")
-        st.warning("Integration logic needs to be linked from aug_rps.py")
